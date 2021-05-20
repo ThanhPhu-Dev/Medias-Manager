@@ -91,6 +91,18 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
+
+        <Style TargetType="TextBlock" x:Key="txtcolumn">
+            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="Foreground" Value="#fff"/>
+            <Setter Property="Padding" Value="10 0 0 0"/>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="txtelemnt">
+            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="Foreground" Value="#fff"/>
+            <Setter Property="FontWeight" Value="bold"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
     </UserControl.Resources>
 
     <Grid>
@@ -229,7 +241,7 @@
                 <Border BorderThickness="0 8 0 0" 
                         BorderBrush="#222222"
                         Background="Black">
-                    <StackPanel Margin="0 100">
+                    <StackPanel Margin="0 80">
                         <TextBlock 
                                    Text="Cấp độ tài khoản"
                                     Foreground="#fff"
@@ -237,38 +249,90 @@
                                    FontSize="40"
                                    FontWeight="bold"/>
 
-                        <Grid>
+                        <Grid >
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition/>
-                                <ColumnDefinition Width="2.5*"/>
+                                <ColumnDefinition Width="3*"/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                            <StackPanel></StackPanel>
-                        <!--<ListView Name="lv_level" Foreground="#fff" Grid.Column="1">
-                            <ListView.View>
-                                    <GridView>
-                                        <GridViewColumn DisplayMemberBinding="{Binding Name}">
-                                            <GridViewColumn.Header>
-                                                <TextBlock Text="Tên" Foreground="#fff" FontSize="20" FontWeight="bold"/>
-                                            </GridViewColumn.Header>
-                                        </GridViewColumn>
-                                        <GridViewColumn DisplayMemberBinding="{Binding Score}">
-                                            <GridViewColumn.Header>
-                                                <TextBlock Text="Tích điểm" Foreground="#fff" FontSize="20" FontWeight="bold"/>
-                                            </GridViewColumn.Header>
-                                        </GridViewColumn>
-                                        <GridViewColumn DisplayMemberBinding="{Binding Sale}">
-                                            <GridViewColumn.Header>
-                                                <TextBlock Text="Ưu đãi" Foreground="#fff" FontSize="20" FontWeight="bold"/>
-                                            </GridViewColumn.Header>
-                                        </GridViewColumn>
-                                    </GridView>
-                                </ListView.View>
-                        </ListView>-->
+                            <StackPanel Grid.Column="1">
+                                <Border>
+                                    <Grid Margin="0 20">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="2.5*"/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Border Grid.Column="1"
+                                BorderThickness="2"
+                                BorderBrush="#FFFFEE58"
+                                Margin="3 0">
+                                            <TextBlock Text="Cơ bản" Style="{StaticResource txtelemnt}" Padding="0 40"/>
+                                        </Border>
+                                        <Border Grid.Column="2"
+                                BorderThickness="2"
+                                BorderBrush="#FFFDD835"
+                                Margin="3 0">
+                                            <TextBlock Text="Tiêu chuẩn" Style="{StaticResource txtelemnt}" Padding="0 40"/>
+                                        </Border>
+                                        <Border Grid.Column="3"
+                                BorderThickness="2"
+                                BorderBrush="#FFF9A825"
+                                Margin="3 0">
+                                            <TextBlock Text="Cao cấp" Style="{StaticResource txtelemnt}" Padding="0 40"/>
+                                        </Border>
+
+                                    </Grid>
+                                </Border>
+                                <Border BorderThickness="0 0 0 1" BorderBrush="#bababa">
+                                    <Grid Margin="0 20">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="2.5*"/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Text="Giá hàng tháng" Style="{StaticResource txtcolumn}"/>
+                                        <TextBlock Foreground="#FFFFEE58" Grid.Column="1" Text="180.000 ₫" Style="{StaticResource txtelemnt}"/>
+                                        <TextBlock Foreground="#FFFDD835" Grid.Column="2" Text="220.000 ₫" Style="{StaticResource txtelemnt}"/>
+                                        <TextBlock Foreground="#FFF9A825" Grid.Column="3" Text="260.000 ₫" Style="{StaticResource txtelemnt}"/>
+
+                                    </Grid>
+                                </Border>
+                                <Border BorderThickness="0 0 0 1" BorderBrush="#bababa">
+                                    <Grid Margin="0 20">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="2.5*"/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Text="Chất lượng video" Style="{StaticResource txtcolumn}"/>
+                                        <TextBlock Foreground="#FFFFEE58" Grid.Column="1" Text="Tốt" Style="{StaticResource txtelemnt}"/>
+                                        <TextBlock Foreground="#FFFDD835" Grid.Column="2" Text="Tốt hơn    " Style="{StaticResource txtelemnt}"/>
+                                        <TextBlock  Foreground="#FFF9A825"  Grid.Column="3" Text="Tốt nhất" Style="{StaticResource txtelemnt}"/>
+
+                                    </Grid>
+                                </Border>
+                                <Border BorderThickness="0 0 0 1" BorderBrush="#bababa">
+                                    <Grid Margin="0 20">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="2.5*"/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Text="Độ phân giải" Style="{StaticResource txtcolumn}"/>
+                                        <TextBlock Foreground="#FFFFEE58" Grid.Column="1" Text="480p" Style="{StaticResource txtelemnt}"/>
+                                        <TextBlock Foreground="#FFFDD835" Grid.Column="2" Text="1080p" Style="{StaticResource txtelemnt}"/>
+                                        <TextBlock Foreground="#FFF9A825" Grid.Column="3" Text="4K+HDR" Style="{StaticResource txtelemnt}"/>
+                                    </Grid>
+                                </Border>
+                            </StackPanel>
                         </Grid>
                     </StackPanel>
-
-
                 </Border>
             </StackPanel>
         </ScrollViewer>

@@ -23,5 +23,13 @@ namespace Manager_Medias.Views.Admin
         {
             InitializeComponent();
         }
+
+        private void GridBarraTitulo_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+        }
+
+        private void ButtonFechar_Click(object sender, RoutedEventArgs e)
+        {
+        }
     }
 }

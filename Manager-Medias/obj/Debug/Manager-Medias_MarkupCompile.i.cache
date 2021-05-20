@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\84857\Desktop\Medias-Manager\Manager-Medias\obj\Debug\
+F:\3-2\TH\LTUDQL2\CK\Manager-Medias\obj\Debug\
 Manager_Medias
 none
 false
 DEBUG;TRACE
-C:\Users\84857\Desktop\Medias-Manager\Manager-Medias\App.xaml
-7848135441
+F:\3-2\TH\LTUDQL2\CK\Manager-Medias\App.xaml
+8-379794865
 
-13-1232793943
-17-1594951353
-MainWindow.xaml;Views\Admin\DashboardAdmin.xaml;Views\Layouts\MainLayoutView.xaml;Views\Customer\HomeCustomerView.xaml;Views\Customer\MainCustomerView.xaml;Views\Movie\DetailMovie.xaml;Views\Profile\MainProfileView.xaml;
+141365992762
+171151762437
+MainWindow.xaml;Views\Admin\DashboardAdmin.xaml;Views\Layouts\MainLayoutView.xaml;Views\Customer\HomeCustomerView.xaml;Views\Layouts\SidebarView.xaml;Views\Customer\MainCustomerView.xaml;Views\Movie\DetailMovie.xaml;Views\Profile\MainProfileView.xaml;
 
 True
 

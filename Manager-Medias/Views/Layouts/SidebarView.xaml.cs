@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Manager_Medias.Views.Movie
+namespace Manager_Medias.Views.Layouts
 {
     /// <summary>
-    /// Interaction logic for DetailMovie.xaml
+    /// Interaction logic for SidebarView.xaml
     /// </summary>
-    public partial class DetailMovie : UserControl
+    public partial class SidebarView : UserControl
     {
-        public DetailMovie()
+        public SidebarView()
         {
             InitializeComponent();
         }

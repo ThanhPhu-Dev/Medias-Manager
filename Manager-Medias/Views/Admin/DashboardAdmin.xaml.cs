@@ -10,19 +10,26 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Manager_Medias.Views.Movie
+namespace Manager_Medias.Views.Admin
 {
     /// <summary>
-    /// Interaction logic for DetailMovie.xaml
+    /// Interaction logic for DashboardAdmin.xaml
     /// </summary>
-    public partial class DetailMovie : UserControl
+    public partial class DashboardAdmin : Window
     {
-        public DetailMovie()
+        public DashboardAdmin()
         {
             InitializeComponent();
+        }
+
+        private void GridBarraTitulo_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+        }
+
+        private void ButtonFechar_Click(object sender, RoutedEventArgs e)
+        {
         }
     }
 }

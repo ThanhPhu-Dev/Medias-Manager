@@ -6,15 +6,15 @@
              xmlns:local="clr-namespace:Manager_Medias.Views.Customer"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             d:DesignHeight="550" d:DesignWidth="800">
+             d:DesignHeight="550" d:DesignWidth="1000">
     <Grid>
         <StackPanel>
             <StackPanel.Background>
                 <ImageBrush ImageSource="/Images/desktop.png"
                                     Stretch="UniformToFill"/>
             </StackPanel.Background>
-            <StackPanel Background="Black" Width="400" Height="450"
-                         Margin="0 50">
+            <StackPanel Background="Black" Width="400" Height="300"
+                         Margin="0 100">
                 <TextBlock Text="Sign In" Foreground="White" 
                            FontSize="32px" FontWeight="Bold" VerticalAlignment="Center"
                            HorizontalAlignment="Center" Margin="0 20"/>
@@ -40,7 +40,7 @@
                 </StackPanel>
                 <Grid
                   Width="250px"
-                    Height="30">
+                    Height="40">
                     <Button
                     Background="#e50914"
                     Style="{StaticResource MaterialDesignRaisedLightButton}"

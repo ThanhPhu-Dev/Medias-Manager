@@ -24,11 +24,23 @@
             <Setter Property="FontSize" Value="16" />
             <Setter Property="Margin" Value="4 0 0 0" />
         </Style>
+
+        <Storyboard x:Key="SidebarClose">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="Sidebar">
+                <EasingDoubleKeyFrame KeyTime="0:0:0" Value="300" />
+                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="0" />
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
     </UserControl.Resources>
     <Grid Background="#000">
         <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
             <StackPanel Margin="10 0">
-                <Image Margin="20 20 0 0" Source="/Images/logo.png" Height="32" HorizontalAlignment="Left" />
+                <DockPanel HorizontalAlignment="Stretch">
+                    <Image DockPanel.Dock="Left" Margin="20 20 0 0" Source="/Images/logo.png" Height="32" HorizontalAlignment="Left" />
+                    <Button HorizontalAlignment="Right" DockPanel.Dock="Right" x:Name="btnCloseMenu">
+                        <materialDesign:PackIcon Kind="Close" Foreground="#fff" VerticalAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Right" />
+                    </Button>
+                </DockPanel>
                 <Separator Margin="0 10 0 0" Foreground="#fff" />
                 <StackPanel x:Name="SidebarList">
                     <Button Margin="0 10 0 10" Padding="20 4" Style="{StaticResource SidebarButton}">

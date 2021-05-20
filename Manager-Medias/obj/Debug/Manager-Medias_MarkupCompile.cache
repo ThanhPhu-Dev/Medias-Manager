@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 D:\Phú\LT Ứng Dụng 2\Medias-Manager\Manager-Medias\App.xaml
-2689779261
+6-2001191862
 
-7-992891500
+11-2042471686
 17-1801209594
-MainWindow.xaml;Views\Movie\DetailMovie.xaml;
+MainWindow.xaml;Views\Layouts\MainLayoutView.xaml;Views\Customer\HomeCustomerView.xaml;Views\Customer\MainCustomerView.xaml;Views\Movie\DetailMovie.xaml;Views\Profile\MainProfileView.xaml;
 
 False
 

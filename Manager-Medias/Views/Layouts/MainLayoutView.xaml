@@ -1,0 +1,36 @@
+﻿<Window x:Class="Manager_Medias.Views.Layouts.MainLayoutView"
+            xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Manager_Medias.Views.Layouts"
+        mc:Ignorable="d"
+        Title="MainLayoutView" Height="650" Width="1200">
+    <DockPanel LastChildFill="True">
+        <Grid DockPanel.Dock="Top" Background="#000" Height="65">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Image Grid.Column="0" Margin="20 0 0 0" Source="/Resources/Images/logo.png" Height="Auto" />
+
+            <Button Grid.Column="2" Padding="0" Margin="0 0 20 0"
+                    VerticalAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    HorizontalAlignment="Right"
+                    HorizontalContentAlignment="Right"
+                    Background="Transparent"
+                    BorderBrush="Transparent">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <materialDesign:PackIcon Kind="AccountCircleOutline" Width="24" Height="24" Foreground="#febb00" VerticalAlignment="Center" />
+                    <Label Content="Username" Foreground="#fff" Margin="6 0 0 0" />
+                </StackPanel>
+            </Button>
+        </Grid>
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+            <ContentControl Content="aaaaaaa" />
+        </ScrollViewer>
+    </DockPanel>
+</Window>

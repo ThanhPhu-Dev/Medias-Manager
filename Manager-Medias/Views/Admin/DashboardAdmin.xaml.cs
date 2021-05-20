@@ -10,17 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Manager_Medias.Views.Customer
+namespace Manager_Medias.Views.Admin
 {
     /// <summary>
-    /// Interaction logic for HomeCustomerView.xaml
+    /// Interaction logic for DashboardAdmin.xaml
     /// </summary>
-    public partial class HomeCustomerView : UserControl
+    public partial class DashboardAdmin : Window
     {
-        public HomeCustomerView()
+        public DashboardAdmin()
         {
             InitializeComponent();
         }

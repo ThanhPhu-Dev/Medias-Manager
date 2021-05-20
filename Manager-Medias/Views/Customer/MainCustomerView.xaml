@@ -58,7 +58,7 @@
         </Border>
 
         <Grid Grid.Row="1">
-            <local:HomeCustomerView />
+            <local:HomeCustomerView/>
         </Grid>
     </Grid>
 </Window>

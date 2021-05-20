@@ -7,14 +7,21 @@
         xmlns:local="clr-namespace:Manager_Medias.Views.Layouts"
         mc:Ignorable="d"
         Title="MainLayoutView" Height="650" Width="1200">
-    <DockPanel LastChildFill="True">
-        <Grid DockPanel.Dock="Top" Background="#000" Height="65">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="65" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Background="#000" Height="65">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200" />
+                <ColumnDefinition Width="100" />
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="240" />
             </Grid.ColumnDefinitions>
-            <Image Grid.Column="0" Margin="20 0 0 0" Source="/Resources/Images/logo.png" Height="Auto" />
+            <Button HorizontalAlignment="Left" Padding="0" Margin="20 0 0 0" Name="btnMenu">
+                <materialDesign:PackIcon Kind="Menu" Foreground="#fff" Width="26" Height="26" />
+            </Button>
 
             <Button Grid.Column="2" Padding="0" Margin="0 0 20 0"
                     VerticalAlignment="Center"
@@ -29,8 +36,13 @@
                 </StackPanel>
             </Button>
         </Grid>
-        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-            <ContentControl Content="aaaaaaa" />
+        <Canvas Grid.Row="0">
+            <Grid Canvas.Top="0" Canvas.Bottom="0" Canvas.Left="0" Height="650" Width="300">
+                <local:SidebarView />
+            </Grid>
+        </Canvas>
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Grid.Row="1">
+            <ContentControl Margin="20" Content="" />
         </ScrollViewer>
-    </DockPanel>
+    </Grid>
 </Window>

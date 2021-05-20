@@ -243,7 +243,7 @@
                                 <ColumnDefinition Width="2.5*"/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                        
+                            <StackPanel></StackPanel>
                         <!--<ListView Name="lv_level" Foreground="#fff" Grid.Column="1">
                             <ListView.View>
                                     <GridView>

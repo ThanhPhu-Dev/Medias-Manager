@@ -66,11 +66,17 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ViewModels\DetailMovie.cs" />
+    <Compile Include="Views\Admin\DashboardAdmin.xaml.cs">
+      <DependentUpon>DashboardAdmin.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Customer\HomeCustomerView.xaml.cs">
       <DependentUpon>HomeCustomerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Layouts\MainLayoutView.xaml.cs">
       <DependentUpon>MainLayoutView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Layouts\SidebarView.xaml.cs">
+      <DependentUpon>SidebarView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Customer\MainCustomerView.xaml.cs">
       <DependentUpon>MainCustomerView.xaml</DependentUpon>
@@ -93,11 +99,19 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\Admin\DashboardAdmin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Layouts\MainLayoutView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Customer\HomeCustomerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Layouts\SidebarView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -151,9 +165,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\logo.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Images\logo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets')" />

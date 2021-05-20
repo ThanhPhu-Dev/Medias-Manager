@@ -14,6 +14,11 @@
      TextOptions.TextRenderingMode="Auto"
      Background="{DynamicResource MaterialDesignPaper}"
      FontFamily="{DynamicResource MaterialDesignFont}">
+    <UserControl.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+    </UserControl.Resources>
     <Grid Background="Black">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -32,34 +37,42 @@
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Bottom" Margin="5 0 0 0">
                     <materialDesign:PackIcon Kind="CurrencyUsd" Foreground="#fb0" Height="21"  Width="20"/>
-                    <TextBlock Text="Cấp Độ Vàng." Foreground="#fb0" FontSize="13px" VerticalAlignment="Center"/>
-                    <TextBlock Text="Phim Lẻ." Foreground="#8c8c8c" Margin="10 0 0 0" VerticalAlignment="Center"/>
-                    <TextBlock Text="2020" Margin="10 0 0 0" Foreground="#8c8c8c" VerticalAlignment="Center"/>
+                    <TextBlock Text="Cấp Độ Vàng." Foreground="#fb0" FontSize="13px" />
+                    <TextBlock Text="Phim Lẻ." Foreground="#8c8c8c" Margin="10 0 0 0" />
+                    <TextBlock Text="2020" Margin="10 0 0 0" Foreground="#8c8c8c" />
                 </StackPanel>
-                <TextBlock Grid.Row="1" Text="Thợ Săn Kẻ Giết Người" Foreground="#ff8040" VerticalAlignment="Center"
+                <TextBlock Grid.Row="1" Text="Thợ Săn Kẻ Giết Người" Foreground="#ff8040"
                            Margin="10 0 0 0" FontSize="28px"/>
                 <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="10 0 0 0">
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                        <materialDesign:PackIcon Kind="ThumbUpOutline" Foreground="#fb0" Height="21"  Width="38"/>
-                        <TextBlock Text="0" VerticalAlignment="Center" Foreground="#8c8c8c"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                        <materialDesign:PackIcon Kind="EyeSettings" Foreground="#fb0" Height="21"  Width="38"/>
-                        <TextBlock Text="1.6K" VerticalAlignment="Center" Foreground="#8c8c8c"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                        <materialDesign:PackIcon Kind="ShareVariant" Foreground="#fb0" Height="21"  Width="38" />
-                        <TextBlock Text="Chia sẻ" VerticalAlignment="Center" Foreground="#8c8c8c"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                        <materialDesign:PackIcon Kind="AlertCircle" Foreground="#fb0" Height="21"  Width="38" />
-                        <TextBlock Text="Báo Lổi" VerticalAlignment="Center" Foreground="#8c8c8c"/>
-                    </StackPanel>
+                    <Button ForceCursor="True" Cursor="Hand">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" >
+                            <materialDesign:PackIcon Kind="ThumbUp"  Foreground="#fb0" Height="21"  Width="38"/>
+                            <TextBlock Text="0" Foreground="#8c8c8c"/>
+                        </StackPanel>
+                    </Button>
+                    <Button>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <materialDesign:PackIcon Kind="EyeSettings" Foreground="#fb0" Height="21"  Width="38"/>
+                            <TextBlock Text="1.6K"  Foreground="#8c8c8c"/>
+                        </StackPanel>
+                    </Button>
+                    <Button>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <materialDesign:PackIcon Kind="ShareVariant" Foreground="#fb0" Height="21"  Width="38" />
+                            <TextBlock Text="Chia sẻ" Foreground="#8c8c8c"/>
+                        </StackPanel>
+                    </Button>
+                    <Button>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <materialDesign:PackIcon Kind="AlertCircle" Foreground="#fb0" Height="21"  Width="38" />
+                            <TextBlock Text="Báo Lổi" Foreground="#8c8c8c"/>
+                        </StackPanel>
+                    </Button>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Grid.Row="3">
                     <Button 
-                            Width="80"
-                            Height="25"
+                            Width="100"
+                            Height="30"
                             Background="Black"
                             BorderBrush="#fb0"
                             BorderThickness="2"
@@ -71,7 +84,7 @@
                     </Button>
                     <Button 
                             Width="100"
-                            Height="25"
+                            Height="30"
                             Background="Black"
                             BorderBrush="#fb0"
                             BorderThickness="2"
@@ -84,36 +97,35 @@
                 </StackPanel>
                 <TextBlock Text="Joseph và gia đình của mình sống trong vùng hoang dã hẻo lánh với tư cách là những người đánh bẫy lông thú, nhưng sự yên tĩnh của họ bị đe dọa khi họ nghĩ rằng họ đang bị săn đuổi bởi sự trở lại của một con sói bất hảo, và Joseph đã bỏ họ lại để theo dõi nó." 
                            Grid.Row="4" Foreground="White"
-                           TextWrapping="Wrap" Margin="10 0" FontSize="14px" 
-                           VerticalAlignment="Center"/>
+                           TextWrapping="Wrap" Margin="10 0" FontSize="14px"/>
                 <StackPanel Grid.Row="5" Margin="10 0" VerticalAlignment="Center">
                     <StackPanel Orientation="Horizontal">
                         <Label Content="Thời lượng: " Foreground="#8c8c8c" FontSize="14px"/>
-                        <TextBlock Text="Đang Cập Nhật" Foreground="White" VerticalAlignment="Center" FontSize="14px"/>
+                        <TextBlock Text="Đang Cập Nhật" Foreground="White" FontSize="14px"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <Label Content="Đạo Diễn: " Foreground="#8c8c8c" FontSize="14px"/>
-                        <TextBlock Text="Shawn Linden" Foreground="White" VerticalAlignment="Center" FontSize="14px"/>
+                        <TextBlock Text="Shawn Linden" Foreground="White" FontSize="14px"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <Label Content="Quốc gia: " Foreground="#8c8c8c" FontSize="14px"/>
-                        <TextBlock Text="Canada" Foreground="White" VerticalAlignment="Center" FontSize="14px"/>
+                        <TextBlock Text="Canada" Foreground="White" FontSize="14px"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <Label Content="Thể loại: " Foreground="#8c8c8c" FontSize="14px"/>
-                        <TextBlock Text="Kinh dị, Kịch tính, hồi hộp, Phim lẻ, Phim chiếu rạp" Foreground="White" FontSize="14px" VerticalAlignment="Center"/>
+                        <TextBlock Text="Kinh dị, Kịch tính, hồi hộp, Phim lẻ, Phim chiếu rạp" Foreground="White" FontSize="14px" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <Label Content="Phát hành: " Foreground="#8c8c8c" FontSize="14px"/>
-                        <TextBlock Text="2020" Foreground="White" VerticalAlignment="Center" FontSize="14px"/>
+                        <TextBlock Text="2020" Foreground="White" FontSize="14px"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <Label Content="IMDB: " Foreground="#8c8c8c"/>
-                        <TextBlock Text="Đang Cập Nhật" Foreground="White" VerticalAlignment="Center" FontSize="14px"/>
+                        <TextBlock Text="Đang Cập Nhật" Foreground="White" FontSize="14px"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <Label Content="Diễn Viên: " Foreground="#8c8c8c" FontSize="14px"/>
-                        <TextBlock Text="Camille Sullivan, Devon Sawa, Nick Stahl, Summer H. Howell" FontSize="14px" Foreground="White" VerticalAlignment="Center"/>
+                        <TextBlock Text="Camille Sullivan, Devon Sawa, Nick Stahl, Summer H. Howell" FontSize="14px" Foreground="White"/>
                     </StackPanel>
                 </StackPanel>
             </Grid>

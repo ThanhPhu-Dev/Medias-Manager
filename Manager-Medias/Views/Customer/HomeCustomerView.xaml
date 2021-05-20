@@ -98,8 +98,8 @@
             <StackPanel>
                 <StackPanel >
                     <StackPanel.Background>
-                        <ImageBrush ImageSource="/Images/desktop.jpg"
-                                    Stretch="UniformToFill" Opacity=".4"/>
+                        <ImageBrush ImageSource="/Images/desktop.png"
+                                    Stretch="UniformToFill"/>
                     </StackPanel.Background>
                     <StackPanel Margin="0 150">
                         <TextBlock Text="Chương trình truyền hình, phim không giới hạn và nhiều nội dung khác." 

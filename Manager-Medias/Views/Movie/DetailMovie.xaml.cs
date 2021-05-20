@@ -10,6 +10,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Manager_Medias.Views.Movie
@@ -17,7 +18,7 @@ namespace Manager_Medias.Views.Movie
     /// <summary>
     /// Interaction logic for DetailMovie.xaml
     /// </summary>
-    public partial class DetailMovie : Window
+    public partial class DetailMovie : UserControl
     {
         public DetailMovie()
         {

@@ -81,6 +81,9 @@
     <Compile Include="Views\Customer\MainCustomerView.xaml.cs">
       <DependentUpon>MainCustomerView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Movie\DetaiImages.xaml.cs">
+      <DependentUpon>DetaiImages.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Movie\DetailMovie.xaml.cs">
       <DependentUpon>DetailMovie.xaml</DependentUpon>
     </Compile>
@@ -116,6 +119,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Customer\MainCustomerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Movie\DetaiImages.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

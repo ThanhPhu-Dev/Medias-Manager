@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace Manager_Medias.Views.Auth
+namespace Manager_Medias.Views.Customer
 {
     /// <summary>
     /// Interaction logic for SignIn.xaml

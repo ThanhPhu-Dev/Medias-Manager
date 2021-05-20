@@ -14,7 +14,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border CornerRadius="3 3 3 3" Background="#FFCC00" Padding="13 0">
+                        <Border CornerRadius="3 3 3 3" Background="#FFbb00" Padding="13 0">
                             <ContentPresenter x:Name="contentPresenter" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         </Border>
                     </ControlTemplate>
@@ -37,7 +37,7 @@
                 </Button>-->
                 <Button DockPanel.Dock="Right" Height="auto"
                          Width="185"
-                        Background="#FFCC00"
+                        Background="#FFbb00"
                         Foreground="#222"
                       Style="{StaticResource MaterialDesignRaisedDarkButton}"
                       ToolTip="Đăng nhập"

@@ -66,6 +66,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ViewModels\DetailMovie.cs" />
+    <Compile Include="Views\Admin\DashboardAdmin.xaml.cs">
+      <DependentUpon>DashboardAdmin.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Customer\HomeCustomerView.xaml.cs">
       <DependentUpon>HomeCustomerView.xaml</DependentUpon>
     </Compile>
@@ -93,6 +96,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\Admin\DashboardAdmin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Layouts\MainLayoutView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

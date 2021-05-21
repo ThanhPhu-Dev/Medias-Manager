@@ -102,6 +102,9 @@
     <Compile Include="Views\Movie\DetailMovie.xaml.cs">
       <DependentUpon>DetailMovie.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Profile\AccountView.xaml.cs">
+      <DependentUpon>AccountView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Profile\MainProfileView.xaml.cs">
       <DependentUpon>MainProfileView.xaml</DependentUpon>
     </Compile>
@@ -162,6 +165,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Movie\DetailMovie.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Profile\AccountView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

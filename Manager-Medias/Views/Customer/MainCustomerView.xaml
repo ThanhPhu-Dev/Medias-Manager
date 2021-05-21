@@ -58,7 +58,7 @@
         </Border>
 
         <Grid Grid.Row="1">
-            <local:SignIn/>
+            <local:ForgetPassword/>
         </Grid>
     </Grid>
 </Window>

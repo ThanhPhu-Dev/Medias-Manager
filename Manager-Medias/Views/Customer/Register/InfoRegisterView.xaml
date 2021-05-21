@@ -117,6 +117,9 @@
                     AcceptsReturn="True"
                     TextWrapping="Wrap"
                     materialDesign:HintAssist.Hint="Email"
+                    materialDesign:HintAssist.FloatingScale="0.55"
+                    materialDesign:TextFieldAssist.TextBoxViewMargin="0 -3 0 0"
+                    Height="60"
                     FontSize="20"/>
             </StackPanel>
             <StackPanel Background="#fff"> 
@@ -127,6 +130,9 @@
                     AcceptsReturn="True"
                     TextWrapping="Wrap"
                     materialDesign:HintAssist.Hint="Mật khẩu"
+                    materialDesign:HintAssist.FloatingScale="0.55"
+                    materialDesign:TextFieldAssist.TextBoxViewMargin="0 -3 0 0"
+                    Height="60"
                     FontSize="20"/>
             </StackPanel>
 

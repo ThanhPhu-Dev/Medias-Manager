@@ -40,6 +40,9 @@
                     AcceptsReturn="True"
                     TextWrapping="Wrap"
                     materialDesign:HintAssist.Hint="Tên"
+                        materialDesign:HintAssist.FloatingScale="0.55"
+                    materialDesign:TextFieldAssist.TextBoxViewMargin="0 -3 0 0"
+                    Height="60"
                     FontSize="20"/>
                 </StackPanel>
                 <StackPanel Background="#fff"
@@ -51,6 +54,9 @@
                     AcceptsReturn="True"
                     TextWrapping="Wrap"
                     materialDesign:HintAssist.Hint="Họ"
+                        materialDesign:HintAssist.FloatingScale="0.55"
+                    materialDesign:TextFieldAssist.TextBoxViewMargin="0 -3 0 0"
+                    Height="60"
                     FontSize="20"/>
                 </StackPanel>
                 <StackPanel Background="#fff"
@@ -62,6 +68,9 @@
                     AcceptsReturn="True"
                     TextWrapping="Wrap"
                     materialDesign:HintAssist.Hint="Số thẻ"
+                        materialDesign:HintAssist.FloatingScale="0.55"
+                    materialDesign:TextFieldAssist.TextBoxViewMargin="0 -3 0 0"
+                    Height="60"
                     FontSize="20"/>
                 </StackPanel>
                 <StackPanel Background="#fff"
@@ -73,6 +82,9 @@
                     AcceptsReturn="True"
                     TextWrapping="Wrap"
                     materialDesign:HintAssist.Hint="Ngày hết hạng (MM/YY)"
+                        materialDesign:HintAssist.FloatingScale="0.55"
+                    materialDesign:TextFieldAssist.TextBoxViewMargin="0 -3 0 0"
+                    Height="60"
                     FontSize="20"/>
                 </StackPanel>
 

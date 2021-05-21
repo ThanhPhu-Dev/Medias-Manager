@@ -46,21 +46,21 @@
                       Content="_Đăng nhập" 
                         BorderThickness="0"
                         FontSize="23"/>
-                <!--<Button DockPanel.Dock="Right" Height="auto"
+                <Button DockPanel.Dock="Right" Height="auto"
                          Width="185"
                         Margin="00 0 20 0"
-                        Background="#FFCC00"
+                        Background="#FFbb00"
                         Foreground="#222"
                         BorderThickness="0"
                       Style="{StaticResource MaterialDesignRaisedDarkButton}"
                       ToolTip="Đăng ký"
                       Content="_Đăng ký" 
-                        FontSize="23"/>-->
+                        FontSize="23"/>
             </DockPanel>
         </Border>
 
         <Grid Grid.Row="1">
-            <us:LevelRegisterView/>
+            <us:CartRegisterView/>
         </Grid>
     </Grid>
 </Window>

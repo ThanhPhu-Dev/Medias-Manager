@@ -207,6 +207,9 @@
   <ItemGroup>
     <Folder Include="Resources\Images\" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\desktop_login.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

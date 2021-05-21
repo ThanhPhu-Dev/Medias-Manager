@@ -7,18 +7,40 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="550" d:DesignWidth="1000">
+    <UserControl.Resources>
+        <Style TargetType="TextBlock" x:Key="text-primary">
+            <Setter Property="Foreground" Value="#fff"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+        <Style TargetType="Span" x:Key="hoverSpan">
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="TextDecorations" Value="Underline"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
     <Grid>
-        <StackPanel>
-            <StackPanel.Background>
-                <ImageBrush ImageSource="/Images/desktop.png"
-                                    Stretch="UniformToFill"/>
-            </StackPanel.Background>
-            <StackPanel Background="Black" Width="400" Height="300"
-                         Margin="0 100">
-                <TextBlock Text="Sign In" Foreground="White" 
-                           FontSize="32px" FontWeight="Bold" VerticalAlignment="Center"
-                           HorizontalAlignment="Center" Margin="0 20"/>
-                <StackPanel Width="300" Height="50" Margin="0 10">
+        <Grid.Background>
+            <ImageBrush ImageSource="/Images/desktop_login.png" Stretch="UniformToFill"/>
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width=".8*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="8*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Column="1" Grid.Row="1">
+            <StackPanel >
+                <TextBlock Text="Đăng nhập" Foreground="White" 
+                           FontSize="32px" 
+                           FontWeight="Bold" 
+                           Margin="0 50 0 5"/>
+                <!--<StackPanel Width="300" Height="50" Margin="0 10">
                          <TextBox Style="{StaticResource MaterialDesignFilledTextBox}"
                           VerticalAlignment="Top"
                           AcceptsReturn="True"
@@ -28,29 +50,52 @@
                           materialDesign:HintAssist.Hint="Email or Phone number"
                                           Foreground="White" FontSize="16"
                           IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignFilledTextBoxEnabledComboBox}" />
+                </StackPanel>-->
+                <StackPanel Background="#fff"
+                        Margin="0 8">
+                    <TextBox
+                    Style="{StaticResource MaterialDesignFilledTextBox}"
+                    VerticalAlignment="Top"
+                    Foreground="#222"
+                    AcceptsReturn="True"
+                    TextWrapping="Wrap"
+                    materialDesign:HintAssist.Hint="Email hoặc số điện thoại"
+                    materialDesign:HintAssist.FloatingScale="0.55"
+                    materialDesign:TextFieldAssist.TextBoxViewMargin="0 -3 0 0"
+                    Height="60"
+                    FontSize="18"/>
                 </StackPanel>
-                <StackPanel Width="300" Height="50"  Margin="0 10">
-                        <PasswordBox
-                        Style="{StaticResource MaterialDesignFilledPasswordBox}"
-                        VerticalAlignment="Top"
-                        Background="#333"
-                        IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignFilledPasswordFieldPasswordBoxEnabledComboBox}"
-                        materialDesign:HintAssist.Hint="Password"
-                                            Foreground="White" FontSize="16"/>
+                <StackPanel Background="#fff"
+                        Margin="0 8">
+                    <TextBox
+                    Style="{StaticResource MaterialDesignFilledTextBox}"
+                    VerticalAlignment="Top"
+                    Foreground="#222"
+                    AcceptsReturn="True"
+                    TextWrapping="Wrap"
+                    materialDesign:HintAssist.Hint="Mật khẩu"
+                    materialDesign:HintAssist.FloatingScale="0.55"
+                    materialDesign:TextFieldAssist.TextBoxViewMargin="0 -3 0 0"
+                    Height="60"
+                    FontSize="18"/>
                 </StackPanel>
-                <Grid
-                  Width="250px"
-                    Height="40">
-                    <Button
-                    Background="#e50914"
-                    Style="{StaticResource MaterialDesignRaisedLightButton}"
-                    Height="Auto"
-                    materialDesign:ButtonAssist.CornerRadius="5"
-                    ToolTip="MaterialDesignRaisedLightButton with Round Corners">
-                    <TextBlock Text="Sign In" FontSize="16" VerticalAlignment="Center" />
-                    </Button>
-                </Grid>
-                <TextBlock Text="Quên mật khẩu?" Foreground="White"  ForceCursor="True" Cursor="Hand" HorizontalAlignment="Right" Margin="20 10">
+
+                <Button
+                Background="#FFbb00"
+                Style="{StaticResource MaterialDesignRaisedButton}"
+                ToolTip="Resource name: MaterialDesignRaisedButton"
+                Height="54"
+                Content="Đăng nhập" 
+                    FontSize="23"
+                    Margin="0 15  0 0 "
+                    Foreground="#222"/>
+
+                <TextBlock Text="Quên mật khẩu?" 
+                           Foreground="White"  
+                           ForceCursor="True" 
+                           Cursor="Hand" 
+                           HorizontalAlignment="Right" 
+                           Margin="20 10">
                     <TextBlock.Style>
                         <Style TargetType="TextBlock">
                             <Style.Triggers>
@@ -61,6 +106,32 @@
                         </Style>
                     </TextBlock.Style>
                 </TextBlock>
+                <TextBlock
+                           Style="{StaticResource text-primary}" 
+                           FontSize="14" Padding="0 8">
+                    <Span Foreground="#b3b3b3">
+                        Bạn mới tham gia Netflix?
+                    </Span> 
+                    <Span Cursor="Hand" Style="{StaticResource hoverSpan}">
+                         Đăng ký ngay.
+                        
+                    </Span>
+
+
+                </TextBlock>
+                <TextBlock 
+                           Style="{StaticResource text-primary}"
+                           FontSize="12">
+                    <Span Foreground="#b3b3b3">
+                        Trang này được Google reCAPTCHA bảo vệ để đảm bảo bạn không phải là robot. 
+                    </Span>
+                    <Span Foreground="#4929ff" 
+                          Cursor="Hand"
+                          Style="{StaticResource hoverSpan}">
+                        Tìm hiểu thêm.
+                    </Span>
+                </TextBlock>
+
             </StackPanel>
         </StackPanel>
     </Grid>

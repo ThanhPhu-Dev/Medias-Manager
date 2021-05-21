@@ -72,6 +72,15 @@
     <Compile Include="Views\Customer\HomeCustomerView.xaml.cs">
       <DependentUpon>HomeCustomerView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Customer\Register\CartRegisterView.xaml.cs">
+      <DependentUpon>CartRegisterView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Customer\Register\InfoRegisterView.xaml.cs">
+      <DependentUpon>InfoRegisterView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Customer\Register\LevelRegisterView.xaml.cs">
+      <DependentUpon>LevelRegisterView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Customer\SignIn.xaml.cs">
       <DependentUpon>SignIn.xaml</DependentUpon>
     </Compile>
@@ -106,6 +115,18 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\Admin\DashboardAdmin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Customer\Register\CartRegisterView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Customer\Register\InfoRegisterView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Customer\Register\LevelRegisterView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

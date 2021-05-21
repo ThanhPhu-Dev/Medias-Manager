@@ -1,0 +1,128 @@
+﻿<UserControl x:Class="Manager_Medias.Views.Customer.Register.CartRegisterView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Manager_Medias.Views.Customer.Register"
+             mc:Ignorable="d" 
+             d:DesignHeight="558" d:DesignWidth="1200"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             >
+    <UserControl.Resources>
+        <Style TargetType="TextBlock" x:Key="text-primary">
+            <Setter Property="Foreground" Value="#fff"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+    </UserControl.Resources>
+    <ScrollViewer>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="1.3*"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="1" Margin="0 20 0 50">
+                <TextBlock Text="BƯỚC 3/3"
+                       Style="{StaticResource text-primary}"
+                       FontSize="20"/>
+                <TextBlock Text="Hãy thiết lập thẻ tín dụng hoặc thẻ ghi nợ của bạn."
+                       Style="{StaticResource text-primary}"
+                       FontSize="24"
+                       FontWeight="DemiBold"
+                       Padding="0 10"/>
+                <StackPanel Background="#fff"
+                        Margin="0 8">
+                    <TextBox
+                    Style="{StaticResource MaterialDesignFilledTextBox}"
+                    VerticalAlignment="Top"
+                    Foreground="#222"
+                    AcceptsReturn="True"
+                    TextWrapping="Wrap"
+                    materialDesign:HintAssist.Hint="Tên"
+                    FontSize="20"/>
+                </StackPanel>
+                <StackPanel Background="#fff"
+                        Margin="0 8">
+                    <TextBox
+                    Style="{StaticResource MaterialDesignFilledTextBox}"
+                    VerticalAlignment="Top"
+                    Foreground="#222"
+                    AcceptsReturn="True"
+                    TextWrapping="Wrap"
+                    materialDesign:HintAssist.Hint="Họ"
+                    FontSize="20"/>
+                </StackPanel>
+                <StackPanel Background="#fff"
+                        Margin="0 8">
+                    <TextBox
+                    Style="{StaticResource MaterialDesignFilledTextBox}"
+                    VerticalAlignment="Top"
+                    Foreground="#222"
+                    AcceptsReturn="True"
+                    TextWrapping="Wrap"
+                    materialDesign:HintAssist.Hint="Số thẻ"
+                    FontSize="20"/>
+                </StackPanel>
+                <StackPanel Background="#fff"
+                        Margin="0 8">
+                    <TextBox
+                    Style="{StaticResource MaterialDesignFilledTextBox}"
+                    VerticalAlignment="Top"
+                    Foreground="#222"
+                    AcceptsReturn="True"
+                    TextWrapping="Wrap"
+                    materialDesign:HintAssist.Hint="Ngày hết hạng (MM/YY)"
+                    FontSize="20"/>
+                </StackPanel>
+
+                <DockPanel Background="#ffefb5" Margin="0 8">
+                    <!--giá này chọn mặc định bên bước trước-->
+
+                    <TextBlock  Text="Gói Cơ bản"
+                            FontSize="20"
+                            DockPanel.Dock="Right"
+                            Padding="15"/>
+                    <TextBlock Text="180.000 ₫/tháng"
+                               FontSize="20"
+                               FontWeight="DemiBold"
+                               Foreground="#222"
+                           Padding="15"/>
+                </DockPanel>
+
+                <TextBlock 
+                       Style="{StaticResource text-primary}"
+                       Padding="0 15">
+                Bằng cách đánh dấu vào hộp kiểm bên dưới, bạn đồng ý với 
+                <Span Foreground="#FFbb00">
+                    Điều khoản sử dụng, Tuyên bố về quyền riêng tư 
+                </Span>
+                của chúng tôi, đồng thời xác nhận rằng bạn trên 18 tuổi. 
+                Netflix sẽ tự động tiếp tục duy trì tư cách thành viên của bạn và tính phí thành viên (hiện tại là 180.000 ₫) theo tháng vào phương thức thanh toán của bạn cho đến khi bạn hủy. Bạn có thể hủy bất kỳ lúc nào để tránh bị tính phí về sau."
+                </TextBlock>
+                <StackPanel Margin="0 13">
+                    <CheckBox
+                        IsChecked="False"
+                        Content="Tôi đồng ý"
+                        materialDesign:CheckBoxAssist.CheckBoxSize="30" 
+                        Foreground="#fff"
+                        FontSize="20">
+                        <CheckBox.Resources>
+                            <SolidColorBrush x:Key="MaterialDesignCheckBoxOff" Color="#FFbb00"/>
+                            <!--Checked state-->
+                            <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#FFbb00"/>
+                        </CheckBox.Resources>
+                    </CheckBox>
+                </StackPanel>
+
+                <Button
+                Background="#FFbb00"
+                Style="{StaticResource MaterialDesignRaisedButton}"
+                ToolTip="Resource name: MaterialDesignRaisedButton"
+                Height="50"
+                Content="Kích hoạt tư cách thành viên" 
+                    FontSize="23"/>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</UserControl>

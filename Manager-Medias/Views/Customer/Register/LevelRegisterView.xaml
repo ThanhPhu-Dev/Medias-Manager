@@ -1,0 +1,176 @@
+﻿<UserControl x:Class="Manager_Medias.Views.Customer.Register.LevelRegisterView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Manager_Medias.Views.Customer.Register"
+             mc:Ignorable="d" 
+             d:DesignHeight="558" d:DesignWidth="1200"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             >
+    <UserControl.Resources>
+        <Style TargetType="TextBlock" x:Key="text-primary">
+            <Setter Property="Foreground" Value="#fff"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="txtcolumn">
+            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="Foreground" Value="#fff"/>
+            <Setter Property="Padding" Value="10 0 0 0"/>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="txtelemnt">
+            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="Foreground" Value="#fff"/>
+            <Setter Property="FontWeight" Value="bold"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+    </UserControl.Resources>
+    <ScrollViewer>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="1">
+                <TextBlock Text="BƯỚC 2/3"
+                       Style="{StaticResource text-primary}"
+                       FontSize="20"/>
+                <TextBlock Text="Chọn gói dịch vụ phù hợp với bạn"
+                       FontSize="24"
+                       Style="{StaticResource text-primary}"
+                       FontWeight="DemiBold"
+                       Padding="0 10"/>
+                <StackPanel Orientation="Horizontal" Margin="0 5">
+                    <materialDesign:PackIcon Kind="Check" 
+                                         Foreground="#FFbb00"
+                                         Width="30"
+                                         Height="30"/>
+                    <TextBlock Text="Xem mọi nội dung bạn muốn. Không có quảng cáo."
+                           Style="{StaticResource text-primary}"
+                           FontSize="20"
+                           Padding="5 0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0 5">
+                    <materialDesign:PackIcon Kind="Check" 
+                                         Foreground="#FFbb00"
+                                         Width="30"
+                                         Height="30"/>
+                    <TextBlock Text="Đề xuất dành riêng cho bạn."
+                           Style="{StaticResource text-primary}"
+                           FontSize="20"
+                           Padding="5 0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0 5">
+                    <materialDesign:PackIcon Kind="Check" 
+                                         Foreground="#FFbb00"
+                                         Width="30"
+                                         Height="30"/>
+                    <TextBlock Text="Thay đổi hoặc hủy gói dịch vụ của bạn bất cứ khi nào."
+                           Style="{StaticResource text-primary}"
+                           FontSize="20"
+                           Padding="5 0"/>
+                </StackPanel>
+
+                <!--table-->
+
+                <StackPanel Grid.Column="1">
+                    <Border>
+                        <Grid Margin="0 20">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2.5*"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <Border Grid.Column="1"
+                                BorderBrush="#FFbb00"
+                                Background="#FFbb00"
+                                Margin="3 0">
+                                <TextBlock Text="Cơ bản" 
+                                           Style="{StaticResource txtelemnt}" 
+                                           Padding="0 40"
+                                           Foreground="#222"/>
+                            </Border>
+                            <Border Grid.Column="2"
+                                BorderThickness="2"
+                                BorderBrush="#bdbdbd"
+                                Margin="3 0">
+                                <TextBlock Text="Tiêu chuẩn" 
+                                           Style="{StaticResource txtelemnt}" 
+                                           Padding="0 40"
+                                           Foreground="#bdbdbd"/>
+                            </Border>
+                            <Border Grid.Column="3"
+                                BorderThickness="2"
+                                BorderBrush="#bdbdbd"
+                                Margin="3 0">
+                                <TextBlock Text="Cao cấp" 
+                                           Style="{StaticResource txtelemnt}" 
+                                           Padding="0 40"
+                                           Foreground="#bdbdbd"/>
+                            </Border>
+
+                        </Grid>
+                    </Border>
+                    <Border BorderThickness="0 0 0 1" BorderBrush="#bababa">
+                        <Grid Margin="0 20">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2.5*"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Giá hàng tháng" Style="{StaticResource txtcolumn}"/>
+                            <TextBlock Foreground="#FFbb00" Grid.Column="1" Text="180.000 ₫" Style="{StaticResource txtelemnt}"/>
+                            <TextBlock Foreground="#bdbdbd" Grid.Column="2" Text="220.000 ₫" Style="{StaticResource txtelemnt}"/>
+                            <TextBlock Foreground="#bdbdbd" Grid.Column="3" Text="260.000 ₫" Style="{StaticResource txtelemnt}"/>
+
+                        </Grid>
+                    </Border>
+                    <Border BorderThickness="0 0 0 1" BorderBrush="#bababa">
+                        <Grid Margin="0 20">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2.5*"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Chất lượng video" Style="{StaticResource txtcolumn}"/>
+                            <TextBlock Foreground="#FFbb00" Grid.Column="1" Text="Tốt" Style="{StaticResource txtelemnt}"/>
+                            <TextBlock Foreground="#bdbdbd" Grid.Column="2" Text="Tốt hơn    " Style="{StaticResource txtelemnt}"/>
+                            <TextBlock Foreground="#bdbdbd"  Grid.Column="3" Text="Tốt nhất" Style="{StaticResource txtelemnt}"/>
+
+                        </Grid>
+                    </Border>
+                    <Border BorderThickness="0 0 0 1" BorderBrush="#bababa">
+                        <Grid Margin="0 20">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2.5*"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Độ phân giải" Style="{StaticResource txtcolumn}"/>
+                            <TextBlock Foreground="#FFbb00" Grid.Column="1" Text="480p" Style="{StaticResource txtelemnt}"/>
+                            <TextBlock Foreground="#bdbdbd" Grid.Column="2" Text="1080p" Style="{StaticResource txtelemnt}"/>
+                            <TextBlock Foreground="#bdbdbd" Grid.Column="3" Text="4K+HDR" Style="{StaticResource txtelemnt}"/>
+                        </Grid>
+                    </Border>
+                </StackPanel>
+
+                <Button
+                Background="#FFbb00"
+                Style="{StaticResource MaterialDesignRaisedButton}"
+                ToolTip="Resource name: MaterialDesignRaisedButton"
+                Height="50"
+                Content="Tiếp tục" 
+                    FontSize="23"
+                    Margin="0 20"
+                    Foreground="#222"/>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+    
+</UserControl>

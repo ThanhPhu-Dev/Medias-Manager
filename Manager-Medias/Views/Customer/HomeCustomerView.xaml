@@ -12,7 +12,8 @@
              TextElement.FontSize="13"
              TextOptions.TextFormattingMode="Ideal"
              TextOptions.TextRenderingMode="Auto"
-             FontFamily="{DynamicResource MaterialDesignFont}">
+             FontFamily="{DynamicResource MaterialDesignFont}"
+             >
     <UserControl.Resources>
         <Style TargetType="Button" x:Key="btn_lognin">
             <Setter Property="Foreground" Value="#fff"/>
@@ -21,7 +22,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border CornerRadius="3 3 3 3" Background="#FFCC00" Padding="13 0">
+                        <Border CornerRadius="3 3 3 3" Background="#FFbb00" Padding="13 0">
                             <ContentPresenter x:Name="contentPresenter" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         </Border>
                     </ControlTemplate>

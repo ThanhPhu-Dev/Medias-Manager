@@ -69,6 +69,12 @@
     <Compile Include="Views\Admin\DashboardAdmin.xaml.cs">
       <DependentUpon>DashboardAdmin.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Audio\DetailAudioView.xaml.cs">
+      <DependentUpon>DetailAudioView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Audio\HomeAudioView.xaml.cs">
+      <DependentUpon>HomeAudioView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Customer\ForgetPassword.xaml.cs">
       <DependentUpon>ForgetPassword.xaml</DependentUpon>
     </Compile>
@@ -121,6 +127,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\Admin\DashboardAdmin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Audio\DetailAudioView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Audio\HomeAudioView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

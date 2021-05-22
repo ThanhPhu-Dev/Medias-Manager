@@ -93,8 +93,8 @@
             </StackPanel>
         </Border>
         <ContentControl Grid.Column="1">
-            <!--<local:ProfileManager />-->
-            <local:PlayListView />
+            <local:ProfileManager />
+            <!--<local:PlayListView />-->
         </ContentControl>
     </Grid>
 </UserControl>

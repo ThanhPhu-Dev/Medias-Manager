@@ -215,11 +215,57 @@
                        FontWeight="DemiBold"
                        Margin="60 0 0 0" />
             <ListBox Grid.Row="1"
-                     ScrollViewer.VerticalScrollBarVisibility="Hidden"
                  HorizontalContentAlignment="Stretch"
                  ItemsSource="{Binding}"
                  Margin="30 0 15 0"
-                 ItemContainerStyle="{DynamicResource _ListBoxItemStyle}" />
+                 ItemContainerStyle="{DynamicResource _ListBoxItemStyle}" >
+                <ListBox.Resources>
+                    <Style TargetType="Thumb">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate>
+                                    <Grid x:Name="Grid">
+                                        <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" 
+                                           Height="Auto" Fill="Transparent"/>
+                                        <Border x:Name="Rectangle1" CornerRadius="4" HorizontalAlignment="Stretch" 
+                                        VerticalAlignment="Stretch" Width="Auto" Height="Auto" 
+                                        Background="{TemplateBinding Background}"/>
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="Tag" Value="Horizontal">
+                                            <Setter TargetName="Rectangle1" Property="Width" Value="Auto"/>
+                                            <Setter TargetName="Rectangle1" Property="Height" Value="7"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                    <Style TargetType="ScrollBar">
+                        <!--<Setter Property="Background" Value="#FF876400"/>-->
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ScrollBar">
+                                    <Grid x:Name="GridRoot" Width="6" Background="{x:Null}">
+                                        <Track x:Name="PART_Track" Grid.Row="0" IsDirectionReversed="true" Focusable="False">
+                                            <Track.Thumb>
+                                                <Thumb x:Name="Thumb" Background="#FF876400" 
+                                               Style="{DynamicResource ScrollThumbs}"/>
+                                            </Track.Thumb>
+                                            <Track.IncreaseRepeatButton>
+                                                <RepeatButton x:Name="PageUp" Command="ScrollBar.PageDownCommand" Opacity="0" Focusable="False"/>
+                                            </Track.IncreaseRepeatButton>
+                                            <Track.DecreaseRepeatButton>
+                                                <RepeatButton x:Name="PageDown" Command="ScrollBar.PageUpCommand" Opacity="0" Focusable="False"/>
+                                            </Track.DecreaseRepeatButton>
+                                        </Track>
+                                    </Grid>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.Resources>
+            </ListBox>
         </Grid>
     </Grid>
 </UserControl>

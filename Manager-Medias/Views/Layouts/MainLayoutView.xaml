@@ -130,10 +130,11 @@
             </Grid>
         </Canvas>
 
-        <ScrollViewer Panel.ZIndex="1" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Disabled" Grid.Row="1">
+        <Grid Grid.Row="1">
             <ContentControl>
                 <profile:MainProfileView />
+                <!--<audio:DetailAudioView />-->
             </ContentControl>
-        </ScrollViewer>
+        </Grid>
     </Grid>
 </Window>

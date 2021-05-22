@@ -85,7 +85,7 @@
             </Setter>
         </Style>
     </UserControl.Resources>
-    <Grid Background="Black" Height="585" Width="1200">
+    <Grid Background="Black">
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition Width="2*" />

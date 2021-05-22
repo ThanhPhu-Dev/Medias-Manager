@@ -66,8 +66,14 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ViewModels\DetailMovie.cs" />
+    <Compile Include="Views\Admin\AccountManagerUserControl.xaml.cs">
+      <DependentUpon>AccountManagerUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Admin\DashboardAdmin.xaml.cs">
       <DependentUpon>DashboardAdmin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\MainDashBoardAdminUserControl.xaml.cs">
+      <DependentUpon>MainDashBoardAdminUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Customer\ForgetPassword.xaml.cs">
       <DependentUpon>ForgetPassword.xaml</DependentUpon>
@@ -120,9 +126,17 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\Admin\DashboardAdmin.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Views\Admin\AccountManagerUserControl.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Admin\DashboardAdmin.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Admin\MainDashBoardAdminUserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Customer\ForgetPassword.xaml">
       <SubType>Designer</SubType>

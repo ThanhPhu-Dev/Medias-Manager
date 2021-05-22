@@ -18,21 +18,28 @@
         <Style TargetType="TextBlock">
             <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
+        <Style TargetType="MediaElement" x:Name="media">
+            <Setter Property="Height" Value="570"/>
+            <!--<Style.Triggers>
+                <Trigger Property="play.Is">
+                    
+                </Trigger>
+            </Style.Triggers>-->
+        </Style>
+        
     </UserControl.Resources>
     <ScrollViewer Background="Black" Width="1200">
         <StackPanel>
-            <!--<MediaElement           
-            Grid.RowSpan="1"
+            <MediaElement           
             Source="D:\Phú\LT Ứng Dụng 2\Medias-Manager\Manager-Medias\bin\Debug\Images/video.mp4"
-            LoadedBehavior="Play"/>-->
-            
+            LoadedBehavior="Play"/>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="79*"/>
                     <ColumnDefinition Width="121*"/>
                 </Grid.ColumnDefinitions>
                 <Image Grid.Column="0" Source="/images/postermovieHuter.jpg"/>
-                <Grid Grid.ColumnSpan="2" Margin="395,0,0,-0.4">
+                <Grid Grid.Column="1" >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="50*" />
                         <RowDefinition Height="70*" />
@@ -76,7 +83,8 @@
                         </Button>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Grid.Row="3">
-                        <Button 
+                        <Button
+                            x:Name="play"
                             Width="100"
                             Height="30"
                             Background="Black"
@@ -87,6 +95,15 @@
                                 <materialDesign:PackIcon Kind="PlayCircle" Foreground="#fb0"/>
                                 <TextBlock Text="Play" Foreground="#fb0" Margin="5 0 0 0"/>
                             </StackPanel>
+                            <!--<Button.Style>
+                                <Style TargetType="Button">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsPressed">
+                                            <Setter Property="media.height" Value="570"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>-->
                         </Button>
                         <Button 
                             Width="100"

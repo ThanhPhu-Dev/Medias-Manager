@@ -1,28 +1,128 @@
 ﻿<UserControl x:Class="Manager_Medias.Views.Profile.ProfileManager"
-            xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:Manager_Medias.Views.Profile"
              mc:Ignorable="d"
              d:DesignHeight="585" d:DesignWidth="940">
+    <UserControl.Resources>
+        <Storyboard x:Key="OpenModal">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Canvas.Top)" Storyboard.TargetName="ModalNewProfile">
+                <DiscreteDoubleKeyFrame KeyTime="0:0:0.0" Value="-500" />
+                <DiscreteDoubleKeyFrame KeyTime="0:0:0.15" Value="16" />
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+
+        <Storyboard x:Key="CloseModal">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Canvas.Top)" Storyboard.TargetName="ModalNewProfile">
+                <DiscreteDoubleKeyFrame KeyTime="0:0:0.0" Value="16" />
+                <DiscreteDoubleKeyFrame KeyTime="0:0:0.15" Value="-500" />
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </UserControl.Resources>
+
+    <UserControl.Triggers>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="btnOpenModal">
+            <BeginStoryboard Storyboard="{StaticResource OpenModal}" />
+        </EventTrigger>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="btnCancelModal">
+            <BeginStoryboard Storyboard="{StaticResource CloseModal}" />
+        </EventTrigger>
+    </UserControl.Triggers>
+
     <Border Background="#000" Margin="20 30" CornerRadius="3">
         <StackPanel Margin="60 30">
             <DockPanel>
                 <Label DockPanel.Dock="Left" Content="Quản lý các hồ sơ của bạn" Foreground="#fff" FontSize="22" />
-                <Button DockPanel.Dock="Right" Background="#febb00" Width="120" VerticalAlignment="Center" VerticalContentAlignment="Center"
+                <Button x:Name="btnOpenModal"
+                        DockPanel.Dock="Right"
+                        Background="#febb00"
+                        VerticalAlignment="Center"
+                        Padding="16 0"
+                        VerticalContentAlignment="Center"
                         HorizontalContentAlignment="Stretch"
                         HorizontalAlignment="Right"
                         Height="40">
                     <DockPanel LastChildFill="True"
                                 HorizontalAlignment="Stretch">
-                        <materialDesign:PackIcon DockPanel.Dock="Left" Kind="Plus" VerticalAlignment="Center" Foreground="#000" />
-                        <Label DockPanel.Dock="Right" Content="Tạo mới" Margin="6 0 0 0" VerticalAlignment="Center" VerticalContentAlignment="Center" />
+                        <materialDesign:PackIcon DockPanel.Dock="Left" Kind="Plus" VerticalAlignment="Center" VerticalContentAlignment="Center" Foreground="#000" />
+                        <Label DockPanel.Dock="Right" Content="Tạo mới" VerticalAlignment="Center" VerticalContentAlignment="Center"
+                               Margin="0 0 0 2" />
                     </DockPanel>
                 </Button>
             </DockPanel>
-            <UniformGrid Margin="0 20 0 0" Columns="5">
+            <Canvas Panel.ZIndex="100">
+                <Border x:Name="ModalNewProfile"
+                        Canvas.Top="-500" Width="550" Height="340"
+                        CornerRadius="3" ClipToBounds="True"
+                        Background="#FF303030"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Canvas.Left="114">
+                    <Grid Width="{Binding ActualWidth, ElementName=ModalNewProfile}" Height="{Binding ActualHeight, ElementName=ModalNewProfile}">
+                        <StackPanel HorizontalAlignment="Center" Margin="0 20 0 0">
+                            <Label Content="TẠO HỒ SƠ MỚI" Foreground="White" FontSize="32"
+                                       FontWeight="DemiBold" HorizontalContentAlignment="Center"
+                                       Margin="0 12 0 0" />
+                            <Label Content="Tạo hồ sơ cho người dùng mới cùng xem phim" Foreground="#FFCFCFCF"
+                                       FontWeight="ExtraLight" HorizontalContentAlignment="Center" />
+                            <DockPanel LastChildFill="True" Margin="0 16 0 0">
+                                <Border Margin="0 0 16 0" BorderBrush="#FFCDCDCD" BorderThickness="0.2">
+                                    <Image DockPanel.Dock="Left"
+                                            Source="/Images/logo.png"
+                                            Width="60" Height="60"
+                                            Stretch="UniformToFill"
+                                           Cursor="Hand" />
+                                </Border>
+                                <TextBox materialDesign:HintAssist.Foreground="#fff"
+                                         materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                         materialDesign:HintAssist.HintOpacity="0.8"
+                                         materialDesign:HintAssist.Hint="Username"
+                                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                         VerticalAlignment="Center"
+                                         Padding="12 0"
+                                         Background="#FF4B4B4B"
+                                         Foreground="#fff"
+                                         FontSize="11"
+                                         CaretBrush="#febb00"
+                                         Height="34" />
+                            </DockPanel>
+                            <Grid Margin="0 40 0 0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Button Grid.Column="0"
+                                        Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                                        HorizontalAlignment="Right"
+                                        Margin="0 0 20 0"
+                                        Background="#febb00"
+                                        Foreground="#000"
+                                        materialDesign:ButtonAssist.CornerRadius="3"
+                                        Width="100"
+                                        Height="32"
+                                        ToolTip="Lưu"
+                                        Content="Lưu" />
+                                <Button Grid.Column="1"
+                                        x:Name="btnCancelModal"
+                                        Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                                        HorizontalAlignment="Left"
+                                        Margin="20 0 0 0"
+                                        Background="#707070"
+                                        Foreground="#fff"
+                                        materialDesign:ButtonAssist.CornerRadius="3"
+                                        Width="100"
+                                        Height="32"
+                                        ToolTip="Huỷ"
+                                        Content="Huỷ" />
+                            </Grid>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </Canvas>
+
+            <UniformGrid Margin="0 20 0 0" Columns="5" Panel.ZIndex="1">
                 <Ellipse Width="48" Height="48" StrokeThickness="1" Stroke="#fff" Margin="0 16">
                     <Ellipse.Fill>
                         <ImageBrush ImageSource="/Images/logo.png" Stretch="UniformToFill" />

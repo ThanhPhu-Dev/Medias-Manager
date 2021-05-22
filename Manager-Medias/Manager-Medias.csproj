@@ -114,6 +114,9 @@
     <Compile Include="Views\Profile\MainProfileView.xaml.cs">
       <DependentUpon>MainProfileView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Profile\ProfileManager.xaml.cs">
+      <DependentUpon>ProfileManager.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -189,6 +192,10 @@
     <Page Include="Views\Profile\MainProfileView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Profile\ProfileManager.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>

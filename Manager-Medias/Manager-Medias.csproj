@@ -106,8 +106,20 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ViewModels\DetailMovie.cs" />
+    <Compile Include="Views\Admin\AccountManagerUserControl.xaml.cs">
+      <DependentUpon>AccountManagerUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Admin\DashboardAdmin.xaml.cs">
       <DependentUpon>DashboardAdmin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\MainDashBoardAdminUserControl.xaml.cs">
+      <DependentUpon>MainDashBoardAdminUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Audio\DetailAudioView.xaml.cs">
+      <DependentUpon>DetailAudioView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Audio\HomeAudioView.xaml.cs">
+      <DependentUpon>HomeAudioView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Customer\ForgetPassword.xaml.cs">
       <DependentUpon>ForgetPassword.xaml</DependentUpon>
@@ -130,9 +142,6 @@
     <Compile Include="Views\Layouts\MainLayoutView.xaml.cs">
       <DependentUpon>MainLayoutView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Layouts\SidebarView.xaml.cs">
-      <DependentUpon>SidebarView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Customer\MainCustomerView.xaml.cs">
       <DependentUpon>MainCustomerView.xaml</DependentUpon>
     </Compile>
@@ -151,6 +160,9 @@
     <Compile Include="Views\Profile\MainProfileView.xaml.cs">
       <DependentUpon>MainProfileView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Profile\ProfileManager.xaml.cs">
+      <DependentUpon>ProfileManager.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -163,7 +175,23 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\Admin\AccountManagerUserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\Admin\DashboardAdmin.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Admin\MainDashBoardAdminUserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Audio\DetailAudioView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Audio\HomeAudioView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -195,10 +223,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Layouts\SidebarView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\Customer\MainCustomerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -222,6 +246,10 @@
     <Page Include="Views\Profile\MainProfileView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Profile\ProfileManager.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -265,9 +293,7 @@
   <ItemGroup>
     <Resource Include="Images\desktop.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\Images\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Images\backgroundForgetPassword.jpg" />
   </ItemGroup>

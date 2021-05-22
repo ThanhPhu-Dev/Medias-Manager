@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Manager_Medias.Views.Layouts
+namespace Manager_Medias.Views.Audio
 {
     /// <summary>
-    /// Interaction logic for SidebarView.xaml
+    /// Interaction logic for HomeAudioView.xaml
     /// </summary>
-    public partial class SidebarView : UserControl
+    public partial class HomeAudioView : UserControl
     {
-        public SidebarView()
+        public HomeAudioView()
         {
             InitializeComponent();
         }

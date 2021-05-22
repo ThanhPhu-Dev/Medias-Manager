@@ -108,13 +108,13 @@
                 >
             <Grid >
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="0.3*"/>
+                    <RowDefinition Height="0.45*"/>
                     <RowDefinition Height="4*"/>
                     <RowDefinition Height="1.5*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
-                    <ColumnDefinition Width="6*"/>
+                    <ColumnDefinition Width="6.5*"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Ellipse Grid.Row="1"
@@ -175,12 +175,20 @@
                             <ToggleButton.Style>
                                 <Style TargetType="{x:Type ToggleButton}">
                                     <Setter Property="Content" Value="{materialDesign:PackIcon PlayCircleOutline, Size=55}" />
+                                    <Setter Property="Template" >
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="ToggleButton">
+                                                <Border>
+                                                    <ContentPresenter/>
+                                                </Border>
+                                                
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
                                     <Style.Triggers>
                                         <Trigger Property="IsChecked" Value="True">
-                                            <Setter Property="Content" Value="{materialDesign:PackIcon Equal, Size=55}" />
-                                        </Trigger>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Background" Value="Black"/>
+                                            <Setter Property="Content" Value="{materialDesign:PackIcon Pause, Size=55}" />
+                                            <Setter Property="Background" Value="Transparent" />
                                         </Trigger>
                                     </Style.Triggers>
                                 </Style>

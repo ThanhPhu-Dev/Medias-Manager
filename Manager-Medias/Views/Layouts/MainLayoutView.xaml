@@ -132,9 +132,9 @@
 
         <Grid Grid.Row="1">
             <ContentControl>
-                <profile:MainProfileView />
-                <!--<audio:DetailAudioView />-->
+                <!--<profile:MainProfileView />-->
+                <audio:DetailAudioView />
             </ContentControl>
-        </ScrollViewer>
+        </Grid>
     </Grid>
 </Window>

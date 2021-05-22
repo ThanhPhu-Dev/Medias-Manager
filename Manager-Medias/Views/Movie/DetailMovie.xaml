@@ -18,19 +18,27 @@
         <Style TargetType="TextBlock">
             <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
-        <Style TargetType="MediaElement" x:Name="media">
-            <Setter Property="Height" Value="570"/>
-            <!--<Style.Triggers>
-                <Trigger Property="play.Is">
-                    
-                </Trigger>
-            </Style.Triggers>-->
+        <Style TargetType="MediaElement">
+            <Setter Property="Height" Value="0"/>
         </Style>
-        
+        <!--<Storyboard x:Key="mediaOpen">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="media">
+                <EasingDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="570" />
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>-->
+        <Storyboard x:Key="SidebarClose">
+        </Storyboard>
     </UserControl.Resources>
+    <!--<UserControl.Triggers>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="play">
+            <BeginStoryboard Storyboard="{StaticResource mediaOpen}" />
+        </EventTrigger>
+    </UserControl.Triggers>-->
     <ScrollViewer Background="Black" Width="1200">
         <StackPanel>
-            <MediaElement           
+            <MediaElement
+                x:Name="mea_video"
             Source="D:\Phú\LT Ứng Dụng 2\Medias-Manager\Manager-Medias\bin\Debug\Images/video.mp4"
             LoadedBehavior="Play"/>
             <Grid>
@@ -83,8 +91,20 @@
                         </Button>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Grid.Row="3">
+                        <StackPanel.Triggers>
+                            <EventTrigger RoutedEvent="Button.Click" SourceName="play">
+                                <BeginStoryboard Name="MyBeginStoryboard">
+                                    <Storyboard>
+                                        <DoubleAnimation 
+                                            Storyboard.TargetName="mea_video" 
+                                            Storyboard.TargetProperty="Height" 
+                                            Duration="0:0:0" From="0" To="570" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </StackPanel.Triggers>
                         <Button
-                            x:Name="play"
+                            Name="play"
                             Width="100"
                             Height="30"
                             Background="Black"
@@ -95,15 +115,6 @@
                                 <materialDesign:PackIcon Kind="PlayCircle" Foreground="#fb0"/>
                                 <TextBlock Text="Play" Foreground="#fb0" Margin="5 0 0 0"/>
                             </StackPanel>
-                            <!--<Button.Style>
-                                <Style TargetType="Button">
-                                    <Style.Triggers>
-                                        <Trigger Property="IsPressed">
-                                            <Setter Property="media.height" Value="570"/>
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Button.Style>-->
                         </Button>
                         <Button 
                             Width="100"

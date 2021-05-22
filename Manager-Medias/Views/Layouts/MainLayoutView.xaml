@@ -6,6 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Manager_Medias.Views.Layouts"
         xmlns:profile="clr-namespace:Manager_Medias.Views.Profile"
+        xmlns:audio="clr-namespace:Manager_Medias.Views.Audio"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Title="MainLayoutView" Height="650" Width="1200">

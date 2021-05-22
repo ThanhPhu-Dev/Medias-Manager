@@ -75,6 +75,12 @@
     <Compile Include="Views\Admin\MainDashBoardAdminUserControl.xaml.cs">
       <DependentUpon>MainDashBoardAdminUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Audio\DetailAudioView.xaml.cs">
+      <DependentUpon>DetailAudioView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Audio\HomeAudioView.xaml.cs">
+      <DependentUpon>HomeAudioView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Customer\ForgetPassword.xaml.cs">
       <DependentUpon>ForgetPassword.xaml</DependentUpon>
     </Compile>
@@ -140,6 +146,14 @@
     <Page Include="Views\Admin\MainDashBoardAdminUserControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Audio\DetailAudioView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Audio\HomeAudioView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Customer\ForgetPassword.xaml">
       <SubType>Designer</SubType>

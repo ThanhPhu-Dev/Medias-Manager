@@ -253,9 +253,7 @@
   <ItemGroup>
     <Resource Include="Images\desktop.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\Images\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Images\backgroundForgetPassword.jpg" />
   </ItemGroup>

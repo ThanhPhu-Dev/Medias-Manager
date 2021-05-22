@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Manager_Medias.Views.Layouts
+namespace Manager_Medias.Views.Profile
 {
     /// <summary>
-    /// Interaction logic for SidebarView.xaml
+    /// Interaction logic for ProfileManager.xaml
     /// </summary>
-    public partial class SidebarView : UserControl
+    public partial class ProfileManager : UserControl
     {
-        public SidebarView()
+        public ProfileManager()
         {
             InitializeComponent();
         }

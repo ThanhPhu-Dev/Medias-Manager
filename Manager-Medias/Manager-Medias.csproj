@@ -102,9 +102,6 @@
     <Compile Include="Views\Layouts\MainLayoutView.xaml.cs">
       <DependentUpon>MainLayoutView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Layouts\SidebarView.xaml.cs">
-      <DependentUpon>SidebarView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Customer\MainCustomerView.xaml.cs">
       <DependentUpon>MainCustomerView.xaml</DependentUpon>
     </Compile>
@@ -119,6 +116,9 @@
     </Compile>
     <Compile Include="Views\Profile\MainProfileView.xaml.cs">
       <DependentUpon>MainProfileView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Profile\ProfileManager.xaml.cs">
+      <DependentUpon>ProfileManager.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -180,10 +180,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Layouts\SidebarView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\Customer\MainCustomerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -203,6 +199,10 @@
     <Page Include="Views\Profile\MainProfileView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Profile\ProfileManager.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -246,9 +246,7 @@
   <ItemGroup>
     <Resource Include="Images\desktop.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\Images\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Images\backgroundForgetPassword.jpg" />
   </ItemGroup>

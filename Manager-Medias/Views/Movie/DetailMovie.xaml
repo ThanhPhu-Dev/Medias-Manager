@@ -27,6 +27,8 @@
                 <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="570" />
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>-->
+        <Storyboard x:Key="SidebarClose">
+        </Storyboard>
     </UserControl.Resources>
     <!--<UserControl.Triggers>
         <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="play">
@@ -38,6 +40,8 @@
             <MediaElement
                 x:Name="media"
             Source="D:\Phú\LT Ứng Dụng 2\Medias-Manager\Manager-Medias\bin\Debug\Images/video.mp4"
+            <MediaElement Name="mea_video"           
+            Source="F:\2021 - 2022\UDQL2\Project\Medias-Manager\Manager-Medias\bin\Debug\Images\video.mp4"
             LoadedBehavior="Play"/>
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -89,8 +93,20 @@
                         </Button>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Grid.Row="3">
+                        <StackPanel.Triggers>
+                            <EventTrigger RoutedEvent="Button.Click" SourceName="play">
+                                <BeginStoryboard Name="MyBeginStoryboard">
+                                    <Storyboard >
+                                        <DoubleAnimation 
+                                            Storyboard.TargetName="mea_video" 
+                                            Storyboard.TargetProperty="Height" 
+                                            Duration="0:0:0" From="600" To="0" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </StackPanel.Triggers>
                         <Button
-                            x:Name="play"
+                            Name="play"
                             Width="100"
                             Height="30"
                             Background="Black"

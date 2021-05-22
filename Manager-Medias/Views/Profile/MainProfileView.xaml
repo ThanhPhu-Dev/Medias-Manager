@@ -71,7 +71,7 @@
             </StackPanel>
         </Border>
         <ContentControl Grid.Column="1">
-            <local:AccountView />
+            <local:ProfileManager />
         </ContentControl>
     </Grid>
 </UserControl>

@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Manager_Medias.Views.Audio"
-             mc:Ignorable="d"
+             mc:Ignorable="d" 
              d:DesignHeight="585" d:DesignWidth="1200"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
     <UserControl.Resources>
@@ -54,12 +54,14 @@
                 <TextBlock Text="{Binding name}"
                            FontSize="17"
                            Foreground="#fff"
-                           Grid.Column="1" />
+                           Grid.Column="1"
+                           VerticalAlignment="Center"/>
                 <TextBlock Text="{Binding time}"
                            HorizontalAlignment="Right"
                            FontSize="17"
                            Foreground="#fff"
-                           Grid.Column="2" />
+                           Grid.Column="2"
+                           VerticalAlignment="Center"/>
             </Grid>
         </DataTemplate>
         <Style x:Key="_ListBoxItemStyle" TargetType="ListBoxItem">
@@ -84,8 +86,10 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        
     </UserControl.Resources>
-    <Grid Background="Black" Height="585" Width="1200">
+    <Grid Background="Black">
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition Width="2*" />
@@ -93,24 +97,25 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition Height="5*" />
+            <RowDefinition Height="0.6*"/>
+            <RowDefinition Height="5*"/>
             <RowDefinition />
         </Grid.RowDefinitions>
 
         <Border Grid.Row="1" Grid.Column="1"
-                Background="#171717"
-                CornerRadius="8">
-            <Grid>
+                Background="#FF070707" 
+                CornerRadius="8"
+                >
+            <Grid >
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="0.7*" />
-                    <RowDefinition Height="4.3*" />
-                    <RowDefinition Height="1.5*" />
+                    <RowDefinition Height="0.45*"/>
+                    <RowDefinition Height="4*"/>
+                    <RowDefinition Height="1.5*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition Width="5*" />
-                    <ColumnDefinition />
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="6.5*"/>
+                    <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Ellipse Grid.Row="1"
                          Grid.Column="1"
@@ -122,13 +127,22 @@
                             <GradientStop Color="#febb00" Offset="0.6" />
                         </LinearGradientBrush>
                     </Ellipse.Stroke>
+                    <!--<Ellipse.Fill>
+                        <ImageBrush ImageSource="/Images/logo.png"/>
+                    </Ellipse.Fill>-->
+                </Ellipse>
+                <Ellipse Grid.Row="1"
+                         Grid.Column="1"
+                         StrokeThickness="3"
+                         Margin="7">
                     <Ellipse.Fill>
-                        <ImageBrush ImageSource="/Images/logo.png" />
+                        <ImageBrush ImageSource="/Images/mobiledownload.PNG"/>
                     </Ellipse.Fill>
                 </Ellipse>
                 <StackPanel Grid.ColumnSpan="3"
                             Grid.Row="2"
-                            Margin="10">
+                            Margin="10"
+                            VerticalAlignment="Center">
                     <Slider
                         TickFrequency="5"
                         Orientation="Horizontal"
@@ -138,18 +152,53 @@
 
                     <StackPanel Orientation="Horizontal"
                                 HorizontalAlignment="Center">
-                        <materialDesign:PackIcon Kind="Autorenew"
-                                                 Style="{StaticResource iconPlay}" />
-                        <materialDesign:PackIcon Kind="SkipPrevious"
-                                                 Style="{StaticResource iconPlay}" />
-                        <materialDesign:PackIcon Kind="PlayCircleOutline"
-                                                 Foreground="#febb00"
+                        <materialDesign:PackIcon Kind="Autorenew" 
+                                                 Style="{StaticResource iconPlay}"/>
+                        <materialDesign:PackIcon Kind="SkipPrevious" 
+                                                 Style="{StaticResource iconPlay}"/>
+                        
+                            <!--<materialDesign:PackIcon Kind="PlayCircleOutline" 
+                                                 Foreground="#febb00" 
                                                  Width="55"
-                                                 Height="55" />
-                        <materialDesign:PackIcon Kind="SkipNext"
-                                                 Style="{StaticResource iconPlay}" />
-                        <materialDesign:PackIcon Kind="ShuffleVariant"
-                                                 Style="{StaticResource iconPlay}" />
+                                                 Height="55"
+                                                     VerticalAlignment="Center"/>-->
+                        <!--<Button Content="{materialDesign:PackIcon PlayCircleOutline, Size=55}"
+                                ToolTip="Icon"
+                                Width="55"
+                                Height="55"
+                                Padding="0"/>-->
+                        <ToggleButton Width="55" Height="55" Padding="0" 
+                                      Background="Transparent" 
+                                      Foreground="#febb00"
+                                      BorderThickness="0"
+                                      Cursor="Hand">
+                            <ToggleButton.Style>
+                                <Style TargetType="{x:Type ToggleButton}">
+                                    <Setter Property="Content" Value="{materialDesign:PackIcon PlayCircleOutline, Size=55}" />
+                                    <Setter Property="Template" >
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="ToggleButton">
+                                                <Border>
+                                                    <ContentPresenter/>
+                                                </Border>
+                                                
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsChecked" Value="True">
+                                            <Setter Property="Content" Value="{materialDesign:PackIcon Pause, Size=55}" />
+                                            <Setter Property="Background" Value="Transparent" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ToggleButton.Style>
+                        </ToggleButton>
+                        <!--<materialDesign:PackIcon Kind="Equal" />-->
+                        <materialDesign:PackIcon Kind="SkipNext" 
+                                                 Style="{StaticResource iconPlay}"/>
+                        <materialDesign:PackIcon Kind="ShuffleVariant" 
+                                                 Style="{StaticResource iconPlay}"/>
                     </StackPanel>
                 </StackPanel>
             </Grid>
@@ -166,11 +215,57 @@
                        FontWeight="DemiBold"
                        Margin="60 0 0 0" />
             <ListBox Grid.Row="1"
-                     ScrollViewer.VerticalScrollBarVisibility="Hidden"
                  HorizontalContentAlignment="Stretch"
                  ItemsSource="{Binding}"
                  Margin="30 0 15 0"
-                 ItemContainerStyle="{DynamicResource _ListBoxItemStyle}" />
+                 ItemContainerStyle="{DynamicResource _ListBoxItemStyle}" >
+                <ListBox.Resources>
+                    <Style TargetType="Thumb">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate>
+                                    <Grid x:Name="Grid">
+                                        <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" 
+                                           Height="Auto" Fill="Transparent"/>
+                                        <Border x:Name="Rectangle1" CornerRadius="4" HorizontalAlignment="Stretch" 
+                                        VerticalAlignment="Stretch" Width="Auto" Height="Auto" 
+                                        Background="{TemplateBinding Background}"/>
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="Tag" Value="Horizontal">
+                                            <Setter TargetName="Rectangle1" Property="Width" Value="Auto"/>
+                                            <Setter TargetName="Rectangle1" Property="Height" Value="7"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                    <Style TargetType="ScrollBar">
+                        <!--<Setter Property="Background" Value="#FF876400"/>-->
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ScrollBar">
+                                    <Grid x:Name="GridRoot" Width="6" Background="{x:Null}">
+                                        <Track x:Name="PART_Track" Grid.Row="0" IsDirectionReversed="true" Focusable="False">
+                                            <Track.Thumb>
+                                                <Thumb x:Name="Thumb" Background="#FF876400" 
+                                               Style="{DynamicResource ScrollThumbs}"/>
+                                            </Track.Thumb>
+                                            <Track.IncreaseRepeatButton>
+                                                <RepeatButton x:Name="PageUp" Command="ScrollBar.PageDownCommand" Opacity="0" Focusable="False"/>
+                                            </Track.IncreaseRepeatButton>
+                                            <Track.DecreaseRepeatButton>
+                                                <RepeatButton x:Name="PageDown" Command="ScrollBar.PageUpCommand" Opacity="0" Focusable="False"/>
+                                            </Track.DecreaseRepeatButton>
+                                        </Track>
+                                    </Grid>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.Resources>
+            </ListBox>
         </Grid>
     </Grid>
 </UserControl>

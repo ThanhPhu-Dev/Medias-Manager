@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Manager_Medias.Views.Audio"
              mc:Ignorable="d" 
-             d:DesignHeight="650" d:DesignWidth="1200"
+             d:DesignHeight="585" d:DesignWidth="1200"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
     <UserControl.Resources>
         <Style TargetType="materialDesign:PackIcon" x:Key="iconPlay">
@@ -54,12 +54,14 @@
                 <TextBlock Text="{Binding name}"
                            FontSize="17"
                            Foreground="#fff"
-                           Grid.Column="1"/>
+                           Grid.Column="1"
+                           VerticalAlignment="Center"/>
                 <TextBlock Text="{Binding time}"
                            HorizontalAlignment="Right"
                            FontSize="17"
                            Foreground="#fff"
-                           Grid.Column="2"/>
+                           Grid.Column="2"
+                           VerticalAlignment="Center"/>
             </Grid>
         </DataTemplate>
         <Style x:Key="_ListBoxItemStyle" TargetType="ListBoxItem">
@@ -84,6 +86,8 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        
     </UserControl.Resources>
     <Grid Background="Black">
         <Grid.ColumnDefinitions>
@@ -93,24 +97,24 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition />
+            <RowDefinition Height="0.6*"/>
             <RowDefinition Height="5*"/>
             <RowDefinition />
         </Grid.RowDefinitions>
 
         <Border Grid.Row="1" Grid.Column="1"
-                Background="#171717" 
+                Background="#FF070707" 
                 CornerRadius="8"
                 >
             <Grid >
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="0.7*"/>
-                    <RowDefinition Height="4.3*"/>
+                    <RowDefinition Height="0.3*"/>
+                    <RowDefinition Height="4*"/>
                     <RowDefinition Height="1.5*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
-                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="6*"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Ellipse Grid.Row="1"
@@ -123,14 +127,22 @@
                             <GradientStop Color="#febb00" Offset="0.6"/>
                         </LinearGradientBrush>
                     </Ellipse.Stroke>
-                    <Ellipse.Fill>
+                    <!--<Ellipse.Fill>
                         <ImageBrush ImageSource="/Images/logo.png"/>
+                    </Ellipse.Fill>-->
+                </Ellipse>
+                <Ellipse Grid.Row="1"
+                         Grid.Column="1"
+                         StrokeThickness="3"
+                         Margin="7">
+                    <Ellipse.Fill>
+                        <ImageBrush ImageSource="/Images/mobiledownload.PNG"/>
                     </Ellipse.Fill>
                 </Ellipse>
                 <StackPanel Grid.ColumnSpan="3"
                             Grid.Row="2"
                             Margin="10"
-                            >
+                            VerticalAlignment="Center">
                     <Slider
                         TickFrequency="5"
                         Orientation="Horizontal"
@@ -144,10 +156,37 @@
                                                  Style="{StaticResource iconPlay}"/>
                         <materialDesign:PackIcon Kind="SkipPrevious" 
                                                  Style="{StaticResource iconPlay}"/>
-                        <materialDesign:PackIcon Kind="PlayCircleOutline" 
+                        
+                            <!--<materialDesign:PackIcon Kind="PlayCircleOutline" 
                                                  Foreground="#febb00" 
                                                  Width="55"
-                                                 Height="55"/>
+                                                 Height="55"
+                                                     VerticalAlignment="Center"/>-->
+                        <!--<Button Content="{materialDesign:PackIcon PlayCircleOutline, Size=55}"
+                                ToolTip="Icon"
+                                Width="55"
+                                Height="55"
+                                Padding="0"/>-->
+                        <ToggleButton Width="55" Height="55" Padding="0" 
+                                      Background="Transparent" 
+                                      Foreground="#febb00"
+                                      BorderThickness="0"
+                                      Cursor="Hand">
+                            <ToggleButton.Style>
+                                <Style TargetType="{x:Type ToggleButton}">
+                                    <Setter Property="Content" Value="{materialDesign:PackIcon PlayCircleOutline, Size=55}" />
+                                    <Style.Triggers>
+                                        <Trigger Property="IsChecked" Value="True">
+                                            <Setter Property="Content" Value="{materialDesign:PackIcon Equal, Size=55}" />
+                                        </Trigger>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="Black"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ToggleButton.Style>
+                        </ToggleButton>
+                        <!--<materialDesign:PackIcon Kind="Equal" />-->
                         <materialDesign:PackIcon Kind="SkipNext" 
                                                  Style="{StaticResource iconPlay}"/>
                         <materialDesign:PackIcon Kind="ShuffleVariant" 

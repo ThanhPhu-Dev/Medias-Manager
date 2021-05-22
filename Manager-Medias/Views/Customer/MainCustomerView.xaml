@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Manager_Medias.Views.Customer"
         xmlns:us="clr-namespace:Manager_Medias.Views.Customer.Register"
+        xmlns:test="clr-namespace:Manager_Medias.Views.Audio"
         mc:Ignorable="d"
         Title="MainCustomerView" Height="650" Width="1200"
         WindowStartupLocation="CenterScreen">
@@ -60,7 +61,7 @@
         </Border>
 
         <Grid Grid.Row="1">
-            <us:CartRegisterView/>
+            <test:DetailAudioView/>
         </Grid>
     </Grid>
 </Window>

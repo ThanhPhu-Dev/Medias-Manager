@@ -5,8 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Manager_Medias.Views.Layouts"
-        xmlns:profile="clr-namespace:Manager_Medias.Views.Profile"
-        xmlns:audio="clr-namespace:Manager_Medias.Views.Audio"
+        xmlns:profile="clr-namespace:Manager_Medias.Views.Movie"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Title="MainLayoutView" Height="650" Width="1200">
@@ -132,8 +131,7 @@
 
         <Grid Grid.Row="1">
             <ContentControl>
-                <profile:MainProfileView />
-                <!--<audio:DetailAudioView />-->
+                <profile:DetailMovie />
             </ContentControl>
         </Grid>
     </Grid>

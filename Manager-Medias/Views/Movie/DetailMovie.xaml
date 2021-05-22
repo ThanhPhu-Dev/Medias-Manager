@@ -38,10 +38,8 @@
     <ScrollViewer Background="Black" Width="1200">
         <StackPanel>
             <MediaElement
-                x:Name="media"
+                x:Name="mea_video"
             Source="D:\Phú\LT Ứng Dụng 2\Medias-Manager\Manager-Medias\bin\Debug\Images/video.mp4"
-            <MediaElement Name="mea_video"           
-            Source="F:\2021 - 2022\UDQL2\Project\Medias-Manager\Manager-Medias\bin\Debug\Images\video.mp4"
             LoadedBehavior="Play"/>
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -96,11 +94,11 @@
                         <StackPanel.Triggers>
                             <EventTrigger RoutedEvent="Button.Click" SourceName="play">
                                 <BeginStoryboard Name="MyBeginStoryboard">
-                                    <Storyboard >
+                                    <Storyboard>
                                         <DoubleAnimation 
                                             Storyboard.TargetName="mea_video" 
                                             Storyboard.TargetProperty="Height" 
-                                            Duration="0:0:0" From="600" To="0" />
+                                            Duration="0:0:0" From="0" To="570" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>

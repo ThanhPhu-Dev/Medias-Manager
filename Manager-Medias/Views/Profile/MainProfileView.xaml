@@ -77,7 +77,7 @@
                                FontSize="16"
                                HorizontalContentAlignment="Left"
                                HorizontalAlignment="Left" />
-                    </StackPanel>
+            </StackPanel>
                 </Button>
 
                 <Button Style="{StaticResource BtnNav}" Tag="AccountGroupOutline">

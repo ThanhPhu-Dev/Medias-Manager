@@ -18,12 +18,10 @@ namespace Manager_Medias
     {
         protected override void OnStartup(StartupEventArgs e)
         {
-            NavigationStore navigationStore = new NavigationStore();
-            navigationStore.ContentViewModel = new DetailAudioViewModel();
-
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("NDUwNjgwQDMxMzkyZTMxMmUzMEFCRUZSUzU4RGNhTGo0eHkvMW9YYVJkMUd5UXhxbTdaNTdtSFFJSS84dlU9");
             MainWindow = new MainWindow()
             {
-                DataContext = new MainViewModel(navigationStore)
+                DataContext = new MainViewModel()
             };
             MainWindow.Show();
 

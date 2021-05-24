@@ -61,7 +61,7 @@
         </Border>
 
         <Grid Grid.Row="1">
-            <test:DetailAudioView/>
+            <us:LevelRegisterView/>
         </Grid>
     </Grid>
 </Window>

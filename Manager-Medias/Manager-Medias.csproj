@@ -141,6 +141,7 @@
     <Compile Include="Commands\CommandBase.cs" />
     <Compile Include="Commands\NavigateCommand.cs" />
     <Compile Include="Services\NavigationService.cs" />
+    <Compile Include="Services\ParameterNavigationService.cs" />
     <Compile Include="Stores\AccountStore.cs" />
     <Compile Include="Stores\NavigationStore.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
@@ -209,6 +210,9 @@
       <DependentUpon>MediasManagement.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\DetailMovie.cs" />
+    <Compile Include="ViewModels\Guest\GuestHomeViewModel.cs" />
+    <Compile Include="ViewModels\Guest\GuestLoginViewModel.cs" />
+    <Compile Include="ViewModels\Guest\GuestMainViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Views\Admin\AccountManagerUserControl.xaml.cs">
       <DependentUpon>AccountManagerUserControl.xaml</DependentUpon>
@@ -231,6 +235,9 @@
     <Compile Include="Views\Customer\HomeCustomerView.xaml.cs">
       <DependentUpon>HomeCustomerView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Customer\MainCustomerView.xaml.cs">
+      <DependentUpon>MainCustomerView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Customer\Register\CartRegisterView.xaml.cs">
       <DependentUpon>CartRegisterView.xaml</DependentUpon>
     </Compile>
@@ -251,9 +258,6 @@
     </Compile>
     <Compile Include="Views\Home\HomeSuggestions.xaml.cs">
       <DependentUpon>HomeSuggestions.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Customer\MainCustomerView.xaml.cs">
-      <DependentUpon>MainCustomerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Layouts\MainLayoutView.xaml.cs">
       <DependentUpon>MainLayoutView.xaml</DependentUpon>
@@ -315,6 +319,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Customer\MainCustomerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Customer\Register\CartRegisterView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -344,10 +352,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Customer\HomeCustomerView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Customer\MainCustomerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

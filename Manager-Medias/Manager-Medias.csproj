@@ -116,6 +116,8 @@
     </ApplicationDefinition>
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\Customer\HomeViewModel.cs" />
+    <Compile Include="ViewModels\Customer\LayoutViewModel.cs" />
+    <Compile Include="ViewModels\Customer\ProfileViewModel.cs" />
     <Compile Include="ViewModels\DetailMovie.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Views\Admin\AccountManagerUserControl.xaml.cs">

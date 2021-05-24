@@ -5,6 +5,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Manager_Medias.Views.Layouts"
+             xmlns:viewmodels="clr-namespace:Manager_Medias.ViewModels.Customer"
+             xmlns:vhome="clr-namespace:Manager_Medias.Views.Home"
+             xmlns:vprofile="clr-namespace:Manager_Medias.Views.Profile"
              mc:Ignorable="d"
              d:DesignHeight="650" d:DesignWidth="1200">
     <UserControl.Resources>
@@ -216,8 +219,15 @@
         </Canvas>
 
         <Grid Grid.Row="1">
-            <ContentControl>
-            </ContentControl>
+            <Grid.Resources>
+                <!--<DataTemplate DataType="{x:Type viewmodels:HomeViewModel}">
+                    <vhome:Home />
+                </DataTemplate>-->
+                <DataTemplate DataType="{x:Type viewmodels:ProfileViewModel}">
+                    <vprofile:MainProfileView />
+                </DataTemplate>
+            </Grid.Resources>
+            <ContentControl Content="{Binding ContentViewModel}" />
         </Grid>
     </Grid>
 </UserControl>

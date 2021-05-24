@@ -13,7 +13,7 @@ namespace Manager_Medias.ViewModels
 
         public MainViewModel()
         {
-            CurrentViewModel = new HomeViewModel();
+            CurrentViewModel = new LayoutViewModel();
         }
     }
 }

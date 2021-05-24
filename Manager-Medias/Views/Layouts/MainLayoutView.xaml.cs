@@ -10,6 +10,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Manager_Medias.Views.Layouts
@@ -17,7 +18,7 @@ namespace Manager_Medias.Views.Layouts
     /// <summary>
     /// Interaction logic for MainLayoutView.xaml
     /// </summary>
-    public partial class MainLayoutView : Window
+    public partial class MainLayoutView : UserControl
     {
         public MainLayoutView()
         {

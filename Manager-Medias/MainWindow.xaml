@@ -4,13 +4,20 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Manager_Medias"
-        xmlns:uc="clr-namespace:Manager_Medias.Views.Layouts"
+        xmlns:viewmodels="clr-namespace:Manager_Medias.ViewModels"
+        xmlns:cusvm="clr-namespace:Manager_Medias.ViewModels.Customer"
+        xmlns:views="clr-namespace:Manager_Medias.Views.Layouts"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Title="MainWindow"
-        Height="800"
-        Width="1500">
+        Height="650"
+        Width="1200">
     <Grid x:Name="grid">
-        <!--<uc:Home />-->
+        <Grid.Resources>
+            <DataTemplate DataType="{x:Type cusvm:HomeViewModel}">
+                <views:MainLayoutView />
+            </DataTemplate>
+        </Grid.Resources>
+        <ContentControl Content="{Binding CurrentViewModel}" />
     </Grid>
 </Window>

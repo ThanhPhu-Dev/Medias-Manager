@@ -21,9 +21,9 @@ namespace Manager_Medias.Views.Home
     /// </summary>
     public partial class HomeSuggestions : UserControl
     {
-        MainWindow main;
+        private MainWindow main;
 
-        class CarouselModel
+        private class CarouselModel
         {
             public string Image { get; set; }
             public string Title { get; set; }
@@ -75,12 +75,12 @@ namespace Manager_Medias.Views.Home
 
         private void btnSwitchHome_Click(object sender, RoutedEventArgs e)
         {
-            main.SwitchScreen(new Home(main));
+            //main.SwitchScreen(new Home(main));
         }
 
         private void btnShowMore_Click(object sender, RoutedEventArgs e)
         {
-            main.SwitchScreen(new HomeFilters(main));
+            //main.SwitchScreen(new HomeFilters(main));
         }
     }
 }

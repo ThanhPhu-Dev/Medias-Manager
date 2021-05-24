@@ -18,15 +18,14 @@ namespace Manager_Medias.Views.Home
 {
     public partial class Home : UserControl
     {
-        MainWindow main;
+        private MainWindow main;
 
-        class CarouselModel
+        private class CarouselModel
         {
             public string Image { get; set; }
             public string Title { get; set; }
             public string Description { get; set; }
         }
-
 
         public Home(MainWindow main)
         {
@@ -66,12 +65,12 @@ namespace Manager_Medias.Views.Home
 
         private void btnSwitchHomeSuggestions_Click(object sender, RoutedEventArgs e)
         {
-            main.SwitchScreen(new HomeSuggestions(main)); //KHOA: tiếp tục truyền biến main để các user control khác sử dụng
+            //main.SwitchScreen(new HomeSuggestions(main)); //KHOA: tiếp tục truyền biến main để các user control khác sử dụng
         }
 
         private void cbbPhimLe_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            main.SwitchScreen(new HomeFilters(main));
+            //main.SwitchScreen(new HomeFilters(main));
         }
     }
 }

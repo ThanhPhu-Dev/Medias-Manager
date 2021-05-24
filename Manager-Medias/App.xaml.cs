@@ -1,4 +1,6 @@
-﻿using Manager_Medias.ViewModels;
+﻿using Manager_Medias.Stores;
+using Manager_Medias.ViewModels;
+using Manager_Medias.ViewModels.Customer;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -16,9 +18,12 @@ namespace Manager_Medias
     {
         protected override void OnStartup(StartupEventArgs e)
         {
+            NavigationStore navigationStore = new NavigationStore();
+            navigationStore.ContentViewModel = new DetailAudioViewModel();
+
             MainWindow = new MainWindow()
             {
-                DataContext = new MainViewModel()
+                DataContext = new MainViewModel(navigationStore)
             };
             MainWindow.Show();
 

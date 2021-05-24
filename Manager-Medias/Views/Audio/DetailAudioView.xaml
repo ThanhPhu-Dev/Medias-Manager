@@ -93,7 +93,8 @@
                     <RotateTransform x:Name="rotate_avatar" Angle="0"/>
                 </Setter.Value>
             </Setter>
-            --><!--<Style.Triggers>
+            -->
+        <!--<Style.Triggers>
                 <Trigger Property="IsEnabled" Value="True">
                     <Trigger.EnterActions>
                         <BeginStoryboard>
@@ -108,7 +109,8 @@
                         </BeginStoryboard>
                     </Trigger.EnterActions>
                 </Trigger>
-            </Style.Triggers>--><!--
+            </Style.Triggers>-->
+        <!--
         </Style>-->
         <Storyboard x:Key="Star_rotate">
             <DoubleAnimation
@@ -119,10 +121,14 @@
                         RepeatBehavior="Forever"/>
         </Storyboard>
     </UserControl.Resources>
+
     <UserControl.Triggers>
+        <!--khi nhấn play-->
         <EventTrigger RoutedEvent="ToggleButton.Checked" SourceName="btn_playvideo">
             <BeginStoryboard Name="anm_rotate" Storyboard="{StaticResource Star_rotate}" />
         </EventTrigger>
+        
+        <!--khi nhấn pause-->
         <EventTrigger RoutedEvent="ToggleButton.Unchecked" SourceName="btn_playvideo">
             <PauseStoryboard BeginStoryboardName="anm_rotate"/>
         </EventTrigger>
@@ -164,9 +170,6 @@
                             <GradientStop Color="#febb00" Offset="0.6" />
                         </LinearGradientBrush>
                     </Ellipse.Stroke>
-                    <!--<Ellipse.Fill>
-                        <ImageBrush ImageSource="/Images/logo.png"/>
-                    </Ellipse.Fill>-->
                 </Ellipse>
                 <Ellipse Grid.Row="1"
                          Grid.Column="1"
@@ -198,23 +201,13 @@
                         <materialDesign:PackIcon Kind="SkipPrevious" 
                                                  Style="{StaticResource iconPlay}"/>
 
-                        <!--<materialDesign:PackIcon Kind="PlayCircleOutline" 
-                                                 Foreground="#febb00" 
-                                                 Width="55"
-                                                 Height="55"
-                                                     VerticalAlignment="Center"/>-->
-                        <!--<Button Content="{materialDesign:PackIcon PlayCircleOutline, Size=55}"
-                                ToolTip="Icon"
-                                Width="55"
-                                Height="55"
-                                Padding="0"/>-->
                         <ToggleButton Width="55" Height="55" Padding="0" 
                                       Background="Transparent" 
                                       Foreground="#febb00"
                                       BorderThickness="0"
                                       Cursor="Hand"
                                       Name="btn_playvideo">
-                            
+
                             <ToggleButton.Style>
                                 <Style TargetType="{x:Type ToggleButton}">
                                     <Setter Property="Content" Value="{materialDesign:PackIcon PlayCircleOutline, Size=55}" />
@@ -232,16 +225,9 @@
                                         <Trigger Property="IsChecked" Value="True">
                                             <Setter Property="Content" Value="{materialDesign:PackIcon Pause, Size=55}" />
                                             <Setter Property="Background" Value="Transparent" />
-                                           
-                                            <!--<Trigger.EnterActions>
-                                                <BeginStoryboard Storyboard="{StaticResource Star_rotate}" Name="anm_rotate"/>
-                                            </Trigger.EnterActions>
-                                            <Trigger.ExitActions>
-                                                <StopStoryboard BeginStoryboardName="anm_rotate"/>
-                                            </Trigger.ExitActions>-->
                                         </Trigger>
                                     </Style.Triggers>
-                                    
+
                                 </Style>
                             </ToggleButton.Style>
                         </ToggleButton>

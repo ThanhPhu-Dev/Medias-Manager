@@ -1,4 +1,5 @@
-﻿using Manager_Medias.ViewModels.Customer;
+﻿using Manager_Medias.Stores;
+using Manager_Medias.ViewModels.Customer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +12,14 @@ namespace Manager_Medias.ViewModels
     {
         public BaseViewModel CurrentViewModel { get; }
 
-        public MainViewModel()
+        //public MainViewModel()
+        //{
+        //    CurrentViewModel = new LayoutViewModel();
+        //}
+
+        public MainViewModel(NavigationStore navigationStore)
         {
-            CurrentViewModel = new LayoutViewModel();
+            CurrentViewModel = new LayoutViewModel(navigationStore);
         }
     }
 }

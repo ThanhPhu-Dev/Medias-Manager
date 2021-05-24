@@ -103,7 +103,8 @@
                     HorizontalAlignment="Right"
                     HorizontalContentAlignment="Right"
                     Background="Transparent"
-                    BorderBrush="Transparent">
+                    BorderBrush="Transparent"
+                    Command="{Binding NavigateProfileCmd}">
                 <StackPanel Orientation="Horizontal"
                             VerticalAlignment="Center">
                     <materialDesign:PackIcon Kind="AccountCircleOutline"
@@ -221,14 +222,14 @@
 
         <Grid Grid.Row="1">
             <Grid.Resources>
-                <!--<DataTemplate DataType="{x:Type viewmodels:HomeViewModel}">
+                <DataTemplate DataType="{x:Type viewmodels:HomeViewModel}">
                     <vhome:Home />
-                </DataTemplate>-->
-                <!--<DataTemplate DataType="{x:Type viewmodels:ProfileViewModel}">
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type viewmodels:ProfileViewModel}">
                     <vprofile:MainProfileView />
-                </DataTemplate>-->
+                </DataTemplate>
                 <DataTemplate DataType="{x:Type viewmodels:DetailAudioViewModel}">
-                    <vaudio:DetailAudioView/>
+                    <vaudio:DetailAudioView />
                 </DataTemplate>
             </Grid.Resources>
             <ContentControl Content="{Binding ContentViewModel}" />

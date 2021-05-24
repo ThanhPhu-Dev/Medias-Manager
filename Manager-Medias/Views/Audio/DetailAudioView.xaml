@@ -230,7 +230,7 @@
                        Margin="60 0 0 0" />
             <ListBox Grid.Row="1"
                  HorizontalContentAlignment="Stretch"
-                 ItemsSource="{Binding}"
+                 ItemsSource="{Binding AudioList}"
                  Margin="30 0 15 0"
                  ItemContainerStyle="{DynamicResource _ListBoxItemStyle}" >
                 <ListBox.Resources>

@@ -88,7 +88,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-     
+
         <Storyboard x:Key="Star_rotate">
             <DoubleAnimation
                         Storyboard.TargetName="rotate_avatar"
@@ -104,7 +104,7 @@
         <EventTrigger RoutedEvent="ToggleButton.Checked" SourceName="btn_playvideo">
             <BeginStoryboard Name="anm_rotate" Storyboard="{StaticResource Star_rotate}" />
         </EventTrigger>
-        
+
         <!--khi nhấn pause-->
         <EventTrigger RoutedEvent="ToggleButton.Unchecked" SourceName="btn_playvideo">
             <PauseStoryboard BeginStoryboardName="anm_rotate"/>
@@ -231,6 +231,7 @@
             <ListBox Grid.Row="1"
                  HorizontalContentAlignment="Stretch"
                  ItemsSource="{Binding AudioList}"
+                 SelectedItem="{Binding SelectedAudio}"
                  Margin="30 0 15 0"
                  ItemContainerStyle="{DynamicResource _ListBoxItemStyle}" >
                 <ListBox.Resources>
@@ -280,6 +281,7 @@
                     </Style>
                 </ListBox.Resources>
             </ListBox>
+
         </Grid>
     </Grid>
 </UserControl>

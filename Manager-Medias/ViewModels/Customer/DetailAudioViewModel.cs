@@ -21,8 +21,11 @@ namespace Manager_Medias.ViewModels.Customer
             get => (ObservableCollection<Audio>)GetValue(AudioListProperty);
             set => SetValue(AudioListProperty, value);
         }
-        
-        //public Audio SelectedAudio
+
+        public Audio SelectedAudio { get => _selectedAudio; set => _selectedAudio = value; }
+
+        private Audio _selectedAudio;
+        //public Audio 
         //{
         //    get => (ObservableCollection<Audio>)GetValue(AudioListProperty);
         //    set => SetValue(AudioListProperty, value);
@@ -32,6 +35,9 @@ namespace Manager_Medias.ViewModels.Customer
             using (var db = new MediasManangementEntities())
             {
                 AudioList = new ObservableCollection<Audio>(db.Audios.ToList());
+
+                //set selcteditem for list audio
+                SelectedAudio = db.Audios.Where(a => a.Id == 1).Single() as Audio;
             }
         }
     }

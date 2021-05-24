@@ -1,19 +1,33 @@
-﻿using System;
+﻿using Manager_Medias.Commands;
+using Manager_Medias.Stores;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace Manager_Medias.ViewModels.Customer
 {
     public class LayoutViewModel : BaseViewModel
     {
-        public BaseViewModel ContentViewModel { get; }
+        private readonly NavigationStore _navigationStore;
 
-        public LayoutViewModel()
+        public BaseViewModel ContentViewModel => _navigationStore.ContentViewModel;
+
+        public ICommand NavigateProfileCmd { get; }
+
+        public LayoutViewModel(NavigationStore navigationStore)
         {
             //ContentViewModel = new ProfileViewModel();
-            ContentViewModel = new DetailAudioViewModel();
+            _navigationStore = navigationStore;
+            NavigateProfileCmd = new NavigateCommand<ProfileViewModel>(navigationStore, () => new ProfileViewModel());
+            _navigationStore.CurrentContentViewModelChanged += _navigationStore_CurrentContentViewModelChanged;
+        }
+
+        private void _navigationStore_CurrentContentViewModelChanged()
+        {
+            OnPropertyChanged(nameof(ContentViewModel));
         }
     }
 }

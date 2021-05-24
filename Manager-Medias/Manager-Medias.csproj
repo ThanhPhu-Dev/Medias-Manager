@@ -113,7 +113,9 @@
     <Reference Include="Syncfusion.Tools.WPF, Version=19.1460.0.64, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
       <HintPath>..\packages\Syncfusion.Tools.WPF.19.1.0.64\lib\net46\Syncfusion.Tools.WPF.dll</HintPath>
     </Reference>
-    <Reference Include="System" />
+    <Reference Include="System">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.dll</HintPath>
+    </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -141,6 +143,7 @@
     <Compile Include="Commands\CommandBase.cs" />
     <Compile Include="Commands\NavigateCommand.cs" />
     <Compile Include="Services\NavigationService.cs" />
+    <Compile Include="Services\ParameterNavigationService.cs" />
     <Compile Include="Stores\AccountStore.cs" />
     <Compile Include="Stores\NavigationStore.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
@@ -209,6 +212,9 @@
       <DependentUpon>MediasManagement.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\DetailMovie.cs" />
+    <Compile Include="ViewModels\Guest\GuestHomeViewModel.cs" />
+    <Compile Include="ViewModels\Guest\GuestLoginViewModel.cs" />
+    <Compile Include="ViewModels\Guest\GuestMainViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Views\Admin\AccountManagerUserControl.xaml.cs">
       <DependentUpon>AccountManagerUserControl.xaml</DependentUpon>
@@ -231,6 +237,9 @@
     <Compile Include="Views\Customer\HomeCustomerView.xaml.cs">
       <DependentUpon>HomeCustomerView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Customer\MainCustomerView.xaml.cs">
+      <DependentUpon>MainCustomerView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Customer\Register\CartRegisterView.xaml.cs">
       <DependentUpon>CartRegisterView.xaml</DependentUpon>
     </Compile>
@@ -251,9 +260,6 @@
     </Compile>
     <Compile Include="Views\Home\HomeSuggestions.xaml.cs">
       <DependentUpon>HomeSuggestions.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Customer\MainCustomerView.xaml.cs">
-      <DependentUpon>MainCustomerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Layouts\MainLayoutView.xaml.cs">
       <DependentUpon>MainLayoutView.xaml</DependentUpon>
@@ -315,6 +321,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Customer\MainCustomerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Customer\Register\CartRegisterView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -344,10 +354,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Customer\HomeCustomerView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Customer\MainCustomerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

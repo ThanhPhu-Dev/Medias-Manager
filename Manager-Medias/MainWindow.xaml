@@ -6,8 +6,10 @@
         xmlns:local="clr-namespace:Manager_Medias"
         xmlns:viewmodels="clr-namespace:Manager_Medias.ViewModels"
         xmlns:cusvm="clr-namespace:Manager_Medias.ViewModels.Customer"
+        xmlns:guestvm="clr-namespace:Manager_Medias.ViewModels.Guest"
         xmlns:layout="clr-namespace:Manager_Medias.Views.Layouts"
         xmlns:vhome="clr-namespace:Manager_Medias.Views.Home"
+        xmlns:vguest="clr-namespace:Manager_Medias.Views.Customer"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Title="MainWindow"
@@ -20,6 +22,9 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type cusvm:HomeViewModel}">
                 <vhome:Home />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type guestvm:GuestMainViewModel}">
+                <vguest:MainCustomerView />
             </DataTemplate>
         </Grid.Resources>
         <ContentControl Content="{Binding CurrentViewModel}" />

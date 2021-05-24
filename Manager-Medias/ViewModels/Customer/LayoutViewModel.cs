@@ -12,7 +12,8 @@ namespace Manager_Medias.ViewModels.Customer
 
         public LayoutViewModel()
         {
-            ContentViewModel = new ProfileViewModel();
+            //ContentViewModel = new ProfileViewModel();
+            ContentViewModel = new DetailAudioViewModel();
         }
     }
 }

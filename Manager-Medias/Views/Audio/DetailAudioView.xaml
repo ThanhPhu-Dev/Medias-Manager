@@ -86,8 +86,30 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style x:Key="Spinner" TargetType="Ellipse">
+            <Setter Property="Image.RenderTransform">
+                <Setter.Value>
+                    <RotateTransform Angle="0" />
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="True">
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation
+                                        Storyboard.TargetProperty="RenderTransform.Angle"
+                                        From="0"
+                                        To="360"
+                                        Duration="0:0:15"
+                                        RepeatBehavior="Forever" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
 
-        
     </UserControl.Resources>
     <Grid Background="Black">
         <Grid.ColumnDefinitions>
@@ -104,8 +126,7 @@
 
         <Border Grid.Row="1" Grid.Column="1"
                 Background="#FF070707" 
-                CornerRadius="8"
-                >
+                CornerRadius="8">
             <Grid >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="0.45*"/>
@@ -134,9 +155,11 @@
                 <Ellipse Grid.Row="1"
                          Grid.Column="1"
                          StrokeThickness="3"
-                         Margin="7">
+                         Margin="7"
+                         Style="{StaticResource Spinner}">
                     <Ellipse.Fill>
-                        <ImageBrush ImageSource="/Images/mobiledownload.PNG"/>
+                        <ImageBrush ImageSource="/Images/mobiledownload.PNG"
+                                    />
                     </Ellipse.Fill>
                 </Ellipse>
                 <StackPanel Grid.ColumnSpan="3"

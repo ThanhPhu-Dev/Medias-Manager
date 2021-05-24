@@ -8,6 +8,7 @@
              xmlns:viewmodels="clr-namespace:Manager_Medias.ViewModels.Customer"
              xmlns:vhome="clr-namespace:Manager_Medias.Views.Home"
              xmlns:vprofile="clr-namespace:Manager_Medias.Views.Profile"
+             xmlns:vaudio ="clr-namespace:Manager_Medias.Views.Audio"
              mc:Ignorable="d"
              d:DesignHeight="650" d:DesignWidth="1200">
     <UserControl.Resources>
@@ -223,8 +224,11 @@
                 <!--<DataTemplate DataType="{x:Type viewmodels:HomeViewModel}">
                     <vhome:Home />
                 </DataTemplate>-->
-                <DataTemplate DataType="{x:Type viewmodels:ProfileViewModel}">
+                <!--<DataTemplate DataType="{x:Type viewmodels:ProfileViewModel}">
                     <vprofile:MainProfileView />
+                </DataTemplate>-->
+                <DataTemplate DataType="{x:Type viewmodels:DetailAudioViewModel}">
+                    <vaudio:DetailAudioView/>
                 </DataTemplate>
             </Grid.Resources>
             <ContentControl Content="{Binding ContentViewModel}" />

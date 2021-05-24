@@ -27,6 +27,11 @@ namespace Manager_Medias.Views.Home
             public string Description { get; set; }
         }
 
+        public Home()
+        {
+            InitializeComponent();
+        }
+
         public Home(MainWindow main)
         {
             InitializeComponent();

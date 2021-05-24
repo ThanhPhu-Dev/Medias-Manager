@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Manager_Medias.ViewModels.Customer
+namespace Manager_Medias.ViewModels.Guest
 {
-    public class HomeViewModel : BaseViewModel
+    public class GuestHomeViewModel : BaseViewModel
     {
-        public HomeViewModel()
+        public GuestHomeViewModel()
         {
         }
     }

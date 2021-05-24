@@ -68,10 +68,33 @@
                         <Label Content="Hồ sơ" Margin="2 0 0 0" Foreground="#fff" FontSize="16" HorizontalContentAlignment="Left" HorizontalAlignment="Left" />
                     </StackPanel>
                 </Button>
+
+                <Button Style="{StaticResource BtnNav}" Tag="AccountGroupOutline">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="BookmarkMultipleOutline" Foreground="#febb00" />
+                        <Label Content="Yêu thích"
+                               Margin="2 0 0 0" Foreground="#fff"
+                               FontSize="16"
+                               HorizontalContentAlignment="Left"
+                               HorizontalAlignment="Left" />
+            </StackPanel>
+                </Button>
+
+                <Button Style="{StaticResource BtnNav}" Tag="AccountGroupOutline">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="History" Foreground="#febb00" />
+                        <Label Content="Đã xem"
+                               Margin="2 0 0 0" Foreground="#fff"
+                               FontSize="16"
+                               HorizontalContentAlignment="Left"
+                               HorizontalAlignment="Left" />
+                    </StackPanel>
+                </Button>
             </StackPanel>
         </Border>
         <ContentControl Grid.Column="1">
             <local:ProfileManager />
+            <!--<local:PlayListView />-->
         </ContentControl>
     </Grid>
 </UserControl>

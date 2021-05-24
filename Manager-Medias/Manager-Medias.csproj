@@ -104,6 +104,15 @@
     <Reference Include="MaterialDesignThemes.Wpf, Version=4.0.0.2422, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignThemes.4.0.0\lib\net452\MaterialDesignThemes.Wpf.dll</HintPath>
     </Reference>
+    <Reference Include="Syncfusion.Licensing, Version=19.1460.0.64, Culture=neutral, PublicKeyToken=632609b4d040f6b4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Syncfusion.Licensing.19.1.0.64\lib\net46\Syncfusion.Licensing.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Shared.WPF, Version=19.1460.0.64, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <HintPath>..\packages\Syncfusion.Shared.WPF.19.1.0.64\lib\net46\Syncfusion.Shared.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Tools.WPF, Version=19.1460.0.64, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <HintPath>..\packages\Syncfusion.Tools.WPF.19.1.0.64\lib\net46\Syncfusion.Tools.WPF.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
@@ -129,6 +138,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\Customer\DetailAudioViewModel.cs" />
+    <Compile Include="ViewModels\Customer\HomeViewModel.cs" />
+    <Compile Include="ViewModels\Customer\LayoutViewModel.cs" />
+    <Compile Include="ViewModels\Customer\ProfileViewModel.cs" />
     <Compile Include="Models\Album.cs">
       <DependentUpon>MediasManagement.tt</DependentUpon>
     </Compile>
@@ -190,6 +204,7 @@
       <DependentUpon>MediasManagement.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\DetailMovie.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Views\Admin\AccountManagerUserControl.xaml.cs">
       <DependentUpon>AccountManagerUserControl.xaml</DependentUpon>
     </Compile>
@@ -223,11 +238,20 @@
     <Compile Include="Views\Customer\SignIn.xaml.cs">
       <DependentUpon>SignIn.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Layouts\MainLayoutView.xaml.cs">
-      <DependentUpon>MainLayoutView.xaml</DependentUpon>
+    <Compile Include="Views\Home\Home.xaml.cs">
+      <DependentUpon>Home.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Home\HomeFilters.xaml.cs">
+      <DependentUpon>HomeFilters.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Home\HomeSuggestions.xaml.cs">
+      <DependentUpon>HomeSuggestions.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Customer\MainCustomerView.xaml.cs">
       <DependentUpon>MainCustomerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Layouts\MainLayoutView.xaml.cs">
+      <DependentUpon>MainLayoutView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Movie\DetaiImages.xaml.cs">
       <DependentUpon>DetaiImages.xaml</DependentUpon>
@@ -243,6 +267,9 @@
     </Compile>
     <Compile Include="Views\Profile\MainProfileView.xaml.cs">
       <DependentUpon>MainProfileView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Profile\PlayListView.xaml.cs">
+      <DependentUpon>PlayListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Profile\ProfileManager.xaml.cs">
       <DependentUpon>ProfileManager.xaml</DependentUpon>
@@ -299,7 +326,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Layouts\MainLayoutView.xaml">
+    <Page Include="Views\Home\Home.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Home\HomeFilters.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Home\HomeSuggestions.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -308,6 +343,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Customer\MainCustomerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Layouts\MainLayoutView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -328,6 +367,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Profile\MainProfileView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Profile\PlayListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -385,6 +428,10 @@
     <Resource Include="Images\desktop.png" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Commands\" />
+    <Folder Include="ViewModels\Admin\" />
+  </ItemGroup>
+  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4.7.2 %28x86 and x64%29</ProductName>
@@ -403,6 +450,19 @@
     <Resource Include="Images\desktop_login.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\transitton-1.jpg" />
+    <Resource Include="Images\transitton-3.jpg" />
+    <Resource Include="Images\transitton-4.jpg" />
+    <Resource Include="Images\phim-hanh-dong-1.jpg" />
+    <Resource Include="Images\phim-hanh-dong-10.jpg" />
+    <Resource Include="Images\phim-hanh-dong-2.jpg" />
+    <Resource Include="Images\phim-hanh-dong-3.jpg" />
+    <Resource Include="Images\phim-hanh-dong-4.jpg" />
+    <Resource Include="Images\phim-hanh-dong-5.jpg" />
+    <Resource Include="Images\phim-hanh-dong-6.jpg" />
+    <Resource Include="Images\phim-hanh-dong-7.jpg" />
+    <Resource Include="Images\phim-hanh-dong-8.jpg" />
+    <Resource Include="Images\phim-hanh-dong-9.jpg" />
     <Content Include="DB\MediasManangement.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -414,6 +474,7 @@
     <Content Include="Images\video.mp4">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Images\transitton-2.jpg" />
     <Content Include="Models\MediasManagement.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>MediasManagement.edmx</DependentUpon>

@@ -20,6 +20,23 @@
                 <DiscreteDoubleKeyFrame KeyTime="0:0:0.15" Value="-500" />
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
+        <Style x:Key="ButtonProfileItem" TargetType="{x:Type Button}"
+               BasedOn="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Height" Value="120" />
+            <Setter Property="Width" Value="120" />
+            <Setter Property="BorderBrush" Value="#FFCDCDCD" />
+            <Setter Property="BorderThickness" Value="0.2" />
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <ContentPresenter Content="{TemplateBinding Content}" />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </UserControl.Resources>
 
     <UserControl.Triggers>
@@ -28,6 +45,27 @@
         </EventTrigger>
         <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="btnCancelModal">
             <BeginStoryboard Storyboard="{StaticResource CloseModal}" />
+        </EventTrigger>
+        <EventTrigger RoutedEvent="MouseEnter" SourceName="ProfileItem">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation Storyboard.TargetName="EditGrid"
+                                     Storyboard.TargetProperty="Opacity"
+                                     From="0" To="1"
+                                     Duration="0:0:0.15" />
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+
+        <EventTrigger RoutedEvent="MouseLeave" SourceName="ProfileItem">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation Storyboard.TargetName="EditGrid"
+                                     Storyboard.TargetProperty="Opacity"
+                                     From="1" To="0"
+                                     Duration="0:0:0.15" />
+                </Storyboard>
+            </BeginStoryboard>
         </EventTrigger>
     </UserControl.Triggers>
 
@@ -68,9 +106,8 @@
                             <Label Content="Tạo hồ sơ cho người dùng mới cùng xem phim" Foreground="#FFCFCFCF"
                                        FontWeight="ExtraLight" HorizontalContentAlignment="Center" />
                             <DockPanel LastChildFill="True" Margin="0 16 0 0">
-                                <Border Margin="0 0 16 0" BorderBrush="#FFCDCDCD" BorderThickness="0.2">
-                                    <Image DockPanel.Dock="Left"
-                                            Source="/Images/logo.png"
+                                <Border DockPanel.Dock="Left" Margin="0 0 16 0" BorderBrush="#FFCDCDCD" BorderThickness="0.2">
+                                    <Image Source="/Images/logo.png"
                                             Width="60" Height="60"
                                             Stretch="UniformToFill"
                                            Cursor="Hand" />
@@ -122,12 +159,29 @@
                 </Border>
             </Canvas>
 
-            <UniformGrid Margin="0 20 0 0" Columns="5" Panel.ZIndex="1">
-                <Ellipse Width="48" Height="48" StrokeThickness="1" Stroke="#fff" Margin="0 16">
-                    <Ellipse.Fill>
-                        <ImageBrush ImageSource="/Images/logo.png" Stretch="UniformToFill" />
-                    </Ellipse.Fill>
-                </Ellipse>
+            <UniformGrid Margin="0 20 0 0" Columns="4" Panel.ZIndex="1">
+                <StackPanel Margin="16" HorizontalAlignment="Center">
+                    <Button Style="{StaticResource ButtonProfileItem}" x:Name="ProfileItem">
+                        <Grid HorizontalAlignment="Stretch">
+                            <Image Source="/Images/logo.png"
+                                    Stretch="UniformToFill"
+                                    VerticalAlignment="Stretch"
+                                    HorizontalAlignment="Stretch"
+                                    Cursor="Hand" />
+                            <Grid Background="#E1000000" x:Name="EditGrid" Opacity="0">
+                                <materialDesign:PackIcon
+                                    Kind="Pencil" Foreground="{DynamicResource SecondaryAccentBrush}"
+                                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                                    HorizontalContentAlignment="Center"
+                                    VerticalContentAlignment="Center"
+                                    Width="24"
+                                    Height="24"
+                                    ToolTip="Chỉnh sửa" />
+                            </Grid>
+                        </Grid>
+                    </Button>
+                    <Button Margin="0 12 0 0" Background="#FF303030" Height="32">Đăng nhập</Button>
+                </StackPanel>
             </UniformGrid>
         </StackPanel>
     </Border>

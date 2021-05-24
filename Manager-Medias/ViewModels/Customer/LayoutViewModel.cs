@@ -22,8 +22,11 @@ namespace Manager_Medias.ViewModels.Customer
         {
             //ContentViewModel = new ProfileViewModel();
             _navigationStore = navigationStore;
-            NavigateProfileCmd = new NavigateCommand<ProfileViewModel>(
-                new NavigationService<ProfileViewModel>(navigationStore, () => new ProfileViewModel()));
+            //NavigateProfileCmd = new NavigateCommand<ProfileViewModel>(
+            //    new NavigationService<ProfileViewModel>(navigationStore, () => new ProfileViewModel()));
+            //_navigationStore.CurrentContentViewModelChanged += _navigationStore_CurrentContentViewModelChanged;
+            NavigateProfileCmd = new NavigateCommand<DetailAudioViewModel>(
+                new NavigationService<DetailAudioViewModel>(navigationStore, () => new DetailAudioViewModel()));
             _navigationStore.CurrentContentViewModelChanged += _navigationStore_CurrentContentViewModelChanged;
         }
 

@@ -21,6 +21,12 @@ namespace Manager_Medias.ViewModels.Customer
             get => (ObservableCollection<Audio>)GetValue(AudioListProperty);
             set => SetValue(AudioListProperty, value);
         }
+        
+        //public Audio SelectedAudio
+        //{
+        //    get => (ObservableCollection<Audio>)GetValue(AudioListProperty);
+        //    set => SetValue(AudioListProperty, value);
+        //}
         public DetailAudioViewModel()
         {
             using (var db = new MediasManangementEntities())

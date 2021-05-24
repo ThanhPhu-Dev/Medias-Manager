@@ -173,8 +173,8 @@ select * from Audios
 select * from Audio_Categories
 select * from Medias 
 
---MEDIA_CAT
-INSERT INTO Media_Categories (Name) VALUES (N'Hành động'), (N'Kinh dị')
+--MEDIA_CAT// chỉ có 3 cái thui, không thêm- sửa -xóa nữa
+INSERT INTO Media_Categories (Name) VALUES (N'Hinh Ảnh'), (N'Phim'), (N'Âm Nhạc')
 
 --MEDIA
 INSERT INTO Medias (IdCategory) values (1), (1), (1), (1), (1)
@@ -189,4 +189,5 @@ INSERT INTO Audios VALUES
 	(3, 2, N'Sóng gió', null, null),
 	(4, 2, N'Bạc phận', null, null),
 	(5, 3, N'Nhỏ ơi', null, null)
+
 

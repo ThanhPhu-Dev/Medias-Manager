@@ -1,4 +1,5 @@
-﻿using Manager_Medias.Stores;
+﻿using Manager_Medias.Services;
+using Manager_Medias.Stores;
 using Manager_Medias.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -10,18 +11,16 @@ namespace Manager_Medias.Commands
 {
     public class NavigateCommand<TViewModel> : CommandBase where TViewModel : BaseViewModel
     {
-        private readonly NavigationStore _navigationStore;
-        private readonly Func<TViewModel> _createViewModel;
+        private readonly NavigationService<TViewModel> _navigationService;
 
-        public NavigateCommand(NavigationStore navigationStore, Func<TViewModel> createViewModel)
+        public NavigateCommand(NavigationService<TViewModel> navigationService)
         {
-            _navigationStore = navigationStore;
-            _createViewModel = createViewModel;
+            _navigationService = navigationService;
         }
 
         public override void Execute(object parameter)
         {
-            _navigationStore.ContentViewModel = _createViewModel();
+            _navigationService.Navigate();
         }
     }
 }

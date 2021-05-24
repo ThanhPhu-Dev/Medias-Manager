@@ -211,7 +211,7 @@
     <Compile Include="Models\View_History.cs">
       <DependentUpon>MediasManagement.tt</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\DetailMovie.cs" />
+    <Compile Include="ViewModels\Customer\DetailMovie.cs" />
     <Compile Include="ViewModels\Guest\GuestHomeViewModel.cs" />
     <Compile Include="ViewModels\Guest\GuestLoginViewModel.cs" />
     <Compile Include="ViewModels\Guest\GuestMainViewModel.cs" />

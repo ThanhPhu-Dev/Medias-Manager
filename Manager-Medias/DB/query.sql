@@ -23,7 +23,7 @@ CREATE TABLE Profiles
 
 CREATE TABLE Payment_History
 (
-	Id INT IDENTITY(1,1)
+	Id INT IDENTITY(1,1),
 	Email varchar(20),
 	DateOfPayment Date,
 	Note Text,
@@ -122,7 +122,7 @@ CREATE TABLE Audios
 
 CREATE TABLE My_Lists
 (
-	Id INT IDENTITY(1,1)
+	Id INT IDENTITY(1,1),
 	IdProfile INT,
 	IdMedia INT,
 	Date Date,
@@ -167,3 +167,4 @@ ALTER TABLE Likes ADD CONSTRAINT FK_Likes_Medias FOREIGN KEY (IdMedia) REFERENCE
 ALTER TABLE Likes ADD CONSTRAINT FK_Likes_Profiles FOREIGN KEY (IdProfile) REFERENCES Profiles(Id)
 ALTER TABLE View_History ADD CONSTRAINT FK_ViewHistory_Medias FOREIGN KEY (IdMedia) REFERENCES Medias(Id)
 ALTER TABLE View_History ADD CONSTRAINT FK_ViewHistory_Profiles FOREIGN KEY (IdProfile) REFERENCES Profiles(Id)
+

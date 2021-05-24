@@ -167,3 +167,26 @@ ALTER TABLE Likes ADD CONSTRAINT FK_Likes_Medias FOREIGN KEY (IdMedia) REFERENCE
 ALTER TABLE Likes ADD CONSTRAINT FK_Likes_Profiles FOREIGN KEY (IdProfile) REFERENCES Profiles(Id)
 ALTER TABLE View_History ADD CONSTRAINT FK_ViewHistory_Medias FOREIGN KEY (IdMedia) REFERENCES Medias(Id)
 ALTER TABLE View_History ADD CONSTRAINT FK_ViewHistory_Profiles FOREIGN KEY (IdProfile) REFERENCES Profiles(Id)
+
+--SELECT
+select * from Audios
+select * from Audio_Categories
+select * from Medias 
+
+--MEDIA_CAT
+INSERT INTO Media_Categories (Name) VALUES (N'Hành động'), (N'Kinh dị')
+
+--MEDIA
+INSERT INTO Medias (IdCategory) values (1), (1), (1), (1), (1)
+
+--INSERT AUDIO_Cat
+INSERT INTO Audio_Categories(Name) values (N'Ballad'), (N'Sôi động'), (N'Trữ tình')
+
+--INSERT AUDIO
+INSERT INTO Audios VALUES 
+	(1, 1, N'Chiều thu ', null, null),
+	(2, 1, N'Người đã ', null, null),
+	(3, 2, N'Sóng gió', null, null),
+	(4, 2, N'Bạc phận', null, null),
+	(5, 3, N'Nhỏ ơi', null, null)
+

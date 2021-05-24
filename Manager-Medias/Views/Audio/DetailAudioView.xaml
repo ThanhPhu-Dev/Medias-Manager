@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Manager_Medias.Views.Audio"
+             xmlns:model="clr-namespace:Manager_Medias.Models"
              mc:Ignorable="d" 
              d:DesignHeight="585" d:DesignWidth="1200"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -16,30 +17,30 @@
             <Setter Property="Height" Value="35" />
             <Setter Property="Margin" Value="15 0" />
         </Style>
-        <DataTemplate x:Key="ItemTemplate">
+        <DataTemplate x:Key="ItemTemplate" DataType="{x:Type model:Audio}">
             <Grid  Margin="8 8">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="40" />
                     <ColumnDefinition />
                     <ColumnDefinition Width="80" />
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="{Binding stt}"
+                <TextBlock Text="{Binding Id}"
                            FontSize="17"
                            Foreground="#fff"
                            Grid.Column="0"
                            HorizontalAlignment="Center" />
-                <TextBlock Text="{Binding name}"
+                <TextBlock Text="{Binding Name}"
                            FontSize="17"
                            Foreground="#fff"
                            Grid.Column="1" />
-                <TextBlock Text="{Binding time}"
+                <TextBlock Text="{Binding Id}"
                            HorizontalAlignment="Right"
                            FontSize="17"
                            Foreground="#fff"
                            Grid.Column="2" />
             </Grid>
         </DataTemplate>
-        <DataTemplate x:Key="SelectedItemTemplate">
+        <DataTemplate x:Key="SelectedItemTemplate" DataType="{x:Type model:Audio}">
             <Grid  Margin="8 8">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="40" />
@@ -52,12 +53,12 @@
                                          Height="30"
                                          Width="30"
                                          HorizontalAlignment="Left" />
-                <TextBlock Text="{Binding name}"
+                <TextBlock Text="{Binding Name}"
                            FontSize="17"
                            Foreground="#fff"
                            Grid.Column="1"
                            VerticalAlignment="Center"/>
-                <TextBlock Text="{Binding time}"
+                <TextBlock Text="{Binding Id}"
                            HorizontalAlignment="Right"
                            FontSize="17"
                            Foreground="#fff"
@@ -87,31 +88,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <!--<Style x:Key="Spinner" TargetType="Ellipse">
-            <Setter Property="Image.RenderTransform">
-                <Setter.Value>
-                    <RotateTransform x:Name="rotate_avatar" Angle="0"/>
-                </Setter.Value>
-            </Setter>
-            -->
-        <!--<Style.Triggers>
-                <Trigger Property="IsEnabled" Value="True">
-                    <Trigger.EnterActions>
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <DoubleAnimation
-                                        Storyboard.TargetProperty="RenderTransform.Angle"
-                                        From="0"
-                                        To="360"
-                                        Duration="0:0:15"
-                                        RepeatBehavior="Forever" />
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </Trigger.EnterActions>
-                </Trigger>
-            </Style.Triggers>-->
-        <!--
-        </Style>-->
+     
         <Storyboard x:Key="Star_rotate">
             <DoubleAnimation
                         Storyboard.TargetName="rotate_avatar"

@@ -60,7 +60,7 @@ CREATE TABLE Medias
 
 CREATE TABLE Movie_Categories
 (
-	Id INT,
+	Id INT NOT NULL IDENTITY(1,1),
 	Name NVARCHAR(20)
 
 	CONSTRAINT PK_MovieCategory PRIMARY KEY (Id)
@@ -190,4 +190,8 @@ INSERT INTO Audios VALUES
 	(4, 2, N'Bạc phận', null, null),
 	(5, 3, N'Nhỏ ơi', null, null)
 
+	SELECT * FROM Movie_Categories
+	SELECT * FROM Movies
+insert into Movies (Id, IdCategory,IMDB,Likes,Name,NumberOfViews,Poster,Age,Description,Season,Time,Video)
+values (7,1,6.5,4,N'Super Hero', 23, 'postermovieHuter.jpg', 18,N'Super hero hân hạnh tài trợ', 'kn92','12:30','video.mp4')
 

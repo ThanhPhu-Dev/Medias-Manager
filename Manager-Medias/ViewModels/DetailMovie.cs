@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Manager_Medias.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,13 @@ namespace Manager_Medias.ViewModels
 {
     class DetailMovie
     {
+
+        public void text()
+        {
+            using (var x = new MediasManangementEntities())
+            {
+                Movies a = x.Movies.FirstOrDefault() as Movies;
+            }
+        }
     }
 }

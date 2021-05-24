@@ -1,0 +1,1012 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MediasManangementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Album_Details">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdAlbum" Type="int" />
+          <Property Name="Image" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Albums">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Audio_Categories">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Audios">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="IdCategory" Type="int" />
+          <Property Name="Name" Type="nvarchar" MaxLength="20" />
+          <Property Name="Image" Type="varchar(max)" />
+          <Property Name="Mp3" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Levels">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="20" />
+          <Property Name="Price" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="Likes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="IdProfile" Type="int" />
+          <Property Name="IdMedia" Type="int" />
+          <Property Name="Date" Type="date" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Media_Categories">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Medias">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdCategory" Type="int" />
+          <Property Name="Lvl" Type="int" />
+        </EntityType>
+        <EntityType Name="Movie_Categories">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Movies">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="IdCategory" Type="int" />
+          <Property Name="Name" Type="nvarchar" MaxLength="20" />
+          <Property Name="Description" Type="ntext" />
+          <Property Name="IMDB" Type="float" />
+          <Property Name="Poster" Type="varchar(max)" />
+          <Property Name="Likes" Type="int" />
+          <Property Name="Age" Type="int" />
+          <Property Name="NumberOfViews" Type="int" />
+          <Property Name="Video" Type="varchar(max)" />
+          <Property Name="Season" Type="varchar" MaxLength="10" />
+          <Property Name="Time" Type="varchar" MaxLength="8" />
+        </EntityType>
+        <EntityType Name="My_Lists">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="IdProfile" Type="int" />
+          <Property Name="IdMedia" Type="int" />
+          <Property Name="Date" Type="date" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Payment_History">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Email" Type="varchar" MaxLength="20" />
+          <Property Name="DateOfPayment" Type="date" />
+          <Property Name="Note" Type="text" />
+          <Property Name="Price" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Profiles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="20" />
+          <Property Name="Name" Type="nvarchar" MaxLength="20" />
+          <Property Name="Avatar" Type="varchar" MaxLength="30" />
+          <Property Name="Status" Type="int" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Email" />
+          </Key>
+          <Property Name="Email" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Level" Type="int" />
+          <Property Name="Code" Type="varchar(max)" />
+          <Property Name="NumberCard" Type="varchar" MaxLength="16" />
+        </EntityType>
+        <EntityType Name="View_History">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="IdProfile" Type="int" />
+          <Property Name="IdMedia" Type="int" />
+          <Property Name="Date" Type="date" />
+          <Property Name="time" Type="varchar" MaxLength="20" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_AlbumDetails_Albums">
+          <End Role="Albums" Type="Self.Albums" Multiplicity="0..1" />
+          <End Role="Album_Details" Type="Self.Album_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Albums">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Album_Details">
+              <PropertyRef Name="IdAlbum" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Albums_Medias">
+          <End Role="Medias" Type="Self.Medias" Multiplicity="1" />
+          <End Role="Albums" Type="Self.Albums" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Medias">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Albums">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Audios_AudioCategories">
+          <End Role="Audio_Categories" Type="Self.Audio_Categories" Multiplicity="0..1" />
+          <End Role="Audios" Type="Self.Audios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Audio_Categories">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Audios">
+              <PropertyRef Name="IdCategory" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Audios_Medias">
+          <End Role="Medias" Type="Self.Medias" Multiplicity="1" />
+          <End Role="Audios" Type="Self.Audios" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Medias">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Audios">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Likes_Medias">
+          <End Role="Medias" Type="Self.Medias" Multiplicity="0..1" />
+          <End Role="Likes" Type="Self.Likes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Medias">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Likes">
+              <PropertyRef Name="IdMedia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Likes_Profiles">
+          <End Role="Profiles" Type="Self.Profiles" Multiplicity="0..1" />
+          <End Role="Likes" Type="Self.Likes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profiles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Likes">
+              <PropertyRef Name="IdProfile" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Medias_Levels">
+          <End Role="Levels" Type="Self.Levels" Multiplicity="0..1" />
+          <End Role="Medias" Type="Self.Medias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Levels">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Medias">
+              <PropertyRef Name="Lvl" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Medias_MediaCategories">
+          <End Role="Media_Categories" Type="Self.Media_Categories" Multiplicity="0..1" />
+          <End Role="Medias" Type="Self.Medias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Media_Categories">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Medias">
+              <PropertyRef Name="IdCategory" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Movies_Medias">
+          <End Role="Medias" Type="Self.Medias" Multiplicity="1" />
+          <End Role="Movies" Type="Self.Movies" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Medias">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Movies">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Movies_MovieCategories">
+          <End Role="Movie_Categories" Type="Self.Movie_Categories" Multiplicity="0..1" />
+          <End Role="Movies" Type="Self.Movies" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Movie_Categories">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Movies">
+              <PropertyRef Name="IdCategory" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MyLists_Medias">
+          <End Role="Medias" Type="Self.Medias" Multiplicity="0..1" />
+          <End Role="My_Lists" Type="Self.My_Lists" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Medias">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="My_Lists">
+              <PropertyRef Name="IdMedia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PaymentHistory_User">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Payment_History" Type="Self.Payment_History" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Email" />
+            </Principal>
+            <Dependent Role="Payment_History">
+              <PropertyRef Name="Email" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Profile_User">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Profiles" Type="Self.Profiles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Email" />
+            </Principal>
+            <Dependent Role="Profiles">
+              <PropertyRef Name="Email" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ViewHistory_Medias">
+          <End Role="Medias" Type="Self.Medias" Multiplicity="0..1" />
+          <End Role="View_History" Type="Self.View_History" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Medias">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="View_History">
+              <PropertyRef Name="IdMedia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ViewHistory_Profiles">
+          <End Role="Profiles" Type="Self.Profiles" Multiplicity="0..1" />
+          <End Role="View_History" Type="Self.View_History" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profiles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="View_History">
+              <PropertyRef Name="IdProfile" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MediasManangementModelStoreContainer">
+          <EntitySet Name="Album_Details" EntityType="Self.Album_Details" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Albums" EntityType="Self.Albums" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Audio_Categories" EntityType="Self.Audio_Categories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Audios" EntityType="Self.Audios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Levels" EntityType="Self.Levels" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Likes" EntityType="Self.Likes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Media_Categories" EntityType="Self.Media_Categories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Medias" EntityType="Self.Medias" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Movie_Categories" EntityType="Self.Movie_Categories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Movies" EntityType="Self.Movies" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="My_Lists" EntityType="Self.My_Lists" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Payment_History" EntityType="Self.Payment_History" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Profiles" EntityType="Self.Profiles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="View_History" EntityType="Self.View_History" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AlbumDetails_Albums" Association="Self.FK_AlbumDetails_Albums">
+            <End Role="Albums" EntitySet="Albums" />
+            <End Role="Album_Details" EntitySet="Album_Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Albums_Medias" Association="Self.FK_Albums_Medias">
+            <End Role="Medias" EntitySet="Medias" />
+            <End Role="Albums" EntitySet="Albums" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Audios_AudioCategories" Association="Self.FK_Audios_AudioCategories">
+            <End Role="Audio_Categories" EntitySet="Audio_Categories" />
+            <End Role="Audios" EntitySet="Audios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Audios_Medias" Association="Self.FK_Audios_Medias">
+            <End Role="Medias" EntitySet="Medias" />
+            <End Role="Audios" EntitySet="Audios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Likes_Medias" Association="Self.FK_Likes_Medias">
+            <End Role="Medias" EntitySet="Medias" />
+            <End Role="Likes" EntitySet="Likes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Likes_Profiles" Association="Self.FK_Likes_Profiles">
+            <End Role="Profiles" EntitySet="Profiles" />
+            <End Role="Likes" EntitySet="Likes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Medias_Levels" Association="Self.FK_Medias_Levels">
+            <End Role="Levels" EntitySet="Levels" />
+            <End Role="Medias" EntitySet="Medias" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Medias_MediaCategories" Association="Self.FK_Medias_MediaCategories">
+            <End Role="Media_Categories" EntitySet="Media_Categories" />
+            <End Role="Medias" EntitySet="Medias" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Movies_Medias" Association="Self.FK_Movies_Medias">
+            <End Role="Medias" EntitySet="Medias" />
+            <End Role="Movies" EntitySet="Movies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Movies_MovieCategories" Association="Self.FK_Movies_MovieCategories">
+            <End Role="Movie_Categories" EntitySet="Movie_Categories" />
+            <End Role="Movies" EntitySet="Movies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MyLists_Medias" Association="Self.FK_MyLists_Medias">
+            <End Role="Medias" EntitySet="Medias" />
+            <End Role="My_Lists" EntitySet="My_Lists" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PaymentHistory_User" Association="Self.FK_PaymentHistory_User">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Payment_History" EntitySet="Payment_History" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Profile_User" Association="Self.FK_Profile_User">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Profiles" EntitySet="Profiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ViewHistory_Medias" Association="Self.FK_ViewHistory_Medias">
+            <End Role="Medias" EntitySet="Medias" />
+            <End Role="View_History" EntitySet="View_History" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ViewHistory_Profiles" Association="Self.FK_ViewHistory_Profiles">
+            <End Role="Profiles" EntitySet="Profiles" />
+            <End Role="View_History" EntitySet="View_History" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MediasManangementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Album_Details">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdAlbum" Type="Int32" />
+          <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Album" Relationship="Self.FK_AlbumDetails_Albums" FromRole="Album_Details" ToRole="Albums" />
+        </EntityType>
+        <EntityType Name="Album">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Album_Details" Relationship="Self.FK_AlbumDetails_Albums" FromRole="Albums" ToRole="Album_Details" />
+          <NavigationProperty Name="Media" Relationship="Self.FK_Albums_Medias" FromRole="Albums" ToRole="Medias" />
+        </EntityType>
+        <EntityType Name="Audio_Categories">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Audios" Relationship="Self.FK_Audios_AudioCategories" FromRole="Audio_Categories" ToRole="Audios" />
+        </EntityType>
+        <EntityType Name="Audio">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="IdCategory" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Mp3" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Audio_Categories" Relationship="Self.FK_Audios_AudioCategories" FromRole="Audios" ToRole="Audio_Categories" />
+          <NavigationProperty Name="Media" Relationship="Self.FK_Audios_Medias" FromRole="Audios" ToRole="Medias" />
+        </EntityType>
+        <EntityType Name="Level">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="Medias" Relationship="Self.FK_Medias_Levels" FromRole="Levels" ToRole="Medias" />
+        </EntityType>
+        <EntityType Name="Like">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="IdProfile" Type="Int32" />
+          <Property Name="IdMedia" Type="Int32" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Media" Relationship="Self.FK_Likes_Medias" FromRole="Likes" ToRole="Medias" />
+          <NavigationProperty Name="Profile" Relationship="Self.FK_Likes_Profiles" FromRole="Likes" ToRole="Profiles" />
+        </EntityType>
+        <EntityType Name="Media_Categories">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Medias" Relationship="Self.FK_Medias_MediaCategories" FromRole="Media_Categories" ToRole="Medias" />
+        </EntityType>
+        <EntityType Name="Media">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdCategory" Type="Int32" />
+          <Property Name="Lvl" Type="Int32" />
+          <NavigationProperty Name="Album" Relationship="Self.FK_Albums_Medias" FromRole="Medias" ToRole="Albums" />
+          <NavigationProperty Name="Audio" Relationship="Self.FK_Audios_Medias" FromRole="Medias" ToRole="Audios" />
+          <NavigationProperty Name="Level" Relationship="Self.FK_Medias_Levels" FromRole="Medias" ToRole="Levels" />
+          <NavigationProperty Name="Likes" Relationship="Self.FK_Likes_Medias" FromRole="Medias" ToRole="Likes" />
+          <NavigationProperty Name="Media_Categories" Relationship="Self.FK_Medias_MediaCategories" FromRole="Medias" ToRole="Media_Categories" />
+          <NavigationProperty Name="Movy" Relationship="Self.FK_Movies_Medias" FromRole="Medias" ToRole="Movies" />
+          <NavigationProperty Name="My_Lists" Relationship="Self.FK_MyLists_Medias" FromRole="Medias" ToRole="My_Lists" />
+          <NavigationProperty Name="View_History" Relationship="Self.FK_ViewHistory_Medias" FromRole="Medias" ToRole="View_History" />
+        </EntityType>
+        <EntityType Name="Movie_Categories">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Movies" Relationship="Self.FK_Movies_MovieCategories" FromRole="Movie_Categories" ToRole="Movies" />
+        </EntityType>
+        <EntityType Name="Movies">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="IdCategory" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IMDB" Type="Double" />
+          <Property Name="Poster" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Likes" Type="Int32" />
+          <Property Name="Age" Type="Int32" />
+          <Property Name="NumberOfViews" Type="Int32" />
+          <Property Name="Video" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Season" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Time" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Media" Relationship="Self.FK_Movies_Medias" FromRole="Movies" ToRole="Medias" />
+          <NavigationProperty Name="Movie_Categories" Relationship="Self.FK_Movies_MovieCategories" FromRole="Movies" ToRole="Movie_Categories" />
+        </EntityType>
+        <EntityType Name="My_Lists">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="IdProfile" Type="Int32" />
+          <Property Name="IdMedia" Type="Int32" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Media" Relationship="Self.FK_MyLists_Medias" FromRole="My_Lists" ToRole="Medias" />
+        </EntityType>
+        <EntityType Name="Payment_History">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Email" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="DateOfPayment" Type="DateTime" Precision="0" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Price" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="User" Relationship="Self.FK_PaymentHistory_User" FromRole="Payment_History" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Profile">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Avatar" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="Int32" />
+          <NavigationProperty Name="Likes" Relationship="Self.FK_Likes_Profiles" FromRole="Profiles" ToRole="Likes" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Profile_User" FromRole="Profiles" ToRole="Users" />
+          <NavigationProperty Name="View_History" Relationship="Self.FK_ViewHistory_Profiles" FromRole="Profiles" ToRole="View_History" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Email" />
+          </Key>
+          <Property Name="Email" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Level" Type="Int32" />
+          <Property Name="Code" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="NumberCard" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Payment_History" Relationship="Self.FK_PaymentHistory_User" FromRole="Users" ToRole="Payment_History" />
+          <NavigationProperty Name="Profiles" Relationship="Self.FK_Profile_User" FromRole="Users" ToRole="Profiles" />
+        </EntityType>
+        <EntityType Name="View_History">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="IdProfile" Type="Int32" />
+          <Property Name="IdMedia" Type="Int32" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="time" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Media" Relationship="Self.FK_ViewHistory_Medias" FromRole="View_History" ToRole="Medias" />
+          <NavigationProperty Name="Profile" Relationship="Self.FK_ViewHistory_Profiles" FromRole="View_History" ToRole="Profiles" />
+        </EntityType>
+        <Association Name="FK_AlbumDetails_Albums">
+          <End Role="Albums" Type="Self.Album" Multiplicity="0..1" />
+          <End Role="Album_Details" Type="Self.Album_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Albums">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Album_Details">
+              <PropertyRef Name="IdAlbum" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Albums_Medias">
+          <End Role="Medias" Type="Self.Media" Multiplicity="1" />
+          <End Role="Albums" Type="Self.Album" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Medias">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Albums">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Audios_AudioCategories">
+          <End Role="Audio_Categories" Type="Self.Audio_Categories" Multiplicity="0..1" />
+          <End Role="Audios" Type="Self.Audio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Audio_Categories">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Audios">
+              <PropertyRef Name="IdCategory" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Audios_Medias">
+          <End Role="Medias" Type="Self.Media" Multiplicity="1" />
+          <End Role="Audios" Type="Self.Audio" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Medias">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Audios">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Medias_Levels">
+          <End Role="Levels" Type="Self.Level" Multiplicity="0..1" />
+          <End Role="Medias" Type="Self.Media" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Levels">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Medias">
+              <PropertyRef Name="Lvl" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Likes_Medias">
+          <End Role="Medias" Type="Self.Media" Multiplicity="0..1" />
+          <End Role="Likes" Type="Self.Like" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Medias">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Likes">
+              <PropertyRef Name="IdMedia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Likes_Profiles">
+          <End Role="Profiles" Type="Self.Profile" Multiplicity="0..1" />
+          <End Role="Likes" Type="Self.Like" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profiles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Likes">
+              <PropertyRef Name="IdProfile" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Medias_MediaCategories">
+          <End Role="Media_Categories" Type="Self.Media_Categories" Multiplicity="0..1" />
+          <End Role="Medias" Type="Self.Media" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Media_Categories">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Medias">
+              <PropertyRef Name="IdCategory" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Movies_Medias">
+          <End Role="Medias" Type="Self.Media" Multiplicity="1" />
+          <End Role="Movies" Type="MediasManangementModel.Movies" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Medias">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Movies">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MyLists_Medias">
+          <End Role="Medias" Type="Self.Media" Multiplicity="0..1" />
+          <End Role="My_Lists" Type="Self.My_Lists" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Medias">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="My_Lists">
+              <PropertyRef Name="IdMedia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ViewHistory_Medias">
+          <End Role="Medias" Type="Self.Media" Multiplicity="0..1" />
+          <End Role="View_History" Type="Self.View_History" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Medias">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="View_History">
+              <PropertyRef Name="IdMedia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Movies_MovieCategories">
+          <End Role="Movie_Categories" Type="Self.Movie_Categories" Multiplicity="0..1" />
+          <End Role="Movies" Type="MediasManangementModel.Movies" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Movie_Categories">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Movies">
+              <PropertyRef Name="IdCategory" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PaymentHistory_User">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Payment_History" Type="Self.Payment_History" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Email" />
+            </Principal>
+            <Dependent Role="Payment_History">
+              <PropertyRef Name="Email" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Profile_User">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Profiles" Type="Self.Profile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Email" />
+            </Principal>
+            <Dependent Role="Profiles">
+              <PropertyRef Name="Email" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ViewHistory_Profiles">
+          <End Role="Profiles" Type="Self.Profile" Multiplicity="0..1" />
+          <End Role="View_History" Type="Self.View_History" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profiles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="View_History">
+              <PropertyRef Name="IdProfile" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MediasManangementEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Album_Details" EntityType="Self.Album_Details" />
+          <EntitySet Name="Albums" EntityType="Self.Album" />
+          <EntitySet Name="Audio_Categories" EntityType="Self.Audio_Categories" />
+          <EntitySet Name="Audios" EntityType="Self.Audio" />
+          <EntitySet Name="Levels" EntityType="Self.Level" />
+          <EntitySet Name="Likes" EntityType="Self.Like" />
+          <EntitySet Name="Media_Categories" EntityType="Self.Media_Categories" />
+          <EntitySet Name="Medias" EntityType="Self.Media" />
+          <EntitySet Name="Movie_Categories" EntityType="Self.Movie_Categories" />
+          <EntitySet Name="Movies" EntityType="MediasManangementModel.Movies" />
+          <EntitySet Name="My_Lists" EntityType="Self.My_Lists" />
+          <EntitySet Name="Payment_History" EntityType="Self.Payment_History" />
+          <EntitySet Name="Profiles" EntityType="Self.Profile" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="View_History" EntityType="Self.View_History" />
+          <AssociationSet Name="FK_AlbumDetails_Albums" Association="Self.FK_AlbumDetails_Albums">
+            <End Role="Albums" EntitySet="Albums" />
+            <End Role="Album_Details" EntitySet="Album_Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Albums_Medias" Association="Self.FK_Albums_Medias">
+            <End Role="Medias" EntitySet="Medias" />
+            <End Role="Albums" EntitySet="Albums" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Audios_AudioCategories" Association="Self.FK_Audios_AudioCategories">
+            <End Role="Audio_Categories" EntitySet="Audio_Categories" />
+            <End Role="Audios" EntitySet="Audios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Audios_Medias" Association="Self.FK_Audios_Medias">
+            <End Role="Medias" EntitySet="Medias" />
+            <End Role="Audios" EntitySet="Audios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Medias_Levels" Association="Self.FK_Medias_Levels">
+            <End Role="Levels" EntitySet="Levels" />
+            <End Role="Medias" EntitySet="Medias" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Likes_Medias" Association="Self.FK_Likes_Medias">
+            <End Role="Medias" EntitySet="Medias" />
+            <End Role="Likes" EntitySet="Likes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Likes_Profiles" Association="Self.FK_Likes_Profiles">
+            <End Role="Profiles" EntitySet="Profiles" />
+            <End Role="Likes" EntitySet="Likes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Medias_MediaCategories" Association="Self.FK_Medias_MediaCategories">
+            <End Role="Media_Categories" EntitySet="Media_Categories" />
+            <End Role="Medias" EntitySet="Medias" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Movies_Medias" Association="Self.FK_Movies_Medias">
+            <End Role="Medias" EntitySet="Medias" />
+            <End Role="Movies" EntitySet="Movies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MyLists_Medias" Association="Self.FK_MyLists_Medias">
+            <End Role="Medias" EntitySet="Medias" />
+            <End Role="My_Lists" EntitySet="My_Lists" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ViewHistory_Medias" Association="Self.FK_ViewHistory_Medias">
+            <End Role="Medias" EntitySet="Medias" />
+            <End Role="View_History" EntitySet="View_History" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Movies_MovieCategories" Association="Self.FK_Movies_MovieCategories">
+            <End Role="Movie_Categories" EntitySet="Movie_Categories" />
+            <End Role="Movies" EntitySet="Movies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PaymentHistory_User" Association="Self.FK_PaymentHistory_User">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Payment_History" EntitySet="Payment_History" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Profile_User" Association="Self.FK_Profile_User">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Profiles" EntitySet="Profiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ViewHistory_Profiles" Association="Self.FK_ViewHistory_Profiles">
+            <End Role="Profiles" EntitySet="Profiles" />
+            <End Role="View_History" EntitySet="View_History" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MediasManangementModelStoreContainer" CdmEntityContainer="MediasManangementEntities">
+          <EntitySetMapping Name="Album_Details">
+            <EntityTypeMapping TypeName="MediasManangementModel.Album_Details">
+              <MappingFragment StoreEntitySet="Album_Details">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IdAlbum" ColumnName="IdAlbum" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Albums">
+            <EntityTypeMapping TypeName="MediasManangementModel.Album">
+              <MappingFragment StoreEntitySet="Albums">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Audio_Categories">
+            <EntityTypeMapping TypeName="MediasManangementModel.Audio_Categories">
+              <MappingFragment StoreEntitySet="Audio_Categories">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Audios">
+            <EntityTypeMapping TypeName="MediasManangementModel.Audio">
+              <MappingFragment StoreEntitySet="Audios">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IdCategory" ColumnName="IdCategory" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Mp3" ColumnName="Mp3" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Levels">
+            <EntityTypeMapping TypeName="MediasManangementModel.Level">
+              <MappingFragment StoreEntitySet="Levels">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Likes">
+            <EntityTypeMapping TypeName="MediasManangementModel.Like">
+              <MappingFragment StoreEntitySet="Likes">
+                <ScalarProperty Name="IdProfile" ColumnName="IdProfile" />
+                <ScalarProperty Name="IdMedia" ColumnName="IdMedia" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Media_Categories">
+            <EntityTypeMapping TypeName="MediasManangementModel.Media_Categories">
+              <MappingFragment StoreEntitySet="Media_Categories">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Medias">
+            <EntityTypeMapping TypeName="MediasManangementModel.Media">
+              <MappingFragment StoreEntitySet="Medias">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IdCategory" ColumnName="IdCategory" />
+                <ScalarProperty Name="Lvl" ColumnName="Lvl" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Movie_Categories">
+            <EntityTypeMapping TypeName="MediasManangementModel.Movie_Categories">
+              <MappingFragment StoreEntitySet="Movie_Categories">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Movies">
+            <EntityTypeMapping TypeName="MediasManangementModel.Movies">
+              <MappingFragment StoreEntitySet="Movies">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IdCategory" ColumnName="IdCategory" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="IMDB" ColumnName="IMDB" />
+                <ScalarProperty Name="Poster" ColumnName="Poster" />
+                <ScalarProperty Name="Likes" ColumnName="Likes" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="NumberOfViews" ColumnName="NumberOfViews" />
+                <ScalarProperty Name="Video" ColumnName="Video" />
+                <ScalarProperty Name="Season" ColumnName="Season" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="My_Lists">
+            <EntityTypeMapping TypeName="MediasManangementModel.My_Lists">
+              <MappingFragment StoreEntitySet="My_Lists">
+                <ScalarProperty Name="IdProfile" ColumnName="IdProfile" />
+                <ScalarProperty Name="IdMedia" ColumnName="IdMedia" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Payment_History">
+            <EntityTypeMapping TypeName="MediasManangementModel.Payment_History">
+              <MappingFragment StoreEntitySet="Payment_History">
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="DateOfPayment" ColumnName="DateOfPayment" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Profiles">
+            <EntityTypeMapping TypeName="MediasManangementModel.Profile">
+              <MappingFragment StoreEntitySet="Profiles">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Avatar" ColumnName="Avatar" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="MediasManangementModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Level" ColumnName="Level" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="NumberCard" ColumnName="NumberCard" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="View_History">
+            <EntityTypeMapping TypeName="MediasManangementModel.View_History">
+              <MappingFragment StoreEntitySet="View_History">
+                <ScalarProperty Name="IdProfile" ColumnName="IdProfile" />
+                <ScalarProperty Name="IdMedia" ColumnName="IdMedia" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="time" ColumnName="time" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

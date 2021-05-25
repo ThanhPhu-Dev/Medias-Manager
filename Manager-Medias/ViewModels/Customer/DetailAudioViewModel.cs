@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -32,12 +33,15 @@ namespace Manager_Medias.ViewModels.Customer
         public DetailAudioViewModel()
         {
             Loaded();
-            CmdSelectionChange = new RelayCommand<object[]>(SelectionChange);
+            CmdSelectionChange = new RelayCommand<object>(SelectionChange);
         }
 
-        private void SelectionChange(object[] obj)
+        private void SelectionChange(object obj)
         {
-            throw new NotImplementedException();
+            byte[] result = System.IO.File.ReadAllBytes(@"F:\2021 - 2022\UDQL2\Project\Medias-Manager\Manager-Medias\bin\Debug\Images\1.mp3");
+            System.IO.MemoryStream ms = new System.IO.MemoryStream(result);
+            SoundPlayer sp = new SoundPlayer(ms);
+            sp.Play();
         }
 
         public void Loaded()

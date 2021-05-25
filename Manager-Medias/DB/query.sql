@@ -189,11 +189,11 @@ INSERT INTO Audios VALUES
 	(3, 2, N'Sóng gió', '3', null),
 	(4, 2, N'Bạc phận', '4', null),
 	(5, 3, N'Nhỏ ơi', '5', null)
-update Audios set Image = '1' where Id = 1
-update Audios set Image = '2' where Id = 2
-update Audios set Image = '3' where Id = 3
-update Audios set Image = '4' where Id = 4
-update Audios set Image = '5' where Id = 5
+update Audios set Mp3 = '1' where Id = 1
+update Audios set Mp3 = '2' where Id = 2
+update Audios set Mp3 = '3' where Id = 3
+update Audios set Mp3 = '4' where Id = 4
+update Audios set Mp3 = '5' where Id = 5
 
 	SELECT * FROM Movie_Categories
 	SELECT * FROM Movies

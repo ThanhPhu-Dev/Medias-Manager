@@ -38,9 +38,9 @@ namespace Manager_Medias.Views.Home
 
             this.main = main;
 
-            cbbPhimLe.ItemsSource = new List<string>() { "Phim lẻ 2021", "Phim lẻ 2020", "Phim lẻ 2018" };
-            cbbQuocGia.ItemsSource = new List<string>() { "Mỹ", "Hàn Quốc", "Nhật Bản" };
-            cbbTheLoai.ItemsSource = new List<string>() { "Hành động", "Viễn tưởng", "18+" };
+            //cbbPhimLe.ItemsSource = new List<string>() { "Phim lẻ 2021", "Phim lẻ 2020", "Phim lẻ 2018" };
+            //cbbQuocGia.ItemsSource = new List<string>() { "Mỹ", "Hàn Quốc", "Nhật Bản" };
+            //cbbTheLoai.ItemsSource = new List<string>() { "Hành động", "Viễn tưởng", "18+" };
 
             ObservableCollection<CarouselModel> carouselModels = new ObservableCollection<CarouselModel>()
             {

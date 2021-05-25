@@ -7,10 +7,10 @@
              xmlns:local="clr-namespace:Manager_Medias.Views.Layouts"
              xmlns:viewmodels="clr-namespace:Manager_Medias.ViewModels.Customer"
              xmlns:vhome="clr-namespace:Manager_Medias.Views.Home"
-             xmlns:vprofile="clr-namespace:Manager_Medias.Views.Profile"
-             xmlns:vmovie="clr-namespace:Manager_Medias.Views.Movie"
+             xmlns:vprofile="clr-namespace:Manager_Medias.Views.Account"
              xmlns:vaudio ="clr-namespace:Manager_Medias.Views.Audio"
              mc:Ignorable="d"
+             xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
              d:DesignHeight="650" d:DesignWidth="1200">
     <UserControl.Resources>
         <!--STYLES-->
@@ -84,9 +84,9 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="100" />
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="240" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Button HorizontalAlignment="Left"
+            <Button Grid.Column="0" HorizontalAlignment="Left"
                     Padding="0"
                     Margin="20 0 0 0"
                     Name="btnOpenMenu">
@@ -96,7 +96,42 @@
                                          Height="26" />
             </Button>
 
-            <Button Grid.Column="2"
+            <StackPanel Grid.Column="2" HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal"
+                        Margin="0 0 20 0">
+                <TextBox Style="{StaticResource MaterialDesignFilledTextBox}"
+                             materialDesign:TextFieldAssist.UnderlineBrush="White"
+                             materialDesign:HintAssist.Hint="Nhập từ khóa"
+                             Foreground="White"
+                             Height="45"
+                             Width="150" />
+                <Button Content="{materialDesign:PackIcon Kind=Search, Size=24}"
+                        Background="{x:Null}"
+                        Padding="16 11 16 2"
+                        Height="46"
+                        VerticalContentAlignment="Center"
+                        VerticalAlignment="Center" />
+                <ComboBox Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                          materialDesign:HintAssist.Hint="{materialDesign:PackIcon Kind=Account}"
+                          materialDesign:HintAssist.IsFloating="False"
+                          FontWeight="Bold"
+                          Margin="5"
+                          Background="Orange"
+                          x:Name="cbbTaiKhoan">
+                    <Behaviors:Interaction.Triggers>
+                        <Behaviors:EventTrigger EventName="SelectionChanged">
+                            <Behaviors:InvokeCommandAction Command="{Binding NavigateAccountCmd}"
+                                                           PassEventArgsToCommand="True" />
+                        </Behaviors:EventTrigger>
+                    </Behaviors:Interaction.Triggers>
+
+                    <ComboBoxItem Content="Tài khoản" />
+                    <ComboBoxItem Content="Đăng xuất" />
+                </ComboBox>
+            </StackPanel>
+
+            <!--<Button Grid.Column="2"
                     Padding="4 0"
                     Margin="0 0 20 0"
                     VerticalAlignment="Center"
@@ -113,11 +148,11 @@
                                              Height="24"
                                              Foreground="#febb00"
                                              VerticalAlignment="Center" />
-                    <Label Content="Username"
+                    <Label Content="{Binding Email}"
                            Foreground="#fff"
                            Margin="6 0 0 0" />
                 </StackPanel>
-            </Button>
+            </Button>-->
         </Grid>
         <Canvas Panel.ZIndex="100">
             <Grid x:Name="Sidebar"
@@ -131,11 +166,16 @@
                               VerticalScrollBarVisibility="Auto">
                     <StackPanel Margin="10 0">
                         <DockPanel HorizontalAlignment="Stretch">
-                            <Image DockPanel.Dock="Left"
-                                   Margin="20 20 0 0"
-                                   Source="/Images/logo.png"
-                                   Height="32"
-                                   HorizontalAlignment="Left" />
+                            <Button DockPanel.Dock="Left"
+                                    Margin="20 20 0 0"
+                                    Height="32"
+                                    Padding="0"
+                                    Background="{x:Null}"
+                                    HorizontalContentAlignment="Left"
+                                    HorizontalAlignment="Left">
+                                <Image Source="/Images/logo.png"
+                                           HorizontalAlignment="Left" />
+                            </Button>
                             <Button HorizontalAlignment="Right"
                                     DockPanel.Dock="Right"
                                     x:Name="btnCloseMenu"
@@ -151,6 +191,18 @@
                                    Foreground="#fff" />
                         <StackPanel x:Name="SidebarList">
                             <Button Margin="0 10 0 10"
+                                    Padding="20 4"
+                                    Style="{StaticResource SidebarButton}">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="MovieOutline"
+                                                             Foreground="#febb00"
+                                                             HorizontalAlignment="Center"
+                                                             VerticalAlignment="Center" />
+                                    <Label Content="Phim"
+                                           Foreground="#fff" />
+                                </StackPanel>
+                            </Button>
+                            <!--<Button Margin="0 10 0 10"
                                     Padding="20 4"
                                     Style="{StaticResource SidebarButton}">
                                 <Grid>
@@ -173,8 +225,8 @@
                                                              HorizontalAlignment="Right"
                                                              VerticalAlignment="Center" />
                                 </Grid>
-                            </Button>
-                            <StackPanel x:Name="SubSidebar"
+                            </Button>-->
+                            <!--<StackPanel x:Name="SubSidebar"
                                         Margin="44 4 20 6">
                                 <Button Content="Phim lẻ"
                                         Foreground="#eaeaea"
@@ -190,7 +242,7 @@
                                         BorderBrush="Transparent"
                                         FontSize="14"
                                         HorizontalAlignment="Left" />
-                            </StackPanel>
+                            </StackPanel>-->
                             <Button Margin="0 10 0 10"
                                     Padding="20 4"
                                     Style="{StaticResource SidebarButton}">
@@ -226,8 +278,8 @@
                 <DataTemplate DataType="{x:Type viewmodels:HomeViewModel}">
                     <vhome:Home />
                 </DataTemplate>
-                <DataTemplate DataType="{x:Type viewmodels:ProfileViewModel}">
-                    <vprofile:MainProfileView />
+                <DataTemplate DataType="{x:Type viewmodels:MainAccountView}">
+                    <vprofile:MainAccountView />
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type viewmodels:DetailAudioViewModel}">
                     <vaudio:DetailAudioView />

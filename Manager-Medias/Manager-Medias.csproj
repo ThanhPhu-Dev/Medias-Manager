@@ -150,16 +150,19 @@
     <Compile Include="Converters\MultiParameterConverter.cs" />
     <Compile Include="CustomeModels\DetailMovieCustomeModel.cs" />
     <Compile Include="Converters\ImageAudioConverter.cs" />
+    <Compile Include="Models\MovieCarouselModel.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Services\ParameterNavigationService.cs" />
     <Compile Include="Stores\NavigationStore.cs" />
     <Compile Include="Stores\UserStore.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\Customer\AccountManagerViewModel.cs" />
     <Compile Include="ViewModels\Customer\DetailAudioViewModel.cs" />
     <Compile Include="ViewModels\Customer\DetailMovieViewModel.cs" />
+    <Compile Include="ViewModels\Customer\FavoriteViewModel.cs" />
+    <Compile Include="ViewModels\Customer\HistoryViewModel.cs" />
     <Compile Include="ViewModels\Customer\HomeViewModel.cs" />
-    <Compile Include="ViewModels\Customer\LayoutViewModel.cs" />
-    <Compile Include="ViewModels\Customer\ProfileViewModel.cs" />
+    <Compile Include="ViewModels\Customer\MainAccountView.cs" />
     <Compile Include="Models\Album.cs">
       <DependentUpon>MediasManagement.tt</DependentUpon>
     </Compile>
@@ -220,11 +223,25 @@
     <Compile Include="Models\View_History.cs">
       <DependentUpon>MediasManagement.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\Customer\MainLayoutViewModel.cs" />
+    <Compile Include="ViewModels\Customer\ProfileManagerViewModel.cs" />
     <Compile Include="ViewModels\Guest\GuestHomeViewModel.cs" />
     <Compile Include="ViewModels\Guest\GuestLoginViewModel.cs" />
     <Compile Include="ViewModels\Guest\GuestMainViewModel.cs" />
     <Compile Include="ViewModels\Guest\GuestRegisterViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="Views\Account\AccountManagerView.xaml.cs">
+      <DependentUpon>AccountManagerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Account\MainAccountView.xaml.cs">
+      <DependentUpon>MainAccountView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Account\PlayListView.xaml.cs">
+      <DependentUpon>PlayListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Account\ProfileManager.xaml.cs">
+      <DependentUpon>ProfileManager.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Admin\AccountManagerUserControl.xaml.cs">
       <DependentUpon>AccountManagerUserControl.xaml</DependentUpon>
     </Compile>
@@ -282,18 +299,6 @@
     <Compile Include="Views\Payment.xaml.cs">
       <DependentUpon>Payment.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Profile\AccountView.xaml.cs">
-      <DependentUpon>AccountView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Profile\MainProfileView.xaml.cs">
-      <DependentUpon>MainProfileView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Profile\PlayListView.xaml.cs">
-      <DependentUpon>PlayListView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Profile\ProfileManager.xaml.cs">
-      <DependentUpon>ProfileManager.xaml</DependentUpon>
-    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -306,6 +311,22 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\Account\AccountManagerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Account\MainAccountView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Account\PlayListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Account\ProfileManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Admin\AccountManagerUserControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -381,22 +402,6 @@
     <Page Include="Views\Payment.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Profile\AccountView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Profile\MainProfileView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Profile\PlayListView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Profile\ProfileManager.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>

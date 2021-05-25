@@ -1,12 +1,13 @@
-﻿<UserControl x:Class="Manager_Medias.Views.Profile.MainProfileView"
+﻿<UserControl x:Class="Manager_Medias.Views.Account.MainAccountView"
             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:Manager_Medias.Views.Profile"
+             xmlns:local="clr-namespace:Manager_Medias.Views.Account"
+             xmlns:vm="clr-namespace:Manager_Medias.ViewModels.Customer"
              mc:Ignorable="d"
-             d:DesignHeight="585" d:DesignWidth="1200">
+             d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <Style TargetType="materialDesign:PackIcon">
             <Setter Property="VerticalAlignment" Value="Center" />
@@ -56,20 +57,24 @@
         </Grid.ColumnDefinitions>
         <Border Grid.Column="0" Margin="20 30" Background="Black" CornerRadius="2">
             <StackPanel>
-                <Button Style="{StaticResource ActiveButton}" Background="#FF303030">
+                <Button Style="{StaticResource ActiveButton}"
+                        Background="#FF303030"
+                        Command="{Binding NavigateAccountManagerCmd}">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="AccountOutline" Foreground="#febb00" />
                         <Label Content="Tài khoản" Foreground="#fff" FontSize="16" HorizontalContentAlignment="Left" HorizontalAlignment="Left" />
                     </StackPanel>
                 </Button>
-                <Button Style="{StaticResource BtnNav}" Tag="AccountGroupOutline">
+                <Button Style="{StaticResource BtnNav}"
+                        Command="{Binding NavigateProfileManagerCmd}">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="AccountGroupOutline" Foreground="#febb00" />
                         <Label Content="Hồ sơ" Margin="2 0 0 0" Foreground="#fff" FontSize="16" HorizontalContentAlignment="Left" HorizontalAlignment="Left" />
                     </StackPanel>
                 </Button>
 
-                <Button Style="{StaticResource BtnNav}" Tag="AccountGroupOutline">
+                <Button Style="{StaticResource BtnNav}"
+                        Command="{Binding NavigateFavoriteManagerCmd}">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="BookmarkMultipleOutline" Foreground="#febb00" />
                         <Label Content="Yêu thích"
@@ -77,10 +82,11 @@
                                FontSize="16"
                                HorizontalContentAlignment="Left"
                                HorizontalAlignment="Left" />
-            </StackPanel>
+                    </StackPanel>
                 </Button>
 
-                <Button Style="{StaticResource BtnNav}" Tag="AccountGroupOutline">
+                <Button Style="{StaticResource BtnNav}"
+                        Command="{Binding NavigateHistoryListCmd}">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="History" Foreground="#febb00" />
                         <Label Content="Đã xem"
@@ -92,9 +98,21 @@
                 </Button>
             </StackPanel>
         </Border>
-        <ContentControl Grid.Column="1">
-            <local:ProfileManager />
-            <!--<local:PlayListView />-->
+        <ContentControl Grid.Column="1" Content="{Binding ContentViewModel}">
+            <ContentControl.Resources>
+                <DataTemplate DataType="{x:Type vm:AccountManagerViewModel}">
+                    <local:AccountManagerView />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type vm:ProfileManagerViewModel}">
+                    <local:ProfileManager />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type vm:FavoriteViewModel}">
+                    <local:PlayListView />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type vm:HistoryViewModel}">
+                    <local:PlayListView />
+                </DataTemplate>
+            </ContentControl.Resources>
         </ContentControl>
     </Grid>
 </UserControl>

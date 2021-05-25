@@ -1,4 +1,5 @@
 ﻿using Manager_Medias.Commands;
+using Manager_Medias.Models;
 using Manager_Medias.Services;
 using Manager_Medias.Stores;
 using Manager_Medias.ViewModels.Customer;
@@ -37,11 +38,21 @@ namespace Manager_Medias.ViewModels.Guest
 
             var email = values[0].ToString();
             var password = values[1].ToString();
+            // User has found
+            User currentUser = new User
+            {
+                Code = "usercode",
+                Email = "demo@gmail.com",
+                Level = 1,
+                NumberCard = "demo_card_number",
+                Password = "123",
+            };
+
+            UserStore userStore = new UserStore(currentUser);
 
             // Check valid account
-
             // Redirect to MainLayout
-            _navigationStore.CurrentViewModel = new LayoutViewModel(_navigationStore);
+            _navigationStore.CurrentViewModel = new MainLayoutViewModel(userStore, _navigationStore);
             _navigationStore.ContentViewModel = new HomeViewModel();
         }
     }

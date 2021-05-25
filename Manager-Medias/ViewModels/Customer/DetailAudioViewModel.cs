@@ -32,7 +32,10 @@ namespace Manager_Medias.ViewModels.Customer
         }
 
         public Audio SelectedAudio { get => _selectedAudio; set => _selectedAudio = value; }
+        public string TimeAudio { get => _timeAudio; set => _timeAudio = value; }
+
         private Audio _selectedAudio;
+        private string _timeAudio;
 
         public DetailAudioViewModel()
         {

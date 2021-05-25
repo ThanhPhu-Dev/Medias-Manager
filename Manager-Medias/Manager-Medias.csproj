@@ -150,13 +150,17 @@
     <Compile Include="Converters\MultiParameterConverter.cs" />
     <Compile Include="CustomeModels\DetailMovieCustomeModel.cs" />
     <Compile Include="Converters\ImageAudioConverter.cs" />
+    <Compile Include="Models\MovieCarouselModel.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Services\ParameterNavigationService.cs" />
     <Compile Include="Stores\NavigationStore.cs" />
     <Compile Include="Stores\UserStore.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\Customer\AccountManagerViewModel.cs" />
     <Compile Include="ViewModels\Customer\DetailAudioViewModel.cs" />
     <Compile Include="ViewModels\Customer\DetailMovieViewModel.cs" />
+    <Compile Include="ViewModels\Customer\FavoriteViewModel.cs" />
+    <Compile Include="ViewModels\Customer\HistoryViewModel.cs" />
     <Compile Include="ViewModels\Customer\HomeViewModel.cs" />
     <Compile Include="ViewModels\Customer\MainAccountView.cs" />
     <Compile Include="Models\Album.cs">
@@ -219,8 +223,8 @@
     <Compile Include="Models\View_History.cs">
       <DependentUpon>MediasManagement.tt</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\Customer\DetailMovie.cs" />
     <Compile Include="ViewModels\Customer\MainLayoutViewModel.cs" />
+    <Compile Include="ViewModels\Customer\ProfileManagerViewModel.cs" />
     <Compile Include="ViewModels\Guest\GuestHomeViewModel.cs" />
     <Compile Include="ViewModels\Guest\GuestLoginViewModel.cs" />
     <Compile Include="ViewModels\Guest\GuestMainViewModel.cs" />

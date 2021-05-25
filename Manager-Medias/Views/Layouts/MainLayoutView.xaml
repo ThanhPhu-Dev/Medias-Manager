@@ -84,6 +84,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="100" />
                 <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Button Grid.Column="0" HorizontalAlignment="Left"
                     Padding="0"
@@ -94,7 +95,8 @@
                                          Width="26"
                                          Height="26" />
             </Button>
-            <StackPanel Grid.Column="1" HorizontalAlignment="Right"
+
+            <StackPanel Grid.Column="2" HorizontalAlignment="Right"
                         VerticalAlignment="Center"
                         Orientation="Horizontal"
                         Margin="0 0 20 0">
@@ -119,7 +121,7 @@
                           x:Name="cbbTaiKhoan">
                     <Behaviors:Interaction.Triggers>
                         <Behaviors:EventTrigger EventName="SelectionChanged">
-                            <Behaviors:InvokeCommandAction Command="{Binding ComboboxAccountCmd}"
+                            <Behaviors:InvokeCommandAction Command="{Binding NavigateAccountCmd}"
                                                            PassEventArgsToCommand="True" />
                         </Behaviors:EventTrigger>
                     </Behaviors:Interaction.Triggers>

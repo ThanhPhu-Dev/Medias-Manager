@@ -81,7 +81,8 @@
                 <syncfusion:Carousel Grid.Row="1"
                                      x:Name="carousel"
                                      OpacityFraction="0.10"
-                                     VisualMode="CustomPath">
+                                     VisualMode="CustomPath"
+                                     ItemsSource="{Binding CarouselCollection}">
                     <syncfusion:Carousel.Path>
                         <Path Data="M0,300 L600,300" />
                     </syncfusion:Carousel.Path>

@@ -16,8 +16,8 @@ namespace Manager_Medias.ViewModels
 
         public MainViewModel()
         {
-            navigationStore.ContentViewModel = new GuestHomeViewModel();
-            CurrentViewModel = new GuestMainViewModel(navigationStore);
+            navigationStore.ContentViewModel = new DetailMovieViewModel();
+            CurrentViewModel = new LayoutViewModel(navigationStore);
 
             // Init content after login
             //navigationStore.ContentViewModel = new HomeViewModel();

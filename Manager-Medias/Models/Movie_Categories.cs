@@ -25,5 +25,7 @@ namespace Manager_Medias.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Movies> Movies { get; set; }
+
+        
     }
 }

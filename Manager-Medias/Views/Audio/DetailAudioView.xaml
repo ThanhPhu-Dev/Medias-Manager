@@ -192,8 +192,16 @@
                                       Foreground="#febb00"
                                       BorderThickness="0"
                                       Cursor="Hand"
-                                      Name="btn_playvideo" >
+                                      Name="btn_playvideo">
 
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Checked">
+                                    <i:InvokeCommandAction Command="{Binding CmdPauseAudio}"/>
+                                </i:EventTrigger>
+                                <i:EventTrigger EventName="Unchecked">
+                                    <i:InvokeCommandAction Command="{Binding CmdPlayAudio}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
                             <ToggleButton.Style>
                                 <Style TargetType="{x:Type ToggleButton}">
                                     <Setter Property="Content" Value="{materialDesign:PackIcon Pause, Size=55}" />

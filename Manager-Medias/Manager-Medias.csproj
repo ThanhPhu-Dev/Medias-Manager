@@ -488,7 +488,10 @@
       <DependentUpon>MediasManangement.mdf</DependentUpon>
     </Content>
     <Content Include="DB\query.sql" />
-    <Content Include="Images\1.mp3">
+    <Content Include="Images\1.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\2.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\video.mp4">

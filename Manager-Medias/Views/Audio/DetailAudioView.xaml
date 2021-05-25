@@ -5,12 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Manager_Medias.Views.Audio"
              xmlns:model="clr-namespace:Manager_Medias.Models"
+             xmlns:imgConverter="clr-namespace:Manager_Medias.Converters"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="585" d:DesignWidth="1200"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              >
     <UserControl.Resources>
+        <imgConverter:ImageAudioConverter x:Key="imgCvt"/>
         <Style TargetType="materialDesign:PackIcon" x:Key="iconPlay">
             <Setter Property="Foreground" Value="#fff" />
             <Setter Property="VerticalAlignment" Value="Center" />
@@ -166,7 +168,7 @@
                         <RotateTransform x:Name="rotate_avatar" Angle="0"/>
                     </Ellipse.RenderTransform>
                     <Ellipse.Fill>
-                        <ImageBrush ImageSource="/Images/mobiledownload.PNG"/>
+                        <ImageBrush ImageSource="{Binding ElementName=lb_Audio, Path=SelectedItem.Image, Converter={StaticResource imgCvt}}"/>
                     </Ellipse.Fill>
                 </Ellipse>
                 <StackPanel Grid.ColumnSpan="3"

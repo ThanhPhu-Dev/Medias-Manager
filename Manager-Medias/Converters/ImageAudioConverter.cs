@@ -12,7 +12,7 @@ namespace Manager_Medias.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var relative = $@"{(string)value}.jpg";
+            var relative = $@"Images\a_avatar_{(string)value}.jpg";
             var baseFolder = AppDomain.CurrentDomain.BaseDirectory;
             var absolute = $"{baseFolder}{relative}";
             return absolute;

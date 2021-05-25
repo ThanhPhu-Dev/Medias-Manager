@@ -56,7 +56,8 @@
                       Style="{StaticResource MaterialDesignRaisedDarkButton}"
                       ToolTip="Đăng ký"
                       Content="_Đăng ký"
-                        FontSize="18" />
+                        FontSize="18"
+                        Command="{Binding NavigateRegisterCmd}" />
             </DockPanel>
         </Border>
 
@@ -67,6 +68,9 @@
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type vm:GuestLoginViewModel}">
                     <local:SignIn />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type vm:GuestRegisterViewModel}">
+                    <us:InfoRegisterView />
                 </DataTemplate>
             </Grid.Resources>
             <ContentControl Content="{Binding ContentViewModel}" />

@@ -18,15 +18,5 @@ namespace Manager_Medias.ViewModels
             _navigationStore.CurrentContentViewModelChanged += _navigationStore_CurrentViewModelChanged;
             _navigationStore.CurrentViewModelChanged += _navigationStore_CurrentContentViewModelChanged;
         }
-
-        //private void NavigationStore_CurrentViewModelChanged()
-        //{
-        //    OnPropertyChanged(nameof(CurrentViewModel));
-        //}
-
-        //private void NavigationStore_CurrentContentViewModelChanged()
-        //{
-        //    OnPropertyChanged(nameof(_navigationStore.CurrentViewModel));
-        //}
     }
 }

@@ -56,9 +56,6 @@ namespace Manager_Medias.ViewModels.Customer
 
         private void SelectionChange(object obj)
         {
-            //byte[] result = System.IO.File.ReadAllBytes(@"F:\2021 - 2022\UDQL2\Project\Medias-Manager\Manager-Medias\bin\Debug\Images\1.mp3");
-            //System.IO.MemoryStream ms = new System.IO.MemoryStream(result);
-            //SoundPlayer sp = new SoundPlayer(ms);
             //sp.Play();
             player.Stop();
             player = null;
@@ -66,7 +63,7 @@ namespace Manager_Medias.ViewModels.Customer
         }
         public void loadaudio()
         {
-            if(player == null)
+            if (player == null)
             {
                 player = new MediaPlayer();
                 player.Open(new Uri(@"F:\2021 - 2022\UDQL2\Project\Medias-Manager\Manager-Medias\bin\Debug\Images\2.mp3"));

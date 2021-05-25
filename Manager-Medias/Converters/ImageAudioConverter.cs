@@ -8,7 +8,7 @@ using System.Windows.Data;
 
 namespace Manager_Medias.Converters
 {
-    public class ImageConverter : IValueConverter
+    public class ImageAudioConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

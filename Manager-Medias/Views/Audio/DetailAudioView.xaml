@@ -106,6 +106,7 @@
     <UserControl.Triggers>
         <EventTrigger RoutedEvent="ListBox.SelectionChanged" SourceName="lb_Audio">
             <BeginStoryboard Name="anm_rotate" Storyboard="{StaticResource Star_rotate}" />
+            <!--<SoundPlayerAction Source="F:\2021 - 2022\UDQL2\Project\Medias-Manager\Manager-Medias\bin\Debug\Images\1.mp3" />-->
         </EventTrigger>
         <!--khi nhấn play-->
         <EventTrigger RoutedEvent="ToggleButton.Checked" SourceName="btn_playvideo">
@@ -190,7 +191,7 @@
                                       Foreground="#febb00"
                                       BorderThickness="0"
                                       Cursor="Hand"
-                                      Name="btn_playvideo">
+                                      Name="btn_playvideo" >
 
                             <ToggleButton.Style>
                                 <Style TargetType="{x:Type ToggleButton}">

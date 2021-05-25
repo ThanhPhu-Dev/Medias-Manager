@@ -28,7 +28,7 @@
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Height" Value="auto"/>
-            
+
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True" >
                     <Setter Property="Background" Value="Transparent"/>
@@ -115,8 +115,8 @@
                  Storyboard.TargetName="txt_row3_lv3"
                  Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"/>
         </Storyboard>
-        
-         <!--animation cho lv2-->
+
+        <!--animation cho lv2-->
         <Storyboard x:Key="ChangeColorPrimary_lv2" >
             <ColorAnimation 
                  To="#222"
@@ -439,15 +439,30 @@
                     </Border>
                 </StackPanel>
 
-                <Button
-                Background="#FFbb00"
-                Style="{StaticResource MaterialDesignRaisedButton}"
-                ToolTip="Resource name: MaterialDesignRaisedButton"
-                Height="50"
-                Content="Tiếp tục" 
-                    FontSize="23"
-                    Margin="0 20"
-                    Foreground="#222"/>
+
+
+                <DockPanel LastChildFill="False">
+                    <Button
+                        Background="#857850"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        ToolTip="Quay lại bước trước"
+                        Height="50"
+                        Content="Trở về" 
+                        FontSize="23"
+                        Margin="0 20"
+                        Foreground="#222"/>
+                    <Button
+                        Background="#FFbb00"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        ToolTip="Bước tiếp theo"
+                        Height="50"
+                        FontSize="23"
+                        Margin="0 20"
+                        Foreground="#222"
+                        DockPanel.Dock="Right"
+                        Content="Tiếp tục">
+                    </Button>
+                </DockPanel>
             </StackPanel>
         </Grid>
     </ScrollViewer>

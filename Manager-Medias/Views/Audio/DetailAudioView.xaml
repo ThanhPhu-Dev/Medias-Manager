@@ -5,12 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Manager_Medias.Views.Audio"
              xmlns:model="clr-namespace:Manager_Medias.Models"
+             xmlns:imgConverter="clr-namespace:Manager_Medias.Converters"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="585" d:DesignWidth="1200"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              >
     <UserControl.Resources>
+        <imgConverter:ImageAudioConverter x:Key="imgCvt"/>
         <Style TargetType="materialDesign:PackIcon" x:Key="iconPlay">
             <Setter Property="Foreground" Value="#fff" />
             <Setter Property="VerticalAlignment" Value="Center" />
@@ -143,12 +145,12 @@
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
-                    <ColumnDefinition Width="6.5*"/>
+                    <ColumnDefinition Width="6.3*"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Ellipse Grid.Row="1"
                          Grid.Column="1"
-                         StrokeThickness="3">
+                         StrokeThickness="2">
                     <Ellipse.Stroke>
                         <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
                             <GradientStop Color="Black" Offset="0.71" />
@@ -160,13 +162,13 @@
                 <Ellipse Grid.Row="1"
                          Grid.Column="1"
                          StrokeThickness="3"
-                         Margin="7"
+                         Margin="4"
                          RenderTransformOrigin="0.5, 0.5">
                     <Ellipse.RenderTransform>
                         <RotateTransform x:Name="rotate_avatar" Angle="0"/>
                     </Ellipse.RenderTransform>
                     <Ellipse.Fill>
-                        <ImageBrush ImageSource="/Images/mobiledownload.PNG"/>
+                        <ImageBrush ImageSource="{Binding ElementName=lb_Audio, Path=SelectedItem.Image, Converter={StaticResource imgCvt}}"/>
                     </Ellipse.Fill>
                 </Ellipse>
                 <StackPanel Grid.ColumnSpan="3"
@@ -254,7 +256,7 @@
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
                         <i:InvokeCommandAction Command="{Binding CmdSelectionChange}"  
-                                                CommandParameter="{Binding ElementName=lb_Audio, Path=SelectedItem}"/>
+                                                CommandParameter="{Binding ElementName=lb_Audio, Path=SelectedItem.Mp3}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
                 <ListBox.Resources>

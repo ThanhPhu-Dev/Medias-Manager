@@ -188,11 +188,16 @@ INSERT INTO Audio_Categories(Name) values (N'Ballad'), (N'Sôi động'), (N'Tr�
 
 --INSERT AUDIO
 INSERT INTO Audios VALUES 
-	(1, 1, N'Chiều thu ', null, null),
-	(2, 1, N'Người đã ', null, null),
-	(3, 2, N'Sóng gió', null, null),
-	(4, 2, N'Bạc phận', null, null),
-	(5, 3, N'Nhỏ ơi', null, null)
+	(1, 1, N'Chiều thu ', '1', null),
+	(2, 1, N'Người đã ', '2', null),
+	(3, 2, N'Sóng gió', '3', null),
+	(4, 2, N'Bạc phận', '4', null),
+	(5, 3, N'Nhỏ ơi', '5', null)
+update Audios set Mp3 = '1' where Id = 1
+update Audios set Mp3 = '2' where Id = 2
+update Audios set Mp3 = '3' where Id = 3
+update Audios set Mp3 = '4' where Id = 4
+update Audios set Mp3 = '5' where Id = 5
 
 SELECT * FROM Medias
 update Medias set Lvl = 1 where Id = 7

@@ -8,6 +8,7 @@ namespace Manager_Medias.CustomeModels
 {
     public class DetailMovieCustomeModel
     {
+        public int Id { get; set; }
         public string Level { get; set; }
         public string Name { get; set; }
         public string Category { get; set; }

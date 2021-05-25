@@ -67,7 +67,7 @@
                     <TextBlock Grid.Row="1" Text="{Binding DetailMovies.Name}" Foreground="#ff8040" 
                            Margin="10 0 0 0" FontSize="28px"/>
                     <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="10 0 0 0">
-                        <Button ForceCursor="True" Cursor="Hand">
+                        <Button ForceCursor="True" Cursor="Hand" Command="{Binding CmdLikesClick}" CommandParameter="{Binding DetailMovies.Id}">
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" >
                                 <materialDesign:PackIcon Kind="ThumbUp"  Foreground="#fb0" Height="21"  Width="38"/>
                                 <TextBlock Text="{Binding DetailMovies.like}" Foreground="#8c8c8c"/>
@@ -79,13 +79,13 @@
                                 <TextBlock Text="{Binding DetailMovies.view}"  Foreground="#8c8c8c"/>
                             </StackPanel>
                         </Button>
-                        <Button>
+                        <Button Command="{Binding CmdShareClick}">
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                 <materialDesign:PackIcon Kind="ShareVariant" Foreground="#fb0" Height="21"  Width="38" />
                                 <TextBlock Text="Chia sẻ" Foreground="#8c8c8c"/>
                             </StackPanel>
                         </Button>
-                        <Button>
+                        <Button Command="{Binding CmdErrorClick}">
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                 <materialDesign:PackIcon Kind="AlertCircle" Foreground="#fb0" Height="21"  Width="38" />
                                 <TextBlock Text="Báo Lổi" Foreground="#8c8c8c"/>
@@ -139,14 +139,14 @@
                             <Label Content="Thời lượng: " Foreground="#8c8c8c" FontSize="14px"/>
                             <TextBlock Text="{Binding DetailMovies.Time}" Foreground="White" FontSize="14px"/>
                         </StackPanel>
-                        <!--<StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal">
                             <Label Content="Đạo Diễn: " Foreground="#8c8c8c" FontSize="14px"/>
                             <TextBlock Text="Shawn Linden" Foreground="White" FontSize="14px"/>
-                        </StackPanel>-->
-                        <!--<StackPanel Orientation="Horizontal">
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
                             <Label Content="Quốc gia: " Foreground="#8c8c8c" FontSize="14px"/>
                             <TextBlock Text="Canada" Foreground="White" FontSize="14px"/>
-                        </StackPanel>-->
+                        </StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <Label Content="Thể loại: " Foreground="#8c8c8c" FontSize="14px"/>
                             <TextBlock Text="{Binding DetailMovies.Category}" Foreground="White" FontSize="14px" />

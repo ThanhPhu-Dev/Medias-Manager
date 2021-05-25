@@ -80,9 +80,12 @@ CREATE TABLE Movies
 	Video VARCHAR(MAX),
 	Season VARCHAR(10), --generate
 	Time varchar(8),
+	Directors NVARCHAR(20),
+	Nation NVARCHAR(20),
 
 	CONSTRAINT PK_Movie PRIMARY KEY (Id)
 )
+
 
 CREATE TABLE Albums
 (
@@ -119,6 +122,7 @@ CREATE TABLE Audios
 
 	CONSTRAINT PK_Audios PRIMARY KEY (Id)
 )
+
 
 CREATE TABLE My_Lists
 (

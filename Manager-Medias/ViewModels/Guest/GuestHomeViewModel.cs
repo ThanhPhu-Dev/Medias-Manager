@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Manager_Medias.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,10 @@ namespace Manager_Medias.ViewModels.Guest
     {
         public GuestHomeViewModel()
         {
+            using (var db = new MediasManangementEntities())
+            {
+                
+            }
         }
     }
 }

@@ -17,6 +17,7 @@ namespace Manager_Medias.ViewModels.Guest
         public BaseViewModel ContentViewModel => _navigationStore.ContentViewModel;
 
         public ICommand NavigateLoginCmd { get; }
+        public ICommand NavigateRegisterCmd { get; }
 
         public GuestMainViewModel(NavigationStore navigationStore)
         {
@@ -24,6 +25,9 @@ namespace Manager_Medias.ViewModels.Guest
             _navigationStore = navigationStore;
             NavigateLoginCmd = new NavigateCommand<GuestLoginViewModel>(
                 new NavigationService<GuestLoginViewModel>(navigationStore, () => new GuestLoginViewModel()));
+            NavigateRegisterCmd = new NavigateCommand<GuestRegisterViewModel>(
+                new NavigationService<GuestRegisterViewModel>(navigationStore, () => new GuestRegisterViewModel()));
+
             _navigationStore.CurrentContentViewModelChanged += _navigationStore_CurrentContentViewModelChanged;
         }
 

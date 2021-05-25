@@ -16,15 +16,15 @@ namespace Manager_Medias.ViewModels
 
         public MainViewModel()
         {
-            //navigationStore.ContentViewModel = new DetailAudioViewModel();
-            //CurrentViewModel = new GuestMainViewModel(navigationStore);
+            navigationStore.ContentViewModel = new GuestHomeViewModel();
+            CurrentViewModel = new GuestMainViewModel(navigationStore);
 
             // Init content after login
             //navigationStore.ContentViewModel = new HomeViewModel();
             //CurrentViewModel = new HomeViewModel();
 
-            navigationStore.ContentViewModel = new DetailAudioViewModel();
-            CurrentViewModel = new LayoutViewModel(navigationStore);
+            //navigationStore.ContentViewModel = new DetailAudioViewModel();
+            //CurrentViewModel = new LayoutViewModel(navigationStore);
         }
     }
 }

@@ -146,11 +146,12 @@
     <Compile Include="Commands\CommandBase.cs" />
     <Compile Include="Commands\NavigateCommand.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="Converters\MultiParameterConverter.cs" />
     <Compile Include="Converters\ImageConverter.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Services\ParameterNavigationService.cs" />
-    <Compile Include="Stores\AccountStore.cs" />
     <Compile Include="Stores\NavigationStore.cs" />
+    <Compile Include="Stores\UserStore.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\Customer\DetailAudioViewModel.cs" />
     <Compile Include="ViewModels\Customer\HomeViewModel.cs" />
@@ -220,6 +221,7 @@
     <Compile Include="ViewModels\Guest\GuestHomeViewModel.cs" />
     <Compile Include="ViewModels\Guest\GuestLoginViewModel.cs" />
     <Compile Include="ViewModels\Guest\GuestMainViewModel.cs" />
+    <Compile Include="ViewModels\Guest\GuestRegisterViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Views\Admin\AccountManagerUserControl.xaml.cs">
       <DependentUpon>AccountManagerUserControl.xaml</DependentUpon>

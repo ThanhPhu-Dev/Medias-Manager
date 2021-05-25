@@ -11,10 +11,10 @@ namespace Manager_Medias.Commands
     {
         #region Fields
 
-        readonly Action<T> _execute = null;
-        readonly Predicate<T> _canExecute = null;
+        private readonly Action<T> _execute = null;
+        private readonly Predicate<T> _canExecute = null;
 
-        #endregion
+        #endregion Fields
 
         #region Constructors
 
@@ -42,7 +42,7 @@ namespace Manager_Medias.Commands
             _canExecute = canExecute;
         }
 
-        #endregion
+        #endregion Constructors
 
         #region ICommand Members
 
@@ -76,6 +76,6 @@ namespace Manager_Medias.Commands
             _execute((T)parameter);
         }
 
-        #endregion
+        #endregion ICommand Members
     }
 }

@@ -38,7 +38,6 @@
             <Setter Property="Padding" Value="2, 0" />
             <Style.Triggers>
                 <DataTrigger Binding="{Binding Text, ElementName=Email}" Value="">
-
                     <DataTrigger.EnterActions>
                         <BeginStoryboard>
                             <Storyboard SpeedRatio="10">

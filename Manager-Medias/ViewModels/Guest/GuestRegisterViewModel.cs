@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Manager_Medias.Stores
+namespace Manager_Medias.ViewModels.Guest
 {
-    class AccountStore
+    public class GuestRegisterViewModel : BaseViewModel
     {
     }
 }

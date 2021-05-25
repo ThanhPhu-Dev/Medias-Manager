@@ -26,6 +26,8 @@ namespace Manager_Medias.Models
         public string Video { get; set; }
         public string Season { get; set; }
         public string Time { get; set; }
+        public string Directors { get; set; }
+        public string Nation { get; set; }
     
         public virtual Media Media { get; set; }
         public virtual Movie_Categories Movie_Categories { get; set; }

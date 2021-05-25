@@ -19,6 +19,7 @@ namespace Manager_Medias.Models
         public string Name { get; set; }
         public string Image { get; set; }
         public string Mp3 { get; set; }
+        public string Time { get; set; }
     
         public virtual Audio_Categories Audio_Categories { get; set; }
         public virtual Media Media { get; set; }

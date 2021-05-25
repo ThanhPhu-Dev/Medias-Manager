@@ -146,7 +146,9 @@
     <Compile Include="Commands\CommandBase.cs" />
     <Compile Include="Commands\NavigateCommand.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="Converters\ConvertImage.cs" />
     <Compile Include="Converters\MultiParameterConverter.cs" />
+    <Compile Include="CustomeModels\DetailMovieCustomeModel.cs" />
     <Compile Include="Converters\ImageAudioConverter.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Services\ParameterNavigationService.cs" />
@@ -154,6 +156,7 @@
     <Compile Include="Stores\UserStore.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\Customer\DetailAudioViewModel.cs" />
+    <Compile Include="ViewModels\Customer\DetailMovieViewModel.cs" />
     <Compile Include="ViewModels\Customer\HomeViewModel.cs" />
     <Compile Include="ViewModels\Customer\LayoutViewModel.cs" />
     <Compile Include="ViewModels\Customer\ProfileViewModel.cs" />
@@ -217,7 +220,6 @@
     <Compile Include="Models\View_History.cs">
       <DependentUpon>MediasManagement.tt</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\Customer\DetailMovie.cs" />
     <Compile Include="ViewModels\Guest\GuestHomeViewModel.cs" />
     <Compile Include="ViewModels\Guest\GuestLoginViewModel.cs" />
     <Compile Include="ViewModels\Guest\GuestMainViewModel.cs" />
@@ -274,8 +276,8 @@
     <Compile Include="Views\Movie\DetaiImages.xaml.cs">
       <DependentUpon>DetaiImages.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Movie\DetailMovie.xaml.cs">
-      <DependentUpon>DetailMovie.xaml</DependentUpon>
+    <Compile Include="Views\Movie\DetailMovieView.xaml.cs">
+      <DependentUpon>DetailMovieView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Payment.xaml.cs">
       <DependentUpon>Payment.xaml</DependentUpon>
@@ -372,7 +374,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Movie\DetailMovie.xaml">
+    <Page Include="Views\Movie\DetailMovieView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -432,7 +434,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\postermovieHuter.jpg" />
+    <None Include="Images\postermovieHuter.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\desktop.jpg" />

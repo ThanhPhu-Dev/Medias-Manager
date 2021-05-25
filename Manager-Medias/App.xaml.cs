@@ -22,7 +22,7 @@ namespace Manager_Medias
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("NDUwNjgwQDMxMzkyZTMxMmUzMEFCRUZSUzU4RGNhTGo0eHkvMW9YYVJkMUd5UXhxbTdaNTdtSFFJSS84dlU9");
             // Init location
             NavigationStore navigationStore = new NavigationStore();
-            navigationStore.ContentViewModel = new DetailAudioViewModel();
+            navigationStore.ContentViewModel = new DetailMovieViewModel();
             navigationStore.CurrentViewModel = new LayoutViewModel(navigationStore);
 
             MainWindow = new MainWindow()

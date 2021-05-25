@@ -80,9 +80,12 @@ CREATE TABLE Movies
 	Video VARCHAR(MAX),
 	Season VARCHAR(10), --generate
 	Time varchar(8),
+	Directors NVARCHAR(20),
+	Nation NVARCHAR(20),
 
 	CONSTRAINT PK_Movie PRIMARY KEY (Id)
 )
+
 
 CREATE TABLE Albums
 (
@@ -119,6 +122,7 @@ CREATE TABLE Audios
 
 	CONSTRAINT PK_Audios PRIMARY KEY (Id)
 )
+
 
 CREATE TABLE My_Lists
 (
@@ -195,8 +199,10 @@ update Audios set Mp3 = '3' where Id = 3
 update Audios set Mp3 = '4' where Id = 4
 update Audios set Mp3 = '5' where Id = 5
 
-	SELECT * FROM Movie_Categories
-	SELECT * FROM Movies
+SELECT * FROM Medias
+update Medias set Lvl = 1 where Id = 7
+select * from medias as m join Levels l on l.Id = m.Lvl
+insert into Levels(Name,Price) values('Vàng', 200000)
 insert into Movies (Id, IdCategory,IMDB,Likes,Name,NumberOfViews,Poster,Age,Description,Season,Time,Video)
 values (7,1,6.5,4,N'Super Hero', 23, 'postermovieHuter.jpg', 18,N'Super hero hân hạnh tài trợ', 'kn92','12:30','video.mp4')
 

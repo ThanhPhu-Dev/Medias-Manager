@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Threading;
 
 namespace Manager_Medias.ViewModels.Customer
 {
@@ -20,6 +21,7 @@ namespace Manager_Medias.ViewModels.Customer
         public ICommand CmdPlayAudio { get; set; }
         public ICommand CmdPauseAudio { get; set; }
         private MediaPlayer player = null;
+        public DispatcherTimer _timer;
 
         static DetailAudioViewModel()
         {
@@ -45,6 +47,13 @@ namespace Manager_Medias.ViewModels.Customer
             CmdPauseAudio = new RelayCommand<object>(PauseAudio);
 
             loadaudio("1");
+            _timer = new DispatcherTimer(DispatcherPriority.Render);
+            _timer.Interval = TimeSpan.FromSeconds(1);
+            _timer.Tick += (sender, args) =>
+            {
+                TimeAudio = DateTime.Now.ToLongTimeString();
+            };
+            _timer.Start();
         }
 
         private void PauseAudio(object obj)

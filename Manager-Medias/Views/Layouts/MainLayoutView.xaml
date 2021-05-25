@@ -229,12 +229,12 @@
                 <DataTemplate DataType="{x:Type viewmodels:ProfileViewModel}">
                     <vprofile:MainProfileView />
                 </DataTemplate>
-                <!--<DataTemplate DataType="{x:Type viewmodels:DetailAudioViewModel}">
+                <DataTemplate DataType="{x:Type viewmodels:DetailAudioViewModel}">
                     <vaudio:DetailAudioView />
-                </DataTemplate>-->
-                <DataTemplate DataType="{x:Type viewmodels:DetailMovieViewModel}">
-                    <vmovie:DetailMovie />
                 </DataTemplate>
+                <!--<DataTemplate DataType="{x:Type viewmodels:DetailMovieViewModel}">
+                    <vmovie:DetailMovie />
+                </DataTemplate>-->
             </Grid.Resources>
             <ContentControl Content="{Binding ContentViewModel}" />
         </Grid>

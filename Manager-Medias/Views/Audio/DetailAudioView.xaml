@@ -308,5 +308,8 @@
             </ListBox>
 
         </Grid>
+
+        <TextBlock Text="{Binding TimeAudio}"
+                   Foreground="#fff"/>
     </Grid>
 </UserControl>

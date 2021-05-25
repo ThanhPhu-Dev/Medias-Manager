@@ -17,7 +17,9 @@ namespace Manager_Medias.CustomeModels
         public int view { get; set; }
         public string Time { get; set; }
         public double IMDB { get; set; }
-        public string image { get; set; }
-        public string video { get; set; }
+        public string Image { get; set; }
+        public string Video { get; set; }
+        public string Directors { get; set; }
+        public string Nation { get; set; }
     }
 }

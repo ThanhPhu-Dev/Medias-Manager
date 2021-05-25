@@ -48,7 +48,7 @@
                     <ColumnDefinition Width="79*"/>
                     <ColumnDefinition Width="121*"/>
                 </Grid.ColumnDefinitions>
-                <Image Grid.Column="0" Source="{Binding DetailMovies.image, Converter={StaticResource cvt}}"/>
+                <Image Grid.Column="0" Source="{Binding DetailMovies.Image, Converter={StaticResource cvt}}"/>
                 <Grid Grid.Column="1" >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="50*" />
@@ -141,28 +141,20 @@
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <Label Content="Đạo Diễn: " Foreground="#8c8c8c" FontSize="14px"/>
-                            <TextBlock Text="Shawn Linden" Foreground="White" FontSize="14px"/>
+                            <TextBlock Text="{Binding DetailMovies.Directors}" Foreground="White" FontSize="14px"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <Label Content="Quốc gia: " Foreground="#8c8c8c" FontSize="14px"/>
-                            <TextBlock Text="Canada" Foreground="White" FontSize="14px"/>
+                            <TextBlock Text="{Binding DetailMovies.Nation}" Foreground="White" FontSize="14px"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <Label Content="Thể loại: " Foreground="#8c8c8c" FontSize="14px"/>
                             <TextBlock Text="{Binding DetailMovies.Category}" Foreground="White" FontSize="14px" />
                         </StackPanel>
-                        <!--<StackPanel Orientation="Horizontal">
-                            <Label Content="Phát hành: " Foreground="#8c8c8c" FontSize="14px"/>
-                            <TextBlock Text="2020" Foreground="White" FontSize="14px"/>
-                        </StackPanel>-->
                         <StackPanel Orientation="Horizontal">
                             <Label Content="IMDB: " Foreground="#8c8c8c"/>
                             <TextBlock Text="{Binding DetailMovies.IMDB}" Foreground="White" FontSize="14px"/>
                         </StackPanel>
-                        <!--<StackPanel Orientation="Horizontal">
-                            <Label Content="Diễn Viên: " Foreground="#8c8c8c" FontSize="14px"/>
-                            <TextBlock Text="Camille Sullivan, Devon Sawa, Nick Stahl, Summer H. Howell" FontSize="14px" Foreground="White"/>
-                        </StackPanel>-->
                     </StackPanel>
                 </Grid>
             </Grid>

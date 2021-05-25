@@ -54,7 +54,10 @@ namespace Manager_Medias.ViewModels.Customer
                     Category = movies.Movie_Categories.Name,
                     Time = movies.Time,
                     view = movies.NumberOfViews.Value,
-                    image = movies.Poster,
+                    Image = movies.Poster,
+                    Video = movies.Video,
+                    Directors = movies.Directors,
+                    Nation = movies.Nation,
                 };
                 DetailMovies = dm;
             }

@@ -5,7 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Manager_Medias.Views.Customer"
              xmlns:vm="clr-namespace:Manager_Medias.ViewModels.Guest"
+             xmlns:t="clr-namespace:Manager_Medias.ViewModels.Customer"
              xmlns:us="clr-namespace:Manager_Medias.Views.Customer.Register"
+             xmlns:pr="clr-namespace:Manager_Medias.Views.Profile"
              mc:Ignorable="d"
              d:DesignHeight="650" d:DesignWidth="1200">
     <UserControl.Resources>
@@ -71,6 +73,9 @@
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type vm:GuestRegisterViewModel}">
                     <us:InfoRegisterView />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type t:ProfileViewModel}">
+                    <pr:MainProfileView />
                 </DataTemplate>
             </Grid.Resources>
             <ContentControl Content="{Binding ContentViewModel}" />

@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Manager_Medias.Views.Audio"
              xmlns:model="clr-namespace:Manager_Medias.Models"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="585" d:DesignWidth="1200"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -191,8 +192,16 @@
                                       Foreground="#febb00"
                                       BorderThickness="0"
                                       Cursor="Hand"
-                                      Name="btn_playvideo" >
+                                      Name="btn_playvideo">
 
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Checked">
+                                    <i:InvokeCommandAction Command="{Binding CmdPauseAudio}"/>
+                                </i:EventTrigger>
+                                <i:EventTrigger EventName="Unchecked">
+                                    <i:InvokeCommandAction Command="{Binding CmdPlayAudio}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
                             <ToggleButton.Style>
                                 <Style TargetType="{x:Type ToggleButton}">
                                     <Setter Property="Content" Value="{materialDesign:PackIcon Pause, Size=55}" />
@@ -241,7 +250,13 @@
                  ItemsSource="{Binding AudioList}"
                  SelectedItem="{Binding SelectedAudio}"
                  Margin="30 0 15 0"
-                 ItemContainerStyle="{DynamicResource _ListBoxItemStyle}" >
+                 ItemContainerStyle="{DynamicResource _ListBoxItemStyle}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding CmdSelectionChange}"  
+                                                CommandParameter="{Binding ElementName=lb_Audio, Path=SelectedItem}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
                 <ListBox.Resources>
                     <Style TargetType="Thumb">
                         <Setter Property="Template">

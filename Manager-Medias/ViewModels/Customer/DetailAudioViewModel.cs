@@ -4,10 +4,12 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace Manager_Medias.ViewModels.Customer
 {
@@ -15,6 +17,9 @@ namespace Manager_Medias.ViewModels.Customer
     {
         public static readonly DependencyProperty AudioListProperty;
         public ICommand CmdSelectionChange { get; set; }
+        public ICommand CmdPlayAudio { get; set; }
+        public ICommand CmdPauseAudio { get; set; }
+        private MediaPlayer player = null;
 
         static DetailAudioViewModel()
         {
@@ -28,16 +33,45 @@ namespace Manager_Medias.ViewModels.Customer
 
         public Audio SelectedAudio { get => _selectedAudio; set => _selectedAudio = value; }
         private Audio _selectedAudio;
-        
+
         public DetailAudioViewModel()
         {
             Loaded();
-            CmdSelectionChange = new RelayCommand<object[]>(SelectionChange);
+            CmdSelectionChange = new RelayCommand<object>(SelectionChange);
+            CmdPlayAudio = new RelayCommand<object>(PlayAudio);
+            CmdPauseAudio = new RelayCommand<object>(PauseAudio);
+
+            loadaudio();
         }
 
-        private void SelectionChange(object[] obj)
+        private void PauseAudio(object obj)
         {
-            throw new NotImplementedException();
+            player.Pause();
+        }
+
+        private void PlayAudio(object obj)
+        {
+            player.Play();
+        }
+
+        private void SelectionChange(object obj)
+        {
+            //byte[] result = System.IO.File.ReadAllBytes(@"F:\2021 - 2022\UDQL2\Project\Medias-Manager\Manager-Medias\bin\Debug\Images\1.mp3");
+            //System.IO.MemoryStream ms = new System.IO.MemoryStream(result);
+            //SoundPlayer sp = new SoundPlayer(ms);
+            //sp.Play();
+            player.Stop();
+            player = null;
+            loadaudio();
+        }
+        public void loadaudio()
+        {
+            if(player == null)
+            {
+                player = new MediaPlayer();
+                player.Open(new Uri(@"F:\2021 - 2022\UDQL2\Project\Medias-Manager\Manager-Medias\bin\Debug\Images\2.mp3"));
+                player.Play();
+            }
         }
 
         public void Loaded()

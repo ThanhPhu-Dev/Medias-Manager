@@ -16,5 +16,13 @@ namespace Manager_Medias.Stores
             get => _currentUser;
             set => _currentUser = value;
         }
+
+        public string Email => _currentUser.Email;
+        //List<Profile> Profiles => _currentUser.Profiles;
+
+        public UserStore(User user)
+        {
+            this._currentUser = user;
+        }
     }
 }

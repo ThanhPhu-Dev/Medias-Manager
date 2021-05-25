@@ -11,7 +11,7 @@
     <materialDesign:TransitioningContent x:Name="TrainsitionigContentSlide"
                                          OpeningEffect="{materialDesign:TransitionEffect Kind=SlideInFromTop, Duration=0:0:0.8}">
         <DockPanel>
-            <DockPanel DockPanel.Dock="top"
+            <!--<DockPanel DockPanel.Dock="top"
                        LastChildFill="False">
                 <Image Source="/Images/logo.png"
                        RenderOptions.BitmapScalingMode="HighQuality"
@@ -51,7 +51,7 @@
                               Margin="5"
                               Background="Orange"
                               x:Name="cbbPhimLe"
-                              SelectionChanged="cbbPhimLe_SelectionChanged"/>
+                              SelectionChanged="cbbPhimLe_SelectionChanged" />
                     <ComboBox Style="{StaticResource MaterialDesignOutlinedComboBox}"
                               materialDesign:HintAssist.Hint="Quốc gia"
                               materialDesign:HintAssist.IsFloating="False"
@@ -67,7 +67,7 @@
                               Background="Orange"
                               x:Name="cbbTheLoai" />
                 </StackPanel>
-            </DockPanel>
+            </DockPanel>-->
             <StackPanel DockPanel.Dock="Bottom"
                         HorizontalAlignment="Center"
                         Orientation="Horizontal">
@@ -75,7 +75,6 @@
                         Name="btnSwitchHomeSuggestions"
                         Content="{materialDesign:PackIcon Kind=ArrowDropDown,Size=30}"
                         Click="btnSwitchHomeSuggestions_Click">
-
                 </Button>
             </StackPanel>
             <DockPanel>

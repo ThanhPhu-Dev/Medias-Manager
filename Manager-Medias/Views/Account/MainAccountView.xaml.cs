@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Manager_Medias.Views.Profile
+namespace Manager_Medias.Views.Account
 {
     /// <summary>
-    /// Interaction logic for PlayListView.xaml
+    /// Interaction logic for MainAccountView.xaml
     /// </summary>
-    public partial class PlayListView : UserControl
+    public partial class MainAccountView : UserControl
     {
-        public PlayListView()
+        public MainAccountView()
         {
             InitializeComponent();
         }

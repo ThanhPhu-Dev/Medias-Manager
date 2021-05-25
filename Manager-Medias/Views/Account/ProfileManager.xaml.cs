@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Manager_Medias.Views.Profile
+namespace Manager_Medias.Views.Account
 {
     /// <summary>
     /// Interaction logic for ProfileManager.xaml

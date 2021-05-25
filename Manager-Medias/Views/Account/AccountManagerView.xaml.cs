@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Manager_Medias.Views.Profile
+namespace Manager_Medias.Views.Account
 {
     /// <summary>
-    /// Interaction logic for MainProfileView.xaml
+    /// Interaction logic for AccountManagerView.xaml
     /// </summary>
-    public partial class MainProfileView : UserControl
+    public partial class AccountManagerView : UserControl
     {
-        public MainProfileView()
+        public AccountManagerView()
         {
             InitializeComponent();
         }

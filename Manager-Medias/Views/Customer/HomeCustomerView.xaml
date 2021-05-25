@@ -37,7 +37,7 @@
             <Setter Property="Text" Value="Email" />
             <Setter Property="Padding" Value="2, 0" />
             <Style.Triggers>
-                <DataTrigger Binding="{Binding Text, ElementName=Email}" Value="">
+                <DataTrigger Binding="{Binding Text, ElementName=Email}" Value="fix cai nay">
                     <DataTrigger.EnterActions>
                         <BeginStoryboard>
                             <Storyboard SpeedRatio="10">
@@ -66,7 +66,7 @@
             <Setter Property="FontSize" Value="20" />
             <Setter Property="Foreground" Value="#222" />
             <Style.Triggers>
-                <DataTrigger Binding="{Binding FontSize, ElementName=tilte}" Value="15">
+                <DataTrigger Binding="{Binding FontSize, ElementName=title}" Value="15">
 
                     <DataTrigger.EnterActions>
                         <BeginStoryboard>

@@ -20,6 +20,12 @@ namespace Manager_Medias.ViewModels.Customer
         public ICommand CmdSelectionChange { get; set; }
         public ICommand CmdPlayAudio { get; set; }
         public ICommand CmdPauseAudio { get; set; }
+        //command like và lưu
+        public ICommand CmdLike { get; set; }
+        public ICommand CmdUnLike { get; set; }
+        public ICommand CmdSave { get; set; }
+        public ICommand CmdUnSave { get; set; }
+
         private MediaPlayer player = null;
         public DispatcherTimer _timer;
 
@@ -35,9 +41,14 @@ namespace Manager_Medias.ViewModels.Customer
 
         public Audio SelectedAudio { get => _selectedAudio; set => _selectedAudio = value; }
         public string TimeAudio { get => _timeAudio; set => _timeAudio = value; }
+        public bool CheckLike { get => _checkLike; set => _checkLike = value; }
+        public bool CheckSave { get => _checkSave; set => _checkSave = value; }
 
         private Audio _selectedAudio;
         private string _timeAudio;
+        private bool _checkLike;
+        private bool _checkSave;
+
 
         public DetailAudioViewModel()
         {
@@ -46,14 +57,8 @@ namespace Manager_Medias.ViewModels.Customer
             CmdPlayAudio = new RelayCommand<object>(PlayAudio);
             CmdPauseAudio = new RelayCommand<object>(PauseAudio);
 
-            loadaudio("1");
-            _timer = new DispatcherTimer(DispatcherPriority.Render);
-            _timer.Interval = TimeSpan.FromSeconds(1);
-            _timer.Tick += (sender, args) =>
-            {
-                TimeAudio = DateTime.Now.ToLongTimeString();
-            };
-            _timer.Start();
+            loadaudio("a_mp3_1.mp3");
+           
         }
 
         private void PauseAudio(object obj)
@@ -79,7 +84,7 @@ namespace Manager_Medias.ViewModels.Customer
             if (player == null)
             {
                 player = new MediaPlayer();
-                player.Open(new Uri($@"F:\2021 - 2022\UDQL2\Project\Medias-Manager\Manager-Medias\bin\Debug\Images\a_mp3_{audioMame}.mp3"));
+                player.Open(new Uri($@"F:\2021 - 2022\UDQL2\Project\Medias-Manager\Manager-Medias\bin\Debug\Images\{audioMame}"));
                 player.Play();
             }
         }

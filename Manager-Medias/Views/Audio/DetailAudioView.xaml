@@ -12,7 +12,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              >
     <UserControl.Resources>
-        <imgConverter:ImageAudioConverter x:Key="imgCvt"/>
+        <imgConverter:ConvertImage x:Key="imgCvt"/>
         <Style TargetType="materialDesign:PackIcon" x:Key="iconPlay">
             <Setter Property="Foreground" Value="#fff" />
             <Setter Property="VerticalAlignment" Value="Center" />
@@ -184,8 +184,45 @@
 
                     <StackPanel Orientation="Horizontal"
                                 HorizontalAlignment="Center">
-                        <materialDesign:PackIcon Kind="Autorenew" 
-                                                 Style="{StaticResource iconPlay}"/>
+                        <ToggleButton Width="35" Height="35" Padding="0" 
+                                      Background="Transparent" 
+                                      Foreground="#febb00"
+                                      BorderThickness="0"
+                                      Cursor="Hand"
+                                      Name="btn_likeAudio">
+
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <i:InvokeCommandAction Command="{Binding CmdLike}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            <ToggleButton.Style>
+                                <Style TargetType="{x:Type ToggleButton}">
+                                    <Setter Property="Content" Value="{materialDesign:PackIcon Heart, Size=35}" />
+                                    <Setter Property="Template" >
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="ToggleButton">
+                                                <Border>
+                                                    <ContentPresenter/>
+                                                </Border>
+
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsChecked" Value="True">
+                                            <Setter Property="Content" Value="{materialDesign:PackIcon HeartOutline, Size=35}" />
+                                            <Setter Property="Background" Value="Transparent" />
+                                        </Trigger>
+                                    </Style.Triggers>
+
+                                </Style>
+                            </ToggleButton.Style>
+                        </ToggleButton>
+                        <!--<materialDesign:PackIcon Kind="Heart" 
+                                                 Style="{StaticResource iconPlay}"/>-->
+                        <!--<materialDesign:PackIcon Kind="HeartOutline" 
+                                                 Style="{StaticResource iconPlay}"/>-->
                         <materialDesign:PackIcon Kind="SkipPrevious" 
                                                  Style="{StaticResource iconPlay}"/>
 
@@ -230,8 +267,49 @@
                         <!--<materialDesign:PackIcon Kind="Equal" />-->
                         <materialDesign:PackIcon Kind="SkipNext" 
                                                  Style="{StaticResource iconPlay}"/>
-                        <materialDesign:PackIcon Kind="ShuffleVariant" 
-                                                 Style="{StaticResource iconPlay}"/>
+
+                        <ToggleButton Width="35" Height="35" Padding="0" 
+                                      Background="Transparent" 
+                                      Foreground="#febb00"
+                                      BorderThickness="0"
+                                      Cursor="Hand"
+                                      Name="btn_bookmarkAudio">
+
+                            <i:Interaction.Triggers>
+                                <!--<i:EventTrigger EventName="Checked">
+                                    <i:InvokeCommandAction Command="{Binding CmdPauseAudio}"/>
+                                </i:EventTrigger>
+                                <i:EventTrigger EventName="Unchecked">
+                                    <i:InvokeCommandAction Command="{Binding CmdPlayAudio}"/>
+                                </i:EventTrigger>-->
+                            </i:Interaction.Triggers>
+                            <ToggleButton.Style>
+                                <Style TargetType="{x:Type ToggleButton}">
+                                    <Setter Property="Content" Value="{materialDesign:PackIcon BookmarkPlus, Size=35}" />
+                                    <Setter Property="Template" >
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="ToggleButton">
+                                                <Border>
+                                                    <ContentPresenter/>
+                                                </Border>
+
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsChecked" Value="True">
+                                            <Setter Property="Content" Value="{materialDesign:PackIcon BookmarkPlusOutline, Size=35}" />
+                                            <Setter Property="Background" Value="Transparent" />
+                                        </Trigger>
+                                    </Style.Triggers>
+
+                                </Style>
+                            </ToggleButton.Style>
+                        </ToggleButton>
+                        <!--<materialDesign:PackIcon Kind="BookmarkPlus" 
+                                                 Style="{StaticResource iconPlay}"/>-->
+                        <!--<materialDesign:PackIcon Kind="BookmarkPlusOutline" 
+                                                 Style="{StaticResource iconPlay}"/>-->
                     </StackPanel>
                 </StackPanel>
             </Grid>
@@ -309,7 +387,7 @@
 
         </Grid>
 
-        <TextBlock Text="{Binding TimeAudio}"
-                   Foreground="#fff"/>
+        <!--<TextBlock Text="{Binding TimeAudio}"
+                   Foreground="#fff"/>-->
     </Grid>
 </UserControl>

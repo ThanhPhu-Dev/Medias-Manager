@@ -142,6 +142,7 @@
     </ApplicationDefinition>
     <Compile Include="Commands\CommandBase.cs" />
     <Compile Include="Commands\NavigateCommand.cs" />
+    <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Services\ParameterNavigationService.cs" />
     <Compile Include="Stores\AccountStore.cs" />

@@ -12,28 +12,19 @@ namespace Manager_Medias.ViewModels.Guest
 {
     public class GuestMainViewModel : BaseViewModel
     {
-        private readonly NavigationStore _navigationStore;
-
-        public BaseViewModel ContentViewModel => _navigationStore.ContentViewModel;
-
         public ICommand NavigateLoginCmd { get; }
         public ICommand NavigateRegisterCmd { get; }
 
         public GuestMainViewModel(NavigationStore navigationStore)
         {
-            //ContentViewModel = new ProfileViewModel();
             _navigationStore = navigationStore;
             NavigateLoginCmd = new NavigateCommand<GuestLoginViewModel>(
-                new NavigationService<GuestLoginViewModel>(navigationStore, () => new GuestLoginViewModel()));
+                new NavigationService<GuestLoginViewModel>(navigationStore, () => new GuestLoginViewModel(navigationStore)));
             NavigateRegisterCmd = new NavigateCommand<GuestRegisterViewModel>(
                 new NavigationService<GuestRegisterViewModel>(navigationStore, () => new GuestRegisterViewModel()));
 
+            _navigationStore.CurrentViewModelChanged += _navigationStore_CurrentViewModelChanged;
             _navigationStore.CurrentContentViewModelChanged += _navigationStore_CurrentContentViewModelChanged;
-        }
-
-        private void _navigationStore_CurrentContentViewModelChanged()
-        {
-            OnPropertyChanged(nameof(ContentViewModel));
         }
     }
 }

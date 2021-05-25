@@ -11,20 +11,22 @@ namespace Manager_Medias.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
-        public BaseViewModel CurrentViewModel { get; }
-        private NavigationStore navigationStore = new NavigationStore();
-
-        public MainViewModel()
+        public MainViewModel(NavigationStore navigationStore)
         {
-            navigationStore.ContentViewModel = new GuestHomeViewModel();
-            CurrentViewModel = new GuestMainViewModel(navigationStore);
+            _navigationStore = navigationStore;
 
-            // Init content after login
-            //navigationStore.ContentViewModel = new HomeViewModel();
-            //CurrentViewModel = new HomeViewModel();
-
-            //navigationStore.ContentViewModel = new DetailAudioViewModel();
-            //CurrentViewModel = new LayoutViewModel(navigationStore);
+            _navigationStore.CurrentContentViewModelChanged += _navigationStore_CurrentViewModelChanged;
+            _navigationStore.CurrentViewModelChanged += _navigationStore_CurrentContentViewModelChanged;
         }
+
+        //private void NavigationStore_CurrentViewModelChanged()
+        //{
+        //    OnPropertyChanged(nameof(CurrentViewModel));
+        //}
+
+        //private void NavigationStore_CurrentContentViewModelChanged()
+        //{
+        //    OnPropertyChanged(nameof(_navigationStore.CurrentViewModel));
+        //}
     }
 }

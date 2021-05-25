@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Manager_Medias.Stores;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -11,6 +12,17 @@ namespace Manager_Medias.ViewModels
 {
     public class BaseViewModel : DependencyObject, INotifyPropertyChanged
     {
+        #region Navigate
+
+        protected NavigationStore _navigationStore;
+
+        public BaseViewModel ContentViewModel => _navigationStore.ContentViewModel;
+        public BaseViewModel CurrentViewModel => _navigationStore.CurrentViewModel;
+
+        #endregion Navigate
+
+        #region PropertyChanged
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Create the OnPropertyChanged method to raise the event
@@ -19,5 +31,21 @@ namespace Manager_Medias.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
+
+        #endregion PropertyChanged
+
+        #region InvokeViewChanged
+
+        protected void _navigationStore_CurrentViewModelChanged()
+        {
+            OnPropertyChanged(nameof(CurrentViewModel));
+        }
+
+        protected void _navigationStore_CurrentContentViewModelChanged()
+        {
+            OnPropertyChanged(nameof(ContentViewModel));
+        }
+
+        #endregion InvokeViewChanged
     }
 }

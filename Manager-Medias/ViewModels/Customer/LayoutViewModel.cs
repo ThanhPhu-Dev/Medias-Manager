@@ -12,10 +12,6 @@ namespace Manager_Medias.ViewModels.Customer
 {
     public class LayoutViewModel : BaseViewModel
     {
-        private readonly NavigationStore _navigationStore;
-
-        public BaseViewModel ContentViewModel => _navigationStore.ContentViewModel;
-
         public ICommand NavigateProfileCmd { get; }
 
         public LayoutViewModel(NavigationStore navigationStore)
@@ -28,11 +24,6 @@ namespace Manager_Medias.ViewModels.Customer
             NavigateProfileCmd = new NavigateCommand<DetailAudioViewModel>(
                 new NavigationService<DetailAudioViewModel>(navigationStore, () => new DetailAudioViewModel()));
             _navigationStore.CurrentContentViewModelChanged += _navigationStore_CurrentContentViewModelChanged;
-        }
-
-        private void _navigationStore_CurrentContentViewModelChanged()
-        {
-            OnPropertyChanged(nameof(ContentViewModel));
         }
     }
 }

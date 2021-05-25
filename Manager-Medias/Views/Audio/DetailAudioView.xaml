@@ -24,11 +24,11 @@
                     <ColumnDefinition />
                     <ColumnDefinition Width="80" />
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="{Binding Id}"
+                <!--<TextBlock Text="{Binding Id}"
                            FontSize="17"
                            Foreground="#fff"
                            Grid.Column="0"
-                           HorizontalAlignment="Center" />
+                           HorizontalAlignment="Center" />-->
                 <TextBlock Text="{Binding Name}"
                            FontSize="17"
                            Foreground="#fff"
@@ -83,6 +83,10 @@
                                 <Setter Property="Foreground" Value="Black" />
                                 <Setter Property="ContentTemplate" Value="{StaticResource SelectedItemTemplate}" />
                             </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter TargetName="_Border" Property="Background" Value="#FF463300" />
+                                <Setter Property="Cursor" Value="Hand" />
+                            </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
@@ -100,14 +104,18 @@
     </UserControl.Resources>
 
     <UserControl.Triggers>
+        <EventTrigger RoutedEvent="ListBox.SelectionChanged" SourceName="lb_Audio">
+            <BeginStoryboard Name="anm_rotate" Storyboard="{StaticResource Star_rotate}" />
+            <!--<SoundPlayerAction Source="F:\2021 - 2022\UDQL2\Project\Medias-Manager\Manager-Medias\bin\Debug\Images\1.mp3" />-->
+        </EventTrigger>
         <!--khi nhấn play-->
         <EventTrigger RoutedEvent="ToggleButton.Checked" SourceName="btn_playvideo">
-            <BeginStoryboard Name="anm_rotate" Storyboard="{StaticResource Star_rotate}" />
+            <PauseStoryboard BeginStoryboardName="anm_rotate" x:Name="pause_anm"/>
         </EventTrigger>
 
         <!--khi nhấn pause-->
         <EventTrigger RoutedEvent="ToggleButton.Unchecked" SourceName="btn_playvideo">
-            <PauseStoryboard BeginStoryboardName="anm_rotate"/>
+            <ResumeStoryboard BeginStoryboardName="anm_rotate"/>
         </EventTrigger>
     </UserControl.Triggers>
     <Grid Background="Black">
@@ -183,11 +191,11 @@
                                       Foreground="#febb00"
                                       BorderThickness="0"
                                       Cursor="Hand"
-                                      Name="btn_playvideo">
+                                      Name="btn_playvideo" >
 
                             <ToggleButton.Style>
                                 <Style TargetType="{x:Type ToggleButton}">
-                                    <Setter Property="Content" Value="{materialDesign:PackIcon PlayCircleOutline, Size=55}" />
+                                    <Setter Property="Content" Value="{materialDesign:PackIcon Pause, Size=55}" />
                                     <Setter Property="Template" >
                                         <Setter.Value>
                                             <ControlTemplate TargetType="ToggleButton">
@@ -200,7 +208,7 @@
                                     </Setter>
                                     <Style.Triggers>
                                         <Trigger Property="IsChecked" Value="True">
-                                            <Setter Property="Content" Value="{materialDesign:PackIcon Pause, Size=55}" />
+                                            <Setter Property="Content" Value="{materialDesign:PackIcon PlayCircleOutline, Size=55}" />
                                             <Setter Property="Background" Value="Transparent" />
                                         </Trigger>
                                     </Style.Triggers>
@@ -228,7 +236,7 @@
                        FontSize="23"
                        FontWeight="DemiBold"
                        Margin="60 0 0 0" />
-            <ListBox Grid.Row="1"
+            <ListBox Grid.Row="1" Name="lb_Audio"
                  HorizontalContentAlignment="Stretch"
                  ItemsSource="{Binding AudioList}"
                  SelectedItem="{Binding SelectedAudio}"

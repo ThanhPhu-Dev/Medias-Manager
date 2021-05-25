@@ -89,7 +89,6 @@
                 </StackPanel>
 
                 <DockPanel Background="#ffefb5" Margin="0 8">
-                    <!--giá này chọn mặc định bên bước trước-->
 
                     <TextBlock  Text="Gói Cơ bản"
                             FontSize="20"
@@ -125,15 +124,30 @@
                             <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#FFbb00"/>
                         </CheckBox.Resources>
                     </CheckBox>
+                </StackPanel> 
+                
+                <StackPanel >
+                    
+                    <Button
+                        Background="#FFbb00"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        ToolTip="Bước tiếp theo"
+                        Height="50"
+                        FontSize="23"
+                        Margin="0 20 0 0"
+                        Foreground="#222"
+                        Content="Kích hoạt tư cách thành viên">
+                    </Button>
+                    <Button
+                        Background="#857850"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        ToolTip="Quay lại bước trước"
+                        Height="50"
+                        Content="Trở về" 
+                        FontSize="23"
+                        Margin="0 5 0 20"
+                        Foreground="#222" HorizontalAlignment="Center"/>
                 </StackPanel>
-
-                <Button
-                Background="#FFbb00"
-                Style="{StaticResource MaterialDesignRaisedButton}"
-                ToolTip="Resource name: MaterialDesignRaisedButton"
-                Height="50"
-                Content="Kích hoạt tư cách thành viên" 
-                    FontSize="23"/>
             </StackPanel>
         </Grid>
     </ScrollViewer>

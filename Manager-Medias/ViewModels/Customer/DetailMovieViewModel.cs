@@ -1,6 +1,7 @@
 ﻿using Manager_Medias.Commands;
 using Manager_Medias.CustomeModels;
 using Manager_Medias.Models;
+using Manager_Medias.Stores;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,22 +14,36 @@ namespace Manager_Medias.ViewModels.Customer
 {
     public class DetailMovieViewModel : BaseViewModel
     {
+        private readonly UserStore _userStore;
         public static readonly DependencyProperty MovieProperty;
         public static bool liked = true;
         public ICommand CmdLikesClick { get; set; }
         public ICommand CmdShareClick { get; set; }
         public ICommand CmdErrorClick { get; set; }
-        
+        public ICommand CmdLike { get; set; }
+        public ICommand CmdAddMyListClick { get; set; }
+        private bool _checkSave;
+
+        public User currentUser => _userStore.CurrentUser;
 
         static DetailMovieViewModel()
         {
-            MovieProperty = DependencyProperty.Register("DetailMovies", typeof(DetailMovieCustomeModel), typeof(DetailMovieViewModel));
+            MovieProperty = DependencyProperty.Register("DetailMovies", typeof(DetailMovieCustomModel), typeof(DetailMovieViewModel));
         }
 
-        public DetailMovieCustomeModel DetailMovies
+        public DetailMovieCustomModel DetailMovies
         {
-            get => (DetailMovieCustomeModel)GetValue(MovieProperty);
+            get => (DetailMovieCustomModel)GetValue(MovieProperty);
             set => SetValue(MovieProperty, value);
+        }
+        public bool CheckSave
+        {
+            get => _checkSave;
+            set
+            {
+                _checkSave = value;
+                OnPropertyChanged();
+            }
         }
 
         public DetailMovieViewModel()
@@ -36,30 +51,39 @@ namespace Manager_Medias.ViewModels.Customer
             CmdLikesClick = new RelayCommand<Object>(Likes);
             CmdShareClick = new RelayCommand<Object>(Share);
             CmdErrorClick = new RelayCommand<Object>(Error);
+            CmdAddMyListClick = new RelayCommand<Object>(AddMyList);
             loaded();
+        }
+
+        public DetailMovieViewModel(UserStore userStore)
+        {
+            _userStore = userStore;
         }
         public void loaded()
         {
             using (var x = new MediasManangementEntities())
             {
-                Movies movies = x.Movies.FirstOrDefault() as Movies;
-                DetailMovieCustomeModel dm = new DetailMovieCustomeModel()
+                Movie Movie = x.Movies.FirstOrDefault() as Movie;
+                DetailMovies = new DetailMovieCustomModel()
                 {
-                    Id = movies.Id,
-                    Name = movies.Name,
-                    Description = movies.Description,
-                    IMDB = movies.IMDB.Value,
-                    Level = "Cấp Độ " + x.Levels.Where(p => p.Id == movies.Media.Lvl).FirstOrDefault().Name,
-                    like = movies.Likes.Value,
-                    Category = movies.Movie_Categories.Name,
-                    Time = movies.Time,
-                    view = movies.NumberOfViews.Value,
-                    Image = movies.Poster,
-                    Video = movies.Video,
-                    Directors = movies.Directors,
-                    Nation = movies.Nation,
+                    Id = Movie.Id,
+                    Name = Movie.Name,
+                    Description = Movie.Description,
+                    IMDB = Movie.IMDB.Value,
+                    Level = "Cấp Độ " + x.Levels.Where(p => p.Id == Movie.Media.Lvl).FirstOrDefault().Name,
+                    like = Movie.Likes.Value,
+                    Category = Movie.Movie_Categories.Name,
+                    Time = Movie.Time,
+                    view = Movie.NumberOfViews.Value,
+                    Image = Movie.Poster,
+                    Video = Movie.Video,
+                    Directors = Movie.Directors,
+                    Nation = Movie.Nation,
                 };
-                DetailMovies = dm;
+
+                //ktr xem video có trong mylist chưa 
+                var n_Save = x.My_List.Where(mylist => mylist.IdMedia == DetailMovies.Id && mylist.IdProfile == 1).Count();
+                CheckSave = true ? n_Save > 0 : false;
             }
         }
 
@@ -68,7 +92,7 @@ namespace Manager_Medias.ViewModels.Customer
             var id = int.Parse(ob.ToString());
             using (var db = new MediasManangementEntities())
             {
-                Movies mv = db.Movies.Where(p => p.Id == id).Single() as Movies;
+                Movie mv = db.Movies.Where(p => p.Id == id).Single() as Movie;
                 if (liked == true)
                 {
                     mv.Likes++;
@@ -92,6 +116,22 @@ namespace Manager_Medias.ViewModels.Customer
         public void Error(Object ob)
         {
             MessageBox.Show("Cảm ơn đã thông báo, chúng tôi sẽ kiểm tra và khắc phục.");
+        }
+
+        public void AddMyList(Object ob)
+        {
+            var id = ob.ToString();
+            My_List my_List = new My_List()
+            {
+                IdMedia = int.Parse(id),
+                Date = DateTime.Now.Date,
+                IdProfile = 1,
+            };
+            using (var db = new MediasManangementEntities())
+            {
+                db.My_List.Add(my_List);
+                db.SaveChanges();
+            }
         }
     }
 }

@@ -25,17 +25,17 @@ namespace Manager_Medias.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Album_Details> Album_Details { get; set; }
+        public virtual DbSet<Album_Detail> Album_Details { get; set; }
         public virtual DbSet<Album> Albums { get; set; }
-        public virtual DbSet<Audio_Categories> Audio_Categories { get; set; }
+        public virtual DbSet<Audio_Category> Audio_Categories { get; set; }
         public virtual DbSet<Audio> Audios { get; set; }
         public virtual DbSet<Level> Levels { get; set; }
         public virtual DbSet<Like> Likes { get; set; }
-        public virtual DbSet<Media_Categories> Media_Categories { get; set; }
+        public virtual DbSet<Media_Category> Media_Categories { get; set; }
         public virtual DbSet<Media> Medias { get; set; }
-        public virtual DbSet<Movie_Categories> Movie_Categories { get; set; }
-        public virtual DbSet<Movies> Movies { get; set; }
-        public virtual DbSet<My_Lists> My_Lists { get; set; }
+        public virtual DbSet<Movie_Category> Movie_Categories { get; set; }
+        public virtual DbSet<Movie> Movies { get; set; }
+        public virtual DbSet<My_List> My_List { get; set; }
         public virtual DbSet<Payment_History> Payment_History { get; set; }
         public virtual DbSet<Profile> Profiles { get; set; }
         public virtual DbSet<User> Users { get; set; }

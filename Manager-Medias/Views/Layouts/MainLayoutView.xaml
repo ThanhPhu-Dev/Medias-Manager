@@ -9,6 +9,7 @@
              xmlns:vhome="clr-namespace:Manager_Medias.Views.Home"
              xmlns:vprofile="clr-namespace:Manager_Medias.Views.Account"
              xmlns:vaudio ="clr-namespace:Manager_Medias.Views.Audio"
+             xmlns:vmovie ="clr-namespace:Manager_Medias.Views.Movie"
              mc:Ignorable="d"
              xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
              d:DesignHeight="650" d:DesignWidth="1200">
@@ -284,9 +285,9 @@
                 <DataTemplate DataType="{x:Type viewmodels:DetailAudioViewModel}">
                     <vaudio:DetailAudioView />
                 </DataTemplate>
-                <!--<DataTemplate DataType="{x:Type viewmodels:DetailMovieViewModel}">
+                <DataTemplate DataType="{x:Type viewmodels:DetailMovieViewModel}">
                     <vmovie:DetailMovie />
-                </DataTemplate>-->
+                </DataTemplate>
             </Grid.Resources>
             <ContentControl Content="{Binding ContentViewModel}" />
         </Grid>

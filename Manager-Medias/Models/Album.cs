@@ -17,14 +17,14 @@ namespace Manager_Medias.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Album()
         {
-            this.Album_Details = new HashSet<Album_Details>();
+            this.Album_Details = new HashSet<Album_Detail>();
         }
     
         public int Id { get; set; }
         public string Name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Album_Details> Album_Details { get; set; }
+        public virtual ICollection<Album_Detail> Album_Details { get; set; }
         public virtual Media Media { get; set; }
     }
 }

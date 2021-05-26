@@ -8,14 +8,11 @@ using System.Windows.Data;
 
 namespace Manager_Medias.Converters
 {
-    public class ImageAudioConverter : IValueConverter
+    public class BoolConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var relative = $@"Images\a_avatar_{(string)value}.jpg";
-            var baseFolder = AppDomain.CurrentDomain.BaseDirectory;
-            var absolute = $"{baseFolder}{relative}";
-            return absolute;
+            return value;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

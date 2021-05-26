@@ -12,7 +12,7 @@ namespace Manager_Medias.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Movies
+    public partial class Movie
     {
         public int Id { get; set; }
         public Nullable<int> IdCategory { get; set; }
@@ -30,6 +30,6 @@ namespace Manager_Medias.Models
         public string Nation { get; set; }
     
         public virtual Media Media { get; set; }
-        public virtual Movie_Categories Movie_Categories { get; set; }
+        public virtual Movie_Category Movie_Categories { get; set; }
     }
 }

@@ -176,6 +176,14 @@ ALTER TABLE View_History ADD CONSTRAINT FK_ViewHistory_Profiles FOREIGN KEY (IdP
 select * from Audios
 select * from Audio_Categories
 select * from Medias 
+select * from Likes 
+select * from My_Lists
+select * from Movies
+
+--Insert user 
+INSERT INTO Users VALUES ('nghiadx2001@gmail.c', '123', 1, 'CDCD', '362')
+--insert profile
+INSERT INTO Profiles (Email, Name) VALUES ('nghiadx2001@gmail.c', N'Nguyễn H Nghĩa')
 
 --MEDIA_CAT// chỉ có 3 cái thui, không thêm- sửa -xóa nữa
 INSERT INTO Media_Categories (Name) VALUES (N'Hinh Ảnh'), (N'Phim'), (N'Âm Nhạc')
@@ -193,13 +201,25 @@ INSERT INTO Audios VALUES
 	(3, 2, N'Sóng gió', '3', null),
 	(4, 2, N'Bạc phận', '4', null),
 	(5, 3, N'Nhỏ ơi', '5', null)
-update Audios set Mp3 = '1' where Id = 1
-update Audios set Mp3 = '2' where Id = 2
-update Audios set Mp3 = '3' where Id = 3
-update Audios set Mp3 = '4' where Id = 4
-update Audios set Mp3 = '5' where Id = 5
+update Audios set Mp3 = 'a_mp3_1.mp3', Image = 'a_avatar_1.jpg' where Id = 1
+update Audios set Mp3 = 'a_mp3_2.mp3', Image = 'a_avatar_2.jpg' where Id = 2
+update Audios set Mp3 = 'a_mp3_3.mp3', Image = 'a_avatar_3.jpg' where Id = 3
+update Audios set Mp3 = 'a_mp3_4.mp3', Image = 'a_avatar_4.jpg' where Id = 4
+update Audios set Mp3 = 'a_mp3_5.mp3', Image = 'a_avatar_5.jpg' where Id = 5
 
-SELECT * FROM Medias
+--them media yeu thích và mylist
+insert into Likes (IdProfile, IdMedia, Date) values 
+(1, 2, '01-01-2021'),
+(1, 5, '01-03-2021')
+
+insert into My_Lists(IdProfile, IdMedia, Date) values 
+(1, 1, '01-01-2021'),
+(1, 2, '01-03-2021'),
+(1, 7, '01-03-2021')
+
+
+SELECT * FROM Users
+select * from Profiles
 update Medias set Lvl = 1 where Id = 7
 select * from medias as m join Levels l on l.Id = m.Lvl
 insert into Levels(Name,Price) values('Vàng', 200000)

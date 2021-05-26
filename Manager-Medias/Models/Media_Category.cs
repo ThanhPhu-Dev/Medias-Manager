@@ -12,18 +12,18 @@ namespace Manager_Medias.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Movie_Categories
+    public partial class Media_Category
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Movie_Categories()
+        public Media_Category()
         {
-            this.Movies = new HashSet<Movies>();
+            this.Medias = new HashSet<Media>();
         }
     
         public int Id { get; set; }
         public string Name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Movies> Movies { get; set; }
+        public virtual ICollection<Media> Medias { get; set; }
     }
 }

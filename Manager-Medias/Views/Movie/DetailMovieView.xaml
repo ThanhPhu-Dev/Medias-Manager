@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Manager_Medias.Views.Movie"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:cc="clr-namespace:Manager_Medias.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="650" d:DesignWidth="1200"
@@ -15,10 +16,10 @@
              TextOptions.TextRenderingMode="Auto"
              Background="{DynamicResource MaterialDesignPaper}"
              FontFamily="{DynamicResource MaterialDesignFont}">
-    
+
     <UserControl.Resources>
         <cc:ConvertImage x:Key="cvt"/>
-        
+
         <Style TargetType="TextBlock">
             <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
@@ -26,7 +27,7 @@
             <Setter Property="Height" Value="0"/>
         </Style>
     </UserControl.Resources>
-    
+
     <ScrollViewer Background="Black" Width="1200">
         <StackPanel>
             <MediaElement
@@ -118,7 +119,7 @@
                                 <TextBlock Text="Play" Foreground="#fb0" Margin="5 0 0 0"/>
                             </StackPanel>
                         </Button>
-                        <Button 
+                        <!--<Button Command="{Binding CmdAddMyListClick}" CommandParameter="{Binding DetailMovies.Id}"
                             Width="100"
                             Height="30"
                             Background="Black"
@@ -126,10 +127,52 @@
                             BorderThickness="2"
                             HorizontalAlignment="Left" Margin="10 0 0 0">
                             <StackPanel Orientation="Horizontal" >
-                                <materialDesign:PackIcon Kind="BookmarkPlus" Foreground="#fb0"/>
+                                <materialDesign:PackIcon Kind="BookmarkPlus" Foreground="#fb0">
+                                </materialDesign:PackIcon>
                                 <TextBlock Text="My List" Foreground="#fb0" Margin="5 0 0 0"/>
                             </StackPanel>
-                        </Button>
+                        </Button>-->
+                        <ToggleButton 
+                            Width="100"
+                            Height="30"
+                            Foreground="#ffbb00"
+                            Background="Transparent"
+                            BorderThickness="2"
+                            HorizontalAlignment="Left"
+                            Margin="10 0 0 0"
+                            Cursor="Hand"
+                            IsChecked="{Binding CheckSave, Mode=OneWay}"
+                            Command="{Binding CmdAddMyListClick}" 
+                            CommandParameter="{Binding DetailMovies.Id}">
+                            <ToggleButton.Style>
+                                <Style TargetType="{x:Type ToggleButton}">
+                                    <Setter Property="Content" Value="{materialDesign:PackIcon BookmarkPlus, Size=23}" />
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="ToggleButton">
+                                                <Border BorderThickness="2"
+                                                        BorderBrush="#fb0" 
+                                                        CornerRadius="2">
+                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                                        <ContentPresenter VerticalAlignment="Center"/>
+                                                        <TextBlock Text="My List" Margin="5 0 0 0"
+                                                                   VerticalAlignment="Center"
+                                                                   FontWeight="DemiBold"/>
+                                                    </StackPanel>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsChecked" Value="False">
+                                            <Setter Property="Content" Value="{materialDesign:PackIcon BookmarkPlusOutline, Size=23}" />
+                                            <Setter Property="Background" Value="Transparent" />
+                                        </Trigger>
+                                    </Style.Triggers>
+
+                                </Style>
+                            </ToggleButton.Style>
+                        </ToggleButton>
                     </StackPanel>
                     <TextBlock Text="{Binding DetailMovies.Description}" 
                            Grid.Row="4" Foreground="White"

@@ -96,8 +96,8 @@ namespace Manager_Medias.ViewModels.Customer
             {
                 if (CheckLike)
                 {
-                    var likeSelect = db.My_List.Where(l => l.IdMedia == mediaId).Single() as My_List;
-                    db.My_List.Remove(likeSelect);
+                    var likeSelect = db.My_Lists.Where(l => l.IdMedia == mediaId).Single() as My_List;
+                    db.My_Lists.Remove(likeSelect);
                     CheckSave = false;
                     if (db.SaveChanges() > 0)
                     {
@@ -110,7 +110,7 @@ namespace Manager_Medias.ViewModels.Customer
                 }
                 else
                 {
-                    db.My_List.Add(li);
+                    db.My_Lists.Add(li);
                     CheckSave = true;
                     if (db.SaveChanges() > 0)
                     {
@@ -217,7 +217,7 @@ namespace Manager_Medias.ViewModels.Customer
                 //ktr xem đã like và lưu bài nhạc này chưa 
                 //chưa có user id
                 var nLike = db.Likes.Where(l => l.IdMedia == 1).Count();
-                var nSave = db.My_List.Where(l => l.IdMedia == 1).Count();
+                var nSave = db.My_Lists.Where(l => l.IdMedia == 1).Count();
 
                 CheckLike = true ? nLike > 0 : false;
                 CheckSave = true ? nSave > 0 : false;

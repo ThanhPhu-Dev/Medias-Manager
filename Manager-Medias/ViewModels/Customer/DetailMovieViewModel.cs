@@ -16,7 +16,6 @@ namespace Manager_Medias.ViewModels.Customer
     {
         private readonly UserStore _userStore;
         public static readonly DependencyProperty MovieProperty;
-        public static bool liked = true;
         public ICommand CmdLikesClick { get; set; }
         public ICommand CmdShareClick { get; set; }
         public ICommand CmdErrorClick { get; set; }
@@ -82,7 +81,7 @@ namespace Manager_Medias.ViewModels.Customer
                 };
 
                 //ktr xem video có trong mylist chưa 
-                var n_Save = x.My_List.Where(mylist => mylist.IdMedia == DetailMovies.Id && mylist.IdProfile == 1).Count();
+                var n_Save = x.My_Lists.Where(mylist => mylist.IdMedia == DetailMovies.Id && mylist.IdProfile == 1).Count();
                 CheckSave = true ? n_Save > 0 : false;
             }
         }
@@ -90,18 +89,25 @@ namespace Manager_Medias.ViewModels.Customer
         public void Likes(Object ob)
         {
             var id = int.Parse(ob.ToString());
+            Like lkenew = new Like()
+            {
+                Date = DateTime.Now.Date,
+                IdMedia = id,
+                IdProfile = 1,
+            };
             using (var db = new MediasManangementEntities())
             {
                 Movie mv = db.Movies.Where(p => p.Id == id).Single() as Movie;
-                if (liked == true)
+                Like like = db.Likes.Where(p => p.IdProfile == lkenew.IdProfile && p.IdMedia == lkenew.IdMedia).FirstOrDefault() as Like;
+                if (like == null)
                 {
                     mv.Likes++;
-                    liked = false;
+                    db.Likes.Add(lkenew);
                 }
                 else
                 {
                     mv.Likes--;
-                    liked = true;
+                    db.Likes.Remove(like);
                 };
                 db.SaveChanges();
                 loaded();
@@ -120,16 +126,23 @@ namespace Manager_Medias.ViewModels.Customer
 
         public void AddMyList(Object ob)
         {
-            var id = ob.ToString();
+            var id = int.Parse(ob.ToString());
             My_List my_List = new My_List()
             {
-                IdMedia = int.Parse(id),
+                IdMedia = id,
                 Date = DateTime.Now.Date,
                 IdProfile = 1,
             };
             using (var db = new MediasManangementEntities())
             {
-                db.My_List.Add(my_List);
+                My_List mydelete = db.My_Lists.Where(p => p.IdMedia == my_List.IdMedia && p.IdProfile == my_List.IdProfile).FirstOrDefault() as My_List;
+                if (mydelete != null){
+                    db.My_Lists.Remove(mydelete);
+                }
+                else
+                {
+                    db.My_Lists.Add(my_List);
+                }
                 db.SaveChanges();
             }
         }

@@ -32,8 +32,10 @@
         <StackPanel>
             <MediaElement
                 x:Name="mea_video"
-            Source="D:\Phú\LT Ứng Dụng 2\Medias-Manager\Manager-Medias\bin\Debug\Images\video.mp4"
-            LoadedBehavior="Play">
+                
+                >
+                <!--Source="F:\2021 - 2022\UDQL2\Project\Medias-Manager\Manager-Medias\bin\Debug\Images\a_mp3_1.mp3"
+                LoadedBehavior="Play"-->
                 <!--<MediaElement.Style>
                     <Style>
                         <Style.Triggers>
@@ -102,6 +104,13 @@
                                             Storyboard.TargetName="mea_video" 
                                             Storyboard.TargetProperty="Height" 
                                             Duration="0:0:0" From="0" To="570" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                                <BeginStoryboard Name="playVideo">
+                                    <Storyboard SlipBehavior="Slip">
+                                        <MediaTimeline Source="F:\2021 - 2022\UDQL2\Project\Medias-Manager\Manager-Medias\bin\Debug\Images\a_mp3_1.mp3"
+                                                       Storyboard.TargetName="mea_video"
+                                                       BeginTime="0:0:0" Duration="0:0:36"/>
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>

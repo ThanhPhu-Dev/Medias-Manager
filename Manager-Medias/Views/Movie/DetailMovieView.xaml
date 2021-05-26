@@ -26,17 +26,45 @@
         <Style TargetType="MediaElement">
             <Setter Property="Height" Value="0"/>
         </Style>
+        <Storyboard SlipBehavior="Slip" x:Key="anm_PlayVideo">
+            <MediaTimeline Source="F:\2021 - 2022\UDQL2\Project\Medias-Manager\Manager-Medias\bin\Debug\Images\video.mp4"
+                           Storyboard.TargetName="mea_video"
+                           BeginTime="0:0:0" Duration="{Binding DetailMovies.Time}"/>
+        </Storyboard>
     </UserControl.Resources>
+    <UserControl.Triggers>
+        <EventTrigger RoutedEvent="Button.Click" SourceName="play">
+            <BeginStoryboard Name="MyBeginStoryboard">
+                <Storyboard>
+                    <DoubleAnimation 
+                           Storyboard.TargetName="mea_video" 
+                           Storyboard.TargetProperty="Height" 
+                           Duration="0:0:0" From="0" To="530" />
+                    <DoubleAnimation 
+                           Storyboard.TargetName="mediaContainer" 
+                           Storyboard.TargetProperty="Height" 
+                           Duration="0:0:0" From="0" To="570" />
 
+                </Storyboard>
+
+            </BeginStoryboard>
+            <BeginStoryboard Name="BeginVideo" Storyboard="{StaticResource anm_PlayVideo}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="ToggleButton.Checked" SourceName="btn_playvideo">
+            <!--<BeginStoryboard Name="BeginVideo" Storyboard="{StaticResource anm_PlayVideo}"/>-->
+            <PauseStoryboard BeginStoryboardName="BeginVideo" />
+        </EventTrigger>
+        <EventTrigger RoutedEvent="ToggleButton.Unchecked" SourceName="btn_playvideo">
+            <ResumeStoryboard BeginStoryboardName="BeginVideo" />
+            <!--<PauseStoryboard BeginStoryboardName="BeginVideo" />-->
+        </EventTrigger>
+    </UserControl.Triggers>
     <ScrollViewer Background="Black" Width="1200">
         <StackPanel>
-            <MediaElement
-                x:Name="mea_video"
-                
-                >
-                <!--Source="F:\2021 - 2022\UDQL2\Project\Medias-Manager\Manager-Medias\bin\Debug\Images\a_mp3_1.mp3"
-                LoadedBehavior="Play"-->
-                <!--<MediaElement.Style>
+            <StackPanel Name="mediaContainer" Height="0">
+                <MediaElement
+                x:Name="mea_video">
+                    <!--<MediaElement.Style>
                     <Style>
                         <Style.Triggers>
                             <Trigger Property="Height" Value="0">
@@ -45,7 +73,38 @@
                         </Style.Triggers>
                     </Style>
                 </MediaElement.Style>-->
-            </MediaElement>
+                </MediaElement>
+                <ToggleButton Width="55" Height="55" Padding="0" 
+                                      Background="Transparent" 
+                                      Foreground="#febb00"
+                                      BorderThickness="0"
+                                      Cursor="Hand"
+                                      Name="btn_playvideo">
+                    <ToggleButton.Style>
+                        <Style TargetType="{x:Type ToggleButton}">
+                            <Setter Property="Content" Value="{materialDesign:PackIcon Pause, Size=55}" />
+                            <Setter Property="Template" >
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <Border>
+                                            <ContentPresenter/>
+                                        </Border>
+
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsChecked" Value="true">
+                                    <Setter Property="Content" Value="{materialDesign:PackIcon PlayCircleOutline, Size=55}" />
+                                    <Setter Property="Background" Value="Transparent" />
+                                </Trigger>
+                            </Style.Triggers>
+
+                        </Style>
+                    </ToggleButton.Style>
+                </ToggleButton>
+            </StackPanel>
+            
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="79*"/>
@@ -96,25 +155,6 @@
                         </Button>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Grid.Row="3">
-                        <StackPanel.Triggers>
-                            <EventTrigger RoutedEvent="Button.Click" SourceName="play">
-                                <BeginStoryboard Name="MyBeginStoryboard">
-                                    <Storyboard>
-                                        <DoubleAnimation 
-                                            Storyboard.TargetName="mea_video" 
-                                            Storyboard.TargetProperty="Height" 
-                                            Duration="0:0:0" From="0" To="570" />
-                                    </Storyboard>
-                                </BeginStoryboard>
-                                <BeginStoryboard Name="playVideo">
-                                    <Storyboard SlipBehavior="Slip">
-                                        <MediaTimeline Source="F:\2021 - 2022\UDQL2\Project\Medias-Manager\Manager-Medias\bin\Debug\Images\a_mp3_1.mp3"
-                                                       Storyboard.TargetName="mea_video"
-                                                       BeginTime="0:0:0" Duration="0:0:36"/>
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </EventTrigger>
-                        </StackPanel.Triggers>
                         <Button
                             Name="play"
                             Width="100"

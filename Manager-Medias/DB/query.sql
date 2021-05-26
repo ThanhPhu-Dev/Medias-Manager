@@ -224,5 +224,5 @@ update Medias set Lvl = 1 where Id = 7
 select * from medias as m join Levels l on l.Id = m.Lvl
 insert into Levels(Name,Price) values('Vàng', 200000)
 insert into Movies (Id, IdCategory,IMDB,Likes,Name,NumberOfViews,Poster,Age,Description,Season,Time,Video)
-values (7,1,6.5,4,N'Super Hero', 23, 'postermovieHuter.jpg', 18,N'Super hero hân hạnh tài trợ', 'kn92','12:30','video.mp4')
+values (7,1,6.5,4,N'Super Hero', 23, 'postermovieHuter.jpg', 18,N'Super hero hân hạnh tài trợ', 'kn92','00:12:30','video.mp4')
 

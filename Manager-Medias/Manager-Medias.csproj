@@ -149,7 +149,6 @@
     <Compile Include="Converters\ConvertImage.cs" />
     <Compile Include="Converters\MultiParameterConverter.cs" />
     <Compile Include="CustomModels\DetailMovieCustomModel.cs" />
-    <Compile Include="Converters\ImageAudioConverter.cs" />
     <Compile Include="Models\Album_Detail.cs">
       <DependentUpon>MediasManagement.tt</DependentUpon>
     </Compile>

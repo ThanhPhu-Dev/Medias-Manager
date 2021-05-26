@@ -13,7 +13,6 @@
              >
     <UserControl.Resources>
         <imgConverter:ConvertImage x:Key="imgCvt"/>
-        <imgConverter:BoolConverter x:Key="boolCvt"/>
         <Style TargetType="materialDesign:PackIcon" x:Key="iconPlay">
             <Setter Property="Foreground" Value="#fff" />
             <Setter Property="VerticalAlignment" Value="Center" />

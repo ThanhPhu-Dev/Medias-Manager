@@ -85,7 +85,7 @@ namespace Manager_Medias.ViewModels.Customer
         private void Savemt(object obj)
         {
             int mediaId = (int)obj;
-            My_Lists li = new My_Lists()
+            My_List li = new My_List()
             {
                 IdProfile = currentProfile,
                 IdMedia = mediaId,
@@ -96,8 +96,8 @@ namespace Manager_Medias.ViewModels.Customer
             {
                 if (CheckLike)
                 {
-                    var likeSelect = db.My_Lists.Where(l => l.IdMedia == mediaId).Single() as My_Lists;
-                    db.My_Lists.Remove(likeSelect);
+                    var likeSelect = db.My_List.Where(l => l.IdMedia == mediaId).Single() as My_List;
+                    db.My_List.Remove(likeSelect);
                     CheckSave = false;
                     if (db.SaveChanges() > 0)
                     {
@@ -110,7 +110,7 @@ namespace Manager_Medias.ViewModels.Customer
                 }
                 else
                 {
-                    db.My_Lists.Add(li);
+                    db.My_List.Add(li);
                     CheckSave = true;
                     if (db.SaveChanges() > 0)
                     {

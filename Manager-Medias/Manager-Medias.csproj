@@ -169,11 +169,11 @@
       <DependentUpon>MediasManagement.tt</DependentUpon>
     </Compile>
     <Compile Include="Services\NavigationService.cs" />
-    <Compile Include="Services\ParameterNavigationService.cs" />
     <Compile Include="Stores\NavigationStore.cs" />
     <Compile Include="Stores\UserStore.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\Customer\AccountManagerViewModel.cs" />
+    <Compile Include="ViewModels\Customer\ChangePasswordViewModel.cs" />
     <Compile Include="ViewModels\Customer\DetailAudioViewModel.cs" />
     <Compile Include="ViewModels\Customer\DetailMovieViewModel.cs" />
     <Compile Include="ViewModels\Customer\FavoriteViewModel.cs" />
@@ -232,6 +232,9 @@
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Views\Account\AccountManagerView.xaml.cs">
       <DependentUpon>AccountManagerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Account\ChangePasswordView.xaml.cs">
+      <DependentUpon>ChangePasswordView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Account\MainAccountView.xaml.cs">
       <DependentUpon>MainAccountView.xaml</DependentUpon>
@@ -312,6 +315,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\Account\AccountManagerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Account\ChangePasswordView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

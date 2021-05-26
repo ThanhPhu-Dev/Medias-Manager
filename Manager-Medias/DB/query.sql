@@ -177,6 +177,8 @@ select * from Audios
 select * from Audio_Categories
 select * from Medias 
 select * from Likes 
+select * from My_Lists
+select * from Movies
 
 --Insert user 
 INSERT INTO Users VALUES ('nghiadx2001@gmail.c', '123', 1, 'CDCD', '362')
@@ -212,7 +214,8 @@ insert into Likes (IdProfile, IdMedia, Date) values
 
 insert into My_Lists(IdProfile, IdMedia, Date) values 
 (1, 1, '01-01-2021'),
-(1, 2, '01-03-2021')
+(1, 2, '01-03-2021'),
+(1, 7, '01-03-2021')
 
 
 SELECT * FROM Users

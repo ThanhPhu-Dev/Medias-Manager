@@ -4,6 +4,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:cv="clr-namespace:Manager_Medias.Converters"
              xmlns:local="clr-namespace:Manager_Medias.Views.Account"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="940">
@@ -18,49 +19,44 @@
                 </Style>
             </Style.Resources>
         </Style>
+
+        <!--CONVERTER-->
+        <cv:MultiParameterConverter x:Key="MultiParamCvt" />
     </UserControl.Resources>
     <Border Background="#000" Margin="20 30" CornerRadius="2">
         <StackPanel Margin="60 30">
-            <Label Content="Thông tin tài khoản" Foreground="#fff" FontSize="26" HorizontalContentAlignment="Center" />
-            <Grid Margin="0 16 0 0">
+            <Label Content="Thông tin tài khoản" Foreground="#fff" FontSize="26" HorizontalContentAlignment="Left" />
+            <Separator Foreground="{DynamicResource SecondaryAccentBrush}" Background="{DynamicResource SecondaryAccentBrush}" />
+            <Grid Margin="0 32 0 0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="160" />
+                    <ColumnDefinition Width="200" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Label Grid.Column="0" Content="Họ tên" Foreground="#8c8c8c" FontSize="16" />
                 <Border Grid.Column="1"  CornerRadius="16" ClipToBounds="True" Padding="12 4" Background="Transparent" BorderThickness="1" BorderBrush="#FFDADADA" VerticalAlignment="Center">
-                    <TextBox Style="{StaticResource Input}" FontSize="16" Foreground="#fff" Height="30" VerticalContentAlignment="Center" CaretBrush="#febb00" BorderThickness="0" BorderBrush="Transparent" />
+                    <TextBox x:Name="txtName" Style="{StaticResource Input}" FontSize="16" Foreground="#fff" Height="30" VerticalContentAlignment="Center" CaretBrush="#febb00" BorderThickness="0" BorderBrush="Transparent" />
                 </Border>
             </Grid>
 
             <Grid Margin="0 16 0 0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="160" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" Content="Email" Foreground="#8c8c8c" FontSize="16" />
-                <Border Grid.Column="1"  CornerRadius="16" ClipToBounds="True" Padding="12 4" Background="Transparent" BorderThickness="1" BorderBrush="#FFDADADA" VerticalAlignment="Center">
-                    <TextBox Style="{StaticResource Input}" FontSize="16" Foreground="#fff" Height="30" VerticalContentAlignment="Center" CaretBrush="#febb00" BorderThickness="0" BorderBrush="Transparent" />
-                </Border>
-            </Grid>
-
-            <Grid Margin="0 16 0 0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="160" />
+                    <ColumnDefinition Width="200" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Label Grid.Column="0" Content="Số điện thoại" Foreground="#8c8c8c" FontSize="16" />
                 <Border Grid.Column="1"  CornerRadius="16" ClipToBounds="True" Padding="12 4" Background="Transparent" BorderThickness="1" BorderBrush="#FFDADADA" VerticalAlignment="Center">
-                    <TextBox Style="{StaticResource Input}" FontSize="16" Foreground="#fff" Height="30" VerticalContentAlignment="Center" CaretBrush="#febb00" BorderThickness="0" BorderBrush="Transparent" />
+                    <TextBox x:Name="txtPhoneNumber" Style="{StaticResource Input}" FontSize="16" Foreground="#fff" Height="30" VerticalContentAlignment="Center" CaretBrush="#febb00" BorderThickness="0" BorderBrush="Transparent" />
                 </Border>
             </Grid>
 
             <Grid Margin="0 30 0 0">
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200" />
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="0"
+                <Button Grid.Column="1"
+                        Command="{Binding SaveCmd}"
                         Style="{StaticResource MaterialDesignRaisedAccentButton}"
                         HorizontalAlignment="Right"
                         Margin="0 0 20 0"
@@ -70,8 +66,16 @@
                         Width="120"
                         Height="40"
                         ToolTip="Lưu"
-                        Content="Lưu" />
-                <Button Grid.Column="1"
+                        Content="Lưu">
+                    <Button.CommandParameter>
+                        <MultiBinding Converter="{StaticResource MultiParamCvt}">
+                            <Binding ElementName="txtName" Path="Text" />
+                            <Binding ElementName="txtPhoneNumber" Path="Text" />
+                        </MultiBinding>
+                    </Button.CommandParameter>
+                </Button>
+                <Button Grid.Column="2"
+                        Command="{Binding NavigateHomeCmd}"
                         Style="{StaticResource MaterialDesignRaisedAccentButton}"
                         HorizontalAlignment="Left"
                         Margin="20 0 0 0"

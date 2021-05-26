@@ -21,10 +21,10 @@ namespace Manager_Medias.ViewModels.Customer
         public ICommand CmdShareClick { get; set; }
         public ICommand CmdErrorClick { get; set; }
         public ICommand CmdLike { get; set; }
-
         public ICommand CmdAddMyListClick { get; set; }
+        private bool _checkSave;
 
-        public User currentUser => _userStore.CurrentUser;        
+        public User currentUser => _userStore.CurrentUser;
 
         static DetailMovieViewModel()
         {
@@ -35,6 +35,15 @@ namespace Manager_Medias.ViewModels.Customer
         {
             get => (DetailMovieCustomModel)GetValue(MovieProperty);
             set => SetValue(MovieProperty, value);
+        }
+        public bool CheckSave
+        {
+            get => _checkSave;
+            set
+            {
+                _checkSave = value;
+                OnPropertyChanged();
+            }
         }
 
         public DetailMovieViewModel()
@@ -71,6 +80,10 @@ namespace Manager_Medias.ViewModels.Customer
                     Directors = Movie.Directors,
                     Nation = Movie.Nation,
                 };
+
+                //ktr xem video có trong mylist chưa 
+                var n_Save = x.My_List.Where(mylist => mylist.IdMedia == DetailMovies.Id && mylist.IdProfile == 1).Count();
+                CheckSave = true ? n_Save > 0 : false;
             }
         }
 

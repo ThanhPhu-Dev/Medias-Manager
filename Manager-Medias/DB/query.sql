@@ -177,6 +177,11 @@ select * from Audios
 select * from Audio_Categories
 select * from Medias 
 
+--Insert user 
+INSERT INTO Users VALUES ('nghiadx2001@gmail.c', '123', 1, 'CDCD', '362')
+--insert profile
+INSERT INTO Profiles (Email, Name) VALUES ('nghiadx2001@gmail.c', N'Nguyễn H Nghĩa')
+
 --MEDIA_CAT// chỉ có 3 cái thui, không thêm- sửa -xóa nữa
 INSERT INTO Media_Categories (Name) VALUES (N'Hinh Ảnh'), (N'Phim'), (N'Âm Nhạc')
 
@@ -198,6 +203,16 @@ update Audios set Mp3 = 'a_mp3_2.mp3', Image = 'a_avatar_2.jpg' where Id = 2
 update Audios set Mp3 = 'a_mp3_3.mp3', Image = 'a_avatar_3.jpg' where Id = 3
 update Audios set Mp3 = 'a_mp3_4.mp3', Image = 'a_avatar_4.jpg' where Id = 4
 update Audios set Mp3 = 'a_mp3_5.mp3', Image = 'a_avatar_5.jpg' where Id = 5
+
+--them media yeu thích và mylist
+insert into Likes (IdProfile, IdMedia, Date) values 
+(1, 2, '01-01-2021'),
+(1, 5, '01-03-2021')
+
+insert into My_Lists(IdProfile, IdMedia, Date) values 
+(1, 1, '01-01-2021'),
+(1, 2, '01-03-2021')
+
 
 SELECT * FROM Medias
 update Medias set Lvl = 1 where Id = 7

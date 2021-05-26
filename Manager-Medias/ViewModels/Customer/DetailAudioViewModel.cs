@@ -58,7 +58,8 @@ namespace Manager_Medias.ViewModels.Customer
             CmdPauseAudio = new RelayCommand<object>(PauseAudio);
 
             loadaudio("a_mp3_1.mp3");
-           
+
+
         }
 
         private void PauseAudio(object obj)
@@ -97,6 +98,14 @@ namespace Manager_Medias.ViewModels.Customer
 
                 //set selcteditem for list audio
                 SelectedAudio = db.Audios.Where(a => a.Id == 1).Single() as Audio;
+
+                //ktr xem đã like và lưu bài nhạc này chưa 
+                //chưa có user id
+                var nLike = db.Likes.Where(l => l.IdMedia == 1).Count();
+                var nSave = db.My_Lists.Where(l => l.IdMedia == 1).Count();
+
+                CheckLike = true ? nLike > 0 : false;
+                CheckSave = true ? nSave > 0 : false;
             }
         }
     }

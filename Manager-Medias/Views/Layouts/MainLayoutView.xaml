@@ -289,7 +289,7 @@
                 <DataTemplate DataType="{x:Type viewmodels:DetailMovieViewModel}">
                     <vmovie:DetailMovie />
                 </DataTemplate>
-                <DataTemplate DataType="{x:Type viewmodels:DetailMovieViewModel}">
+                <DataTemplate DataType="{x:Type viewmodels:SignIn}">
                     <vlogin:SignIn />
                 </DataTemplate>
             </Grid.Resources>

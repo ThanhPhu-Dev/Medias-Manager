@@ -110,7 +110,7 @@ namespace Manager_Medias.ViewModels.Customer
                 }
                 else
                 {
-                    db.My_List.Add(li);
+                    db.My_Lists.Add(li);
                     CheckSave = true;
                     if (db.SaveChanges() > 0)
                     {

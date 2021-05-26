@@ -38,6 +38,7 @@ namespace Manager_Medias
 
             navigationStore.ContentViewModel = new DetailMovieViewModel(userStore);
             //navigationStore.ContentViewModel = new DetailAudioViewModel();
+            //navigationStore.ContentViewModel = new SignIn();
             navigationStore.CurrentViewModel = new MainLayoutViewModel(userStore, navigationStore);
 
             MainWindow = new MainWindow()

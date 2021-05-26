@@ -62,7 +62,14 @@
                         Command="{Binding NavigateAccountManagerCmd}">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="AccountOutline" Foreground="#febb00" />
-                        <Label Content="Tài khoản" Foreground="#fff" FontSize="16" HorizontalContentAlignment="Left" HorizontalAlignment="Left" />
+                        <Label Content="Thông tin" Foreground="#fff" FontSize="16" HorizontalContentAlignment="Left" HorizontalAlignment="Left" />
+                    </StackPanel>
+                </Button>
+                <Button Style="{StaticResource BtnNav}"
+                        Command="{Binding NavigateChangePasswordCmd}">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="LockOutline" Foreground="#febb00" />
+                        <Label Content="Mật khẩu" Foreground="#fff" FontSize="16" HorizontalContentAlignment="Left" HorizontalAlignment="Left" />
                     </StackPanel>
                 </Button>
                 <Button Style="{StaticResource BtnNav}"
@@ -98,10 +105,13 @@
                 </Button>
             </StackPanel>
         </Border>
-        <ContentControl Grid.Column="1" Content="{Binding ContentViewModel}">
+        <ContentControl Grid.Column="1" Content="{Binding ContentAccountViewModel}">
             <ContentControl.Resources>
                 <DataTemplate DataType="{x:Type vm:AccountManagerViewModel}">
                     <local:AccountManagerView />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type vm:ChangePasswordViewModel}">
+                    <local:ChangePasswordView />
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type vm:ProfileManagerViewModel}">
                     <local:ProfileManager />

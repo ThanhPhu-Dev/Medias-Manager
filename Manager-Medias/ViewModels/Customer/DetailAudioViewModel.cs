@@ -94,7 +94,7 @@ namespace Manager_Medias.ViewModels.Customer
             };
             using (var db = new MediasManangementEntities())
             {
-                if (CheckLike)
+                if (CheckSave)
                 {
                     var likeSelect = db.My_Lists.Where(l => l.IdMedia == mediaId).Single() as My_List;
                     db.My_Lists.Remove(likeSelect);
@@ -216,8 +216,8 @@ namespace Manager_Medias.ViewModels.Customer
             {
                 //ktr xem đã like và lưu bài nhạc này chưa 
                 //chưa có user id
-                var nLike = db.Likes.Where(l => l.IdMedia == 1).Count();
-                var nSave = db.My_Lists.Where(l => l.IdMedia == 1).Count();
+                var nLike = db.Likes.Where(l => l.IdMedia == SelectedAudio.Id && l.IdProfile == currentProfile).Count();
+                var nSave = db.My_Lists.Where(l => l.IdMedia == SelectedAudio.Id && l.IdProfile == currentProfile).Count();
 
                 CheckLike = true ? nLike > 0 : false;
                 CheckSave = true ? nSave > 0 : false;

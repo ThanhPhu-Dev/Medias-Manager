@@ -96,29 +96,29 @@
             </Setter>
         </Style>
 
-        <Storyboard x:Key="Star_rotate">
+        <!--<Storyboard x:Key="Star_rotate">
             <DoubleAnimation
-                        Storyboard.TargetName="rotate_avatar"
+                        Storyboard.TargetName="lt_avartar"
                         Storyboard.TargetProperty="(RotateTransform.Angle)"
                         From="0.0" To="360" 
                         Duration="0:0:7"
                         RepeatBehavior="Forever"/>
-        </Storyboard>
+        </Storyboard>-->
     </UserControl.Resources>
 
     <UserControl.Triggers>
         <EventTrigger RoutedEvent="ListBox.SelectionChanged" SourceName="lb_Audio">
-            <BeginStoryboard Name="anm_rotate" Storyboard="{StaticResource Star_rotate}" />
+            <!--<BeginStoryboard Name="anm_rotate" Storyboard="{StaticResource Star_rotate}" />-->
             <!--<SoundPlayerAction Source="F:\2021 - 2022\UDQL2\Project\Medias-Manager\Manager-Medias\bin\Debug\Images\1.mp3" />-->
         </EventTrigger>
         <!--khi nhấn play-->
         <EventTrigger RoutedEvent="ToggleButton.Checked" SourceName="btn_playvideo">
-            <PauseStoryboard BeginStoryboardName="anm_rotate" x:Name="pause_anm"/>
+            <!--<PauseStoryboard BeginStoryboardName="anm_rotate" x:Name="pause_anm"/>-->
         </EventTrigger>
 
         <!--khi nhấn pause-->
         <EventTrigger RoutedEvent="ToggleButton.Unchecked" SourceName="btn_playvideo">
-            <ResumeStoryboard BeginStoryboardName="anm_rotate"/>
+            <!--<ResumeStoryboard BeginStoryboardName="anm_rotate"/>-->
         </EventTrigger>
     </UserControl.Triggers>
     <Grid Background="Black">
@@ -163,7 +163,8 @@
                          Grid.Column="1"
                          StrokeThickness="3"
                          Margin="4"
-                         RenderTransformOrigin="0.5, 0.5">
+                         RenderTransformOrigin="0.5, 0.5"
+                         Name="lt_avartar">
                     <Ellipse.RenderTransform>
                         <RotateTransform x:Name="rotate_avatar" Angle="0"/>
                     </Ellipse.RenderTransform>

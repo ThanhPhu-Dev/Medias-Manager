@@ -35,7 +35,7 @@ namespace Manager_Medias.Models
         public virtual DbSet<Media> Medias { get; set; }
         public virtual DbSet<Movie_Category> Movie_Categories { get; set; }
         public virtual DbSet<Movie> Movies { get; set; }
-        public virtual DbSet<My_List> My_List { get; set; }
+        public virtual DbSet<My_List> My_Lists { get; set; }
         public virtual DbSet<Payment_History> Payment_History { get; set; }
         public virtual DbSet<Profile> Profiles { get; set; }
         public virtual DbSet<User> Users { get; set; }

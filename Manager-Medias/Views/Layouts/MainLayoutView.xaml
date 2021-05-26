@@ -10,6 +10,7 @@
              xmlns:vprofile="clr-namespace:Manager_Medias.Views.Account"
              xmlns:vaudio ="clr-namespace:Manager_Medias.Views.Audio"
              xmlns:vmovie ="clr-namespace:Manager_Medias.Views.Movie"
+             xmlns:vlogin ="clr-namespace:Manager_Medias.Views.Customer"
              mc:Ignorable="d"
              xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
              d:DesignHeight="650" d:DesignWidth="1200">
@@ -287,6 +288,9 @@
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type viewmodels:DetailMovieViewModel}">
                     <vmovie:DetailMovie />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type viewmodels:SignIn}">
+                    <vlogin:SignIn />
                 </DataTemplate>
             </Grid.Resources>
             <ContentControl Content="{Binding ContentViewModel}" />

@@ -85,7 +85,7 @@ namespace Manager_Medias.ViewModels.Customer
         private void Savemt(object obj)
         {
             int mediaId = (int)obj;
-            My_Lists li = new My_Lists()
+            My_List li = new My_List()
             {
                 IdProfile = currentProfile,
                 IdMedia = mediaId,
@@ -96,7 +96,7 @@ namespace Manager_Medias.ViewModels.Customer
             {
                 if (CheckLike)
                 {
-                    var likeSelect = db.My_Lists.Where(l => l.IdMedia == mediaId).Single() as My_Lists;
+                    var likeSelect = db.My_Lists.Where(l => l.IdMedia == mediaId).Single() as My_List;
                     db.My_Lists.Remove(likeSelect);
                     CheckSave = false;
                     if (db.SaveChanges() > 0)
@@ -217,7 +217,7 @@ namespace Manager_Medias.ViewModels.Customer
                 //ktr xem đã like và lưu bài nhạc này chưa 
                 //chưa có user id
                 var nLike = db.Likes.Where(l => l.IdMedia == 1).Count();
-                var nSave = db.My_List.Where(l => l.IdMedia == 1).Count();
+                var nSave = db.My_Lists.Where(l => l.IdMedia == 1).Count();
 
                 CheckLike = true ? nLike > 0 : false;
                 CheckSave = true ? nSave > 0 : false;

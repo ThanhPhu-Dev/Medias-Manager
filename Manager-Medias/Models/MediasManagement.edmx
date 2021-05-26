@@ -767,7 +767,7 @@
           <EntitySet Name="Medias" EntityType="Self.Media" />
           <EntitySet Name="Movie_Categories" EntityType="MediasManangementModel.Movie_Category" />
           <EntitySet Name="Movies" EntityType="MediasManangementModel.Movie" />
-          <EntitySet Name="My_List" EntityType="MediasManangementModel.My_List" />
+          <EntitySet Name="My_Lists" EntityType="MediasManangementModel.My_List" />
           <EntitySet Name="Payment_History" EntityType="Self.Payment_History" />
           <EntitySet Name="Profiles" EntityType="Self.Profile" />
           <EntitySet Name="Users" EntityType="Self.User" />
@@ -810,7 +810,7 @@
           </AssociationSet>
           <AssociationSet Name="FK_MyLists_Medias" Association="Self.FK_MyLists_Medias">
             <End Role="Medias" EntitySet="Medias" />
-            <End Role="My_Lists" EntitySet="My_List" />
+            <End Role="My_Lists" EntitySet="My_Lists" />
           </AssociationSet>
           <AssociationSet Name="FK_ViewHistory_Medias" Association="Self.FK_ViewHistory_Medias">
             <End Role="Medias" EntitySet="Medias" />
@@ -940,7 +940,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="My_List">
+          <EntitySetMapping Name="My_Lists">
             <EntityTypeMapping TypeName="MediasManangementModel.My_List">
               <MappingFragment StoreEntitySet="My_Lists">
                 <ScalarProperty Name="IdProfile" ColumnName="IdProfile" />

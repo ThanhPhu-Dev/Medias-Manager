@@ -116,7 +116,7 @@ namespace Manager_Medias.ViewModels.Customer
             };
             using (var db = new MediasManangementEntities())
             {
-                db.My_List.Add(my_List);
+                db.My_Lists.Add(my_List);
                 db.SaveChanges();
             }
         }

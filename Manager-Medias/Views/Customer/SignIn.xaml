@@ -20,6 +20,16 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+        <Style TargetType="TextBox">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="True">
+                    <Setter Property="Background" Value="Pink"/>
+                    <Setter Property="ToolTip"
+                        Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+                        Path=(Validation.Errors)[0].ErrorContent}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
         <cv:MultiParameterConverter x:Key="MultiParamCvt" />
     </UserControl.Resources>
     <Grid>
@@ -71,7 +81,7 @@
                         materialDesign:HintAssist.FloatingScale="0.55"
                         materialDesign:TextFieldAssist.TextBoxViewMargin="0 -3 0 0"
                         Height="60"
-                        FontSize="18" />
+                        FontSize="18"/>
                 </StackPanel>
 
                 <Button
@@ -83,13 +93,14 @@
                     Content="Đăng nhập"
                     FontSize="23"
                     Margin="0 15  0 0 "
-                    Foreground="#222">
+                    Foreground="#222" >
                     <Button.CommandParameter>
                         <MultiBinding Converter="{StaticResource MultiParamCvt}">
                             <Binding ElementName="txtEmail" Path="Text" />
                             <Binding ElementName="txtPassword" Path="Text" />
                         </MultiBinding>
                     </Button.CommandParameter>
+                    
                 </Button>
 
                 <TextBlock Text="Quên mật khẩu?"

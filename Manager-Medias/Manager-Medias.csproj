@@ -177,6 +177,7 @@
     <Compile Include="ViewModels\Customer\DetailAudioViewModel.cs" />
     <Compile Include="ViewModels\Customer\DetailMovieViewModel.cs" />
     <Compile Include="ViewModels\Customer\FavoriteViewModel.cs" />
+    <Compile Include="ViewModels\Customer\ForgetPassword.cs" />
     <Compile Include="ViewModels\Customer\HistoryViewModel.cs" />
     <Compile Include="ViewModels\Customer\HomeViewModel.cs" />
     <Compile Include="ViewModels\Customer\MainAccountView.cs" />

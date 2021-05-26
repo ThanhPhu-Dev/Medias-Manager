@@ -292,6 +292,9 @@
                 <DataTemplate DataType="{x:Type viewmodels:SignIn}">
                     <vlogin:SignIn />
                 </DataTemplate>
+                <DataTemplate DataType="{x:Type viewmodels:ForgetPassword}">
+                    <vlogin:ForgetPassword />
+                </DataTemplate>
             </Grid.Resources>
             <ContentControl Content="{Binding ContentViewModel}" />
         </Grid>

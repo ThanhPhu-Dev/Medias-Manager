@@ -146,10 +146,10 @@
     <Compile Include="Commands\CommandBase.cs" />
     <Compile Include="Commands\NavigateCommand.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="Converters\BoolConverter.cs" />
     <Compile Include="Converters\ConvertImage.cs" />
     <Compile Include="Converters\MultiParameterConverter.cs" />
     <Compile Include="CustomeModels\DetailMovieCustomeModel.cs" />
-    <Compile Include="Converters\ImageAudioConverter.cs" />
     <Compile Include="Models\MovieCarouselModel.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Services\ParameterNavigationService.cs" />

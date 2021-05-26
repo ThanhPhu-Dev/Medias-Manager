@@ -176,6 +176,7 @@ ALTER TABLE View_History ADD CONSTRAINT FK_ViewHistory_Profiles FOREIGN KEY (IdP
 select * from Audios
 select * from Audio_Categories
 select * from Medias 
+select * from Likes 
 
 --Insert user 
 INSERT INTO Users VALUES ('nghiadx2001@gmail.c', '123', 1, 'CDCD', '362')

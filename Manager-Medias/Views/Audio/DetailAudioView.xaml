@@ -13,6 +13,7 @@
              >
     <UserControl.Resources>
         <imgConverter:ConvertImage x:Key="imgCvt"/>
+        <imgConverter:BoolConverter x:Key="boolCvt"/>
         <Style TargetType="materialDesign:PackIcon" x:Key="iconPlay">
             <Setter Property="Foreground" Value="#fff" />
             <Setter Property="VerticalAlignment" Value="Center" />
@@ -184,16 +185,19 @@
 
                     <StackPanel Orientation="Horizontal"
                                 HorizontalAlignment="Center">
+                        
                         <ToggleButton Width="35" Height="35" Padding="0" 
                                       Background="Transparent" 
                                       Foreground="#febb00"
                                       BorderThickness="0"
                                       Cursor="Hand"
-                                      Name="btn_likeAudio">
+                                      Name="btn_likeAudio"
+                                      IsChecked="{Binding CheckLike, Mode=OneWay}">
 
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Click">
-                                    <i:InvokeCommandAction Command="{Binding CmdLike}"/>
+                                    <i:InvokeCommandAction Command="{Binding CmdLike}"
+                                                           CommandParameter="{Binding ElementName=lb_Audio, Path=SelectedItem.Id}"/>
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                             <ToggleButton.Style>
@@ -210,7 +214,7 @@
                                         </Setter.Value>
                                     </Setter>
                                     <Style.Triggers>
-                                        <Trigger Property="IsChecked" Value="True">
+                                        <Trigger Property="IsChecked" Value="False">
                                             <Setter Property="Content" Value="{materialDesign:PackIcon HeartOutline, Size=35}" />
                                             <Setter Property="Background" Value="Transparent" />
                                         </Trigger>
@@ -255,7 +259,7 @@
                                         </Setter.Value>
                                     </Setter>
                                     <Style.Triggers>
-                                        <Trigger Property="IsChecked" Value="True">
+                                        <Trigger Property="IsChecked" Value="true">
                                             <Setter Property="Content" Value="{materialDesign:PackIcon PlayCircleOutline, Size=55}" />
                                             <Setter Property="Background" Value="Transparent" />
                                         </Trigger>
@@ -273,15 +277,14 @@
                                       Foreground="#febb00"
                                       BorderThickness="0"
                                       Cursor="Hand"
-                                      Name="btn_bookmarkAudio">
+                                      Name="btn_bookmarkAudio"
+                                      IsChecked="{Binding CheckSave, Mode=OneWay}">
 
                             <i:Interaction.Triggers>
-                                <!--<i:EventTrigger EventName="Checked">
-                                    <i:InvokeCommandAction Command="{Binding CmdPauseAudio}"/>
+                                <i:EventTrigger EventName="Click">
+                                    <i:InvokeCommandAction Command="{Binding CmdSave}"
+                                                           CommandParameter="{Binding ElementName=lb_Audio, Path=SelectedItem.Id}"/>
                                 </i:EventTrigger>
-                                <i:EventTrigger EventName="Unchecked">
-                                    <i:InvokeCommandAction Command="{Binding CmdPlayAudio}"/>
-                                </i:EventTrigger>-->
                             </i:Interaction.Triggers>
                             <ToggleButton.Style>
                                 <Style TargetType="{x:Type ToggleButton}">
@@ -297,7 +300,7 @@
                                         </Setter.Value>
                                     </Setter>
                                     <Style.Triggers>
-                                        <Trigger Property="IsChecked" Value="True">
+                                        <Trigger Property="IsChecked" Value="False">
                                             <Setter Property="Content" Value="{materialDesign:PackIcon BookmarkPlusOutline, Size=35}" />
                                             <Setter Property="Background" Value="Transparent" />
                                         </Trigger>
@@ -306,10 +309,6 @@
                                 </Style>
                             </ToggleButton.Style>
                         </ToggleButton>
-                        <!--<materialDesign:PackIcon Kind="BookmarkPlus" 
-                                                 Style="{StaticResource iconPlay}"/>-->
-                        <!--<materialDesign:PackIcon Kind="BookmarkPlusOutline" 
-                                                 Style="{StaticResource iconPlay}"/>-->
                     </StackPanel>
                 </StackPanel>
             </Grid>

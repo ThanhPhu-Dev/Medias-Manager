@@ -18,7 +18,7 @@ namespace Manager_Medias.Models
         public Media()
         {
             this.Likes = new HashSet<Like>();
-            this.My_Lists = new HashSet<My_Lists>();
+            this.My_Lists = new HashSet<My_List>();
             this.View_History = new HashSet<View_History>();
         }
     
@@ -31,10 +31,10 @@ namespace Manager_Medias.Models
         public virtual Level Level { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Like> Likes { get; set; }
-        public virtual Media_Categories Media_Categories { get; set; }
-        public virtual Movies Movy { get; set; }
+        public virtual Media_Category Media_Categories { get; set; }
+        public virtual Movie Movy { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<My_Lists> My_Lists { get; set; }
+        public virtual ICollection<My_List> My_Lists { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<View_History> View_History { get; set; }
     }

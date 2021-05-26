@@ -214,7 +214,8 @@ insert into My_Lists(IdProfile, IdMedia, Date) values
 (1, 2, '01-03-2021')
 
 
-SELECT * FROM Medias
+SELECT * FROM Users
+select * from Profiles
 update Medias set Lvl = 1 where Id = 7
 select * from medias as m join Levels l on l.Id = m.Lvl
 insert into Levels(Name,Price) values('Vàng', 200000)

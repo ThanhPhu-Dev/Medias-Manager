@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Manager_Medias.CustomeModels
 {
-    public class DetailMovieCustomeModel
+    public class DetailMovieCustomModel
     {
         public int Id { get; set; }
         public string Level { get; set; }

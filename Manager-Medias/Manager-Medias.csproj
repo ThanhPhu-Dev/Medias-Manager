@@ -148,9 +148,27 @@
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Converters\ConvertImage.cs" />
     <Compile Include="Converters\MultiParameterConverter.cs" />
-    <Compile Include="CustomeModels\DetailMovieCustomeModel.cs" />
+    <Compile Include="CustomModels\DetailMovieCustomModel.cs" />
     <Compile Include="Converters\ImageAudioConverter.cs" />
+    <Compile Include="Models\Album_Detail.cs">
+      <DependentUpon>MediasManagement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Audio_Category.cs">
+      <DependentUpon>MediasManagement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Media_Category.cs">
+      <DependentUpon>MediasManagement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Movie.cs">
+      <DependentUpon>MediasManagement.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\MovieCarouselModel.cs" />
+    <Compile Include="Models\Movie_Category.cs">
+      <DependentUpon>MediasManagement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\My_List.cs">
+      <DependentUpon>MediasManagement.tt</DependentUpon>
+    </Compile>
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Services\ParameterNavigationService.cs" />
     <Compile Include="Stores\NavigationStore.cs" />
@@ -166,13 +184,7 @@
     <Compile Include="Models\Album.cs">
       <DependentUpon>MediasManagement.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Album_Details.cs">
-      <DependentUpon>MediasManagement.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Audio.cs">
-      <DependentUpon>MediasManagement.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Audio_Categories.cs">
       <DependentUpon>MediasManagement.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Level.cs">
@@ -198,18 +210,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>MediasManagement.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Media_Categories.cs">
-      <DependentUpon>MediasManagement.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Movies.cs">
-      <DependentUpon>MediasManagement.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Movie_Categories.cs">
-      <DependentUpon>MediasManagement.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\My_Lists.cs">
-      <DependentUpon>MediasManagement.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Payment_History.cs">
       <DependentUpon>MediasManagement.tt</DependentUpon>

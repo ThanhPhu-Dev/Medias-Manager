@@ -406,7 +406,7 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MediasManangementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Album_Details">
+        <EntityType Name="Album_Detail">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -424,7 +424,7 @@
           <NavigationProperty Name="Album_Details" Relationship="Self.FK_AlbumDetails_Albums" FromRole="Albums" ToRole="Album_Details" />
           <NavigationProperty Name="Media" Relationship="Self.FK_Albums_Medias" FromRole="Albums" ToRole="Medias" />
         </EntityType>
-        <EntityType Name="Audio_Categories">
+        <EntityType Name="Audio_Category">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -465,7 +465,7 @@
           <NavigationProperty Name="Media" Relationship="Self.FK_Likes_Medias" FromRole="Likes" ToRole="Medias" />
           <NavigationProperty Name="Profile" Relationship="Self.FK_Likes_Profiles" FromRole="Likes" ToRole="Profiles" />
         </EntityType>
-        <EntityType Name="Media_Categories">
+        <EntityType Name="Media_Category">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -489,7 +489,7 @@
           <NavigationProperty Name="My_Lists" Relationship="Self.FK_MyLists_Medias" FromRole="Medias" ToRole="My_Lists" />
           <NavigationProperty Name="View_History" Relationship="Self.FK_ViewHistory_Medias" FromRole="Medias" ToRole="View_History" />
         </EntityType>
-        <EntityType Name="Movie_Categories">
+        <EntityType Name="Movie_Category">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -497,7 +497,7 @@
           <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Movies" Relationship="Self.FK_Movies_MovieCategories" FromRole="Movie_Categories" ToRole="Movies" />
         </EntityType>
-        <EntityType Name="Movies">
+        <EntityType Name="Movie">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -518,7 +518,7 @@
           <Property Name="Directors" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Nation" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="My_Lists">
+        <EntityType Name="My_List">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -578,7 +578,7 @@
         </EntityType>
         <Association Name="FK_AlbumDetails_Albums">
           <End Role="Albums" Type="Self.Album" Multiplicity="0..1" />
-          <End Role="Album_Details" Type="Self.Album_Details" Multiplicity="*" />
+          <End Role="Album_Details" Type="MediasManangementModel.Album_Detail" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Albums">
               <PropertyRef Name="Id" />
@@ -601,7 +601,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Audios_AudioCategories">
-          <End Role="Audio_Categories" Type="Self.Audio_Categories" Multiplicity="0..1" />
+          <End Role="Audio_Categories" Type="MediasManangementModel.Audio_Category" Multiplicity="0..1" />
           <End Role="Audios" Type="Self.Audio" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Audio_Categories">
@@ -661,7 +661,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Medias_MediaCategories">
-          <End Role="Media_Categories" Type="Self.Media_Categories" Multiplicity="0..1" />
+          <End Role="Media_Categories" Type="MediasManangementModel.Media_Category" Multiplicity="0..1" />
           <End Role="Medias" Type="Self.Media" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Media_Categories">
@@ -674,7 +674,7 @@
         </Association>
         <Association Name="FK_Movies_Medias">
           <End Role="Medias" Type="Self.Media" Multiplicity="1" />
-          <End Role="Movies" Type="MediasManangementModel.Movies" Multiplicity="0..1" />
+          <End Role="Movies" Type="MediasManangementModel.Movie" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Medias">
               <PropertyRef Name="Id" />
@@ -686,7 +686,7 @@
         </Association>
         <Association Name="FK_MyLists_Medias">
           <End Role="Medias" Type="Self.Media" Multiplicity="0..1" />
-          <End Role="My_Lists" Type="Self.My_Lists" Multiplicity="*" />
+          <End Role="My_Lists" Type="MediasManangementModel.My_List" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Medias">
               <PropertyRef Name="Id" />
@@ -709,8 +709,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Movies_MovieCategories">
-          <End Role="Movie_Categories" Type="Self.Movie_Categories" Multiplicity="0..1" />
-          <End Role="Movies" Type="MediasManangementModel.Movies" Multiplicity="*" />
+          <End Role="Movie_Categories" Type="MediasManangementModel.Movie_Category" Multiplicity="0..1" />
+          <End Role="Movies" Type="MediasManangementModel.Movie" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Movie_Categories">
               <PropertyRef Name="Id" />
@@ -757,17 +757,17 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="MediasManangementEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Album_Details" EntityType="Self.Album_Details" />
+          <EntitySet Name="Album_Details" EntityType="MediasManangementModel.Album_Detail" />
           <EntitySet Name="Albums" EntityType="Self.Album" />
-          <EntitySet Name="Audio_Categories" EntityType="Self.Audio_Categories" />
+          <EntitySet Name="Audio_Categories" EntityType="MediasManangementModel.Audio_Category" />
           <EntitySet Name="Audios" EntityType="Self.Audio" />
           <EntitySet Name="Levels" EntityType="Self.Level" />
           <EntitySet Name="Likes" EntityType="Self.Like" />
-          <EntitySet Name="Media_Categories" EntityType="Self.Media_Categories" />
+          <EntitySet Name="Media_Categories" EntityType="MediasManangementModel.Media_Category" />
           <EntitySet Name="Medias" EntityType="Self.Media" />
-          <EntitySet Name="Movie_Categories" EntityType="Self.Movie_Categories" />
-          <EntitySet Name="Movies" EntityType="MediasManangementModel.Movies" />
-          <EntitySet Name="My_Lists" EntityType="Self.My_Lists" />
+          <EntitySet Name="Movie_Categories" EntityType="MediasManangementModel.Movie_Category" />
+          <EntitySet Name="Movies" EntityType="MediasManangementModel.Movie" />
+          <EntitySet Name="My_List" EntityType="MediasManangementModel.My_List" />
           <EntitySet Name="Payment_History" EntityType="Self.Payment_History" />
           <EntitySet Name="Profiles" EntityType="Self.Profile" />
           <EntitySet Name="Users" EntityType="Self.User" />
@@ -810,7 +810,7 @@
           </AssociationSet>
           <AssociationSet Name="FK_MyLists_Medias" Association="Self.FK_MyLists_Medias">
             <End Role="Medias" EntitySet="Medias" />
-            <End Role="My_Lists" EntitySet="My_Lists" />
+            <End Role="My_Lists" EntitySet="My_List" />
           </AssociationSet>
           <AssociationSet Name="FK_ViewHistory_Medias" Association="Self.FK_ViewHistory_Medias">
             <End Role="Medias" EntitySet="Medias" />
@@ -840,7 +840,7 @@
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="MediasManangementModelStoreContainer" CdmEntityContainer="MediasManangementEntities">
           <EntitySetMapping Name="Album_Details">
-            <EntityTypeMapping TypeName="MediasManangementModel.Album_Details">
+            <EntityTypeMapping TypeName="MediasManangementModel.Album_Detail">
               <MappingFragment StoreEntitySet="Album_Details">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="IdAlbum" ColumnName="IdAlbum" />
@@ -857,7 +857,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Audio_Categories">
-            <EntityTypeMapping TypeName="MediasManangementModel.Audio_Categories">
+            <EntityTypeMapping TypeName="MediasManangementModel.Audio_Category">
               <MappingFragment StoreEntitySet="Audio_Categories">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -896,7 +896,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Media_Categories">
-            <EntityTypeMapping TypeName="MediasManangementModel.Media_Categories">
+            <EntityTypeMapping TypeName="MediasManangementModel.Media_Category">
               <MappingFragment StoreEntitySet="Media_Categories">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -913,7 +913,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Movie_Categories">
-            <EntityTypeMapping TypeName="MediasManangementModel.Movie_Categories">
+            <EntityTypeMapping TypeName="MediasManangementModel.Movie_Category">
               <MappingFragment StoreEntitySet="Movie_Categories">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -921,7 +921,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Movies">
-            <EntityTypeMapping TypeName="MediasManangementModel.Movies">
+            <EntityTypeMapping TypeName="MediasManangementModel.Movie">
               <MappingFragment StoreEntitySet="Movies">
                 <ScalarProperty Name="Nation" ColumnName="Nation" />
                 <ScalarProperty Name="Directors" ColumnName="Directors" />
@@ -940,8 +940,8 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="My_Lists">
-            <EntityTypeMapping TypeName="MediasManangementModel.My_Lists">
+          <EntitySetMapping Name="My_List">
+            <EntityTypeMapping TypeName="MediasManangementModel.My_List">
               <MappingFragment StoreEntitySet="My_Lists">
                 <ScalarProperty Name="IdProfile" ColumnName="IdProfile" />
                 <ScalarProperty Name="IdMedia" ColumnName="IdMedia" />

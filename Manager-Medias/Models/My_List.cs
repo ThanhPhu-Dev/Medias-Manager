@@ -12,18 +12,13 @@ namespace Manager_Medias.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Audio_Categories
+    public partial class My_List
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Audio_Categories()
-        {
-            this.Audios = new HashSet<Audio>();
-        }
-    
+        public Nullable<int> IdProfile { get; set; }
+        public Nullable<int> IdMedia { get; set; }
+        public Nullable<System.DateTime> Date { get; set; }
         public int Id { get; set; }
-        public string Name { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Audio> Audios { get; set; }
+        public virtual Media Media { get; set; }
     }
 }

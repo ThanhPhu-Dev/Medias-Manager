@@ -12,18 +12,12 @@ namespace Manager_Medias.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Media_Categories
+    public partial class Album_Detail
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Media_Categories()
-        {
-            this.Medias = new HashSet<Media>();
-        }
-    
         public int Id { get; set; }
-        public string Name { get; set; }
+        public Nullable<int> IdAlbum { get; set; }
+        public string Image { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Media> Medias { get; set; }
+        public virtual Album Album { get; set; }
     }
 }

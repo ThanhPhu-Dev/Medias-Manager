@@ -102,7 +102,7 @@ namespace Manager_Medias.ViewModels.Customer
                 //ktr xem đã like và lưu bài nhạc này chưa 
                 //chưa có user id
                 var nLike = db.Likes.Where(l => l.IdMedia == 1).Count();
-                var nSave = db.My_Lists.Where(l => l.IdMedia == 1).Count();
+                var nSave = db.My_List.Where(l => l.IdMedia == 1).Count();
 
                 CheckLike = true ? nLike > 0 : false;
                 CheckSave = true ? nSave > 0 : false;

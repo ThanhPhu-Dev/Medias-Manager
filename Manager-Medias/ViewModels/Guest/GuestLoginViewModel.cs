@@ -54,7 +54,7 @@ namespace Manager_Medias.ViewModels.Guest
             // Redirect to MainLayout
             _navigationStore.CurrentViewModel = new MainLayoutViewModel(userStore, _navigationStore);
             //navigationStore.ContentViewModel = new DetailAudioViewModel();
-            _navigationStore.ContentViewModel = new DetailAudioViewModel(1, 1);
+            _navigationStore.ContentViewModel = new DetailPictureViewModel();
         }
     }
 }

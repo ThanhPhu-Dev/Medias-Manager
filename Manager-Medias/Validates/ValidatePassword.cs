@@ -20,6 +20,11 @@ namespace Manager_Medias.Validates
                 return new ValidationResult(false, "Value must be of type string.");
             }
 
+            if (string.IsNullOrEmpty(Name))
+            {
+                return new ValidationResult(false, "Cần điền đủ thông tin để tiếp tục");
+            }
+
             if (!rg.IsMatch(value.ToString()))
             {
                 return new ValidationResult(false, "Tối thiểu 8 ký tự và có ít nhất một số");

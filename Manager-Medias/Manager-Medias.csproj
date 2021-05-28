@@ -98,6 +98,12 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="LiveCharts, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.0.9.7\lib\net45\LiveCharts.dll</HintPath>
+    </Reference>
+    <Reference Include="LiveCharts.Wpf, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.Wpf.0.9.7\lib\net45\LiveCharts.Wpf.dll</HintPath>
+    </Reference>
     <Reference Include="MaterialDesignColors, Version=2.0.0.2422, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignColors.2.0.0\lib\net452\MaterialDesignColors.dll</HintPath>
     </Reference>
@@ -230,7 +236,7 @@
     </Compile>
     <Compile Include="ViewModels\Customer\MainLayoutViewModel.cs" />
     <Compile Include="ViewModels\Customer\ProfileManagerViewModel.cs" />
-    <Compile Include="ViewModels\Customer\SignIn.cs" />
+    <Compile Include="ViewModels\Guest\GuestCartRegisterViewModel.cs" />
     <Compile Include="ViewModels\Guest\GuestHomeViewModel.cs" />
     <Compile Include="ViewModels\Guest\GuestInfoRegisterViewModel.cs" />
     <Compile Include="ViewModels\Guest\GuestLevelRegisterViewModel.cs" />
@@ -260,6 +266,9 @@
     </Compile>
     <Compile Include="Views\Admin\MainDashBoardAdminUserControl.xaml.cs">
       <DependentUpon>MainDashBoardAdminUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\StatisticalUserControl.xaml.cs">
+      <DependentUpon>StatisticalUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Audio\DetailAudioView.xaml.cs">
       <DependentUpon>DetailAudioView.xaml</DependentUpon>
@@ -355,6 +364,10 @@
     <Page Include="Views\Admin\MainDashBoardAdminUserControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Admin\StatisticalUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Audio\DetailAudioView.xaml">
       <SubType>Designer</SubType>

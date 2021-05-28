@@ -230,6 +230,7 @@
     </Compile>
     <Compile Include="ViewModels\Customer\MainLayoutViewModel.cs" />
     <Compile Include="ViewModels\Customer\ProfileManagerViewModel.cs" />
+    <Compile Include="ViewModels\Guest\GuestCartRegisterViewModel.cs" />
     <Compile Include="ViewModels\Guest\GuestHomeViewModel.cs" />
     <Compile Include="ViewModels\Guest\GuestInfoRegisterViewModel.cs" />
     <Compile Include="ViewModels\Guest\GuestLevelRegisterViewModel.cs" />

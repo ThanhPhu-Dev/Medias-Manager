@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace Manager_Medias.ViewModels.Guest
 {
-    public class GuestLevelRegisterViewModel : BaseViewModel
+    public class GuestCartRegisterViewModel : BaseViewModel
     {
         private User userCurrent;
-        public GuestLevelRegisterViewModel(User u)
+        public GuestCartRegisterViewModel(User u)
         {
             this.userCurrent = u;
         }

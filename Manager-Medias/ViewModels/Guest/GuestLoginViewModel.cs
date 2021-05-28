@@ -57,9 +57,6 @@ namespace Manager_Medias.ViewModels.Guest
 
         public GuestLoginViewModel(NavigationStore navigationStore)
         {
-            _navigationStore = navigationStore;
-            //LoginCmd = new NavigateCommand<ProfileViewModel>(
-            //    new NavigationService<ProfileViewModel>(navigationStore, () => new ProfileViewModel()));
             LoginCmd = new RelayCommand<Object[]>(ActionLogin, (Object[] obj) => !HasErrors);
             this.Errors = new Dictionary<string, List<string>>();
             this.ValidationRules = new Dictionary<string, List<ValidationRule>>();
@@ -107,9 +104,13 @@ namespace Manager_Medias.ViewModels.Guest
                     }
                 }
                 UserStore userStore = new UserStore(currentUser);
-                if (currentUser.NumberCard == null)
+                if (currentUser.Level == null)
                 {
-                    _navigationStore.ContentViewModel = new DetailAudioViewModel(1, 1);
+                    _navigationStore.ContentViewModel = new GuestLevelRegisterViewModel(currentUser);
+
+                }else if (currentUser.NumberCard == null)
+                {
+                    _navigationStore.ContentViewModel = new GuestCartRegisterViewModel(currentUser);
 
                 }
                 else
@@ -123,8 +124,6 @@ namespace Manager_Medias.ViewModels.Guest
                 Error = "Tài khoản không tồn tại";
                 return;
             }
-
-
         }
     }
 }

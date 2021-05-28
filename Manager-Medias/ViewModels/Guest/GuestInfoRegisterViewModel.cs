@@ -70,7 +70,7 @@ namespace Manager_Medias.ViewModels.Guest
             string pwHash = Convert.ToBase64String(hashBytes);
 
             //tạo user
-            User user = new User() { Email = this._email, Password = this._password };
+            User user = new User() { Email = this._email, Password = pwHash };
             //chuyển trang 
             _navigationStore.ContentViewModel = new GuestLevelRegisterViewModel(user);
         }

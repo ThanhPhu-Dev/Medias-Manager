@@ -109,7 +109,7 @@ namespace Manager_Medias.ViewModels.Guest
                 UserStore userStore = new UserStore(currentUser);
                 if (currentUser.Level == null)
                 {
-                    _navigationStore.ContentViewModel = new GuestLevelRegisterViewModel(currentUser);
+                    _navigationStore.ContentViewModel = new GuestLevelRegisterViewModel(currentUser, _navigationStore);
 
                 }
                 else if (currentUser.NumberCard == null)

@@ -39,13 +39,13 @@
                     Foreground="#222"
                     AcceptsReturn="True"
                     TextWrapping="Wrap"
-                    materialDesign:HintAssist.Hint="Tên"
+                    materialDesign:HintAssist.Hint="Họ và Tên"
                         materialDesign:HintAssist.FloatingScale="0.55"
                     materialDesign:TextFieldAssist.TextBoxViewMargin="0 -3 0 0"
                     Height="60"
                     FontSize="20"/>
                 </StackPanel>
-                <StackPanel Background="#fff"
+                <!--<StackPanel Background="#fff"
                         Margin="0 8">
                     <TextBox
                     Style="{StaticResource MaterialDesignFilledTextBox}"
@@ -58,7 +58,7 @@
                     materialDesign:TextFieldAssist.TextBoxViewMargin="0 -3 0 0"
                     Height="60"
                     FontSize="20"/>
-                </StackPanel>
+                </StackPanel>-->
                 <StackPanel Background="#fff"
                         Margin="0 8">
                     <TextBox

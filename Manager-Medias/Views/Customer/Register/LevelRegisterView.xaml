@@ -29,7 +29,7 @@
             <Setter Property="FontWeight" Value="bold"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
         </Style>
-        <Style TargetType="Button" x:Key="btn_selected">
+        <Style TargetType="Button" x:Key="btn_selected" BasedOn="{StaticResource MaterialDesignRaisedButton}">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Height" Value="auto"/>
@@ -350,12 +350,11 @@
                             </Grid.ColumnDefinitions>
 
                             <Border Grid.Column="1"
-                                BorderBrush="{Binding LevelCurrent, Converter={StaticResource colorLv1}}"
-                                    BorderThickness="2"
+                                
                                 Margin="3 0"
                                 Name="bd_lv1">
                                 <Button Command="{Binding CmdLvBasic}"
-                                    Name="btn_lv1"
+                                    Name="btn_lv1" Padding="0"
                                     Background="{Binding LevelCurrent, Converter={StaticResource colorLv1}}"
                                     Style="{StaticResource btn_selected}">
                                     <TextBlock Text="Cơ bản" 
@@ -366,29 +365,28 @@
                                 </Button>
                             </Border>
                             <Border Grid.Column="2"
-                                BorderThickness="2"
-                                BorderBrush="{Binding LevelCurrent, Converter={StaticResource colorLv2}}"
+                                
                                 Margin="3 0"
                                     Name="bd_lv2">
                                 <Button Command="{Binding CmdLvMedium}"
                                     Name="btn_lv2"
+                                        Padding="0"
                                     Background="{Binding LevelCurrent, Converter={StaticResource colorLv2}}"
                                     Style="{StaticResource btn_selected}">
                                     <TextBlock Text="Tiêu chuẩn" 
                                            Style="{StaticResource txtelemnt}" 
                                            Padding="0 40"
-                                               
+                                               Margin="0"
                                            Foreground="#222"
                                                Name="tb_title_lv2"/>
                                 </Button>
                             </Border>
                             <Border Grid.Column="3"
-                                BorderThickness="2"
-                                BorderBrush="{Binding LevelCurrent, Converter={StaticResource colorLv3}}"
+                                
                                 Margin="3 0"
                                     Name="bd_lv3">
                                 <Button Command="{Binding CmdLvVip}"
-                                    Name="btn_lv3"
+                                    Name="btn_lv3" Padding="0"
                                     Background="{Binding LevelCurrent, Converter={StaticResource colorLv3}}"
                                     Style="{StaticResource btn_selected}"
                                     >
@@ -469,7 +467,8 @@
                         Margin="0 20"
                         Foreground="#222"
                         DockPanel.Dock="Right"
-                        Content="Tiếp tục">
+                        Content="Tiếp tục"
+                        Command="{Binding CmdContinue}">
                     </Button>
                 </DockPanel>
             </StackPanel>

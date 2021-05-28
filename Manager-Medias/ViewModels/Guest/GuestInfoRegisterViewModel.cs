@@ -100,7 +100,7 @@ namespace Manager_Medias.ViewModels.Guest
                 if (db.SaveChanges() > 0)
                 {
                     //chuyển trang
-                    _navigationStore.ContentViewModel = new GuestLevelRegisterViewModel(user);
+                    _navigationStore.ContentViewModel = new GuestLevelRegisterViewModel(user, _navigationStore);
                 }
             }
         }

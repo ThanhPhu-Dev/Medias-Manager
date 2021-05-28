@@ -54,7 +54,7 @@
         </Style>
 
         <!--CONVERTER-->
-        <cv:ConvertImage x:Key="ImgCvt" />
+        <cv:ProfileImageConverter x:Key="ImgCvt" />
         <cv:ProfileLoginEnableConverter x:Key="PrStatusCvt" />
     </UserControl.Resources>
 
@@ -104,16 +104,23 @@
                             <Label Content="Tạo hồ sơ cho người dùng mới cùng xem phim" Foreground="#FFCFCFCF"
                                        FontWeight="ExtraLight" HorizontalContentAlignment="Center" />
                             <DockPanel LastChildFill="True" Margin="0 16 0 0">
-                                <Border DockPanel.Dock="Left" Margin="0 0 16 0" BorderBrush="#FFCDCDCD" BorderThickness="0.2">
+                                <Button  DockPanel.Dock="Left"
+                                         Margin="0 0 16 0"
+                                         BorderBrush="#FFCDCDCD"
+                                         BorderThickness="0.2"
+                                         Height="80"
+                                         Width="80"
+                                         Padding="0"
+                                         Command="{Binding OpenFileDialogCmd}">
                                     <Image Source="/Images/logo.png"
-                                            Width="60" Height="60"
-                                            Stretch="UniformToFill"
-                                           Cursor="Hand" />
-                                </Border>
+                                                Width="80" Height="80"
+                                                Stretch="UniformToFill"
+                                               Cursor="Hand" />
+                                </Button>
                                 <TextBox materialDesign:HintAssist.Foreground="#fff"
                                          materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
                                          materialDesign:HintAssist.HintOpacity="0.8"
-                                         materialDesign:HintAssist.Hint="Username"
+                                         materialDesign:HintAssist.Hint="Tên"
                                          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                          VerticalAlignment="Center"
                                          Padding="12 0"
@@ -121,7 +128,8 @@
                                          Foreground="#fff"
                                          FontSize="11"
                                          CaretBrush="#febb00"
-                                         Height="34" />
+                                         Height="34"
+                                         Text="{Binding NewProfileName, UpdateSourceTrigger=LostFocus, ValidatesOnNotifyDataErrors=True}" />
                             </DockPanel>
                             <Grid Margin="0 40 0 0">
                                 <Grid.ColumnDefinitions>
@@ -138,7 +146,8 @@
                                         Width="100"
                                         Height="32"
                                         ToolTip="Lưu"
-                                        Content="Lưu" />
+                                        Content="Lưu"
+                                        Command="{Binding NewProfileCmd}" />
                                 <Button Grid.Column="1"
                                         x:Name="btnCancelModal"
                                         Style="{StaticResource MaterialDesignRaisedAccentButton}"

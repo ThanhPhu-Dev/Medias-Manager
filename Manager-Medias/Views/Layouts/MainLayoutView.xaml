@@ -296,9 +296,6 @@
                 <DataTemplate DataType="{x:Type viewmodels:SignIn}">
                     <vlogin:SignIn />
                 </DataTemplate>
-                <DataTemplate DataType="{x:Type viewmodels:AccountManagerViewModel}">
-                    <vtest:AccountManagerView/>
-                </DataTemplate>
             </Grid.Resources>
             <ContentControl Content="{Binding ContentViewModel}" />
         </Grid>

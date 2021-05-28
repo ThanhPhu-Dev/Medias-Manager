@@ -114,7 +114,7 @@ namespace Manager_Medias.ViewModels.Guest
                 }
                 else if (currentUser.NumberCard == null)
                 {
-                    _navigationStore.ContentViewModel = new GuestCartRegisterViewModel(currentUser);
+                    _navigationStore.ContentViewModel = new GuestCartRegisterViewModel(currentUser, _navigationStore);
 
                 }
                 else

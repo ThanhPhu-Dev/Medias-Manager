@@ -4,11 +4,30 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Manager_Medias.Views.Customer.Register"
+             xmlns:cvt="clr-namespace:Manager_Medias.Converters"
+             xmlns:cv="clr-namespace:Manager_Medias.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="558" d:DesignWidth="1200"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              >
     <UserControl.Resources>
+        <cvt:MoneyConverter x:Key="moneyCvt"/>
+        <cv:MultiParameterConverter x:Key="MultiParamCvt" />
+
+        <ControlTemplate x:Key="TextBoxErrorTemplate">
+            <StackPanel>
+                <!-- Placeholder for the DataGridTextColumn itself -->
+                <AdornedElementPlaceholder />
+                <ItemsControl ItemsSource="{Binding}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding ErrorContent}" Foreground="Red" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </ControlTemplate>
+        
         <Style TargetType="TextBlock" x:Key="text-primary">
             <Setter Property="Foreground" Value="#fff"/>
             <Setter Property="TextWrapping" Value="Wrap"/>
@@ -33,7 +52,7 @@
                        Padding="0 10"/>
                 <StackPanel Background="#fff"
                         Margin="0 8">
-                    <TextBox
+                    <TextBox Name="tb_Name"
                     Style="{StaticResource MaterialDesignFilledTextBox}"
                     VerticalAlignment="Top"
                     Foreground="#222"
@@ -43,7 +62,10 @@
                         materialDesign:HintAssist.FloatingScale="0.55"
                     materialDesign:TextFieldAssist.TextBoxViewMargin="0 -3 0 0"
                     Height="60"
-                    FontSize="20"/>
+                    FontSize="20"
+                    Text="{Binding Name, ValidatesOnNotifyDataErrors=True, 
+                    UpdateSourceTrigger=PropertyChanged}"
+                     Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"/>
                 </StackPanel>
                 <!--<StackPanel Background="#fff"
                         Margin="0 8">
@@ -61,7 +83,7 @@
                 </StackPanel>-->
                 <StackPanel Background="#fff"
                         Margin="0 8">
-                    <TextBox
+                    <TextBox Name="tb_CartNum"
                     Style="{StaticResource MaterialDesignFilledTextBox}"
                     VerticalAlignment="Top"
                     Foreground="#222"
@@ -71,21 +93,27 @@
                         materialDesign:HintAssist.FloatingScale="0.55"
                     materialDesign:TextFieldAssist.TextBoxViewMargin="0 -3 0 0"
                     Height="60"
-                    FontSize="20"/>
+                    FontSize="20"
+                        Text="{Binding CartNum, ValidatesOnNotifyDataErrors=True, 
+                    UpdateSourceTrigger=PropertyChanged}"
+                     Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"/>
                 </StackPanel>
                 <StackPanel Background="#fff"
                         Margin="0 8">
-                    <TextBox
+                    <TextBox Name="tb_Date"
                     Style="{StaticResource MaterialDesignFilledTextBox}"
                     VerticalAlignment="Top"
                     Foreground="#222"
                     AcceptsReturn="True"
                     TextWrapping="Wrap"
-                    materialDesign:HintAssist.Hint="Ngày hết hạng (MM/YY)"
+                    materialDesign:HintAssist.Hint="Ngày hết hạn (MM/YY)"
                         materialDesign:HintAssist.FloatingScale="0.55"
                     materialDesign:TextFieldAssist.TextBoxViewMargin="0 -3 0 0"
                     Height="60"
-                    FontSize="20"/>
+                    FontSize="20"
+                        Text="{Binding DateExpiration, ValidatesOnNotifyDataErrors=True, 
+                    UpdateSourceTrigger=PropertyChanged}"
+                     Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"/>
                 </StackPanel>
 
                 <DockPanel Background="#ffefb5" Margin="0 8">
@@ -114,7 +142,9 @@
                 </TextBlock>
                 <StackPanel Margin="0 13">
                     <CheckBox
-                        IsChecked="False"
+                        IsChecked="{Binding CheckApply, ValidatesOnNotifyDataErrors=True, 
+                    UpdateSourceTrigger=PropertyChanged}"
+                     Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"
                         Content="Tôi đồng ý"
                         materialDesign:CheckBoxAssist.CheckBoxSize="30" 
                         Foreground="#fff"
@@ -125,10 +155,10 @@
                             <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#FFbb00"/>
                         </CheckBox.Resources>
                     </CheckBox>
-                </StackPanel> 
-                
+                </StackPanel>
+
                 <StackPanel >
-                    
+
                     <Button
                         Background="#FFbb00"
                         Style="{StaticResource MaterialDesignRaisedButton}"
@@ -137,7 +167,15 @@
                         FontSize="23"
                         Margin="0 20 0 0"
                         Foreground="#222"
-                        Content="Kích hoạt tư cách thành viên">
+                        Content="Kích hoạt tư cách thành viên"
+                        Command="{Binding CmdFinish}">
+                        <Button.CommandParameter>
+                            <MultiBinding Converter="{StaticResource MultiParamCvt}">
+                                <Binding ElementName="tb_Name" Path="Text" />
+                                <Binding ElementName="tb_CartNum" Path="Text" />
+                                <Binding ElementName="tb_Date" Path="Text" />
+                            </MultiBinding>
+                        </Button.CommandParameter>
                     </Button>
                     <Button
                         Background="#857850"
@@ -147,7 +185,8 @@
                         Content="Trở về" 
                         FontSize="23"
                         Margin="0 5 0 20"
-                        Foreground="#222" HorizontalAlignment="Center"/>
+                        Foreground="#222" HorizontalAlignment="Center"
+                        Command="{Binding CmdPre}"/>
                 </StackPanel>
             </StackPanel>
         </Grid>

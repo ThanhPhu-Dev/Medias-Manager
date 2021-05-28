@@ -1,5 +1,6 @@
 ﻿using Manager_Medias.Commands;
 using Manager_Medias.Models;
+using Manager_Medias.Stores;
 using Manager_Medias.Validates;
 using System;
 using System.Collections.Generic;
@@ -20,13 +21,16 @@ namespace Manager_Medias.ViewModels.Guest
         private Level levelSelected;
         public ICommand CmdPre { get; }
         public ICommand CmdFinish { get; }
+        private bool _checkApply;
 
+        #region BindingProperty
         public string Name
         {
             get => _name;
             set
             {
-                 _name = value;
+                ValidateProperty(value);
+                _name = value;
                 OnPropertyChanged();
             }
         }
@@ -35,6 +39,7 @@ namespace Manager_Medias.ViewModels.Guest
             get => _cartNum;
             set
             {
+                ValidateProperty(value);
                 _cartNum = value;
                 OnPropertyChanged();
             }
@@ -44,43 +49,82 @@ namespace Manager_Medias.ViewModels.Guest
             get => _dateExpiration;
             set
             {
+                ValidateProperty(value);
                 _dateExpiration = value;
+                OnPropertyChanged();
+            }
+        }
+        public bool CheckApply
+        { 
+            get => _checkApply; 
+            set
+            {
+                ValidateProperty(value);
+                _checkApply = value;
                 OnPropertyChanged();
             }
         }
 
         public Level LevelSelected { get => levelSelected; set => levelSelected = value; }
+        #endregion BindingProperty
 
-        public GuestCartRegisterViewModel(User u)
+        public GuestCartRegisterViewModel(User u, NavigationStore navigationStore)
         {
             _userCurrent = u;
+
+            //tạo biến chuyển trang
+            _navigationStore = navigationStore;
+
+            //tạo command
+            CmdFinish = new RelayCommand<Object[]>(Finish, (Object[] obj) => !HasErrors);
+            CmdPre = new RelayCommand<Object[]>(PrePage);
 
             //khởi tạo các đối tượng validate
             this.Errors = new Dictionary<string, List<string>>();
             this.ValidationRules = new Dictionary<string, List<ValidationRule>>();
-            this.ValidationRules.Add(nameof(this.Name), new List<ValidationRule>() { new ValidateEmailRegister() });
-            this.ValidationRules.Add(nameof(this.CartNum), new List<ValidationRule>() { new ValidatePassword() });
-            this.ValidationRules.Add(nameof(this.DateExpiration), new List<ValidationRule>() { new ValidatePassword() });
-
-            //tạo command
-            CmdFinish = new RelayCommand<Object[]>(Finish);
-            CmdPre = new RelayCommand<Object[]>(PrePage);
+            this.ValidationRules.Add(nameof(this.Name), new List<ValidationRule>() { new AccountManagerValidationRule() });
+            this.ValidationRules.Add(nameof(this.CartNum), new List<ValidationRule>() { new CartNumberValidationRule() });
+            this.ValidationRules.Add(nameof(this.DateExpiration), new List<ValidationRule>() { new DateExpirationValidationRule() });
+            this.ValidationRules.Add(nameof(this.CheckApply), new List<ValidationRule>() { new CheckAppyValidationRule() });
 
             //lấy level đã chọn
             using (var db = new MediasManangementEntities())
             {
                 LevelSelected = db.Levels.Where(lv => lv.Id == u.Level).Single() as Level;
             }
+
+            //set chấp nhận điều khoản là false
+            CheckApply = false;
         }
 
         private void PrePage(object[] obj)
         {
-            throw new NotImplementedException();
+            _navigationStore.ContentViewModel = new GuestLevelRegisterViewModel(_userCurrent, _navigationStore);
         }
 
         private void Finish(object[] obj)
         {
-            throw new NotImplementedException();
+            Profile profile = new Profile()
+            {
+                Email = _userCurrent.Email,
+                Name = obj[0].ToString(),
+            };
+
+            using(var db = new MediasManangementEntities())
+            {
+                var user = db.Users.Where(u => u.Email == _userCurrent.Email).Single() as User;
+
+                //update cart cho user
+                user.NumberCard = obj[1].ToString();
+                //db.SaveChanges();
+
+                //tạo user 
+                db.Profiles.Add(profile);
+                db.SaveChanges();
+
+                //chuyển trang dên trang chủ
+
+            }
         }
     }
 }

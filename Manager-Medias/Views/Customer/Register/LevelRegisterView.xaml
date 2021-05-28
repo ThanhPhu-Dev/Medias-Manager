@@ -457,7 +457,8 @@
                         Content="Trở về" 
                         FontSize="23"
                         Margin="0 20"
-                        Foreground="#222"/>
+                        Foreground="#222"
+                        Command="{Binding CmdPre}"/>
                     <Button
                         Background="#FFbb00"
                         Style="{StaticResource MaterialDesignRaisedButton}"

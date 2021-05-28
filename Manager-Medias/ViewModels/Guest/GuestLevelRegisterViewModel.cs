@@ -19,6 +19,7 @@ namespace Manager_Medias.ViewModels.Guest
         public ICommand CmdLvMedium { get; }
         public ICommand CmdLvVip { get; }
         public ICommand CmdContinue { get; }
+        public ICommand CmdPre { get; }
 
         public int LevelCurrent
         { 
@@ -48,6 +49,12 @@ namespace Manager_Medias.ViewModels.Guest
             CmdLvMedium = new RelayCommand<Object>(LvMedium);
             CmdLvVip = new RelayCommand<Object>(LvVip);
             CmdContinue = new RelayCommand<Object>(Continue);
+            CmdPre = new RelayCommand<Object>(Pre);
+        }
+
+        private void Pre(object obj)
+        {
+            _navigationStore.ContentViewModel = new GuestInfoRegisterViewModel(_navigationStore);
         }
 
         private void Continue(object obj)
@@ -59,7 +66,7 @@ namespace Manager_Medias.ViewModels.Guest
                 
                 if(db.SaveChanges() > 0)
                 {
-                    _navigationStore.ContentViewModel = new GuestCartRegisterViewModel(user);
+                    _navigationStore.ContentViewModel = new GuestCartRegisterViewModel(user, _navigationStore);
                 }
             }
         }

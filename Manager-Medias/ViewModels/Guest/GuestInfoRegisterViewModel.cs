@@ -88,16 +88,18 @@ namespace Manager_Medias.ViewModels.Guest
             User user = new User()
             {
                 Email = Email,
-                Password = pwHash,
+                Password = "1/wTlezlNHHnoMMVnr",
             };
             using (var db = new MediasManangementEntities())
             {
-                db.Users.Add(user);
-                if (db.SaveChanges() > 0)
-                {
-                    //chuyển trang 
-                    _navigationStore.ContentViewModel = new GuestLevelRegisterViewModel(user);
-                }
+                //db.Users.Add(user);
+                //if (db.SaveChanges() > 0)
+                //{
+                //    //chuyển trang 
+                //    _navigationStore.ContentViewModel = new GuestLevelRegisterViewModel(user);
+                //}
+                _navigationStore.ContentViewModel = new GuestLevelRegisterViewModel(user);
+
             }
         }
     }

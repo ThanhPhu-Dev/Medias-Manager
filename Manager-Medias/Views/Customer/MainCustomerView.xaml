@@ -70,8 +70,11 @@
                 <DataTemplate DataType="{x:Type vm:GuestLoginViewModel}">
                     <local:SignIn />
                 </DataTemplate>
-                <DataTemplate DataType="{x:Type vm:GuestRegisterViewModel}">
+                <DataTemplate DataType="{x:Type vm:GuestInfoRegisterViewModel}">
                     <us:InfoRegisterView />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type vm:GuestLevelRegisterViewModel}">
+                    <us:LevelRegisterView />
                 </DataTemplate>
             </Grid.Resources>
             <ContentControl Content="{Binding ContentViewModel}" />

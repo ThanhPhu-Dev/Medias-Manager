@@ -281,7 +281,7 @@
                 <DataTemplate DataType="{x:Type viewmodels:HomeViewModel}">
                     <vhome:Home />
                 </DataTemplate>
-                <DataTemplate DataType="{x:Type viewmodels:MainAccountView}">
+                <DataTemplate DataType="{x:Type viewmodels:MainAccountViewModel}">
                     <vprofile:MainAccountView />
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type viewmodels:DetailAudioViewModel}">

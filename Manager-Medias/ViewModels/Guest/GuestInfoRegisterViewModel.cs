@@ -14,13 +14,26 @@ using System.Windows.Input;
 
 namespace Manager_Medias.ViewModels.Guest
 {
-    class GuestInfoRegisterViewModel:BaseViewModel
+    class GuestInfoRegisterViewModel : BaseViewModel
     {
         public ICommand CmdContinue { get; }
 
         private string _email;
         private string _password;
+        private string _errorMS;
+
         #region BindingProperty
+
+        public string ErrorMS
+        {
+            get => _errorMS;
+            set
+            {
+                _errorMS = value;
+                OnPropertyChanged();
+            }
+        }
+
         public string Email
         {
             get => _email;
@@ -42,7 +55,9 @@ namespace Manager_Medias.ViewModels.Guest
                 OnPropertyChanged();
             }
         }
+
         #endregion BindingProperty
+
         public GuestInfoRegisterViewModel(NavigationStore navigationStore)
         {
             _navigationStore = navigationStore;
@@ -51,9 +66,13 @@ namespace Manager_Medias.ViewModels.Guest
             this.Errors = new Dictionary<string, List<string>>();
             this.ValidationRules = new Dictionary<string, List<ValidationRule>>();
 
-            this.ValidationRules.Add(nameof(this.Email), new List<ValidationRule>() { new ValidateEmail() });
+            this.ValidationRules.Add(nameof(this.Email), new List<ValidationRule>() { new ValidateEmailRegister() });
             this.ValidationRules.Add(nameof(this.Password), new List<ValidationRule>() { new ValidatePassword() });
+
+            //khoi tao erro là null
+            ErrorMS = null;
         }
+
         private void Continue(object[] obj)
         {
             //hash password
@@ -70,9 +89,20 @@ namespace Manager_Medias.ViewModels.Guest
             string pwHash = Convert.ToBase64String(hashBytes);
 
             //tạo user
-            User user = new User() { Email = this._email, Password = pwHash };
-            //chuyển trang 
-            _navigationStore.ContentViewModel = new GuestLevelRegisterViewModel(user);
+            User user = new User()
+            {
+                Email = Email,
+                Password = pwHash,
+            };
+            using (var db = new MediasManangementEntities())
+            {
+                db.Users.Add(user);
+                if (db.SaveChanges() > 0)
+                {
+                    //chuyển trang
+                    _navigationStore.ContentViewModel = new GuestLevelRegisterViewModel(user);
+                }
+            }
         }
     }
 }

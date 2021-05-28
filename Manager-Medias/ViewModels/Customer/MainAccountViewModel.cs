@@ -23,6 +23,7 @@ namespace Manager_Medias.ViewModels.Customer
         public ICommand NavigateProfileManagerCmd { get; }
         public ICommand NavigateFavoriteManagerCmd { get; }
         public ICommand NavigateHistoryListCmd { get; }
+        public ICommand NavigatePaymentHistoryCmd { get; }
 
         #endregion Command
 
@@ -51,6 +52,9 @@ namespace Manager_Medias.ViewModels.Customer
 
             NavigateHistoryListCmd = new NavigateCommand<HistoryViewModel>(
                 new NavigationService<HistoryViewModel>(_acccountNavigateStore, () => new HistoryViewModel(userStore)));
+
+            NavigatePaymentHistoryCmd = new NavigateCommand<PaymentHistoryViewModel>(
+                new NavigationService<PaymentHistoryViewModel>(_acccountNavigateStore, () => new PaymentHistoryViewModel(userStore)));
 
             _navigationStore.CurrentContentViewModelChanged += _navigationStore_CurrentContentViewModelChanged;
             _acccountNavigateStore.CurrentContentViewModelChanged += _acccountNavigateStore_CurrentContentViewModelChanged;

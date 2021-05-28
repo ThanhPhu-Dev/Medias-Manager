@@ -181,6 +181,7 @@ select * from Movies
 
 --Insert user 
 INSERT INTO Users VALUES ('nghiadx2001@gmail.c', '123', 1, 'CDCD', '362')
+INSERT INTO Users (Email, Password) VALUES ('1@gmail.c', '123')
 --insert profile
 INSERT INTO Profiles (Email, Name) VALUES ('nghiadx2001@gmail.c', N'Nguyễn H Nghĩa')
 

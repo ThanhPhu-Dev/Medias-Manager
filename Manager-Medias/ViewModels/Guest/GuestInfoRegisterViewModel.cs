@@ -1,4 +1,5 @@
 ﻿using Manager_Medias.Commands;
+using Manager_Medias.Models;
 using Manager_Medias.Stores;
 using Manager_Medias.Validates;
 using Manager_Medias.ViewModels.Customer;
@@ -19,7 +20,19 @@ namespace Manager_Medias.ViewModels.Guest
 
         private string _email;
         private string _password;
+        private string _errorMS;
+
         #region BindingProperty
+        public string ErrorMS
+        {
+            get => _errorMS;
+            set
+            {
+                _errorMS = value;
+                OnPropertyChanged();
+            }
+        }
+
         public string Email
         {
             get => _email;
@@ -52,6 +65,9 @@ namespace Manager_Medias.ViewModels.Guest
 
             this.ValidationRules.Add(nameof(this.Email), new List<ValidationRule>() { new ValidateEmail() });
             this.ValidationRules.Add(nameof(this.Password), new List<ValidationRule>() { new ValidatePassword() });
+
+            //khoi tao erro là null
+            ErrorMS = null;
         }
         private void Continue(object[] obj)
         {
@@ -69,9 +85,33 @@ namespace Manager_Medias.ViewModels.Guest
             string pwHash = Convert.ToBase64String(hashBytes);
 
             //tạo user
+            User user = new User()
+            {
+                Email = Email,
+                Password = pwHash,
+            };
+            using (var db = new MediasManangementEntities())
+            {
+                //check mail da ton tai chua
+                var n_user = db.Users.Where(u => u.Email == user.Email).Count();
 
-            //chuyển trang 
-            _navigationStore.ContentViewModel = new GuestLevelRegisterViewModel();
+                if(n_user > 0)
+                {
+                    ErrorMS = "Email đã tồn tại!!";
+                }
+                else
+                {
+                    db.Users.Add(user);
+                    if(db.SaveChanges() > 0){
+                    //chuyển trang 
+                    _navigationStore.ContentViewModel = new GuestLevelRegisterViewModel();
+                    }
+                    else
+                    {
+                        ErrorMS = "Đăng ký tài khoản lỗi, vui lòng thử lại!";
+                    }
+                }
+            }
         }
     }
 }

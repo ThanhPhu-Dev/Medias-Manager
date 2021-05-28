@@ -14,7 +14,7 @@ using System.Windows.Input;
 
 namespace Manager_Medias.ViewModels.Guest
 {
-    internal class GuestInfoRegisterViewModel : BaseViewModel
+    class GuestInfoRegisterViewModel : BaseViewModel
     {
         public ICommand CmdContinue { get; }
 
@@ -66,7 +66,7 @@ namespace Manager_Medias.ViewModels.Guest
             this.Errors = new Dictionary<string, List<string>>();
             this.ValidationRules = new Dictionary<string, List<ValidationRule>>();
 
-            this.ValidationRules.Add(nameof(this.Email), new List<ValidationRule>() { new ValidateEmail() });
+            this.ValidationRules.Add(nameof(this.Email), new List<ValidationRule>() { new ValidateEmailRegister() });
             this.ValidationRules.Add(nameof(this.Password), new List<ValidationRule>() { new ValidatePassword() });
 
             //khoi tao erro là null
@@ -96,25 +96,11 @@ namespace Manager_Medias.ViewModels.Guest
             };
             using (var db = new MediasManangementEntities())
             {
-                //check mail da ton tai chua
-                var n_user = db.Users.Where(u => u.Email == user.Email).Count();
-
-                if (n_user > 0)
+                db.Users.Add(user);
+                if (db.SaveChanges() > 0)
                 {
-                    ErrorMS = "Email đã tồn tại!!";
-                }
-                else
-                {
-                    db.Users.Add(user);
-                    if (db.SaveChanges() > 0)
-                    {
-                        //chuyển trang
-                        _navigationStore.ContentViewModel = new GuestLevelRegisterViewModel(user);
-                    }
-                    else
-                    {
-                        ErrorMS = "Đăng ký tài khoản lỗi, vui lòng thử lại!";
-                    }
+                    //chuyển trang
+                    _navigationStore.ContentViewModel = new GuestLevelRegisterViewModel(user);
                 }
             }
         }

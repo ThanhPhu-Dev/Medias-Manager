@@ -32,7 +32,7 @@ namespace Manager_Medias.Stores
             using (var db = new MediasManangementEntities())
             {
                 this._currentUser = user;
-                //this._currentProfile = user.Profiles.Where()
+                this._currentProfile = db.Users.Find(user).Profiles.Where(p => p.Status == 1).Single();
             }
         }
     }

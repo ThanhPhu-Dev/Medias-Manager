@@ -14,7 +14,7 @@ using System.Windows.Input;
 
 namespace Manager_Medias.ViewModels.Guest
 {
-    class GuestInfoRegisterViewModel:BaseViewModel
+    internal class GuestInfoRegisterViewModel : BaseViewModel
     {
         public ICommand CmdContinue { get; }
 
@@ -23,6 +23,7 @@ namespace Manager_Medias.ViewModels.Guest
         private string _errorMS;
 
         #region BindingProperty
+
         public string ErrorMS
         {
             get => _errorMS;
@@ -54,7 +55,9 @@ namespace Manager_Medias.ViewModels.Guest
                 OnPropertyChanged();
             }
         }
+
         #endregion BindingProperty
+
         public GuestInfoRegisterViewModel(NavigationStore navigationStore)
         {
             _navigationStore = navigationStore;
@@ -69,6 +72,7 @@ namespace Manager_Medias.ViewModels.Guest
             //khoi tao erro là null
             ErrorMS = null;
         }
+
         private void Continue(object[] obj)
         {
             //hash password
@@ -95,16 +99,17 @@ namespace Manager_Medias.ViewModels.Guest
                 //check mail da ton tai chua
                 var n_user = db.Users.Where(u => u.Email == user.Email).Count();
 
-                if(n_user > 0)
+                if (n_user > 0)
                 {
                     ErrorMS = "Email đã tồn tại!!";
                 }
                 else
                 {
                     db.Users.Add(user);
-                    if(db.SaveChanges() > 0){
-                    //chuyển trang 
-                    _navigationStore.ContentViewModel = new GuestLevelRegisterViewModel();
+                    if (db.SaveChanges() > 0)
+                    {
+                        //chuyển trang
+                        _navigationStore.ContentViewModel = new GuestLevelRegisterViewModel(user);
                     }
                     else
                     {

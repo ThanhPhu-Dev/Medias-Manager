@@ -7,11 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using System.Windows.Navigation;
 
 namespace Manager_Medias.ViewModels.Customer
 {
-    public class MainAccountView : BaseViewModel
+    public class MainAccountViewModel : BaseViewModel
     {
         private readonly NavigationStore _acccountNavigateStore;
         private readonly UserStore _userStore;
@@ -27,7 +26,7 @@ namespace Manager_Medias.ViewModels.Customer
 
         #endregion Command
 
-        public MainAccountView(UserStore userStore, NavigationStore navigationStore)
+        public MainAccountViewModel(UserStore userStore, NavigationStore navigationStore)
         {
             _acccountNavigateStore = new NavigationStore();
             _navigationStore = navigationStore;
@@ -54,7 +53,12 @@ namespace Manager_Medias.ViewModels.Customer
                 new NavigationService<HistoryViewModel>(_acccountNavigateStore, () => new HistoryViewModel(userStore)));
 
             _navigationStore.CurrentContentViewModelChanged += _navigationStore_CurrentContentViewModelChanged;
-            _acccountNavigateStore.CurrentContentViewModelChanged += _navigationStore_CurrentContentViewModelChanged;
+            _acccountNavigateStore.CurrentContentViewModelChanged += _acccountNavigateStore_CurrentContentViewModelChanged;
+        }
+
+        private void _acccountNavigateStore_CurrentContentViewModelChanged()
+        {
+            OnPropertyChanged(nameof(ContentAccountViewModel));
         }
     }
 }

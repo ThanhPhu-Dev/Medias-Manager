@@ -53,8 +53,7 @@ namespace Manager_Medias.ViewModels.Customer
 
         public void LoadProfile()
         {
-            Profile pr = _userStore.CurrentProfile;
-            //Profiles = new ObservableCollection<Profile>(_userStore.CurrentUser.Profiles);
+            Profiles = _userStore.Profiles;
         }
 
         public void ActionSwitchProfile(RoutedEventArgs e)

@@ -1,7 +1,7 @@
 ﻿CREATE TABLE Users
 (
 	Email varchar(20) NOT NULL UNIQUE,
-	Password varchar(20) NOT NULL,
+	Password varchar(MAX) NOT NULL,
 	Level int,
 	Code varchar(MAX),
 	NumberCard varchar(16),
@@ -236,5 +236,5 @@ insert into Levels(Name,Price) values('Vàng', 200000)
 insert into Movies (Id, IdCategory,IMDB,Likes,Name,NumberOfViews,Poster,Age,Description,Season,Time,Video)
 values (7,1,6.5,4,N'Super Hero', 23, 'postermovieHuter.jpg', 18,N'Super hero hân hạnh tài trợ', 'kn92','00:12:30','video.mp4')
 
-select * from Users
+
 

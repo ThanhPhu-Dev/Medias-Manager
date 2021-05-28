@@ -130,7 +130,7 @@
             <PropertyRef Name="Email" />
           </Key>
           <Property Name="Email" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="Password" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Password" Type="varchar(max)" />
           <Property Name="Level" Type="int" />
           <Property Name="Code" Type="varchar(max)" />
           <Property Name="NumberCard" Type="varchar" MaxLength="16" />
@@ -557,7 +557,7 @@
             <PropertyRef Name="Email" />
           </Key>
           <Property Name="Email" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Level" Type="Int32" />
           <Property Name="Code" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="NumberCard" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />

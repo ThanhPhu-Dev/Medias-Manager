@@ -9,6 +9,8 @@
 	CONSTRAINT PK_Users PRIMARY KEY (Email)
 )
 
+
+
 CREATE TABLE Profiles
 (
 	Id int NOT NULL IDENTITY(1,1),
@@ -235,6 +237,4 @@ update Medias set Lvl = 1 where Id = 7
 insert into Levels(Name,Price) values('Vàng', 200000)
 insert into Movies (Id, IdCategory,IMDB,Likes,Name,NumberOfViews,Poster,Age,Description,Season,Time,Video)
 values (7,1,6.5,4,N'Super Hero', 23, 'postermovieHuter.jpg', 18,N'Super hero hân hạnh tài trợ', 'kn92','00:12:30','video.mp4')
-
-
-
+Insert into Users(Email,Password,NumberCard,Level)values ('user@gmail.com', '1/wTlezlNHHnoMMVnrdiMhWMrjxjsQD7nz', '1253871235', 1) 

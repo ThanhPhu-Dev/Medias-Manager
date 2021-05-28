@@ -23,6 +23,20 @@ namespace Manager_Medias.Views.Admin
         public AccountManagerUserControl()
         {
             InitializeComponent();
+            filterPanel.Collapse();
+        }
+
+        private void filterOpenImg_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (filterPanel.IsCollapsed())
+            {
+                filterPanel.Show();
+
+            }
+            else
+            {
+                filterPanel.Collapse();
+            }
         }
     }
 }

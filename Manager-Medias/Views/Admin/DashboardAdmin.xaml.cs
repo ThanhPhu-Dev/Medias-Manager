@@ -1,4 +1,6 @@
-﻿using System;
+﻿using LiveCharts;
+using LiveCharts.Wpf;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +25,7 @@ namespace Manager_Medias.Views.Admin
         {
             InitializeComponent();
 
+
             List<User> users = new List<User>();
             users.Add(new User() { Email = "JohnDoe@1245yahoo.com",Level =3, Password = "John Doe", CreateAt = new DateTime(2020, 7, 23), Balance = 120000, cardNum = "691100003613474", Accumulated = 1247, Code = "FHTY7V" });
             users.Add(new User() { Email = "thanhphuLe@1245yahoo.com", Level = 2, Password = "5363425235", CreateAt = new DateTime(2020, 3, 3), Balance = 130000, cardNum = "691145615274", Accumulated = 1247, Code = "DFG464" });
@@ -39,7 +42,7 @@ namespace Manager_Medias.Views.Admin
             users.Add(new User() { Email = "JohnDoe@1245yahoo.com", Level = 2, Password = "John Doe", CreateAt = new DateTime(2020, 6, 6), Balance = 120000, cardNum = "6234100003615274", Accumulated = 467, Code = "DGĐFDF" });
             users.Add(new User() { Email = "JohnDoe@1245yahoo.com", Level = 3, Password = "45ksdwtli1024", CreateAt = new DateTime(2020, 7, 23), Balance = 120000, cardNum = "69234003615274", Accumulated = 1247, Code = "BFGE47657" });
 
-            DataContext = users;
+            DataContext = this;
 
             
         }
@@ -57,7 +60,7 @@ namespace Manager_Medias.Views.Admin
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            mainGrid.Children.Add(new MainDashBoardAdminUserControl());
+            //mainGrid.Children.Add(new MainDashBoardAdminUserControl());
         }
 
         private void addUserBt_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -75,6 +78,112 @@ namespace Manager_Medias.Views.Admin
         {
             mainGrid.Children.Clear();
             mainGrid.Children.Add(new AccountManagerUserControl());
+        }
+
+        private void Button_Tab_Click(object sender, RoutedEventArgs e)
+        {
+            int index = int.Parse(((Button)e.Source).Uid);
+            GridCursor.Margin = new Thickness((250 * index + 30), 0, 0, 0);
+        }
+        public SeriesCollection Data => new SeriesCollection() // Biến chứa dữ liệu biểu đồ
+        {
+            new PieSeries()
+            {
+                Values = new ChartValues<float> { 124124} , Title = "Spider man: Far from home"
+            },
+            new PieSeries()
+            {
+                Values = new ChartValues<float> { 57342} , Title = "Bố già lắm chiêu"
+            },
+            new PieSeries()
+            {
+                Values = new ChartValues<float> { 56233 } , Title ="Gái già"
+            },
+            new PieSeries()
+            {
+                Values = new ChartValues<float> { 235235 }, Title = "Còn cái nịt"
+            },
+            new PieSeries()
+            {
+                Values = new ChartValues<float> { 54745} , Title = "Còn đúng cái nịt thôi"
+            },
+            new PieSeries()
+            {
+                Values = new ChartValues<float> { 235} , Title = "One piece Movie 3"
+            },
+            new PieSeries()
+            {
+                Values = new ChartValues<float> { 23425} , Title = "Trò chơi vương quyền 7"
+            },
+            new PieSeries()
+            {
+                Values = new ChartValues<float> { 1212} , Title = "Captain Mavel"
+            },
+            new PieSeries()
+            {
+                Values = new ChartValues<float> { 9865} , Title = "Trò chơi vương quyền 1"
+            },
+            new PieSeries()
+            {
+                Values = new ChartValues<float> { 12314} , Title = "Còn đúng cái nịt thôi"
+            },
+
+        };
+
+        public SeriesCollection Data2 => new SeriesCollection() // Biến chứa dữ liệu biểu đồ
+        {
+             new ColumnSeries()
+            {
+                Values = new ChartValues<float> { 124124} , Title = "Spider man: Far from home"
+            },
+            new ColumnSeries()
+            {
+                Values = new ChartValues<float> { 57342} , Title = "Bố già lắm chiêu"
+            },
+            new ColumnSeries()
+            {
+                Values = new ChartValues<float> { 56233 } , Title ="Gái già"
+            },
+            new ColumnSeries()
+            {
+                Values = new ChartValues<float> { 235235 }, Title = "Còn cái nịt"
+            },
+            new ColumnSeries()
+            {
+                Values = new ChartValues<float> { 54745} , Title = "Còn đúng cái nịt thôi"
+            },
+            new ColumnSeries()
+            {
+                Values = new ChartValues<float> { 235} , Title = "One piece Movie 3"
+            },
+            new ColumnSeries()
+            {
+                Values = new ChartValues<float> { 23425} , Title = "Trò chơi vương quyền 7"
+            },
+            new ColumnSeries()
+            {
+                Values = new ChartValues<float> { 1212} , Title = "Captain Mavel"
+            },
+            new ColumnSeries()
+            {
+                Values = new ChartValues<float> { 9865} , Title = "Trò chơi vương quyền 1"
+            },
+            new ColumnSeries()
+            {
+                Values = new ChartValues<float> { 12314} , Title = "Còn đúng cái nịt thôi"
+            },
+        };
+
+        private void PieChart_DataClick(object sender, LiveCharts.ChartPoint chartPoint)
+        {
+            var chart = chartPoint.ChartView as PieChart;
+            foreach (PieSeries pie in chart.Series)
+            {
+                pie.PushOut = 0;
+            }
+
+            var neo = chartPoint.SeriesView as PieSeries;
+            neo.PushOut = 30;
         }
     }
     public class User

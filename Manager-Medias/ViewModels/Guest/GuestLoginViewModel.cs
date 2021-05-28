@@ -53,8 +53,8 @@ namespace Manager_Medias.ViewModels.Guest
             // Check valid account
             // Redirect to MainLayout
             _navigationStore.CurrentViewModel = new MainLayoutViewModel(userStore, _navigationStore);
-            //navigationStore.ContentViewModel = new DetailAudioViewModel();
-            _navigationStore.ContentViewModel = new DetailAudioViewModel(1, 1);
+            _navigationStore.ContentViewModel = new HomeViewModel();
+            //_navigationStore.ContentViewModel = new DetailAudioViewModel(1, 1);
         }
     }
 }

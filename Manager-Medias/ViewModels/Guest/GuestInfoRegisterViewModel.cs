@@ -23,6 +23,7 @@ namespace Manager_Medias.ViewModels.Guest
         private string _errorMS;
 
         #region BindingProperty
+
         public string ErrorMS
         {
             get => _errorMS;
@@ -54,7 +55,9 @@ namespace Manager_Medias.ViewModels.Guest
                 OnPropertyChanged();
             }
         }
+
         #endregion BindingProperty
+
         public GuestInfoRegisterViewModel(NavigationStore navigationStore)
         {
             _navigationStore = navigationStore;
@@ -69,6 +72,7 @@ namespace Manager_Medias.ViewModels.Guest
             //khoi tao erro là null
             ErrorMS = null;
         }
+
         private void Continue(object[] obj)
         {
             //hash password
@@ -92,14 +96,12 @@ namespace Manager_Medias.ViewModels.Guest
             };
             using (var db = new MediasManangementEntities())
             {
-                //db.Users.Add(user);
-                //if (db.SaveChanges() > 0)
-                //{
-                //    //chuyển trang 
-                //    _navigationStore.ContentViewModel = new GuestLevelRegisterViewModel(user);
-                //}
-                _navigationStore.ContentViewModel = new GuestLevelRegisterViewModel(user);
-
+                db.Users.Add(user);
+                if (db.SaveChanges() > 0)
+                {
+                    //chuyển trang
+                    _navigationStore.ContentViewModel = new GuestLevelRegisterViewModel(user);
+                }
             }
         }
     }

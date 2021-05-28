@@ -34,8 +34,8 @@ namespace Manager_Medias.ViewModels.Customer
             _navigationStore = navigationStore;
             ComboboxAccountCmd = new RelayCommand<SelectionChangedEventArgs>(ComboboxAccountChanged);
 
-            NavigateAccountCmd = new NavigateCommand<MainAccountView>(
-                new NavigationService<MainAccountView>(_navigationStore, () => new MainAccountView(userStore, _navigationStore)));
+            NavigateAccountCmd = new NavigateCommand<MainAccountViewModel>(
+                new NavigationService<MainAccountViewModel>(_navigationStore, () => new MainAccountViewModel(userStore, _navigationStore)));
 
             _navigationStore.CurrentContentViewModelChanged += _navigationStore_CurrentContentViewModelChanged;
         }

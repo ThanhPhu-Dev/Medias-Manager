@@ -192,7 +192,6 @@
     <Compile Include="ViewModels\Customer\ForgetPassword.cs" />
     <Compile Include="ViewModels\Customer\HistoryViewModel.cs" />
     <Compile Include="ViewModels\Customer\HomeViewModel.cs" />
-    <Compile Include="ViewModels\Customer\MainAccountView.cs" />
     <Compile Include="Models\Album.cs">
       <DependentUpon>MediasManagement.tt</DependentUpon>
     </Compile>
@@ -235,6 +234,7 @@
     <Compile Include="Models\View_History.cs">
       <DependentUpon>MediasManagement.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\Customer\MainAccountViewModel.cs" />
     <Compile Include="ViewModels\Customer\MainLayoutViewModel.cs" />
     <Compile Include="ViewModels\Customer\ProfileManagerViewModel.cs" />
     <Compile Include="ViewModels\Guest\GuestCartRegisterViewModel.cs" />

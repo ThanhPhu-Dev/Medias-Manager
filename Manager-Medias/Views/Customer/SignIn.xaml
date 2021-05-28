@@ -20,7 +20,31 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+        <Style TargetType="TextBox">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="True">
+                    <Setter Property="Background" Value="Pink"/>
+                    <Setter Property="ToolTip"
+                        Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+                        Path=(Validation.Errors)[0].ErrorContent}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
         <cv:MultiParameterConverter x:Key="MultiParamCvt" />
+
+        <ControlTemplate x:Key="TextBoxErrorTemplate">
+            <StackPanel>
+                <!-- Placeholder for the DataGridTextColumn itself -->
+                <AdornedElementPlaceholder />
+                <ItemsControl ItemsSource="{Binding}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding ErrorContent}" Foreground="Red" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </ControlTemplate>
     </UserControl.Resources>
     <Grid>
         <Grid.Background>
@@ -47,6 +71,7 @@
                         Margin="0 8">
                     <TextBox
                         x:Name="txtEmail"
+                        ToolTip="email hoặc yahoo"
                         Style="{StaticResource MaterialDesignFilledTextBox}"
                         VerticalAlignment="Top"
                         Foreground="#222"
@@ -56,12 +81,15 @@
                         materialDesign:HintAssist.FloatingScale="0.55"
                         materialDesign:TextFieldAssist.TextBoxViewMargin="0 -3 0 0"
                         Height="60"
-                        FontSize="18" />
+                        FontSize="18" 
+                        Text="{Binding Name, ValidatesOnNotifyDataErrors=True}"
+                        Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"/>
                 </StackPanel>
                 <StackPanel Background="#fff"
                         Margin="0 8">
                     <TextBox
                         x:Name="txtPassword"
+                        ToolTip="Tối thiểu 8 ký tự và có ít nhất một số"
                         Style="{StaticResource MaterialDesignFilledTextBox}"
                         VerticalAlignment="Top"
                         Foreground="#222"
@@ -71,11 +99,13 @@
                         materialDesign:HintAssist.FloatingScale="0.55"
                         materialDesign:TextFieldAssist.TextBoxViewMargin="0 -3 0 0"
                         Height="60"
-                        FontSize="18" />
+                        FontSize="18"
+                        Text="{Binding Password, ValidatesOnNotifyDataErrors=True}"
+                        Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"/>
                 </StackPanel>
 
                 <Button
-                    Command="{Binding LoginCmd}"
+                    Command="{Binding SaveCmd}"
                     Background="#FFbb00"
                     Style="{StaticResource MaterialDesignRaisedButton}"
                     ToolTip="Resource name: MaterialDesignRaisedButton"
@@ -83,13 +113,14 @@
                     Content="Đăng nhập"
                     FontSize="23"
                     Margin="0 15  0 0 "
-                    Foreground="#222">
+                    Foreground="#222" >
                     <Button.CommandParameter>
                         <MultiBinding Converter="{StaticResource MultiParamCvt}">
                             <Binding ElementName="txtEmail" Path="Text" />
                             <Binding ElementName="txtPassword" Path="Text" />
                         </MultiBinding>
                     </Button.CommandParameter>
+                    
                 </Button>
 
                 <TextBlock Text="Quên mật khẩu?"

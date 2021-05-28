@@ -12,9 +12,9 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
     <UserControl.Resources>
         <imgConverter:ConvertImage x:Key="cvt_img"/>
-        <DataTemplate x:Key="Itemtemplate" DataType="{x:Type model:Album}">
-            <Grid Margin="5">
-                <Image Source="{Binding Image, Converter={StaticResource cvt_img}}"/>
+        <DataTemplate x:Key="Itemtemplate" DataType="{x:Type model:Album_Detail}">
+            <Grid>
+                <Image Source="{Binding Image, Converter={StaticResource cvt_img}}" Stretch="Fill"/>
             </Grid>
         </DataTemplate>
 
@@ -23,15 +23,40 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ListBoxItem">
-                        <Border>
-                            <ContentPresenter/>
+                        <Border Name="border_imageItem" Margin="5">
+                            <ContentPresenter />
                         </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="RenderTransform">
+                                    <Setter.Value>
+                                        <ScaleTransform ScaleX="1.02" ScaleY="1.02"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="border_imageItem" Property="BorderThickness"  Value="0 0 0 2"/>
+                                <Setter TargetName="border_imageItem" Property="BorderBrush" Value="#FF876400"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+            
+            <Setter Property="RenderTransformOrigin" Value="0.5, 0.5"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="RenderTransform">
+                        <Setter.Value>
+                            <ScaleTransform ScaleX="1.02" ScaleY="1.02"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+                <!--<Trigger Property="IsSelected" Value="True">
+                    
+                </Trigger>-->
+            </Style.Triggers>
         </Style>
     </UserControl.Resources>
-    <Grid Background="Black"> 
+    <Grid Background="Black">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition Width="3*"/>
@@ -52,39 +77,178 @@
             <materialDesign:PackIcon Kind="Close" Height="25" Width="25" />
         </Button>
 
-        <Grid Grid.Row="1" Grid.Column="1"
-              >
+        <Grid Grid.Row="1" Grid.Column="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition Width="9*"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.52*"/>
                 <RowDefinition Height="7.5*"/>
-                <RowDefinition Height="2*"/>
+                <RowDefinition Height="1.5*"/>
             </Grid.RowDefinitions>
-            <Image Source="/Images/phim-hanh-dong-10.jpg" 
+            <Image Source="{Binding ElementName=lv_picture, Path=SelectedItem.Image, Converter={StaticResource cvt_img}}" 
                    Name="img_primary"
                    Grid.Row="1"
                    Grid.Column="1"
                    Stretch="Fill"/>
-            <TextBlock Text="Tên hình ảnh"
-                      Foreground="#fff"
-                      FontSize="30"
-                      Grid.Row="2" 
-                      Grid.Column="1"
-                      VerticalAlignment="Center"
-                      FontWeight="DemiBold"/>
+            <!--<Image Source="/Images/PT_TN_4.jpg" 
+                   Name="img_primary"
+                   Grid.Column="1"
+                   Stretch="Fill"
+                   Panel.ZIndex="1"/>-->
+            <StackPanel Grid.Row="2"
+                        Grid.Column="1" 
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Panel.ZIndex="0"
+                        Name="panel_icon">
+                <ToggleButton Padding="0" 
+                                      Background="Transparent" 
+                                      Foreground="#febb00"
+                                      BorderThickness="0"
+                                      Cursor="Hand"
+                                      Name="btn_likeAudio"
+                                      IsChecked="{Binding CheckLike, Mode=OneWay}">
+
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding CmdLike}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <ToggleButton.Style>
+                        <Style TargetType="{x:Type ToggleButton}">
+                            <Setter Property="Content" Value="{materialDesign:PackIcon Heart, Size=40}" />
+                            <Setter Property="Template" >
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <Border>
+                                            <ContentPresenter/>
+                                        </Border>
+
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsChecked" Value="False">
+                                    <Setter Property="Content" Value="{materialDesign:PackIcon HeartOutline, Size=40}" />
+                                    <Setter Property="Background" Value="Transparent" />
+                                </Trigger>
+                            </Style.Triggers>
+
+                        </Style>
+                    </ToggleButton.Style>
+                </ToggleButton>
+                <ToggleButton  Padding="0" 
+                                      Background="Transparent" 
+                                      Foreground="#febb00"
+                                      BorderThickness="0"
+                                      Cursor="Hand"
+                                      Name="btn_bookmarkAudio"
+                                      IsChecked="{Binding CheckSave, Mode=OneWay}">
+
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding CmdSave}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <ToggleButton.Style>
+                        <Style TargetType="{x:Type ToggleButton}">
+                            <Setter Property="Content" Value="{materialDesign:PackIcon BookmarkPlus, Size=40}" />
+                            <Setter Property="Template" >
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <Border>
+                                            <ContentPresenter/>
+                                        </Border>
+
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsChecked" Value="False">
+                                    <Setter Property="Content" Value="{materialDesign:PackIcon BookmarkPlusOutline, Size=40}" />
+                                    <Setter Property="Background" Value="Transparent" />
+                                </Trigger>
+                            </Style.Triggers>
+
+                        </Style>
+                    </ToggleButton.Style>
+                </ToggleButton>
+            </StackPanel>
         </Grid>
 
-        <!--list hình ảnh liên quan (cùng danh mục)-->
-        <ListBox Name="lv_picture" ItemsSource="{Binding PictureList}">
-            <ListBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <UniformGrid Columns="4"/>
-                </ItemsPanelTemplate>
-            </ListBox.ItemsPanel>
-        </ListBox>
+        <!--list ảnh trong cùng album-->
+        <Grid Grid.Row="1" Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="28"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Bộ sưu tập" FontSize="18" Foreground="#fff"
+                       FontWeight="DemiBold"
+                       Margin="0 0 0 4"/>
+            <ListBox Name="lv_picture" ItemsSource="{Binding PictureList}"
+                     ItemContainerStyle="{DynamicResource _ListBoxItemStyle}"
+                     SelectedIndex="0"
+                     VerticalContentAlignment="Stretch"
+                     VerticalAlignment="Stretch"
+                     HorizontalContentAlignment="Stretch"
+                     ScrollViewer.VerticalScrollBarVisibility ="Auto"
+                     Grid.Row="1">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="4"/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.Resources>
+                    <Style TargetType="Thumb">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate>
+                                    <Grid x:Name="Grid">
+                                        <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" 
+                                           Height="Auto" Fill="Transparent"/>
+                                        <Border x:Name="Rectangle1" CornerRadius="4" HorizontalAlignment="Stretch" 
+                                        VerticalAlignment="Stretch" Width="Auto" Height="Auto" 
+                                        Background="{TemplateBinding Background}"/>
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="Tag" Value="Horizontal">
+                                            <Setter TargetName="Rectangle1" Property="Width" Value="Auto"/>
+                                            <Setter TargetName="Rectangle1" Property="Height" Value="7"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                    <Style TargetType="ScrollBar">
+                        <!--<Setter Property="Background" Value="#FF876400"/>-->
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ScrollBar">
+                                    <Grid x:Name="GridRoot" Width="6" Background="{x:Null}">
+                                        <Track x:Name="PART_Track" Grid.Row="0" IsDirectionReversed="true" Focusable="False">
+                                            <Track.Thumb>
+                                                <Thumb x:Name="Thumb" Background="#FF876400" 
+                                               Style="{DynamicResource ScrollThumbs}"/>
+                                            </Track.Thumb>
+                                            <Track.IncreaseRepeatButton>
+                                                <RepeatButton x:Name="PageUp" Command="ScrollBar.PageDownCommand" Opacity="0" Focusable="False"/>
+                                            </Track.IncreaseRepeatButton>
+                                            <Track.DecreaseRepeatButton>
+                                                <RepeatButton x:Name="PageDown" Command="ScrollBar.PageUpCommand" Opacity="0" Focusable="False"/>
+                                            </Track.DecreaseRepeatButton>
+                                        </Track>
+                                    </Grid>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.Resources>
+            </ListBox>
+        </Grid>
     </Grid>
 </UserControl>

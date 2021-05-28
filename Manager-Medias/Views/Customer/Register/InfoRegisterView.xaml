@@ -6,9 +6,25 @@
              xmlns:local="clr-namespace:Manager_Medias.Views.Customer.Register"
              mc:Ignorable="d" 
              d:DesignHeight="558" d:DesignWidth="1200"
+             xmlns:cv="clr-namespace:Manager_Medias.Converters"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              >
     <UserControl.Resources>
+        <cv:MultiParameterConverter x:Key="MultiParamCvt" />
+        
+        <ControlTemplate x:Key="TextBoxErrorTemplate">
+            <StackPanel>
+                <!-- Placeholder for the DataGridTextColumn itself -->
+                <AdornedElementPlaceholder />
+                <ItemsControl ItemsSource="{Binding}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding ErrorContent}" Foreground="Red" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </ControlTemplate>
         <Style TargetType="TextBlock" x:Key="text-primary">
             <Setter Property="Foreground" Value="#fff"/>
             <Setter Property="TextWrapping" Value="Wrap"/>
@@ -110,7 +126,7 @@
 
             <StackPanel Background="#fff"
                         Margin="0 15"> 
-                <TextBox
+                <TextBox Name="tb_Email"
                     Style="{StaticResource MaterialDesignFilledTextBox}"
                     VerticalAlignment="Top"
                     Foreground="#222"
@@ -120,10 +136,13 @@
                     materialDesign:HintAssist.FloatingScale="0.55"
                     materialDesign:TextFieldAssist.TextBoxViewMargin="0 -3 0 0"
                     Height="60"
-                    FontSize="20"/>
+                    FontSize="20"
+                     Text="{Binding Email, ValidatesOnNotifyDataErrors=True, 
+                    UpdateSourceTrigger=PropertyChanged}"
+                     Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"/>
             </StackPanel>
             <StackPanel Background="#fff"> 
-                <TextBox
+                <TextBox Name="tb_Password"
                     Style="{StaticResource MaterialDesignFilledTextBox}"
                     VerticalAlignment="Top"
                     Foreground="#222"
@@ -133,7 +152,10 @@
                     materialDesign:HintAssist.FloatingScale="0.55"
                     materialDesign:TextFieldAssist.TextBoxViewMargin="0 -3 0 0"
                     Height="60"
-                    FontSize="20"/>
+                    FontSize="20"
+                    Text="{Binding Password, ValidatesOnNotifyDataErrors=True,
+                    UpdateSourceTrigger=PropertyChanged}"
+                        Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"/>
             </StackPanel>
 
             <!--<CheckBox Style="{StaticResource MaterialDesignCheckBox}"
@@ -165,7 +187,15 @@
                 ToolTip="Resource name: MaterialDesignRaisedButton"
                 Height="50"
                 Content="Tiếp tục" 
-                FontSize="23"/>
+                FontSize="23"
+                Command="{Binding CmdContinue}">
+                <Button.CommandParameter>
+                    <MultiBinding Converter="{StaticResource MultiParamCvt}">
+                        <Binding ElementName="tb_Email" Path="Text" />
+                        <Binding ElementName="tb_Password" Path="Text" />
+                    </MultiBinding>
+                </Button.CommandParameter>
+            </Button>
         </StackPanel>
     </Grid>
 </UserControl>

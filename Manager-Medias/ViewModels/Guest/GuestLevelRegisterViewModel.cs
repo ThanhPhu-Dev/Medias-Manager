@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Manager_Medias.ViewModels.Guest
 {
-    public class GuestRegisterViewModel : BaseViewModel
+    class GuestLevelRegisterViewModel : BaseViewModel
     {
+
     }
 }

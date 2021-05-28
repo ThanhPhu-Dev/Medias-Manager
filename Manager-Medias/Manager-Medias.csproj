@@ -231,9 +231,10 @@
     <Compile Include="ViewModels\Customer\MainLayoutViewModel.cs" />
     <Compile Include="ViewModels\Customer\ProfileManagerViewModel.cs" />
     <Compile Include="ViewModels\Guest\GuestHomeViewModel.cs" />
+    <Compile Include="ViewModels\Guest\GuestInfoRegisterViewModel.cs" />
+    <Compile Include="ViewModels\Guest\GuestLevelRegisterViewModel.cs" />
     <Compile Include="ViewModels\Guest\GuestLoginViewModel.cs" />
     <Compile Include="ViewModels\Guest\GuestMainViewModel.cs" />
-    <Compile Include="ViewModels\Guest\GuestRegisterViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Views\Account\AccountManagerView.xaml.cs">
       <DependentUpon>AccountManagerView.xaml</DependentUpon>

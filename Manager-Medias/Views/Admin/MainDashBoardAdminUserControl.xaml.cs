@@ -18,6 +18,24 @@ namespace Manager_Medias.Views.Admin
     /// <summary>
     /// Interaction logic for MainDashBoardAdminUserControl.xaml
     /// </summary>
+    /// 
+    static class VisibilityExtension
+    {
+        public static bool IsCollapsed(this Grid stk)
+        {
+            return stk.Visibility == Visibility.Collapsed;
+        }
+
+        public static void Show(this Grid stk)
+        {
+            stk.Visibility = Visibility.Visible;
+        }
+
+        public static void Collapse(this Grid stk)
+        {
+            stk.Visibility = Visibility.Collapsed;
+        }
+    }
     public partial class MainDashBoardAdminUserControl : UserControl
     {
         public MainDashBoardAdminUserControl()

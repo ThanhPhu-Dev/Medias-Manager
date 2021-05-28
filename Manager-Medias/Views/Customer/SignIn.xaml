@@ -39,7 +39,7 @@
                 <ItemsControl ItemsSource="{Binding}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding ErrorContent}" Foreground="Red" />
+                            <TextBlock Text="{Binding ErrorContent}" Foreground="Red" FontSize="14"/>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
@@ -82,11 +82,12 @@
                         materialDesign:TextFieldAssist.TextBoxViewMargin="0 -3 0 0"
                         Height="60"
                         FontSize="18" 
-                        Text="{Binding Name, ValidatesOnNotifyDataErrors=True}"
+                        Text="{Binding Email, ValidatesOnNotifyDataErrors=True,
+                        UpdateSourceTrigger=PropertyChanged}"
                         Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"/>
                 </StackPanel>
                 <StackPanel Background="#fff"
-                        Margin="0 8">
+                        Margin="0 12">
                     <TextBox
                         x:Name="txtPassword"
                         ToolTip="Tối thiểu 8 ký tự và có ít nhất một số"
@@ -100,12 +101,13 @@
                         materialDesign:TextFieldAssist.TextBoxViewMargin="0 -3 0 0"
                         Height="60"
                         FontSize="18"
-                        Text="{Binding Password, ValidatesOnNotifyDataErrors=True}"
+                        Text="{Binding Password, ValidatesOnNotifyDataErrors=True,
+                        UpdateSourceTrigger=PropertyChanged}"
                         Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"/>
                 </StackPanel>
 
                 <Button
-                    Command="{Binding SaveCmd}"
+                    Command="{Binding LoginCmd}"
                     Background="#FFbb00"
                     Style="{StaticResource MaterialDesignRaisedButton}"
                     ToolTip="Resource name: MaterialDesignRaisedButton"
@@ -122,7 +124,7 @@
                     </Button.CommandParameter>
                     
                 </Button>
-
+                <TextBlock Text="{Binding Error}" Foreground="Red" FontSize="16"/>
                 <TextBlock Text="Quên mật khẩu?"
                            Foreground="White"
                            ForceCursor="True"

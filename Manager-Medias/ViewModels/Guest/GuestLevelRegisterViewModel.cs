@@ -11,17 +11,31 @@ namespace Manager_Medias.ViewModels.Guest
 {
     public class GuestLevelRegisterViewModel : BaseViewModel
     {
-        private User userCurrent;
-        private int Level;
+        private User _userCurrent;
+        private int _levelCurrent;
 
         public ICommand CmdLvBasic { get; }
         public ICommand CmdLvMedium { get; }
         public ICommand CmdLvVip { get; }
         public ICommand CmdContinue { get; }
 
+        public int LevelCurrent
+        { 
+            get => _levelCurrent; 
+            set
+            {
+                _levelCurrent = value;
+                OnPropertyChanged();
+            }
+        }
+
         public GuestLevelRegisterViewModel(User u)
         {
-            this.userCurrent = u;
+            _userCurrent = u;
+            //kiem tra user có level thì gán level ko thì mặc định = 1
+            if (_userCurrent.Level != null)
+                LevelCurrent = (int)_userCurrent.Level;
+            else LevelCurrent = 2;
 
             CmdLvBasic = new RelayCommand<Object>(LvBasic);
             CmdLvMedium = new RelayCommand<Object>(LvMedium);
@@ -36,17 +50,17 @@ namespace Manager_Medias.ViewModels.Guest
 
         private void LvVip(object obj)
         {
-            Level = 3;
+            LevelCurrent = 3;
         }
 
         private void LvMedium(object obj)
         {
-            Level = 2;
+            LevelCurrent = 2;
         }
 
         private void LvBasic(object obj)
         {
-            Level = 1;
+            LevelCurrent = 1;
         }
     }
 }

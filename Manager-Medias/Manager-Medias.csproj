@@ -152,6 +152,9 @@
     <Compile Include="Commands\CommandBase.cs" />
     <Compile Include="Commands\NavigateCommand.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="Converters\ChangeColorLevel_1Converter.cs" />
+    <Compile Include="Converters\ChangeColorLevel_2Converter.cs" />
+    <Compile Include="Converters\ChangeColorLevel_3Converter.cs" />
     <Compile Include="Converters\ConvertImage.cs" />
     <Compile Include="Converters\MultiParameterConverter.cs" />
     <Compile Include="CustomModels\DetailMovieCustomModel.cs" />

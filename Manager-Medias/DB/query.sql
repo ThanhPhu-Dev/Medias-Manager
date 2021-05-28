@@ -181,6 +181,12 @@ select * from Likes
 select * from My_Lists
 select * from Movies
 
+--insert cấp độ
+INSERT INTO Levels (Name, Price) values
+(N'Cơ bản', '180.000'),
+(N'Tiêu chuẩn', '220.000'),
+(N'Cao cấp', '260.000')
+
 --Insert user 
 INSERT INTO Users VALUES ('nghiadx2001@gmail.c', '123', 1, 'CDCD', '362')
 INSERT INTO Users (Email, Password) VALUES ('1@gmail.c', '123')

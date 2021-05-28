@@ -92,7 +92,7 @@ namespace Manager_Medias.ViewModels.Guest
             User user = new User()
             {
                 Email = Email,
-                Password = "1/wTlezlNHHnoMMVnr",
+                Password = pwHash,
             };
             using (var db = new MediasManangementEntities())
             {

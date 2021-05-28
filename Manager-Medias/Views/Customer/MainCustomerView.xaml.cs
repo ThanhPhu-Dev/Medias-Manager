@@ -10,6 +10,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Manager_Medias.Views.Customer
@@ -17,7 +18,7 @@ namespace Manager_Medias.Views.Customer
     /// <summary>
     /// Interaction logic for MainCustomerView.xaml
     /// </summary>
-    public partial class MainCustomerView : Window
+    public partial class MainCustomerView : UserControl
     {
         public MainCustomerView()
         {

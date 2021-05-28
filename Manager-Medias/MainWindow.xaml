@@ -4,11 +4,29 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Manager_Medias"
-        xmlns:uc="clr-namespace:Manager_Medias.Views.Movie"
+        xmlns:viewmodels="clr-namespace:Manager_Medias.ViewModels"
+        xmlns:cusvm="clr-namespace:Manager_Medias.ViewModels.Customer"
+        xmlns:guestvm="clr-namespace:Manager_Medias.ViewModels.Guest"
+        xmlns:layout="clr-namespace:Manager_Medias.Views.Layouts"
+        xmlns:vhome="clr-namespace:Manager_Medias.Views.Home"
+        xmlns:vguest="clr-namespace:Manager_Medias.Views.Customer"
         mc:Ignorable="d"
-        Title="MainWindow" Height="570" Width="1000">
-    
-    <Grid>
-        <uc:DetailMovie />
+        WindowStartupLocation="CenterScreen"
+        Title="MainWindow"
+        Height="650"
+        Width="1200">
+    <Grid x:Name="grid">
+        <Grid.Resources>
+            <DataTemplate DataType="{x:Type cusvm:MainLayoutViewModel}">
+                <layout:MainLayoutView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type cusvm:HomeViewModel}">
+                <vhome:Home />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type guestvm:GuestMainViewModel}">
+                <vguest:MainCustomerView />
+            </DataTemplate>
+        </Grid.Resources>
+        <ContentControl Content="{Binding CurrentViewModel}" />
     </Grid>
 </Window>

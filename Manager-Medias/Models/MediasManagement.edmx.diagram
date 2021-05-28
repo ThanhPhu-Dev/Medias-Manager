@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7db1e20d4d4d4be79a979eceb38448d9" Name="Diagram1" ZoomLevel="97">
+        <EntityTypeShape EntityType="MediasManangementModel.Album_Detail" Width="1.5" PointX="7.5" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MediasManangementModel.Album" Width="1.5" PointX="5.25" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MediasManangementModel.Audio_Category" Width="1.5" PointX="3" PointY="14" IsExpanded="true" />
+        <EntityTypeShape EntityType="MediasManangementModel.Audio" Width="1.5" PointX="5.25" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MediasManangementModel.Level" Width="1.5" PointX="0.75" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MediasManangementModel.Like" Width="1.5" PointX="8.25" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MediasManangementModel.Media_Category" Width="1.5" PointX="0.75" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="MediasManangementModel.Media" Width="1.5" PointX="3" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MediasManangementModel.Movie_Category" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MediasManangementModel.Movie" Width="1.5" PointX="5.25" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="MediasManangementModel.My_List" Width="1.5" PointX="5.25" PointY="21.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MediasManangementModel.Payment_History" Width="1.5" PointX="8" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MediasManangementModel.Profile" Width="1.5" PointX="8" PointY="15.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MediasManangementModel.User" Width="1.5" PointX="5.75" PointY="15.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MediasManangementModel.View_History" Width="1.5" PointX="10.25" PointY="8.625" IsExpanded="true" />
+        <AssociationConnector Association="MediasManangementModel.FK_AlbumDetails_Albums" ManuallyRouted="false" />
+        <AssociationConnector Association="MediasManangementModel.FK_Albums_Medias" ManuallyRouted="false" />
+        <AssociationConnector Association="MediasManangementModel.FK_Audios_AudioCategories" ManuallyRouted="false" />
+        <AssociationConnector Association="MediasManangementModel.FK_Audios_Medias" ManuallyRouted="false" />
+        <AssociationConnector Association="MediasManangementModel.FK_Medias_Levels" ManuallyRouted="false" />
+        <AssociationConnector Association="MediasManangementModel.FK_Likes_Medias" ManuallyRouted="false" />
+        <AssociationConnector Association="MediasManangementModel.FK_Likes_Profiles" ManuallyRouted="false" />
+        <AssociationConnector Association="MediasManangementModel.FK_Medias_MediaCategories" ManuallyRouted="false" />
+        <AssociationConnector Association="MediasManangementModel.FK_Movies_Medias" ManuallyRouted="false" />
+        <AssociationConnector Association="MediasManangementModel.FK_MyLists_Medias" ManuallyRouted="false" />
+        <AssociationConnector Association="MediasManangementModel.FK_ViewHistory_Medias" ManuallyRouted="false" />
+        <AssociationConnector Association="MediasManangementModel.FK_Movies_MovieCategories" ManuallyRouted="false" />
+        <AssociationConnector Association="MediasManangementModel.FK_PaymentHistory_User" ManuallyRouted="false" />
+        <AssociationConnector Association="MediasManangementModel.FK_Profile_User" ManuallyRouted="false" />
+        <AssociationConnector Association="MediasManangementModel.FK_ViewHistory_Profiles" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -16,6 +16,21 @@
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -36,12 +51,52 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="LiveCharts, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
-      <HintPath>..\packages\LiveCharts.0.9.7\lib\net45\LiveCharts.dll</HintPath>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="LiveCharts.Wpf, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
-      <HintPath>..\packages\LiveCharts.Wpf.0.9.7\lib\net45\LiveCharts.Wpf.dll</HintPath>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="MaterialDesignColors, Version=2.0.0.2422, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignColors.2.0.0\lib\net452\MaterialDesignColors.dll</HintPath>
@@ -49,9 +104,26 @@
     <Reference Include="MaterialDesignThemes.Wpf, Version=4.0.0.2422, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignThemes.4.0.0\lib\net452\MaterialDesignThemes.Wpf.dll</HintPath>
     </Reference>
-    <Reference Include="System" />
+    <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.31\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Licensing, Version=19.1460.0.64, Culture=neutral, PublicKeyToken=632609b4d040f6b4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Syncfusion.Licensing.19.1.0.64\lib\net46\Syncfusion.Licensing.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Shared.WPF, Version=19.1460.0.64, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <HintPath>..\packages\Syncfusion.Shared.WPF.19.1.0.64\lib\net46\Syncfusion.Shared.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Tools.WPF, Version=19.1460.0.64, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <HintPath>..\packages\Syncfusion.Tools.WPF.19.1.0.64\lib\net46\Syncfusion.Tools.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -71,7 +143,115 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ViewModels\DetailMovie.cs" />
+    <Compile Include="Commands\CommandBase.cs" />
+    <Compile Include="Commands\NavigateCommand.cs" />
+    <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="Converters\ConvertImage.cs" />
+    <Compile Include="Converters\MultiParameterConverter.cs" />
+    <Compile Include="CustomModels\DetailMovieCustomModel.cs" />
+    <Compile Include="Models\Album_Detail.cs">
+      <DependentUpon>MediasManagement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Audio_Category.cs">
+      <DependentUpon>MediasManagement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Media_Category.cs">
+      <DependentUpon>MediasManagement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Movie.cs">
+      <DependentUpon>MediasManagement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MovieCarouselModel.cs" />
+    <Compile Include="Models\Movie_Category.cs">
+      <DependentUpon>MediasManagement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\My_List.cs">
+      <DependentUpon>MediasManagement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Services\NavigationService.cs" />
+    <Compile Include="Stores\NavigationStore.cs" />
+    <Compile Include="Stores\UserStore.cs" />
+    <Compile Include="Validates\AccountManagerValidationRule.cs" />
+    <Compile Include="Validates\ValidateEmail.cs" />
+    <Compile Include="Validates\ValidatePassword.cs" />
+    <Compile Include="Validates\PhoneNumberValidationRule.cs" />
+    <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\Customer\AccountManagerViewModel.cs" />
+    <Compile Include="ViewModels\Customer\ChangePasswordViewModel.cs" />
+    <Compile Include="ViewModels\Customer\DetailAudioViewModel.cs" />
+    <Compile Include="ViewModels\Customer\DetailMovieViewModel.cs" />
+    <Compile Include="ViewModels\Customer\DetailPictureViewModel.cs" />
+    <Compile Include="ViewModels\Customer\FavoriteViewModel.cs" />
+    <Compile Include="ViewModels\Customer\ForgetPassword.cs" />
+    <Compile Include="ViewModels\Customer\HistoryViewModel.cs" />
+    <Compile Include="ViewModels\Customer\HomeViewModel.cs" />
+    <Compile Include="ViewModels\Customer\MainAccountView.cs" />
+    <Compile Include="Models\Album.cs">
+      <DependentUpon>MediasManagement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Audio.cs">
+      <DependentUpon>MediasManagement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Level.cs">
+      <DependentUpon>MediasManagement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Like.cs">
+      <DependentUpon>MediasManagement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Media.cs">
+      <DependentUpon>MediasManagement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MediasManagement.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MediasManagement.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MediasManagement.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MediasManagement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MediasManagement.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MediasManagement.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Payment_History.cs">
+      <DependentUpon>MediasManagement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Profile.cs">
+      <DependentUpon>MediasManagement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\User.cs">
+      <DependentUpon>MediasManagement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\View_History.cs">
+      <DependentUpon>MediasManagement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\Customer\MainLayoutViewModel.cs" />
+    <Compile Include="ViewModels\Customer\ProfileManagerViewModel.cs" />
+    <Compile Include="ViewModels\Customer\SignIn.cs" />
+    <Compile Include="ViewModels\Guest\GuestHomeViewModel.cs" />
+    <Compile Include="ViewModels\Guest\GuestInfoRegisterViewModel.cs" />
+    <Compile Include="ViewModels\Guest\GuestLevelRegisterViewModel.cs" />
+    <Compile Include="ViewModels\Guest\GuestLoginViewModel.cs" />
+    <Compile Include="ViewModels\Guest\GuestMainViewModel.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="Views\Account\AccountManagerView.xaml.cs">
+      <DependentUpon>AccountManagerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Account\ChangePasswordView.xaml.cs">
+      <DependentUpon>ChangePasswordView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Account\MainAccountView.xaml.cs">
+      <DependentUpon>MainAccountView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Account\PlayListView.xaml.cs">
+      <DependentUpon>PlayListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Account\ProfileManager.xaml.cs">
+      <DependentUpon>ProfileManager.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Admin\AccountManagerUserControl.xaml.cs">
       <DependentUpon>AccountManagerUserControl.xaml</DependentUpon>
     </Compile>
@@ -81,11 +261,20 @@
     <Compile Include="Views\Admin\MainDashBoardAdminUserControl.xaml.cs">
       <DependentUpon>MainDashBoardAdminUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Audio\DetailAudioView.xaml.cs">
+      <DependentUpon>DetailAudioView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Audio\HomeAudioView.xaml.cs">
+      <DependentUpon>HomeAudioView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Customer\ForgetPassword.xaml.cs">
       <DependentUpon>ForgetPassword.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Customer\HomeCustomerView.xaml.cs">
       <DependentUpon>HomeCustomerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Customer\MainCustomerView.xaml.cs">
+      <DependentUpon>MainCustomerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Customer\Register\CartRegisterView.xaml.cs">
       <DependentUpon>CartRegisterView.xaml</DependentUpon>
@@ -99,26 +288,29 @@
     <Compile Include="Views\Customer\SignIn.xaml.cs">
       <DependentUpon>SignIn.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Home\Home.xaml.cs">
+      <DependentUpon>Home.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Home\HomeFilters.xaml.cs">
+      <DependentUpon>HomeFilters.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Home\HomeSuggestions.xaml.cs">
+      <DependentUpon>HomeSuggestions.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Layouts\MainLayoutView.xaml.cs">
       <DependentUpon>MainLayoutView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Layouts\SidebarView.xaml.cs">
-      <DependentUpon>SidebarView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Customer\MainCustomerView.xaml.cs">
-      <DependentUpon>MainCustomerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Movie\DetaiImages.xaml.cs">
       <DependentUpon>DetaiImages.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Movie\DetailMovie.xaml.cs">
-      <DependentUpon>DetailMovie.xaml</DependentUpon>
+    <Compile Include="Views\Movie\DetailMovieView.xaml.cs">
+      <DependentUpon>DetailMovieView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Profile\AccountView.xaml.cs">
-      <DependentUpon>AccountView.xaml</DependentUpon>
+    <Compile Include="Views\Payment.xaml.cs">
+      <DependentUpon>Payment.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Profile\MainProfileView.xaml.cs">
-      <DependentUpon>MainProfileView.xaml</DependentUpon>
+    <Compile Include="Views\Picture\DetailPictrue.xaml.cs">
+      <DependentUpon>DetailPictrue.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -132,6 +324,26 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\Account\AccountManagerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Account\ChangePasswordView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Account\MainAccountView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Account\PlayListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Account\ProfileManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Admin\AccountManagerUserControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -144,7 +356,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\Audio\DetailAudioView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Audio\HomeAudioView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Customer\ForgetPassword.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Customer\MainCustomerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -164,7 +388,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Layouts\MainLayoutView.xaml">
+    <Page Include="Views\Home\Home.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Home\HomeFilters.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Home\HomeSuggestions.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -172,11 +404,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Layouts\SidebarView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Customer\MainCustomerView.xaml">
+    <Page Include="Views\Layouts\MainLayoutView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -184,15 +412,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Movie\DetailMovie.xaml">
+    <Page Include="Views\Movie\DetailMovieView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Profile\AccountView.xaml">
+    <Page Include="Views\Payment.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Profile\MainProfileView.xaml">
+    <Page Include="Views\Picture\DetailPictrue.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -215,6 +443,13 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EntityDeploy Include="Models\MediasManagement.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>MediasManagement.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Models\MediasManagement.edmx.diagram">
+      <DependentUpon>MediasManagement.edmx</DependentUpon>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -225,7 +460,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\postermovieHuter.jpg" />
+    <None Include="Images\postermovieHuter.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\desktop.jpg" />
@@ -239,7 +476,19 @@
     <Resource Include="Images\desktop.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\Images\" />
+    <Folder Include="ViewModels\Admin\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\backgroundForgetPassword.jpg" />
@@ -248,8 +497,91 @@
     <Resource Include="Images\desktop_login.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\defaultAvatar.png" />
+    <Resource Include="Images\transitton-1.jpg" />
+    <Resource Include="Images\transitton-3.jpg" />
+    <Resource Include="Images\transitton-4.jpg" />
+    <Resource Include="Images\phim-hanh-dong-1.jpg" />
+    <Resource Include="Images\phim-hanh-dong-10.jpg" />
+    <Resource Include="Images\phim-hanh-dong-2.jpg" />
+    <Resource Include="Images\phim-hanh-dong-3.jpg" />
+    <Resource Include="Images\phim-hanh-dong-4.jpg" />
+    <Resource Include="Images\phim-hanh-dong-5.jpg" />
+    <Resource Include="Images\phim-hanh-dong-6.jpg" />
+    <Resource Include="Images\phim-hanh-dong-7.jpg" />
+    <Resource Include="Images\phim-hanh-dong-8.jpg" />
+    <Resource Include="Images\phim-hanh-dong-9.jpg" />
+    <Content Include="DB\MediasManangement.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DB\MediasManangement_log.ldf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DependentUpon>MediasManangement.mdf</DependentUpon>
+    </Content>
+    <Content Include="DB\query.sql" />
+    <None Include="Images\a_avatar_1.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Images\a_avatar_2.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Images\a_avatar_3.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Images\a_avatar_4.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Images\a_avatar_5.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="Images\a_mp3_1.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\a_mp3_2.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\a_mp3_3.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\a_mp3_4.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\a_mp3_5.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Images\PT_TN_1.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Images\PT_TN_2.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Images\PT_TN_3.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Images\PT_TN_4.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Images\PT_TN_5.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="Images\video.mp4">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Images\transitton-2.jpg" />
+    <Content Include="Models\MediasManagement.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MediasManagement.edmx</DependentUpon>
+      <LastGenOutput>MediasManagement.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\MediasManagement.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MediasManagement.edmx</DependentUpon>
+      <LastGenOutput>MediasManagement.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

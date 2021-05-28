@@ -24,6 +24,256 @@
             <Setter Property="FontWeight" Value="bold"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
         </Style>
+        <Style TargetType="Button" x:Key="btn_selected">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Height" Value="auto"/>
+
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True" >
+                    <Setter Property="Background" Value="Transparent"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!--animation cho lv1-->
+        <Storyboard x:Key="ChangeColorPrimary_lv1" >
+            <ColorAnimation 
+                 To="#222"
+                 Storyboard.TargetName="tb_title_lv1"
+                 Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"/>
+            <ColorAnimation 
+                 To="#FFbb00"   
+                 Storyboard.TargetName="bd_lv1"
+                 Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)"/>
+            <ColorAnimation 
+                 To="#FFbb00"   
+                 Storyboard.TargetName="btn_lv1"
+                 Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"/>
+            <ColorAnimation
+                 To="#FFbb00"   
+                 Storyboard.TargetName="txt_price_lv1"
+                 Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"/>
+            <ColorAnimation 
+                 To="#FFbb00"   
+                 Storyboard.TargetName="txt_row2_lv1"
+                 Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"/>
+            <ColorAnimation  
+                 To="#FFbb00"   
+                 Storyboard.TargetName="txt_row3_lv1"
+                 Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"/>
+
+            <!--//lv1-->
+            <ColorAnimation 
+                 To="#bdbdbd"
+                 Storyboard.TargetName="tb_title_lv2"
+                 Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"/>
+            <ColorAnimation 
+                 To="#bdbdbd"   
+                 Storyboard.TargetName="bd_lv2"
+                 Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)"/>
+            <ColorAnimation 
+                 To="Transparent"   
+                 Storyboard.TargetName="btn_lv2"
+                 Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"/>
+            <ColorAnimation
+                 To="#bdbdbd"   
+                 Storyboard.TargetName="txt_price_lv2"
+                 Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"/>
+            <ColorAnimation 
+                 To="#bdbdbd"   
+                 Storyboard.TargetName="txt_row2_lv2"
+                 Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"/>
+            <ColorAnimation  
+                 To="#bdbdbd"   
+                 Storyboard.TargetName="txt_row3_lv2"
+                 Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"/>
+
+            <!--//lv3-->
+            <ColorAnimation 
+                 To="#bdbdbd"
+                 Storyboard.TargetName="tb_title_lv3"
+                 Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"/>
+            <ColorAnimation 
+                 To="#bdbdbd"   
+                 Storyboard.TargetName="bd_lv3"
+                 Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)"/>
+            <ColorAnimation 
+                 To="Transparent"   
+                 Storyboard.TargetName="btn_lv3"
+                 Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"/>
+            <ColorAnimation
+                 To="#bdbdbd"   
+                 Storyboard.TargetName="txt_price_lv3"
+                 Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"/>
+            <ColorAnimation 
+                 To="#bdbdbd"   
+                 Storyboard.TargetName="txt_row2_lv3"
+                 Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"/>
+            <ColorAnimation  
+                 To="#bdbdbd"   
+                 Storyboard.TargetName="txt_row3_lv3"
+                 Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"/>
+        </Storyboard>
+
+        <!--animation cho lv2-->
+        <Storyboard x:Key="ChangeColorPrimary_lv2" >
+            <ColorAnimation 
+                 To="#222"
+                 Storyboard.TargetName="tb_title_lv2"
+                 Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"/>
+            <ColorAnimation 
+                 To="#FFbb00"   
+                 Storyboard.TargetName="bd_lv2"
+                 Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)"/>
+            <ColorAnimation 
+                 To="#FFbb00"   
+                 Storyboard.TargetName="btn_lv2"
+                 Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"/>
+            <ColorAnimation
+                 To="#FFbb00"   
+                 Storyboard.TargetName="txt_price_lv2"
+                 Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"/>
+            <ColorAnimation 
+                 To="#FFbb00"   
+                 Storyboard.TargetName="txt_row2_lv2"
+                 Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"/>
+            <ColorAnimation  
+                 To="#FFbb00"   
+                 Storyboard.TargetName="txt_row3_lv2"
+                 Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"/>
+
+            <!--//lv1-->
+            <ColorAnimation 
+                 To="#bdbdbd"
+                 Storyboard.TargetName="tb_title_lv1"
+                 Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"/>
+            <ColorAnimation 
+                 To="#bdbdbd"   
+                 Storyboard.TargetName="bd_lv1"
+                 Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)"/>
+            <ColorAnimation 
+                 To="Transparent"   
+                 Storyboard.TargetName="btn_lv1"
+                 Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"/>
+            <ColorAnimation
+                 To="#bdbdbd"   
+                 Storyboard.TargetName="txt_price_lv1"
+                 Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"/>
+            <ColorAnimation 
+                 To="#bdbdbd"   
+                 Storyboard.TargetName="txt_row2_lv1"
+                 Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"/>
+            <ColorAnimation  
+                 To="#bdbdbd"   
+                 Storyboard.TargetName="txt_row3_lv1"
+                 Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"/>
+            <!--//lv3-->
+            <ColorAnimation 
+                 To="#bdbdbd"
+                 Storyboard.TargetName="tb_title_lv3"
+                 Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"/>
+            <ColorAnimation 
+                 To="#bdbdbd"   
+                 Storyboard.TargetName="bd_lv3"
+                 Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)"/>
+            <ColorAnimation 
+                 To="Transparent"   
+                 Storyboard.TargetName="btn_lv3"
+                 Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"/>
+            <ColorAnimation
+                 To="#bdbdbd"   
+                 Storyboard.TargetName="txt_price_lv3"
+                 Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"/>
+            <ColorAnimation 
+                 To="#bdbdbd"   
+                 Storyboard.TargetName="txt_row2_lv3"
+                 Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"/>
+            <ColorAnimation  
+                 To="#bdbdbd"   
+                 Storyboard.TargetName="txt_row3_lv3"
+                 Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"/>
+        </Storyboard>
+
+        <!--animation cho lv3-->
+        <Storyboard x:Key="ChangeColorPrimary_lv3" >
+            <ColorAnimation 
+                 To="#222"
+                 Storyboard.TargetName="tb_title_lv3"
+                 Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"/>
+            <ColorAnimation 
+                 To="#FFbb00"   
+                 Storyboard.TargetName="bd_lv3"
+                 Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)"/>
+            <ColorAnimation 
+                 To="#FFbb00"   
+                 Storyboard.TargetName="btn_lv3"
+                 Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"/>
+            <ColorAnimation
+                 To="#FFbb00"   
+                 Storyboard.TargetName="txt_price_lv3"
+                 Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"/>
+            <ColorAnimation 
+                 To="#FFbb00"   
+                 Storyboard.TargetName="txt_row2_lv3"
+                 Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"/>
+            <ColorAnimation  
+                 To="#FFbb00"   
+                 Storyboard.TargetName="txt_row3_lv3"
+                 Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"/>
+
+            <!--//lv1-->
+            <ColorAnimation 
+                 To="#bdbdbd"
+                 Storyboard.TargetName="tb_title_lv1"
+                 Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"/>
+            <ColorAnimation 
+                 To="#bdbdbd"   
+                 Storyboard.TargetName="bd_lv1"
+                 Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)"/>
+            <ColorAnimation 
+                 To="Transparent"   
+                 Storyboard.TargetName="btn_lv1"
+                 Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"/>
+            <ColorAnimation
+                 To="#bdbdbd"   
+                 Storyboard.TargetName="txt_price_lv1"
+                 Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"/>
+            <ColorAnimation 
+                 To="#bdbdbd"   
+                 Storyboard.TargetName="txt_row2_lv1"
+                 Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"/>
+            <ColorAnimation  
+                 To="#bdbdbd"   
+                 Storyboard.TargetName="txt_row3_lv1"
+                 Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"/>
+
+            <!--//lv1-->
+            <ColorAnimation 
+                 To="#bdbdbd"
+                 Storyboard.TargetName="tb_title_lv2"
+                 Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"/>
+            <ColorAnimation 
+                 To="#bdbdbd"   
+                 Storyboard.TargetName="bd_lv2"
+                 Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)"/>
+            <ColorAnimation 
+                 To="Transparent"   
+                 Storyboard.TargetName="btn_lv2"
+                 Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"/>
+            <ColorAnimation
+                 To="#bdbdbd"   
+                 Storyboard.TargetName="txt_price_lv2"
+                 Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"/>
+            <ColorAnimation 
+                 To="#bdbdbd"   
+                 Storyboard.TargetName="txt_row2_lv2"
+                 Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"/>
+            <ColorAnimation  
+                 To="#bdbdbd"   
+                 Storyboard.TargetName="txt_row3_lv2"
+                 Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"/>
+        </Storyboard>
     </UserControl.Resources>
     <ScrollViewer>
         <Grid>
@@ -73,9 +323,19 @@
                 </StackPanel>
 
                 <!--table-->
-
                 <StackPanel Grid.Column="1">
-                    <Border>
+                    <StackPanel.Triggers>
+                        <EventTrigger RoutedEvent="Button.Click" SourceName="btn_lv1">
+                            <BeginStoryboard Name="bd_level1" Storyboard="{StaticResource ChangeColorPrimary_lv1}"/>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="Button.Click" SourceName="btn_lv2">
+                            <BeginStoryboard Name="bd_level2" Storyboard="{StaticResource ChangeColorPrimary_lv2}"/>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="Button.Click" SourceName="btn_lv3">
+                            <BeginStoryboard Name="bd_level3" Storyboard="{StaticResource ChangeColorPrimary_lv3}"/>
+                        </EventTrigger>
+                    </StackPanel.Triggers>
+                    <Border >
                         <Grid Margin="0 20">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="2.5*"/>
@@ -86,30 +346,49 @@
 
                             <Border Grid.Column="1"
                                 BorderBrush="#FFbb00"
-                                Background="#FFbb00"
-                                Margin="3 0">
-                                <TextBlock Text="Cơ bản" 
+                                    BorderThickness="2"
+                                Margin="3 0"
+                                Name="bd_lv1">
+                                <Button
+                                    Name="btn_lv1"
+                                    Background="#FFbb00"
+                                    Style="{StaticResource btn_selected}">
+                                    <TextBlock Text="Cơ bản" 
                                            Style="{StaticResource txtelemnt}" 
                                            Padding="0 40"
-                                           Foreground="#222"/>
+                                           Foreground="#222"
+                                           Name="tb_title_lv1"/>
+                                </Button>
                             </Border>
                             <Border Grid.Column="2"
                                 BorderThickness="2"
                                 BorderBrush="#bdbdbd"
-                                Margin="3 0">
-                                <TextBlock Text="Tiêu chuẩn" 
+                                Margin="3 0"
+                                    Name="bd_lv2">
+                                <Button
+                                    Name="btn_lv2"
+                                    Style="{StaticResource btn_selected}">
+                                    <TextBlock Text="Tiêu chuẩn" 
                                            Style="{StaticResource txtelemnt}" 
                                            Padding="0 40"
-                                           Foreground="#bdbdbd"/>
+                                           Foreground="#bdbdbd"
+                                               Name="tb_title_lv2"/>
+                                </Button>
                             </Border>
                             <Border Grid.Column="3"
                                 BorderThickness="2"
                                 BorderBrush="#bdbdbd"
-                                Margin="3 0">
-                                <TextBlock Text="Cao cấp" 
+                                Margin="3 0"
+                                    Name="bd_lv3">
+                                <Button
+                                    Name="btn_lv3"
+                                    Style="{StaticResource btn_selected}">
+                                    <TextBlock Text="Cao cấp" 
                                            Style="{StaticResource txtelemnt}" 
                                            Padding="0 40"
-                                           Foreground="#bdbdbd"/>
+                                           Foreground="#bdbdbd"
+                                               Name="tb_title_lv3"/>
+                                </Button>
                             </Border>
 
                         </Grid>
@@ -123,9 +402,9 @@
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
                             <TextBlock Text="Giá hàng tháng" Style="{StaticResource txtcolumn}"/>
-                            <TextBlock Foreground="#FFbb00" Grid.Column="1" Text="180.000 ₫" Style="{StaticResource txtelemnt}"/>
-                            <TextBlock Foreground="#bdbdbd" Grid.Column="2" Text="220.000 ₫" Style="{StaticResource txtelemnt}"/>
-                            <TextBlock Foreground="#bdbdbd" Grid.Column="3" Text="260.000 ₫" Style="{StaticResource txtelemnt}"/>
+                            <TextBlock Name="txt_price_lv1" Foreground="#FFbb00" Grid.Column="1" Text="180.000 ₫" Style="{StaticResource txtelemnt}"/>
+                            <TextBlock Name="txt_price_lv2" Foreground="#bdbdbd" Grid.Column="2" Text="220.000 ₫" Style="{StaticResource txtelemnt}"/>
+                            <TextBlock Name="txt_price_lv3" Foreground="#bdbdbd" Grid.Column="3" Text="260.000 ₫" Style="{StaticResource txtelemnt}"/>
 
                         </Grid>
                     </Border>
@@ -138,9 +417,9 @@
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
                             <TextBlock Text="Chất lượng video" Style="{StaticResource txtcolumn}"/>
-                            <TextBlock Foreground="#FFbb00" Grid.Column="1" Text="Tốt" Style="{StaticResource txtelemnt}"/>
-                            <TextBlock Foreground="#bdbdbd" Grid.Column="2" Text="Tốt hơn    " Style="{StaticResource txtelemnt}"/>
-                            <TextBlock Foreground="#bdbdbd"  Grid.Column="3" Text="Tốt nhất" Style="{StaticResource txtelemnt}"/>
+                            <TextBlock Name="txt_row2_lv1" Foreground="#FFbb00" Grid.Column="1" Text="Tốt" Style="{StaticResource txtelemnt}"/>
+                            <TextBlock Name="txt_row2_lv2" Foreground="#bdbdbd" Grid.Column="2" Text="Tốt hơn" Style="{StaticResource txtelemnt}"/>
+                            <TextBlock Name="txt_row2_lv3" Foreground="#bdbdbd"  Grid.Column="3" Text="Tốt nhất" Style="{StaticResource txtelemnt}"/>
 
                         </Grid>
                     </Border>
@@ -153,24 +432,39 @@
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
                             <TextBlock Text="Độ phân giải" Style="{StaticResource txtcolumn}"/>
-                            <TextBlock Foreground="#FFbb00" Grid.Column="1" Text="480p" Style="{StaticResource txtelemnt}"/>
-                            <TextBlock Foreground="#bdbdbd" Grid.Column="2" Text="1080p" Style="{StaticResource txtelemnt}"/>
-                            <TextBlock Foreground="#bdbdbd" Grid.Column="3" Text="4K+HDR" Style="{StaticResource txtelemnt}"/>
+                            <TextBlock Name="txt_row3_lv1" Foreground="#FFbb00" Grid.Column="1" Text="480p" Style="{StaticResource txtelemnt}"/>
+                            <TextBlock Name="txt_row3_lv2" Foreground="#bdbdbd" Grid.Column="2" Text="1080p" Style="{StaticResource txtelemnt}"/>
+                            <TextBlock Name="txt_row3_lv3" Foreground="#bdbdbd" Grid.Column="3" Text="4K+HDR" Style="{StaticResource txtelemnt}"/>
                         </Grid>
                     </Border>
                 </StackPanel>
 
-                <Button
-                Background="#FFbb00"
-                Style="{StaticResource MaterialDesignRaisedButton}"
-                ToolTip="Resource name: MaterialDesignRaisedButton"
-                Height="50"
-                Content="Tiếp tục" 
-                    FontSize="23"
-                    Margin="0 20"
-                    Foreground="#222"/>
+
+
+                <DockPanel LastChildFill="False">
+                    <Button
+                        Background="#857850"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        ToolTip="Quay lại bước trước"
+                        Height="50"
+                        Content="Trở về" 
+                        FontSize="23"
+                        Margin="0 20"
+                        Foreground="#222"/>
+                    <Button
+                        Background="#FFbb00"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        ToolTip="Bước tiếp theo"
+                        Height="50"
+                        FontSize="23"
+                        Margin="0 20"
+                        Foreground="#222"
+                        DockPanel.Dock="Right"
+                        Content="Tiếp tục">
+                    </Button>
+                </DockPanel>
             </StackPanel>
         </Grid>
     </ScrollViewer>
-    
+
 </UserControl>

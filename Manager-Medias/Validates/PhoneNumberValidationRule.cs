@@ -14,7 +14,7 @@ namespace Manager_Medias.Validates
         {
             if (!(value is string PhoneNumber))
             {
-                return new ValidationResult(false, "Số điện thoạit phải là chuỗi.");
+                return new ValidationResult(false, "Số điện thoại phải là chuỗi.");
             }
 
             if (string.IsNullOrEmpty(PhoneNumber))

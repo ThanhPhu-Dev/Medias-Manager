@@ -65,7 +65,8 @@
                              CaretBrush="#febb00"
                              BorderThickness="0"
                              BorderBrush="Transparent"
-                             Text="{Binding Name,  ValidatesOnNotifyDataErrors=True}"
+                             Text="{Binding Name, ValidatesOnNotifyDataErrors=True,
+                            UpdateSourceTrigger=PropertyChanged}"
                              Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}">
                     </TextBox>
                 </Border>
@@ -84,7 +85,8 @@
                              Height="30" VerticalContentAlignment="Center"
                              CaretBrush="#febb00" BorderThickness="0"
                              BorderBrush="Transparent"
-                             Text="{Binding PhoneNumber, ValidatesOnNotifyDataErrors=True}"
+                             Text="{Binding PhoneNumber, ValidatesOnNotifyDataErrors=True,
+                            UpdateSourceTrigger=PropertyChanged}"
                              Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}" />
                 </Border>
             </Grid>

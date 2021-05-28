@@ -179,6 +179,7 @@
     <Compile Include="Stores\UserStore.cs" />
     <Compile Include="Validates\AccountManagerValidationRule.cs" />
     <Compile Include="Validates\ValidateEmail.cs" />
+    <Compile Include="Validates\ValidateEmailRegister.cs" />
     <Compile Include="Validates\ValidatePassword.cs" />
     <Compile Include="Validates\PhoneNumberValidationRule.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />

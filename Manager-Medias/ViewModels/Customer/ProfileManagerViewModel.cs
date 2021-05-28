@@ -15,7 +15,6 @@ namespace Manager_Medias.ViewModels.Customer
     public class ProfileManagerViewModel : BaseViewModel
     {
         private readonly UserStore _userStore;
-        private MediasManangementEntities _context = new MediasManangementEntities();
 
         #region Command
 
@@ -48,7 +47,7 @@ namespace Manager_Medias.ViewModels.Customer
 
         public void LoadCommand()
         {
-            SwitchProfileCmd = new RelayCommand<RoutedEventArgs>(ActionSwitchProfile);
+            SwitchProfileCmd = new RelayCommand<Object>(ActionSwitchProfile);
         }
 
         public void LoadProfile()
@@ -56,8 +55,21 @@ namespace Manager_Medias.ViewModels.Customer
             Profiles = _userStore.Profiles;
         }
 
-        public void ActionSwitchProfile(RoutedEventArgs e)
+        public void ActionSwitchProfile(Object profileId)
         {
+            using (var db = new MediasManangementEntities())
+            {
+                var user = db.Users.Where(u => u.Email == _userStore.Email).Single();
+                var currentActiveProfile = user.Profiles.Where(p => p.Status == 1).Single();
+
+                var selectedProfile = user.Profiles.Where(p => p.Id == int.Parse(profileId.ToString())).Single();
+                currentActiveProfile.Status = 0;
+                selectedProfile.Status = 1;
+
+                db.SaveChanges();
+            }
+
+            Profiles = _userStore.Profiles;
         }
     }
 }

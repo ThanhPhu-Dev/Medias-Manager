@@ -187,6 +187,9 @@ INSERT INTO Levels (Name, Price) values
 (N'Cơ bản', 180000),
 (N'Tiêu chuẩn', 220000),
 (N'Cao cấp', 260000)
+update Levels set Price = 180000 where Id = 1
+update Levels set Price = 220000 where Id = 2
+update Levels set Price = 260000 where Id = 3
 
 --Insert user 
 INSERT INTO Users VALUES ('nghiadx2001@gmail.c', '123', 1, 'CDCD', '362')

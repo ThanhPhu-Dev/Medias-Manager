@@ -25,22 +25,21 @@ namespace Manager_Medias
             NavigationStore navigationStore = new NavigationStore();
             navigationStore.ContentViewModel = new GuestHomeViewModel();
             navigationStore.CurrentViewModel = new GuestMainViewModel(navigationStore);
-            User currentUser = new User
-            {
-                Code = "usercode",
-                Email = "demo@gmail.com",
-                Level = 1,
-                NumberCard = "demo_card_number",
-                Password = "123",
-            };
+            //User currentUser = new User
+            //{
+            //    Code = "usercode",
+            //    Email = "demo@gmail.com",
+            //    Level = 1,
+            //    NumberCard = "demo_card_number",
+            //    Password = "123",
+            //};
 
-            UserStore userStore = new UserStore(currentUser);
+            //UserStore userStore = new UserStore(currentUser);
 
             //navigationStore.ContentViewModel = new DetailMovieViewModel(userStore);
             //navigationStore.ContentViewModel = new DetailAudioViewModel();
-            navigationStore.ContentViewModel = new SignIn(navigationStore);
-            //navigationStore.ContentViewModel = new AccountManagerViewModel(userStore, navigationStore);
-            navigationStore.CurrentViewModel = new MainLayoutViewModel(userStore, navigationStore);
+            //navigationStore.ContentViewModel = new SignIn();
+            //navigationStore.CurrentViewModel = new MainLayoutViewModel(userStore, navigationStore);
 
             MainWindow = new MainWindow()
             {

@@ -68,11 +68,11 @@ namespace Manager_Medias.ViewModels.Customer
         private string test;
 
 
-        public DetailAudioViewModel()
+        public DetailAudioViewModel(int profileid, int audioid)
         {
-            currentProfile = 1;
+            currentProfile = profileid;
 
-            Loaded();
+            Loaded(audioid);
             CmdSelectionChange = new RelayCommand<object>(SelectionChange);
             CmdPlayAudio = new RelayCommand<object>(PlayAudio);
             CmdPauseAudio = new RelayCommand<object>(PauseAudio);
@@ -94,7 +94,7 @@ namespace Manager_Medias.ViewModels.Customer
             };
             using (var db = new MediasManangementEntities())
             {
-                if (CheckLike)
+                if (CheckSave)
                 {
                     var likeSelect = db.My_Lists.Where(l => l.IdMedia == mediaId).Single() as My_List;
                     db.My_Lists.Remove(likeSelect);
@@ -193,19 +193,24 @@ namespace Manager_Medias.ViewModels.Customer
             if (player == null)
             {
                 player = new MediaPlayer();
-                player.Open(new Uri($@"F:\2021 - 2022\UDQL2\Project\Medias-Manager\Manager-Medias\bin\Debug\Images\{audioMame}"));
+                var currentfolder = AppDomain.CurrentDomain.BaseDirectory;
+                string url = currentfolder + "Images\\" + audioMame;
+                player.Open(new Uri(url));
                 player.Play();
             }
         }
 
-        public void Loaded()
+        public void Loaded(int audioid)
         {
             using (var db = new MediasManangementEntities())
             {
-                AudioList = new ObservableCollection<Audio>(db.Audios.ToList());
-
                 //set selcteditem for list audio
-                SelectedAudio = db.Audios.Where(a => a.Id == 2).Single() as Audio;
+                SelectedAudio = db.Audios.Where(a => a.Id == audioid).Single() as Audio;
+
+                //cập nhật danh sách bài hát liên quan (chung danh mục) cho UI
+                AudioList = new ObservableCollection<Audio>(db.Audios.Where(au => au.IdCategory == SelectedAudio.IdCategory).ToList());
+
+               
                 LoadLikeAndSave();
             }
         }
@@ -216,8 +221,8 @@ namespace Manager_Medias.ViewModels.Customer
             {
                 //ktr xem đã like và lưu bài nhạc này chưa 
                 //chưa có user id
-                var nLike = db.Likes.Where(l => l.IdMedia == 1).Count();
-                var nSave = db.My_Lists.Where(l => l.IdMedia == 1).Count();
+                var nLike = db.Likes.Where(l => l.IdMedia == SelectedAudio.Id && l.IdProfile == currentProfile).Count();
+                var nSave = db.My_Lists.Where(l => l.IdMedia == SelectedAudio.Id && l.IdProfile == currentProfile).Count();
 
                 CheckLike = true ? nLike > 0 : false;
                 CheckSave = true ? nSave > 0 : false;

@@ -13,11 +13,6 @@
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="BorderBrush" Value="#8c8c8c" />
             <Setter Property="Background" Value="Transparent" />
-            <Style.Resources>
-                <Style TargetType="{x:Type Border}">
-                    <Setter Property="CornerRadius" Value="10" />
-                </Style>
-            </Style.Resources>
         </Style>
 
         <!--ERROR TEMPLATE-->
@@ -28,7 +23,9 @@
                 <ItemsControl ItemsSource="{Binding}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding ErrorContent}" Foreground="Red" />
+                            <TextBlock Text="{Binding ErrorContent}"
+                                       Foreground="{DynamicResource SecondaryAccentBrush}"
+                                       Margin="0 12 0 0" />
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
@@ -70,30 +67,29 @@
                              BorderBrush="Transparent"
                              Text="{Binding Name,  ValidatesOnNotifyDataErrors=True}"
                              Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}">
-                        <!--<TextBox.Text>
-                            <Binding Path="Name" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged"
-                                     ValidatesOnDataErrors="True" ValidatesOnNotifyDataErrors="True">
-                                <Binding.ValidationRules>
-                                    <ExceptionValidationRule />
-                                </Binding.ValidationRules>
-                            </Binding>
-                        </TextBox.Text>-->
                     </TextBox>
                 </Border>
             </Grid>
 
-            <Grid Margin="0 16 0 0">
+            <Grid Margin="0 40 0 0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="200" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Label Grid.Column="0" Content="Số điện thoại" Foreground="#8c8c8c" FontSize="16" />
                 <Border Grid.Column="1"  CornerRadius="16" ClipToBounds="True" Padding="12 4" Background="Transparent" BorderThickness="1" BorderBrush="#FFDADADA" VerticalAlignment="Center">
-                    <TextBox x:Name="txtPhoneNumber" Style="{StaticResource Input}" FontSize="16" Foreground="#fff" Height="30" VerticalContentAlignment="Center" CaretBrush="#febb00" BorderThickness="0" BorderBrush="Transparent" />
+                    <TextBox x:Name="txtPhoneNumber"
+                             Style="{StaticResource Input}"
+                             FontSize="16" Foreground="#fff"
+                             Height="30" VerticalContentAlignment="Center"
+                             CaretBrush="#febb00" BorderThickness="0"
+                             BorderBrush="Transparent"
+                             Text="{Binding PhoneNumber, ValidatesOnNotifyDataErrors=True}"
+                             Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}" />
                 </Border>
             </Grid>
 
-            <Grid Margin="0 30 0 0">
+            <Grid Margin="0 40 0 0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="200" />
                     <ColumnDefinition Width="*" />

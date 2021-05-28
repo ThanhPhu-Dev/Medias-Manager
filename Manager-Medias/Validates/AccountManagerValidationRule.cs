@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 
@@ -14,12 +15,17 @@ namespace Manager_Medias.Validates
         {
             if (!(value is string Name))
             {
-                return new ValidationResult(false, "Value must be of type string.");
+                return new ValidationResult(false, "Họ tên phải là chuỗi.");
             }
 
-            if (!Name.StartsWith("@"))
+            if (string.IsNullOrEmpty(Name))
             {
-                return new ValidationResult(false, "Input must start with '@'.");
+                return new ValidationResult(false, "Họ tên không được bỏ trống");
+            }
+
+            if (Name.Length > 100)
+            {
+                return new ValidationResult(false, "Họ tên quá dài");
             }
 
             return ValidationResult.ValidResult;

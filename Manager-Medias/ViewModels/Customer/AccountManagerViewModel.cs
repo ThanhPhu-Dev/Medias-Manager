@@ -13,6 +13,8 @@ using System.Runtime.CompilerServices;
 using System.Windows.Controls;
 using System.Globalization;
 using Manager_Medias.Validates;
+using Manager_Medias.Models;
+using System.Windows;
 
 namespace Manager_Medias.ViewModels.Customer
 {
@@ -42,6 +44,19 @@ namespace Manager_Medias.ViewModels.Customer
             }
         }
 
+        private string _phoneNumber;
+
+        public string PhoneNumber
+        {
+            get => _phoneNumber;
+            set
+            {
+                ValidateProperty(value);
+                _phoneNumber = value;
+                OnPropertyChanged();
+            }
+        }
+
         #endregion BindingProperty
 
         // Change email to name
@@ -62,11 +77,20 @@ namespace Manager_Medias.ViewModels.Customer
             // Create a Dictionary of validation rules for fast lookup.
             // Each property name of a validated property maps to one or more ValidationRule.
             this.ValidationRules.Add(nameof(this.Name), new List<ValidationRule>() { new AccountManagerValidationRule() });
+            this.ValidationRules.Add(nameof(this.PhoneNumber), new List<ValidationRule>() { new PhoneNumberValidationRule() });
         }
 
         // Object[name, phoneNumber]
         public void ActionSave(Object[] values)
         {
+            using (var db = new MediasManangementEntities())
+            {
+                //_userStore.CurrentUser.Name = Name;
+                //_userStore.CurrentUser.PhoneNumber = PhoneNumber;
+
+                db.SaveChanges();
+                MessageBox.Show("Cập nhật thông tin thành công", "Thành công", MessageBoxButton.OK);
+            }
         }
     }
 }

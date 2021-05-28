@@ -188,7 +188,7 @@ INSERT INTO Profiles (Email, Name) VALUES ('nghiadx2001@gmail.c', N'Nguyễn H N
 INSERT INTO Media_Categories (Name) VALUES (N'Hinh Ảnh'), (N'Phim'), (N'Âm Nhạc')
 
 --MEDIA
-INSERT INTO Medias (IdCategory) values (1), (1), (1), (1), (1)
+INSERT INTO Medias (IdCategory) values (1), (1), (1), (1), (1), (1), (1), (1), (1), (1)
 
 --INSERT AUDIO_Cat
 INSERT INTO Audio_Categories(Name) values (N'Ballad'), (N'Sôi động'), (N'Trữ tình')
@@ -205,6 +205,20 @@ update Audios set Mp3 = 'a_mp3_2.mp3', Image = 'a_avatar_2.jpg' where Id = 2
 update Audios set Mp3 = 'a_mp3_3.mp3', Image = 'a_avatar_3.jpg' where Id = 3
 update Audios set Mp3 = 'a_mp3_4.mp3', Image = 'a_avatar_4.jpg' where Id = 4
 update Audios set Mp3 = 'a_mp3_5.mp3', Image = 'a_avatar_5.jpg' where Id = 5
+
+--INSERT ALBUM_CAT
+select * from Albums
+INSERT INTO Albums values 
+(8, N'Thiên nhiên'),
+(9, N'Chiến tranh')
+
+--INSERT ALBUM
+INSERT INTO Album_Details (IdAlbum, Image) VALUES
+(8, 'PT_TN_1.jpg'),
+(8, 'PT_TN_2.jpg'),
+(8, 'PT_TN_3.jpg'),
+(8, 'PT_TN_4.jpg'),
+(8, 'PT_TN_5.jpg')
 
 --them media yeu thích và mylist
 insert into Likes (IdProfile, IdMedia, Date) values 

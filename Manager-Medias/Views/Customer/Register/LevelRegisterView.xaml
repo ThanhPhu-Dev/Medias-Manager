@@ -4,11 +4,16 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Manager_Medias.Views.Customer.Register"
+             xmlns:cvt="clr-namespace:Manager_Medias.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="558" d:DesignWidth="1200"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              >
     <UserControl.Resources>
+        <cvt:ChangeColorLevel_1Converter x:Key="colorLv1"/>
+        <cvt:ChangeColorLevel_2Converter x:Key="colorLv2"/>
+        <cvt:ChangeColorLevel_3Converter x:Key="colorLv3"/>
+
         <Style TargetType="TextBlock" x:Key="text-primary">
             <Setter Property="Foreground" Value="#fff"/>
             <Setter Property="TextWrapping" Value="Wrap"/>
@@ -325,7 +330,7 @@
                 <!--table-->
                 <StackPanel Grid.Column="1">
                     <StackPanel.Triggers>
-                        <EventTrigger RoutedEvent="Button.Click" SourceName="btn_lv1">
+                        <!--<EventTrigger RoutedEvent="Button.Click" SourceName="btn_lv1">
                             <BeginStoryboard Name="bd_level1" Storyboard="{StaticResource ChangeColorPrimary_lv1}"/>
                         </EventTrigger>
                         <EventTrigger RoutedEvent="Button.Click" SourceName="btn_lv2">
@@ -333,7 +338,7 @@
                         </EventTrigger>
                         <EventTrigger RoutedEvent="Button.Click" SourceName="btn_lv3">
                             <BeginStoryboard Name="bd_level3" Storyboard="{StaticResource ChangeColorPrimary_lv3}"/>
-                        </EventTrigger>
+                        </EventTrigger>-->
                     </StackPanel.Triggers>
                     <Border >
                         <Grid Margin="0 20">
@@ -345,13 +350,13 @@
                             </Grid.ColumnDefinitions>
 
                             <Border Grid.Column="1"
-                                BorderBrush="#FFbb00"
+                                BorderBrush="{Binding LevelCurrent, Converter={StaticResource colorLv1}}"
                                     BorderThickness="2"
                                 Margin="3 0"
                                 Name="bd_lv1">
-                                <Button
+                                <Button Command="{Binding CmdLvBasic}"
                                     Name="btn_lv1"
-                                    Background="#FFbb00"
+                                    Background="{Binding LevelCurrent, Converter={StaticResource colorLv1}}"
                                     Style="{StaticResource btn_selected}">
                                     <TextBlock Text="Cơ bản" 
                                            Style="{StaticResource txtelemnt}" 
@@ -362,31 +367,35 @@
                             </Border>
                             <Border Grid.Column="2"
                                 BorderThickness="2"
-                                BorderBrush="#bdbdbd"
+                                BorderBrush="{Binding LevelCurrent, Converter={StaticResource colorLv2}}"
                                 Margin="3 0"
                                     Name="bd_lv2">
-                                <Button
+                                <Button Command="{Binding CmdLvMedium}"
                                     Name="btn_lv2"
+                                    Background="{Binding LevelCurrent, Converter={StaticResource colorLv2}}"
                                     Style="{StaticResource btn_selected}">
                                     <TextBlock Text="Tiêu chuẩn" 
                                            Style="{StaticResource txtelemnt}" 
                                            Padding="0 40"
-                                           Foreground="#bdbdbd"
+                                               
+                                           Foreground="#222"
                                                Name="tb_title_lv2"/>
                                 </Button>
                             </Border>
                             <Border Grid.Column="3"
                                 BorderThickness="2"
-                                BorderBrush="#bdbdbd"
+                                BorderBrush="{Binding LevelCurrent, Converter={StaticResource colorLv3}}"
                                 Margin="3 0"
                                     Name="bd_lv3">
-                                <Button
+                                <Button Command="{Binding CmdLvVip}"
                                     Name="btn_lv3"
-                                    Style="{StaticResource btn_selected}">
+                                    Background="{Binding LevelCurrent, Converter={StaticResource colorLv3}}"
+                                    Style="{StaticResource btn_selected}"
+                                    >
                                     <TextBlock Text="Cao cấp" 
                                            Style="{StaticResource txtelemnt}" 
                                            Padding="0 40"
-                                           Foreground="#bdbdbd"
+                                           Foreground="#222"
                                                Name="tb_title_lv3"/>
                                 </Button>
                             </Border>
@@ -402,9 +411,9 @@
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
                             <TextBlock Text="Giá hàng tháng" Style="{StaticResource txtcolumn}"/>
-                            <TextBlock Name="txt_price_lv1" Foreground="#FFbb00" Grid.Column="1" Text="180.000 ₫" Style="{StaticResource txtelemnt}"/>
-                            <TextBlock Name="txt_price_lv2" Foreground="#bdbdbd" Grid.Column="2" Text="220.000 ₫" Style="{StaticResource txtelemnt}"/>
-                            <TextBlock Name="txt_price_lv3" Foreground="#bdbdbd" Grid.Column="3" Text="260.000 ₫" Style="{StaticResource txtelemnt}"/>
+                            <TextBlock Name="txt_price_lv1" Foreground="{Binding LevelCurrent, Converter={StaticResource colorLv1}}" Grid.Column="1" Text="180.000 ₫" Style="{StaticResource txtelemnt}"/>
+                            <TextBlock Name="txt_price_lv2" Foreground="{Binding LevelCurrent, Converter={StaticResource colorLv2}}" Grid.Column="2" Text="220.000 ₫" Style="{StaticResource txtelemnt}"/>
+                            <TextBlock Name="txt_price_lv3" Foreground="{Binding LevelCurrent, Converter={StaticResource colorLv3}}" Grid.Column="3" Text="260.000 ₫" Style="{StaticResource txtelemnt}"/>
 
                         </Grid>
                     </Border>
@@ -417,9 +426,9 @@
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
                             <TextBlock Text="Chất lượng video" Style="{StaticResource txtcolumn}"/>
-                            <TextBlock Name="txt_row2_lv1" Foreground="#FFbb00" Grid.Column="1" Text="Tốt" Style="{StaticResource txtelemnt}"/>
-                            <TextBlock Name="txt_row2_lv2" Foreground="#bdbdbd" Grid.Column="2" Text="Tốt hơn" Style="{StaticResource txtelemnt}"/>
-                            <TextBlock Name="txt_row2_lv3" Foreground="#bdbdbd"  Grid.Column="3" Text="Tốt nhất" Style="{StaticResource txtelemnt}"/>
+                            <TextBlock Name="txt_row2_lv1" Foreground="{Binding LevelCurrent, Converter={StaticResource colorLv1}}" Grid.Column="1" Text="Tốt" Style="{StaticResource txtelemnt}"/>
+                            <TextBlock Name="txt_row2_lv2" Foreground="{Binding LevelCurrent, Converter={StaticResource colorLv2}}" Grid.Column="2" Text="Tốt hơn" Style="{StaticResource txtelemnt}"/>
+                            <TextBlock Name="txt_row2_lv3" Foreground="{Binding LevelCurrent, Converter={StaticResource colorLv3}}"  Grid.Column="3" Text="Tốt nhất" Style="{StaticResource txtelemnt}"/>
 
                         </Grid>
                     </Border>
@@ -432,9 +441,9 @@
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
                             <TextBlock Text="Độ phân giải" Style="{StaticResource txtcolumn}"/>
-                            <TextBlock Name="txt_row3_lv1" Foreground="#FFbb00" Grid.Column="1" Text="480p" Style="{StaticResource txtelemnt}"/>
-                            <TextBlock Name="txt_row3_lv2" Foreground="#bdbdbd" Grid.Column="2" Text="1080p" Style="{StaticResource txtelemnt}"/>
-                            <TextBlock Name="txt_row3_lv3" Foreground="#bdbdbd" Grid.Column="3" Text="4K+HDR" Style="{StaticResource txtelemnt}"/>
+                            <TextBlock Name="txt_row3_lv1" Foreground="{Binding LevelCurrent, Converter={StaticResource colorLv1}}" Grid.Column="1" Text="480p" Style="{StaticResource txtelemnt}"/>
+                            <TextBlock Name="txt_row3_lv2" Foreground="{Binding LevelCurrent, Converter={StaticResource colorLv2}}" Grid.Column="2" Text="1080p" Style="{StaticResource txtelemnt}"/>
+                            <TextBlock Name="txt_row3_lv3" Foreground="{Binding LevelCurrent, Converter={StaticResource colorLv3}}" Grid.Column="3" Text="4K+HDR" Style="{StaticResource txtelemnt}"/>
                         </Grid>
                     </Border>
                 </StackPanel>

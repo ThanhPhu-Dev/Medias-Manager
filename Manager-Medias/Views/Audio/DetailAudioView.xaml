@@ -330,7 +330,10 @@
                        FontWeight="DemiBold"
                        Margin="60 0 0 0" />
             <ListBox Grid.Row="1" Name="lb_Audio"
-                 HorizontalContentAlignment="Stretch"
+                 VerticalContentAlignment="Stretch"
+                     VerticalAlignment="Stretch"
+                     HorizontalContentAlignment="Stretch"
+                     ScrollViewer.VerticalScrollBarVisibility ="Auto"
                  ItemsSource="{Binding AudioList}"
                  SelectedItem="{Binding SelectedAudio}"
                  Margin="30 0 15 0"

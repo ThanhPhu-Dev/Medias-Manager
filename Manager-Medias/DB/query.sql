@@ -180,12 +180,14 @@ select * from Medias
 select * from Likes 
 select * from My_Lists
 select * from Movies
+select * from levels
 
 --insert cấp độ
 INSERT INTO Levels (Name, Price) values
 (N'Cơ bản', '180.000'),
 (N'Tiêu chuẩn', '220.000'),
 (N'Cao cấp', '260.000')
+update Levels set price = 180.000 where Id = 1
 
 --Insert user 
 INSERT INTO Users VALUES ('nghiadx2001@gmail.c', '123', 1, 'CDCD', '362')

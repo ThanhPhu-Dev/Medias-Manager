@@ -90,11 +90,12 @@
 
                 <DockPanel Background="#ffefb5" Margin="0 8">
 
-                    <TextBlock  Text="Gói Cơ bản"
+                    <TextBlock  Text="{Binding LevelSelected.Name, StringFormat={}Gói {0}}"
                             FontSize="20"
                             DockPanel.Dock="Right"
+                                Foreground="#222"
                             Padding="15"/>
-                    <TextBlock Text="180.000 ₫/tháng"
+                    <TextBlock Text="{Binding LevelSelected.Price, StringFormat={}{0} ₫/tháng}"
                                FontSize="20"
                                FontWeight="DemiBold"
                                Foreground="#222"

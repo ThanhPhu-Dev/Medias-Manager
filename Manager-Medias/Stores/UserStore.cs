@@ -17,12 +17,23 @@ namespace Manager_Medias.Stores
             set => _currentUser = value;
         }
 
+        private Profile _currentProfile;
+
+        public Profile CurrentProfile
+        {
+            get => _currentProfile;
+        }
+
         public string Email => _currentUser.Email;
         //List<Profile> Profiles => _currentUser.Profiles;
 
         public UserStore(User user)
         {
-            this._currentUser = user;
+            using (var db = new MediasManangementEntities())
+            {
+                this._currentUser = user;
+                //this._currentProfile = user.Profiles.Where()
+            }
         }
     }
 }

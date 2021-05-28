@@ -68,7 +68,6 @@ namespace Manager_Medias.ViewModels.Customer
         {
             _userStore = userStore;
             _navigationStore = navigationStore;
-            SaveCmd = new RelayCommand<Object[]>(ActionSave, (Object[] obj) => !HasErrors);
             NavigateHomeCmd = new NavigateCommand<HomeViewModel>(new NavigationService<HomeViewModel>(_navigationStore, () => new HomeViewModel()));
 
             this.Errors = new Dictionary<string, List<string>>();
@@ -78,6 +77,15 @@ namespace Manager_Medias.ViewModels.Customer
             // Each property name of a validated property maps to one or more ValidationRule.
             this.ValidationRules.Add(nameof(this.Name), new List<ValidationRule>() { new AccountManagerValidationRule() });
             this.ValidationRules.Add(nameof(this.PhoneNumber), new List<ValidationRule>() { new PhoneNumberValidationRule() });
+            InitValidate();
+
+            SaveCmd = new RelayCommand<Object[]>(ActionSave, (Object[] obj) => !HasErrors);
+        }
+
+        public void InitValidate()
+        {
+            ValidateProperty(Name, "Name");
+            ValidateProperty(PhoneNumber, "PhoneNumber");
         }
 
         // Object[name, phoneNumber]

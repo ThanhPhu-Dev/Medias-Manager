@@ -172,6 +172,8 @@
     <Compile Include="Stores\NavigationStore.cs" />
     <Compile Include="Stores\UserStore.cs" />
     <Compile Include="Validates\AccountManagerValidationRule.cs" />
+    <Compile Include="Validates\ValidateEmail.cs" />
+    <Compile Include="Validates\ValidatePassword.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\Customer\AccountManagerViewModel.cs" />
     <Compile Include="ViewModels\Customer\ChangePasswordViewModel.cs" />

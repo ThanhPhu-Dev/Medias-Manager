@@ -293,9 +293,6 @@
                 <DataTemplate DataType="{x:Type viewmodels:DetailPictureViewModel}">
                     <vpicture:DetailPictrue />
                 </DataTemplate>
-                <DataTemplate DataType="{x:Type viewmodels:SignIn}">
-                    <vlogin:SignIn />
-                </DataTemplate>
             </Grid.Resources>
             <ContentControl Content="{Binding ContentViewModel}" />
         </Grid>

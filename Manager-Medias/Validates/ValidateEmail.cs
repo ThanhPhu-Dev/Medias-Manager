@@ -20,7 +20,12 @@ namespace Manager_Medias.Validates
                 return new ValidationResult(false, "Value must be of type string.");
             }
 
-            if (!rg.IsMatch(value.ToString()))
+            if (string.IsNullOrEmpty(Name))
+            {
+                return new ValidationResult(false, "Cần điền đủ thông tin để tiếp tục");
+            }
+
+            if (!rg.IsMatch(Name.ToString()))
             {
                 return new ValidationResult(false, "Đinh dạng mail không đúng");
             }

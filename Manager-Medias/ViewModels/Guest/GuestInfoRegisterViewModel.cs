@@ -1,4 +1,5 @@
 ﻿using Manager_Medias.Commands;
+using Manager_Medias.Models;
 using Manager_Medias.Stores;
 using Manager_Medias.Validates;
 using Manager_Medias.ViewModels.Customer;
@@ -69,9 +70,9 @@ namespace Manager_Medias.ViewModels.Guest
             string pwHash = Convert.ToBase64String(hashBytes);
 
             //tạo user
-
+            User user = new User() { Email = this._email, Password = pwHash };
             //chuyển trang 
-            _navigationStore.ContentViewModel = new GuestLevelRegisterViewModel();
+            _navigationStore.ContentViewModel = new GuestLevelRegisterViewModel(user);
         }
     }
 }

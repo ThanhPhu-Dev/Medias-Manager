@@ -83,7 +83,7 @@
                         Height="60"
                         FontSize="18" 
                         Text="{Binding Email, ValidatesOnNotifyDataErrors=True,
-                        UpdateSourceTrigger=PropertyChanged}"
+                        UpdateSourceTrigger=LostFocus}"
                         Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"/>
                 </StackPanel>
                 <StackPanel Background="#fff"
@@ -94,21 +94,21 @@
                         Style="{StaticResource MaterialDesignFilledTextBox}"
                         VerticalAlignment="Top"
                         Foreground="#222"
-                        AcceptsReturn="True"
-                        TextWrapping="Wrap"
                         materialDesign:HintAssist.Hint="Mật khẩu"
                         materialDesign:HintAssist.FloatingScale="0.55"
                         materialDesign:TextFieldAssist.TextBoxViewMargin="0 -3 0 0"
                         Height="60"
                         FontSize="18"
+                        FontFamily="ms-appx:///Assets/PassDot.ttf#PassDot"
                         Text="{Binding Password, ValidatesOnNotifyDataErrors=True,
-                        UpdateSourceTrigger=PropertyChanged}"
+                        UpdateSourceTrigger=LostFocus}"
                         Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"/>
                 </StackPanel>
 
                 <Button
                     Command="{Binding LoginCmd}"
                     Background="#FFbb00"
+                    IsEnabled="True"
                     Style="{StaticResource MaterialDesignRaisedButton}"
                     ToolTip="Resource name: MaterialDesignRaisedButton"
                     Height="54"
@@ -151,18 +151,7 @@
                          Đăng ký ngay.
                     </Span>
                 </TextBlock>
-                <TextBlock
-                           Style="{StaticResource text-primary}"
-                           FontSize="12">
-                    <Span Foreground="#b3b3b3">
-                        Trang này được Google reCAPTCHA bảo vệ để đảm bảo bạn không phải là robot.
-                    </Span>
-                    <Span Foreground="#4929ff"
-                          Cursor="Hand"
-                          Style="{StaticResource hoverSpan}">
-                        Tìm hiểu thêm.
-                    </Span>
-                </TextBlock>
+                
             </StackPanel>
         </StackPanel>
     </Grid>

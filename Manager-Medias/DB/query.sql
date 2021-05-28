@@ -9,6 +9,8 @@
 	CONSTRAINT PK_Users PRIMARY KEY (Email)
 )
 
+
+
 CREATE TABLE Profiles
 (
 	Id int NOT NULL IDENTITY(1,1),
@@ -179,6 +181,12 @@ select * from Likes
 select * from My_Lists
 select * from Movies
 
+--insert cấp độ
+INSERT INTO Levels (Name, Price) values
+(N'Cơ bản', '180.000'),
+(N'Tiêu chuẩn', '220.000'),
+(N'Cao cấp', '260.000')
+
 --Insert user 
 INSERT INTO Users VALUES ('nghiadx2001@gmail.c', '123', 1, 'CDCD', '362')
 INSERT INTO Users (Email, Password) VALUES ('1@gmail.c', '123')
@@ -236,6 +244,5 @@ update Medias set Lvl = 1 where Id = 7
 insert into Levels(Name,Price) values('Vàng', 200000)
 insert into Movies (Id, IdCategory,IMDB,Likes,Name,NumberOfViews,Poster,Age,Description,Season,Time,Video)
 values (7,1,6.5,4,N'Super Hero', 23, 'postermovieHuter.jpg', 18,N'Super hero hân hạnh tài trợ', 'kn92','00:12:30','video.mp4')
-
-
-
+Insert into Users(Email,Password,NumberCard,Level)values ('user@gmail.com', 'G9BBbVflIID4fJFh4ljRqrOgtzA33ztt4q474rYmz8IhcOqD', '1253871235', 1) 
+insert into profiles(Email,Name,Status) values ('user@gmail.com', '5 coder bị đơ', 1)

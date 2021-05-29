@@ -16,12 +16,11 @@ CREATE TABLE Profiles
 	Id int NOT NULL IDENTITY(1,1),
 	Email varchar(20),
 	Name NVARCHAR(20),
-	Avatar varchar(30),
+	Avatar varchar(200),
 	Status int,
 
 	CONSTRAINT PK_Profiles PRIMARY KEY (Id)
 )
-
 
 CREATE TABLE Payment_History
 (

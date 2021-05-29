@@ -25,8 +25,12 @@ namespace Manager_Medias.ViewModels.Customer
 
         public ICommand SwitchProfileCmd { get; set; }
         public ICommand NewProfileCmd { get; set; }
-        public ICommand OpenFileDialogCmd { get; set; }
-        public ICommand CloseFileDialogCmd { get; set; }
+        public ICommand OpenNewFileDialogCmd { get; set; }
+        public ICommand CloseNewModalCmd { get; set; }
+
+        public ICommand OpenEditFileDialogCmd { get; set; }
+        public ICommand CloseEditModalCmd { get; set; }
+        public ICommand EditProfileCmd { get; set; }
 
         #endregion Command
 
@@ -89,8 +93,8 @@ namespace Manager_Medias.ViewModels.Customer
         {
             SwitchProfileCmd = new RelayCommand<Object>(ActionSwitchProfile);
             NewProfileCmd = new RelayCommand<Object>(ActionNewProfile, (Object) => !HasErrors);
-            OpenFileDialogCmd = new RelayCommand<Object>(ActionOpenFile);
-            CloseFileDialogCmd = new RelayCommand<Object>(ActionCloseModal);
+            OpenNewFileDialogCmd = new RelayCommand<Object>(ActionOpenFile);
+            CloseNewModalCmd = new RelayCommand<Object>(ActionCloseModal);
         }
 
         public void LoadProfile()

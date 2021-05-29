@@ -32,12 +32,14 @@ namespace Manager_Medias.Views.Movie
             var sv = (ScrollViewer)template.FindName("sv_itc", itc_movie);
             var curPos = sv.HorizontalOffset;
             var btn = sender as RepeatButton;
-            switch((string)btn.Content)
+            var contentBtn = (MaterialDesignThemes.Wpf.PackIcon)btn.Content;
+            string turn = contentBtn.Kind.ToString();
+            switch (turn)
             {
-                case "Right":
+                case "KeyboardArrowRight":
                     sv.ScrollToHorizontalOffset(curPos + 40);
                     break;
-                case "Left":
+                case "ChevronLeft":
                     sv.ScrollToHorizontalOffset(curPos - 40);
                     break;
                 default:

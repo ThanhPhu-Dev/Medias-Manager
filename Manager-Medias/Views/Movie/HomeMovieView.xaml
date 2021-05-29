@@ -17,7 +17,7 @@
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
-                <ColumnDefinition Width="7*"/>
+                <ColumnDefinition Width="8*"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
@@ -25,16 +25,45 @@
                 <RowDefinition Height="200"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <StackPanel  VerticalAlignment="Top" 
+
+            <Grid  VerticalAlignment="Top" 
                       Grid.Row="1" Grid.Column="1">
-                <StackPanel.Resources>
+                <Grid.Resources>
                     <DataTemplate DataType="{x:Type model:Movie}">
                         <Border Margin="3 1">
                             <Image Height="120" Width="250" Source="{Binding Poster, Converter={StaticResource imageCvt}}" Stretch="Fill"/>
                         </Border>
                     </DataTemplate>
-                </StackPanel.Resources>
-                <StackPanel VerticalAlignment="Center"
+                    <Style TargetType="RepeatButton">
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Setter Property="Margin" Value="5"/>
+                        <Setter Property="Width" Value="40"/>
+                        <Setter Property="ClickMode" Value="Hover"/>
+                        <EventSetter Event="Click" Handler="Button_Click"/>
+
+                        <Setter Property="Template" >
+                            <Setter.Value>
+                                <ControlTemplate TargetType="RepeatButton">
+                                    <Border>
+                                        <ContentPresenter/>
+                                    </Border>
+
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" Value="Transparent" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Grid.Resources>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="60"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel VerticalAlignment="Center" Grid.ColumnSpan="3"
                         HorizontalAlignment="Center">
                     <ItemsControl Name="itc_movie" ItemsSource="{Binding MovieList}">
                         <ItemsControl.ItemsPanel>
@@ -60,23 +89,51 @@
                                 <EventSetter Event="Click" Handler="Button_Click"/>
                             </Style>
                         </WrapPanel.Resources>
-                        
+
                     </WrapPanel>
                 </StackPanel>
-            </StackPanel>
-            <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <StackPanel.Resources>
-                    <Style TargetType="RepeatButton">
-                        <Setter Property="Margin" Value="5"/>
-                        <Setter Property="Width" Value="40"/>
-                        <Setter Property="ClickMode" Value="Hover"/>
-                        <EventSetter Event="Click" Handler="Button_Click"/>
-                    </Style>
-                </StackPanel.Resources>
-                <RepeatButton >Left</RepeatButton>
-                <RepeatButton >Right</RepeatButton>
-            </StackPanel>
-            
+
+                <!--Hai nút để scroll carousel-->
+
+                <!--<RepeatButton 
+                    Grid.Column="2" 
+                    HorizontalAlignment="Right"
+                    Margin="0" Padding="0">
+                    <materialDesign:PackIcon Kind="ChevronRight" />
+                </RepeatButton>-->
+                <Grid Margin="0" Grid.Column="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Border Background="Black" Opacity=".6" Panel.ZIndex="0" BorderThickness="0" Margin="0" Padding="0" />
+                    <RepeatButton
+                        Background="Transparent" 
+                        BorderThickness="0"
+                        HorizontalAlignment="Center" 
+                        Foreground="#fff" 
+                        Panel.ZIndex="1" 
+                        Margin="0" Padding="0">
+                        <materialDesign:PackIcon Kind="ChevronRight" Width="55" Height="55" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </RepeatButton>
+                </Grid>
+                
+                <Grid Margin="0" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Border Background="Black" Opacity=".6" Panel.ZIndex="0" BorderThickness="0" Margin="0" Padding="0" />
+                    <RepeatButton
+                        Background="Transparent" 
+                        BorderThickness="0"
+                        HorizontalAlignment="Center" 
+                        Foreground="#fff" 
+                        Panel.ZIndex="1" 
+                        Margin="0" Padding="0">
+                        <materialDesign:PackIcon Kind="ChevronLeft" Width="55" Height="55" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </RepeatButton>
+                </Grid>
+            </Grid>
+
         </Grid>
 
     </ScrollViewer>

@@ -94,12 +94,13 @@
                         Style="{StaticResource MaterialDesignFilledTextBox}"
                         VerticalAlignment="Top"
                         Foreground="#222"
+                        AcceptsReturn="True"
+                        TextWrapping="Wrap"
                         materialDesign:HintAssist.Hint="Mật khẩu"
                         materialDesign:HintAssist.FloatingScale="0.55"
                         materialDesign:TextFieldAssist.TextBoxViewMargin="0 -3 0 0"
                         Height="60"
                         FontSize="18"
-                        FontFamily="ms-appx:///Assets/PassDot.ttf#PassDot"
                         Text="{Binding Password, ValidatesOnNotifyDataErrors=True,
                         UpdateSourceTrigger=LostFocus}"
                         Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"/>
@@ -108,7 +109,7 @@
                 <Button
                     Command="{Binding LoginCmd}"
                     Background="#FFbb00"
-                    IsEnabled="True"
+                    IsDefault="True"
                     Style="{StaticResource MaterialDesignRaisedButton}"
                     ToolTip="Resource name: MaterialDesignRaisedButton"
                     Height="54"

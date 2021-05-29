@@ -179,6 +179,7 @@ select * from Medias
 select * from Likes 
 select * from My_Lists
 select * from Movies
+select * from Movie_Categories
 select * from levels
 
 --insert cấp độ
@@ -242,9 +243,17 @@ insert into My_Lists(IdProfile, IdMedia, Date) values
 (1, 2, '01-03-2021'),
 (1, 7, '01-03-2021')
 
+--insert phim 
+insert into Movies (Id, IdCategory, IMDB, Likes, Name, NumberOfViews, Poster, Age)
+			values (18, 1, 6.5, 4, N'Iron Man 1', 23, 'action_ironman_1.jpg', 18),
+				   (19, 1, 5, 0, N'Iron Man 1', 23, 'action_ironman_2.jpg', 18),
+				   (20, 1, 6, 0, N'Nhiệm Vụ Bất KT', 103, 'action_NVBKT_5.jpg', 18),
+				   (21, 1, 7, 0, N'Người Nhện ', 23, 'action_SD.jpg', 18),
+				   (22, 1, 4, 0, N'Quá Nhanh Quá NH', 1000, 'action_ff_9.jpg', 18)
+
+
 
 update Medias set Lvl = 1 where Id = 7
-insert into Levels(Name,Price) values('Vàng', 200000)
 insert into Movies (Id, IdCategory,IMDB,Likes,Name,NumberOfViews,Poster,Age,Description,Season,Time,Video)
 values (7,1,6.5,4,N'Super Hero', 23, 'postermovieHuter.jpg', 18,N'Super hero hân hạnh tài trợ', 'kn92','00:12:30','video.mp4')
 Insert into Users(Email,Password,NumberCard,Level)values ('user@gmail.com', 'G9BBbVflIID4fJFh4ljRqrOgtzA33ztt4q474rYmz8IhcOqD', '1253871235', 1) 

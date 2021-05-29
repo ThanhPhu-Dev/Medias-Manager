@@ -5,8 +5,42 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Manager_Medias.Views.Movie"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
-    </Grid>
+             xmlns:model="clr-namespace:Manager_Medias.Models"
+             xmlns:cvt="clr-namespace:Manager_Medias.Converters"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             d:DesignHeight="585" d:DesignWidth="1200"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
+    <UserControl.Resources>
+        <cvt:ConvertImage x:Key="imageCvt"/>
+    </UserControl.Resources>
+    <ScrollViewer>
+        <GroupBox Header="Hành động" >
+            <GroupBox.Resources>
+                <DataTemplate DataType="{x:Type model:Movie}">
+                    <Border BorderBrush="#ffbb00" BorderThickness="2" CornerRadius="3">
+                        <TextBlock Text="{Binding Poster, Converter={StaticResource imageCvt}}"/>
+                    </Border>
+                </DataTemplate>
+            </GroupBox.Resources>
+            <StackPanel VerticalAlignment="Center"
+                        HorizontalAlignment="Center">
+                <ItemsControl ItemsSource="{Binding MovieList}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+
+                    <ItemsControl.Template>
+                        <ControlTemplate TargetType="ItemsControl">
+                            <ScrollViewer HorizontalScrollBarVisibility="Visible"
+                                          VerticalScrollBarVisibility="Disabled">
+                                <ItemsPresenter/>
+                            </ScrollViewer>
+                        </ControlTemplate>
+                    </ItemsControl.Template>
+                </ItemsControl>
+            </StackPanel>
+        </GroupBox>
+    </ScrollViewer>
 </UserControl>

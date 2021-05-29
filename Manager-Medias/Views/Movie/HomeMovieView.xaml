@@ -14,33 +14,70 @@
         <cvt:ConvertImage x:Key="imageCvt"/>
     </UserControl.Resources>
     <ScrollViewer>
-        <GroupBox Header="Hành động" >
-            <GroupBox.Resources>
-                <DataTemplate DataType="{x:Type model:Movie}">
-                    <Border BorderBrush="#ffbb00" BorderThickness="2" CornerRadius="3">
-                        <TextBlock Text="{Binding Poster, Converter={StaticResource imageCvt}}"/>
-                    </Border>
-                </DataTemplate>
-            </GroupBox.Resources>
-            <StackPanel VerticalAlignment="Center"
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="7*"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="200"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <GroupBox Header="Hành động" VerticalAlignment="Top" 
+                      Grid.Row="1" Grid.Column="1">
+                <GroupBox.Resources>
+                    <DataTemplate DataType="{x:Type model:Movie}">
+                        <Border BorderBrush="#ffbb00" BorderThickness="2" CornerRadius="3">
+                            <Image Height="180" Width="350" Source="{Binding Poster, Converter={StaticResource imageCvt}}" Stretch="Fill"/>
+                        </Border>
+                    </DataTemplate>
+                </GroupBox.Resources>
+                <StackPanel VerticalAlignment="Center"
                         HorizontalAlignment="Center">
-                <ItemsControl ItemsSource="{Binding MovieList}">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <VirtualizingStackPanel Orientation="Horizontal"/>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
+                    <ItemsControl Name="itc_movie" ItemsSource="{Binding MovieList}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
 
-                    <ItemsControl.Template>
-                        <ControlTemplate TargetType="ItemsControl">
-                            <ScrollViewer HorizontalScrollBarVisibility="Visible"
+                        <ItemsControl.Template>
+                            <ControlTemplate TargetType="ItemsControl">
+                                <ScrollViewer Name="sv_itc" HorizontalScrollBarVisibility="Hidden"
                                           VerticalScrollBarVisibility="Disabled">
-                                <ItemsPresenter/>
-                            </ScrollViewer>
-                        </ControlTemplate>
-                    </ItemsControl.Template>
-                </ItemsControl>
+                                    <ItemsPresenter/>
+                                </ScrollViewer>
+                            </ControlTemplate>
+                        </ItemsControl.Template>
+                    </ItemsControl>
+                    <WrapPanel Margin="2">
+                        <WrapPanel.Resources>
+                            <Style TargetType="Button">
+                                <Setter Property="Margin" Value="5"/>
+                                <Setter Property="Width" Value="40"/>
+                                <EventSetter Event="Click" Handler="Button_Click"/>
+                            </Style>
+                        </WrapPanel.Resources>
+                        
+                    </WrapPanel>
+                </StackPanel>
+            </GroupBox>
+            <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <StackPanel.Resources>
+                    <Style TargetType="RepeatButton">
+                        <Setter Property="Margin" Value="5"/>
+                        <Setter Property="Width" Value="40"/>
+                        <Setter Property="ClickMode" Value="Hover"/>
+                        <EventSetter Event="Click" Handler="Button_Click"/>
+                    </Style>
+                </StackPanel.Resources>
+                <RepeatButton >Left</RepeatButton>
+                <RepeatButton >Right</RepeatButton>
             </StackPanel>
-        </GroupBox>
+            
+        </Grid>
+
     </ScrollViewer>
 </UserControl>

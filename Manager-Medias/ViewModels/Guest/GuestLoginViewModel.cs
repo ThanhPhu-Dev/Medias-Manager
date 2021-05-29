@@ -119,7 +119,7 @@ namespace Manager_Medias.ViewModels.Guest
                 else
                 {
                     _navigationStore.CurrentViewModel = new MainLayoutViewModel(userStore, _navigationStore);
-                    _navigationStore.ContentViewModel = new HomeViewModel();
+                    _navigationStore.ContentViewModel = new HomeMovieViewModel();
                 }
             }
             else

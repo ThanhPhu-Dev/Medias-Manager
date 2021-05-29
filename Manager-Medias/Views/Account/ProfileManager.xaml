@@ -70,8 +70,7 @@
         </ControlTemplate>
 
         <!--CONVERTER-->
-        <cv:ProfileImageConverter x:Key="ImgCvt" />
-        <cv:ConvertImage x:Key="pathAbsolute" />
+        <cv:ProfileImageConverter x:Key="pathAbsolute" />
         <cv:ProfileLoginEnableConverter x:Key="PrStatusCvt" />
     </UserControl.Resources>
 
@@ -197,7 +196,7 @@
                         <StackPanel Margin="16" HorizontalAlignment="Center">
                             <Button Style="{StaticResource ButtonProfileItem}" x:Name="ProfileItem">
                                 <Grid HorizontalAlignment="Stretch">
-                                    <Image Source="{Binding Avatar, Converter={StaticResource ImgCvt}}"
+                                    <Image Source="{Binding Avatar, Converter={StaticResource pathAbsolute}}"
                                         Stretch="UniformToFill"
                                         VerticalAlignment="Stretch"
                                         HorizontalAlignment="Stretch"

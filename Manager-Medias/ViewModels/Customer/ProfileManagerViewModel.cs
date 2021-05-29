@@ -18,7 +18,7 @@ namespace Manager_Medias.ViewModels.Customer
 {
     public class ProfileManagerViewModel : BaseViewModel
     {
-        private const string DEFAULT_AVATAR = "Profile\\default_avatar.png";
+        private const string DEFAULT_AVATAR = "default_avatar.png";
         private readonly UserStore _userStore;
 
         #region Command
@@ -134,24 +134,23 @@ namespace Manager_Medias.ViewModels.Customer
                 var baseFolder = AppDomain.CurrentDomain.BaseDirectory;
                 var imagePath = Path.Combine(baseFolder, "Images\\Profile", $"{uniqueFileName}{fileExtension}");
                 File.Copy(PathAvatarFile, imagePath);
-                PathAvatarFile = $"Profile\\{uniqueFileName}{fileExtension}";
+                PathAvatarFile = $"{uniqueFileName}{fileExtension}";
+            }
 
-                profile.Avatar = $"{uniqueFileName}{fileExtension}";
-            }
-            else
-            {
-                profile.Avatar = "default_avatar.png";
-            }
+            profile.Avatar = PathAvatarFile;
 
             using (var db = new MediasManangementEntities())
             {
                 db.Profiles.Add(profile);
                 db.SaveChanges();
+
+                System.Windows.MessageBox.Show("Thành công!");
             }
 
             // reset
             PathAvatarFile = DEFAULT_AVATAR;
-            NewProfileName = string.Empty;
+            NewProfileName = null;
+            LoadProfile();
         }
 
         public void ActionOpenFile(object obj)
@@ -171,7 +170,7 @@ namespace Manager_Medias.ViewModels.Customer
         {
             // reset
             PathAvatarFile = DEFAULT_AVATAR;
-            NewProfileName = string.Empty;
+            NewProfileName = null;
         }
     }
 }

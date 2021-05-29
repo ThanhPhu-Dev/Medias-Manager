@@ -12,13 +12,13 @@
         <Storyboard x:Key="OpenModal">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Canvas.Top)" Storyboard.TargetName="ModalNewProfile">
                 <DiscreteDoubleKeyFrame KeyTime="0:0:0.0" Value="-500" />
-                <DiscreteDoubleKeyFrame KeyTime="0:0:0.15" Value="16" />
+                <DiscreteDoubleKeyFrame KeyTime="0:0:0.15" Value="4" />
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
 
         <Storyboard x:Key="CloseModal">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Canvas.Top)" Storyboard.TargetName="ModalNewProfile">
-                <DiscreteDoubleKeyFrame KeyTime="0:0:0.0" Value="16" />
+                <DiscreteDoubleKeyFrame KeyTime="0:0:0.0" Value="4" />
                 <DiscreteDoubleKeyFrame KeyTime="0:0:0.15" Value="-500" />
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
@@ -53,8 +53,25 @@
             </Style.Triggers>
         </Style>
 
+        <ControlTemplate x:Key="TextBoxErrorTemplate">
+            <StackPanel>
+                <!-- Placeholder for the DataGridTextColumn itself -->
+                <AdornedElementPlaceholder />
+                <ItemsControl ItemsSource="{Binding}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding ErrorContent}"
+                                       Foreground="{DynamicResource SecondaryAccentBrush}"
+                                       Margin="0 12 0 0" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </ControlTemplate>
+
         <!--CONVERTER-->
         <cv:ProfileImageConverter x:Key="ImgCvt" />
+        <cv:ConvertImage x:Key="pathAbsolute" />
         <cv:ProfileLoginEnableConverter x:Key="PrStatusCvt" />
     </UserControl.Resources>
 
@@ -111,11 +128,12 @@
                                          Height="80"
                                          Width="80"
                                          Padding="0"
+                                         Background="#FFD4D4D4"
                                          Command="{Binding OpenFileDialogCmd}">
-                                    <Image Source="/Images/logo.png"
-                                                Width="80" Height="80"
-                                                Stretch="UniformToFill"
-                                               Cursor="Hand" />
+                                    <Image Source="{Binding PathAvatarFile, Converter={StaticResource pathAbsolute}}"
+                                            Width="74" Height="74"
+                                            Stretch="UniformToFill"
+                                            Cursor="Hand" />
                                 </Button>
                                 <TextBox materialDesign:HintAssist.Foreground="#fff"
                                          materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
@@ -129,7 +147,8 @@
                                          FontSize="11"
                                          CaretBrush="#febb00"
                                          Height="34"
-                                         Text="{Binding NewProfileName, UpdateSourceTrigger=LostFocus, ValidatesOnNotifyDataErrors=True}" />
+                                         Text="{Binding NewProfileName, UpdateSourceTrigger=LostFocus, ValidatesOnNotifyDataErrors=True}"
+                                         Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}" />
                             </DockPanel>
                             <Grid Margin="0 40 0 0">
                                 <Grid.ColumnDefinitions>
@@ -159,7 +178,8 @@
                                         Width="100"
                                         Height="32"
                                         ToolTip="Huỷ"
-                                        Content="Huỷ" />
+                                        Content="Huỷ"
+                                        Command="{Binding CloseFileDialogCmd}" />
                             </Grid>
                         </StackPanel>
                     </Grid>

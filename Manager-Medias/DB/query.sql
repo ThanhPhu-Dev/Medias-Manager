@@ -16,12 +16,11 @@ CREATE TABLE Profiles
 	Id int NOT NULL IDENTITY(1,1),
 	Email varchar(20),
 	Name NVARCHAR(20),
-	Avatar varchar(30),
+	Avatar varchar(200),
 	Status int,
 
 	CONSTRAINT PK_Profiles PRIMARY KEY (Id)
 )
-
 
 CREATE TABLE Payment_History
 (
@@ -250,3 +249,6 @@ insert into Movies (Id, IdCategory,IMDB,Likes,Name,NumberOfViews,Poster,Age,Desc
 values (7,1,6.5,4,N'Super Hero', 23, 'postermovieHuter.jpg', 18,N'Super hero hân hạnh tài trợ', 'kn92','00:12:30','video.mp4')
 Insert into Users(Email,Password,NumberCard,Level)values ('user@gmail.com', 'G9BBbVflIID4fJFh4ljRqrOgtzA33ztt4q474rYmz8IhcOqD', '1253871235', 1) 
 insert into profiles(Email,Name,Status) values ('user@gmail.com', '5 coder bị đơ', 1)
+insert into payment_history(Email,DateOfPayment,Note,Price) values ('user@gmail.com', '2021-05-29', '',180000)
+insert into payment_history(Email,DateOfPayment,Note,Price) values ('user@gmail.com', '2021-05-28', '',170000)
+insert into payment_history(Email,DateOfPayment,Note,Price) values ('user@gmail.com', '2021-05-30', '',200000)

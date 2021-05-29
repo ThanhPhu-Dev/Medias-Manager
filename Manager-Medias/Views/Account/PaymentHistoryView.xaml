@@ -7,9 +7,69 @@
              xmlns:local="clr-namespace:Manager_Medias.Views.Account"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style TargetType="TextBlock">
+            <Style.Setters>
+                <Setter Property="Foreground" Value="White"/>
+            </Style.Setters>
+        </Style>
+        <Style TargetType="GridViewColumnHeader">
+            <Style.Setters>
+                <Setter Property="Background" Value="Black" />
+                <Setter Property="Foreground" Value="White" />
+                <Setter Property="FontWeight" Value="Bold" />
+            </Style.Setters>
+        </Style>
+        <Style TargetType="ListViewItem">
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        </Style>
+       
+    </UserControl.Resources>
     <Border Background="#000" Margin="20 30" CornerRadius="3">
-        <StackPanel Margin="60 30">
-            <TextBlock Text="Payment" Foreground="#fff" FontSize="40" />
-        </StackPanel>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="16*"/>
+                <RowDefinition Height="25*"/>
+                <RowDefinition Height="49*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Tài Khoản Giao Dịch"  VerticalAlignment="Center"
+                   HorizontalAlignment="Center" FontSize="32" Grid.Row="0"/>
+            <StackPanel Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Họ Và Tên: " FontSize="16" Margin="0 0 20 0"/>
+                    <TextBlock Text="{Binding Name}" FontSize="16"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0 15 0 0">
+                    <TextBlock Text="Email: " FontSize="16" Margin="0 0 50 0"/>
+                    <TextBlock Text="{Binding Email}" FontSize="16"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0 15 0 0">
+                    <TextBlock Text="Số Tài Khoản: " FontSize="16" Margin="0 0 30 0"/>
+                    <TextBlock Text="{Binding NumberCard}" FontSize="16"/>
+                </StackPanel>
+            </StackPanel>
+            <ListView Name="lvUsers" ItemsSource="{Binding InfoPM}" Grid.Row="3" HorizontalAlignment="Center" HorizontalContentAlignment="Center">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="STT" Width="50" DisplayMemberBinding="{Binding Path=STT}">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock x:Name="Txt" Text="{Binding InfoPM.STT}" Foreground="White" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Thanh Toán" Width="200" DisplayMemberBinding="{Binding Path=Price}"/>
+                        <GridViewColumn Header="Ghi Chú" Width="200" DisplayMemberBinding="{Binding Path=Note}"/>
+                        <GridViewColumn Header="Ngày Thanh Toán" Width="200">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock x:Name="Txt" Text="{Binding Path=DateOfPayment}" Foreground="White" HorizontalAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
     </Border>
 </UserControl>

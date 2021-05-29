@@ -13,7 +13,7 @@
     <UserControl.Resources>
         <cvt:ConvertImage x:Key="imageCvt"/>
     </UserControl.Resources>
-    <ScrollViewer>
+    <ScrollViewer Background="Black">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
@@ -25,15 +25,15 @@
                 <RowDefinition Height="200"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <GroupBox Header="Hành động" VerticalAlignment="Top" 
+            <StackPanel  VerticalAlignment="Top" 
                       Grid.Row="1" Grid.Column="1">
-                <GroupBox.Resources>
+                <StackPanel.Resources>
                     <DataTemplate DataType="{x:Type model:Movie}">
-                        <Border BorderBrush="#ffbb00" BorderThickness="2" CornerRadius="3">
-                            <Image Height="180" Width="350" Source="{Binding Poster, Converter={StaticResource imageCvt}}" Stretch="Fill"/>
+                        <Border Margin="3 1">
+                            <Image Height="120" Width="250" Source="{Binding Poster, Converter={StaticResource imageCvt}}" Stretch="Fill"/>
                         </Border>
                     </DataTemplate>
-                </GroupBox.Resources>
+                </StackPanel.Resources>
                 <StackPanel VerticalAlignment="Center"
                         HorizontalAlignment="Center">
                     <ItemsControl Name="itc_movie" ItemsSource="{Binding MovieList}">
@@ -63,7 +63,7 @@
                         
                     </WrapPanel>
                 </StackPanel>
-            </GroupBox>
+            </StackPanel>
             <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <StackPanel.Resources>
                     <Style TargetType="RepeatButton">

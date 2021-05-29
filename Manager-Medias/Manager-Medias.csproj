@@ -495,7 +495,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Images\postermovieHuter.jpg">
+    <None Include="Images\Movie\Poster\movieposter_postermovieHuter.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
@@ -535,16 +535,6 @@
     <Resource Include="Images\transitton-1.jpg" />
     <Resource Include="Images\transitton-3.jpg" />
     <Resource Include="Images\transitton-4.jpg" />
-    <Resource Include="Images\phim-hanh-dong-1.jpg" />
-    <Resource Include="Images\phim-hanh-dong-10.jpg" />
-    <Resource Include="Images\phim-hanh-dong-2.jpg" />
-    <Resource Include="Images\phim-hanh-dong-3.jpg" />
-    <Resource Include="Images\phim-hanh-dong-4.jpg" />
-    <Resource Include="Images\phim-hanh-dong-5.jpg" />
-    <Resource Include="Images\phim-hanh-dong-6.jpg" />
-    <Resource Include="Images\phim-hanh-dong-7.jpg" />
-    <Resource Include="Images\phim-hanh-dong-8.jpg" />
-    <Resource Include="Images\phim-hanh-dong-9.jpg" />
     <Content Include="DB\MediasManangement.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -553,64 +543,64 @@
       <DependentUpon>MediasManangement.mdf</DependentUpon>
     </Content>
     <Content Include="DB\query.sql" />
-    <None Include="Images\a_avatar_1.jpg">
+    <None Include="Images\Audio\Poster\audioposter_avatar_1.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Images\a_avatar_2.jpg">
+    <None Include="Images\Audio\Poster\audioposter_avatar_2.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Images\a_avatar_3.jpg">
+    <None Include="Images\Audio\Poster\audioposter_avatar_3.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Images\a_avatar_4.jpg">
+    <None Include="Images\Audio\Poster\audioposter_avatar_4.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Images\a_avatar_5.jpg">
+    <None Include="Images\Audio\Poster\audioposter_avatar_5.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Images\action_FF_9.jpg">
+    <None Include="Images\Movie\Poster\movieposter_action_FF_9.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Images\action_ironman_1.jpg">
+    <None Include="Images\Movie\Poster\movieposter_action_ironman_1.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Images\action_ironman_2.jpg">
+    <None Include="Images\Movie\Poster\movieposter_action_ironman_2.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Images\action_NVBKT_5.jpg">
+    <None Include="Images\Movie\Poster\movieposter_action_NVBKT_5.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Images\action_SD.jpg">
+    <None Include="Images\Movie\Poster\movieposter_action_SD.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <Content Include="Images\a_mp3_1.mp3">
+    <Content Include="Images\Audio\mp3\audiomp3_mp3_1.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\a_mp3_2.mp3">
+    <Content Include="Images\Audio\mp3\audiomp3_mp3_2.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\a_mp3_3.mp3">
+    <Content Include="Images\Audio\mp3\audiomp3_mp3_3.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\a_mp3_4.mp3">
+    <Content Include="Images\Audio\mp3\audiomp3_mp3_4.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\a_mp3_5.mp3">
+    <Content Include="Images\Audio\mp3\audiomp3_mp3_5.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="Images\PT_TN_1.jpg">
+    <None Include="Images\Album\album_PT_TN_1.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Images\PT_TN_2.jpg">
+    <None Include="Images\Album\album_PT_TN_2.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Images\PT_TN_3.jpg">
+    <None Include="Images\Album\album_PT_TN_3.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Images\PT_TN_4.jpg">
+    <None Include="Images\Album\album_PT_TN_4.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Images\PT_TN_5.jpg">
+    <None Include="Images\Album\album_PT_TN_5.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Resource Include="Images\Profile\pr1.jpg" />
@@ -621,7 +611,7 @@
     <None Include="Images\Profile\default_avatar.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <Content Include="Images\video.mp4">
+    <Content Include="Images\Movie\Video\movievideo_video.mp4">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Resource Include="Images\transitton-2.jpg" />

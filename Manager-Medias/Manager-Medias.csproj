@@ -156,7 +156,10 @@
     <Compile Include="Converters\ChangeColorLevel_2Converter.cs" />
     <Compile Include="Converters\ChangeColorLevel_3Converter.cs" />
     <Compile Include="Converters\ConvertImage.cs" />
+    <Compile Include="Converters\MoneyConverter.cs" />
     <Compile Include="Converters\MultiParameterConverter.cs" />
+    <Compile Include="Converters\ProfileImageConverter.cs" />
+    <Compile Include="Converters\ProfileLoginEnableConverter.cs" />
     <Compile Include="Converters\TextToPasswordCharConverter.cs" />
     <Compile Include="CustomModels\DetailMovieCustomModel.cs" />
     <Compile Include="Models\Album_Detail.cs">
@@ -182,6 +185,9 @@
     <Compile Include="Stores\NavigationStore.cs" />
     <Compile Include="Stores\UserStore.cs" />
     <Compile Include="Validates\AccountManagerValidationRule.cs" />
+    <Compile Include="Validates\CartNumberValidationRule.cs" />
+    <Compile Include="Validates\CheckAppyValidationRule.cs" />
+    <Compile Include="Validates\DateExpirationValidationRule.cs" />
     <Compile Include="Validates\ValidateEmail.cs" />
     <Compile Include="Validates\ValidateEmailRegister.cs" />
     <Compile Include="Validates\ValidatePassword.cs" />
@@ -240,6 +246,7 @@
     </Compile>
     <Compile Include="ViewModels\Customer\MainAccountViewModel.cs" />
     <Compile Include="ViewModels\Customer\MainLayoutViewModel.cs" />
+    <Compile Include="ViewModels\Customer\PaymentHistoryViewModel.cs" />
     <Compile Include="ViewModels\Customer\ProfileManagerViewModel.cs" />
     <Compile Include="ViewModels\Guest\GuestCartRegisterViewModel.cs" />
     <Compile Include="ViewModels\Guest\GuestHomeViewModel.cs" />
@@ -256,6 +263,9 @@
     </Compile>
     <Compile Include="Views\Account\MainAccountView.xaml.cs">
       <DependentUpon>MainAccountView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Account\PaymentHistoryView.xaml.cs">
+      <DependentUpon>PaymentHistoryView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Account\PlayListView.xaml.cs">
       <DependentUpon>PlayListView.xaml</DependentUpon>
@@ -347,6 +357,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Account\MainAccountView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Account\PaymentHistoryView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -581,6 +595,11 @@
     <None Include="Images\PT_TN_5.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Resource Include="Images\Profile\pr1.jpg" />
+    <Resource Include="Images\Profile\pr2.jpg" />
+    <Resource Include="Images\Profile\pr3.jpg" />
+    <Resource Include="Images\Profile\pr4.jpg" />
+    <Resource Include="Images\Profile\pr5.jpg" />
     <Content Include="Images\video.mp4">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

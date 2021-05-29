@@ -76,6 +76,9 @@
                 <DataTemplate DataType="{x:Type vm:GuestLevelRegisterViewModel}">
                     <us:LevelRegisterView />
                 </DataTemplate>
+                <DataTemplate DataType="{x:Type vm:GuestCartRegisterViewModel}">
+                    <us:CartRegisterView />
+                </DataTemplate>
             </Grid.Resources>
             <ContentControl Content="{Binding ContentViewModel}" />
         </Grid>

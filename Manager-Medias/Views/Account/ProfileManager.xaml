@@ -5,6 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Manager_Medias.Views.Account"
+             xmlns:cv="clr-namespace:Manager_Medias.Converters"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
@@ -21,6 +22,8 @@
                 <DiscreteDoubleKeyFrame KeyTime="0:0:0.15" Value="-500" />
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
+
+        <!--STYLE-->
         <Style x:Key="ButtonProfileItem" TargetType="{x:Type Button}"
                BasedOn="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
             <Setter Property="Background" Value="Transparent" />
@@ -38,6 +41,21 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <Style x:Key="ButtonLogin" TargetType="{x:Type Button}"
+               BasedOn="{StaticResource MaterialDesignRaisedLightButton}">
+            <Setter Property="Background" Value="{DynamicResource SecondaryAccentBrush}" />
+            <Setter Property="Foreground" Value="#000" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#D4FEBB00" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!--CONVERTER-->
+        <cv:ProfileImageConverter x:Key="ImgCvt" />
+        <cv:ProfileLoginEnableConverter x:Key="PrStatusCvt" />
     </UserControl.Resources>
 
     <UserControl.Triggers>
@@ -46,27 +64,6 @@
         </EventTrigger>
         <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="btnCancelModal">
             <BeginStoryboard Storyboard="{StaticResource CloseModal}" />
-        </EventTrigger>
-        <EventTrigger RoutedEvent="MouseEnter" SourceName="ProfileItem">
-            <BeginStoryboard>
-                <Storyboard>
-                    <DoubleAnimation Storyboard.TargetName="EditGrid"
-                                     Storyboard.TargetProperty="Opacity"
-                                     From="0" To="1"
-                                     Duration="0:0:0.15" />
-                </Storyboard>
-            </BeginStoryboard>
-        </EventTrigger>
-
-        <EventTrigger RoutedEvent="MouseLeave" SourceName="ProfileItem">
-            <BeginStoryboard>
-                <Storyboard>
-                    <DoubleAnimation Storyboard.TargetName="EditGrid"
-                                     Storyboard.TargetProperty="Opacity"
-                                     From="1" To="0"
-                                     Duration="0:0:0.15" />
-                </Storyboard>
-            </BeginStoryboard>
         </EventTrigger>
     </UserControl.Triggers>
 
@@ -107,16 +104,23 @@
                             <Label Content="Tạo hồ sơ cho người dùng mới cùng xem phim" Foreground="#FFCFCFCF"
                                        FontWeight="ExtraLight" HorizontalContentAlignment="Center" />
                             <DockPanel LastChildFill="True" Margin="0 16 0 0">
-                                <Border DockPanel.Dock="Left" Margin="0 0 16 0" BorderBrush="#FFCDCDCD" BorderThickness="0.2">
+                                <Button  DockPanel.Dock="Left"
+                                         Margin="0 0 16 0"
+                                         BorderBrush="#FFCDCDCD"
+                                         BorderThickness="0.2"
+                                         Height="80"
+                                         Width="80"
+                                         Padding="0"
+                                         Command="{Binding OpenFileDialogCmd}">
                                     <Image Source="/Images/logo.png"
-                                            Width="60" Height="60"
-                                            Stretch="UniformToFill"
-                                           Cursor="Hand" />
-                                </Border>
+                                                Width="80" Height="80"
+                                                Stretch="UniformToFill"
+                                               Cursor="Hand" />
+                                </Button>
                                 <TextBox materialDesign:HintAssist.Foreground="#fff"
                                          materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
                                          materialDesign:HintAssist.HintOpacity="0.8"
-                                         materialDesign:HintAssist.Hint="Username"
+                                         materialDesign:HintAssist.Hint="Tên"
                                          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                          VerticalAlignment="Center"
                                          Padding="12 0"
@@ -124,7 +128,8 @@
                                          Foreground="#fff"
                                          FontSize="11"
                                          CaretBrush="#febb00"
-                                         Height="34" />
+                                         Height="34"
+                                         Text="{Binding NewProfileName, UpdateSourceTrigger=LostFocus, ValidatesOnNotifyDataErrors=True}" />
                             </DockPanel>
                             <Grid Margin="0 40 0 0">
                                 <Grid.ColumnDefinitions>
@@ -141,7 +146,8 @@
                                         Width="100"
                                         Height="32"
                                         ToolTip="Lưu"
-                                        Content="Lưu" />
+                                        Content="Lưu"
+                                        Command="{Binding NewProfileCmd}" />
                                 <Button Grid.Column="1"
                                         x:Name="btnCancelModal"
                                         Style="{StaticResource MaterialDesignRaisedAccentButton}"
@@ -159,18 +165,26 @@
                     </Grid>
                 </Border>
             </Canvas>
-
-            <UniformGrid Margin="0 20 0 0" Columns="4" Panel.ZIndex="1">
-                <StackPanel Margin="16" HorizontalAlignment="Center">
-                    <Button Style="{StaticResource ButtonProfileItem}" x:Name="ProfileItem">
-                        <Grid HorizontalAlignment="Stretch">
-                            <Image Source="/Images/logo.png"
-                                    Stretch="UniformToFill"
-                                    VerticalAlignment="Stretch"
-                                    HorizontalAlignment="Stretch"
-                                    Cursor="Hand" />
-                            <Grid Background="#E1000000" x:Name="EditGrid" Opacity="0">
-                                <materialDesign:PackIcon
+            <ListView Margin="0 20 0 0" Panel.ZIndex="1" ItemsSource="{Binding Profiles}">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="4">
+                        </UniformGrid>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Margin="16" HorizontalAlignment="Center">
+                            <Button Style="{StaticResource ButtonProfileItem}" x:Name="ProfileItem">
+                                <Grid HorizontalAlignment="Stretch">
+                                    <Image Source="{Binding Avatar, Converter={StaticResource ImgCvt}}"
+                                        Stretch="UniformToFill"
+                                        VerticalAlignment="Stretch"
+                                        HorizontalAlignment="Stretch"
+                                        Cursor="Hand">
+                                    </Image>
+                                    <Grid Background="#E1000000" x:Name="EditGrid" Opacity="0">
+                                        <materialDesign:PackIcon
                                     Kind="Pencil" Foreground="{DynamicResource SecondaryAccentBrush}"
                                     HorizontalAlignment="Center" VerticalAlignment="Center"
                                     HorizontalContentAlignment="Center"
@@ -178,12 +192,47 @@
                                     Width="24"
                                     Height="24"
                                     ToolTip="Chỉnh sửa" />
-                            </Grid>
-                        </Grid>
-                    </Button>
-                    <Button Margin="0 12 0 0" Background="#FF303030" Height="32">Đăng nhập</Button>
-                </StackPanel>
-            </UniformGrid>
+                                    </Grid>
+                                </Grid>
+                                <Button.Triggers>
+                                    <EventTrigger RoutedEvent="MouseEnter" SourceName="ProfileItem">
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="EditGrid"
+                                                                     Storyboard.TargetProperty="Opacity"
+                                                                     From="0" To="1"
+                                                                     Duration="0:0:0.15" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                    <EventTrigger RoutedEvent="MouseLeave" SourceName="ProfileItem">
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="EditGrid"
+                                                                     Storyboard.TargetProperty="Opacity"
+                                                                     From="1" To="0"
+                                                                     Duration="0:0:0.15" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                </Button.Triggers>
+                            </Button>
+                            <Label Content="{Binding Name}" Foreground="#fff" Margin="0 12 0 0" />
+                            <Button Margin="0 8 0 0"
+                                    Height="32"
+                                    Content="Đăng nhập"
+                                    HorizontalAlignment="Center"
+                                    Tag="{Binding Id}"
+                                    Style="{StaticResource ButtonLogin}"
+                                    IsEnabled="{Binding Status, Converter={StaticResource PrStatusCvt}}"
+                                    Command="{Binding DataContext.SwitchProfileCmd,
+                                    RelativeSource={RelativeSource Mode=FindAncestor,
+                                                               AncestorType={x:Type ItemsControl}}}"
+                                    CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackPanel>
     </Border>
 </UserControl>

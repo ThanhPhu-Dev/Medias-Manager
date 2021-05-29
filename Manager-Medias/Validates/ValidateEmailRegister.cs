@@ -10,7 +10,7 @@ using System.Windows.Controls;
 
 namespace Manager_Medias.Validates
 {
-    class ValidateEmailRegister: ValidationRule
+    class ValidateEmailRegister : ValidationRule
     {
         Regex rg = new Regex(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$");
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
@@ -40,7 +40,7 @@ namespace Manager_Medias.Validates
                 }
             };
 
-                return ValidationResult.ValidResult;
+            return ValidationResult.ValidResult;
         }
     }
 }

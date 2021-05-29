@@ -1,5 +1,6 @@
 ﻿using Manager_Medias.Commands;
 using Manager_Medias.Models;
+using Manager_Medias.Stores;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,7 @@ namespace Manager_Medias.ViewModels.Guest
         public ICommand CmdLvMedium { get; }
         public ICommand CmdLvVip { get; }
         public ICommand CmdContinue { get; }
+        public ICommand CmdPre { get; }
 
         public int LevelCurrent
         { 
@@ -29,23 +31,44 @@ namespace Manager_Medias.ViewModels.Guest
             }
         }
 
-        public GuestLevelRegisterViewModel(User u)
+        public GuestLevelRegisterViewModel(User u, NavigationStore navigationStore)
         {
+            //khởi tạo để chuyển trang 
+            _navigationStore = navigationStore;
+
+            //user local
             _userCurrent = u;
+
             //kiem tra user có level thì gán level ko thì mặc định = 1
             if (_userCurrent.Level != null)
                 LevelCurrent = (int)_userCurrent.Level;
-            else LevelCurrent = 2;
+            else LevelCurrent = 1;
 
+            //tạo event command
             CmdLvBasic = new RelayCommand<Object>(LvBasic);
             CmdLvMedium = new RelayCommand<Object>(LvMedium);
             CmdLvVip = new RelayCommand<Object>(LvVip);
             CmdContinue = new RelayCommand<Object>(Continue);
+            CmdPre = new RelayCommand<Object>(Pre);
+        }
+
+        private void Pre(object obj)
+        {
+            _navigationStore.ContentViewModel = new GuestInfoRegisterViewModel(_navigationStore);
         }
 
         private void Continue(object obj)
         {
-            
+            using (var db = new MediasManangementEntities())
+            {
+                var user = db.Users.Where(u => u.Email == _userCurrent.Email).Single() as User;
+                user.Level = LevelCurrent;
+                
+                if(db.SaveChanges() > 0)
+                {
+                    _navigationStore.ContentViewModel = new GuestCartRegisterViewModel(user, _navigationStore);
+                }
+            }
         }
 
         private void LvVip(object obj)

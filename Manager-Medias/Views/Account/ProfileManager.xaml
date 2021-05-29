@@ -9,17 +9,31 @@
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
-        <Storyboard x:Key="OpenModal">
+        <Storyboard x:Key="OpenNewModal">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Canvas.Top)" Storyboard.TargetName="ModalNewProfile">
                 <DiscreteDoubleKeyFrame KeyTime="0:0:0.0" Value="-500" />
                 <DiscreteDoubleKeyFrame KeyTime="0:0:0.15" Value="4" />
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
 
-        <Storyboard x:Key="CloseModal">
+        <Storyboard x:Key="CloseNewModal">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Canvas.Top)" Storyboard.TargetName="ModalNewProfile">
                 <DiscreteDoubleKeyFrame KeyTime="0:0:0.0" Value="4" />
                 <DiscreteDoubleKeyFrame KeyTime="0:0:0.15" Value="-500" />
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+
+        <Storyboard x:Key="OpenEditModal">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Canvas.Bottom)" Storyboard.Target="{Binding ElementName=ModalEditProfile}">
+                <DiscreteDoubleKeyFrame KeyTime="0:0:0.0" Value="-800" />
+                <DiscreteDoubleKeyFrame KeyTime="0:0:0.15" Value="-320" />
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+
+        <Storyboard x:Key="CloseEditModal">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Canvas.Bottom)" Storyboard.TargetName="ModalEditProfile">
+                <DiscreteDoubleKeyFrame KeyTime="0:0:0.0" Value="-320" />
+                <DiscreteDoubleKeyFrame KeyTime="0:0:0.15" Value="-800" />
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
 
@@ -70,19 +84,9 @@
         </ControlTemplate>
 
         <!--CONVERTER-->
-        <cv:ProfileImageConverter x:Key="ImgCvt" />
-        <cv:ConvertImage x:Key="pathAbsolute" />
+        <cv:ProfileImageConverter x:Key="pathAbsolute" />
         <cv:ProfileLoginEnableConverter x:Key="PrStatusCvt" />
     </UserControl.Resources>
-
-    <UserControl.Triggers>
-        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="btnOpenModal">
-            <BeginStoryboard Storyboard="{StaticResource OpenModal}" />
-        </EventTrigger>
-        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="btnCancelModal">
-            <BeginStoryboard Storyboard="{StaticResource CloseModal}" />
-        </EventTrigger>
-    </UserControl.Triggers>
 
     <Border Background="#000" Margin="20 30" CornerRadius="3">
         <StackPanel Margin="60 30">
@@ -129,7 +133,7 @@
                                          Width="80"
                                          Padding="0"
                                          Background="#FFD4D4D4"
-                                         Command="{Binding OpenFileDialogCmd}">
+                                         Command="{Binding OpenNewFileDialogCmd}">
                                     <Image Source="{Binding PathAvatarFile, Converter={StaticResource pathAbsolute}}"
                                             Width="74" Height="74"
                                             Stretch="UniformToFill"
@@ -168,7 +172,7 @@
                                         Content="Lưu"
                                         Command="{Binding NewProfileCmd}" />
                                 <Button Grid.Column="1"
-                                        x:Name="btnCancelModal"
+                                        x:Name="btnCloseNewModal"
                                         Style="{StaticResource MaterialDesignRaisedAccentButton}"
                                         HorizontalAlignment="Left"
                                         Margin="20 0 0 0"
@@ -179,7 +183,83 @@
                                         Height="32"
                                         ToolTip="Huỷ"
                                         Content="Huỷ"
-                                        Command="{Binding CloseFileDialogCmd}" />
+                                        Command="{Binding CloseNewModalCmd}" />
+                            </Grid>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+                <Border x:Name="ModalEditProfile"
+                        Canvas.Bottom="-800" Width="550" Height="340"
+                        CornerRadius="3" ClipToBounds="True"
+                        Background="#FF303030"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Canvas.Left="114">
+                    <Grid Width="{Binding ActualWidth, ElementName=ModalEditProfile}" Height="{Binding ActualHeight, ElementName=ModalEditProfile}">
+                        <StackPanel HorizontalAlignment="Center" Margin="0 20 0 0">
+                            <Label Content="CHỈNH SỬA HỒ SƠ" Foreground="White" FontSize="32"
+                                       FontWeight="DemiBold" HorizontalContentAlignment="Center"
+                                       Margin="0 12 0 0" />
+                            <DockPanel LastChildFill="True" Margin="0 16 0 0">
+                                <Button  DockPanel.Dock="Left"
+                                         Margin="0 0 16 0"
+                                         BorderBrush="#FFCDCDCD"
+                                         BorderThickness="0.2"
+                                         Height="80"
+                                         Width="80"
+                                         Padding="0"
+                                         Background="#FFD4D4D4"
+                                         Command="{Binding OpenEditFileDialogCmd}">
+                                    <Image Source="{Binding SelectedProfile.Avatar, Converter={StaticResource pathAbsolute}}"
+                                            Width="74" Height="74"
+                                            Stretch="UniformToFill"
+                                            Cursor="Hand" />
+                                </Button>
+                                <TextBox materialDesign:HintAssist.Foreground="#fff"
+                                         materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                         materialDesign:HintAssist.HintOpacity="0.8"
+                                         materialDesign:HintAssist.Hint="Tên"
+                                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                         VerticalAlignment="Center"
+                                         Padding="12 0"
+                                         Background="#FF4B4B4B"
+                                         Foreground="#fff"
+                                         FontSize="11"
+                                         CaretBrush="#febb00"
+                                         Height="34"
+                                         Text="{Binding SelectedProfile.Name, UpdateSourceTrigger=LostFocus, ValidatesOnNotifyDataErrors=True}"
+                                         Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}" />
+                            </DockPanel>
+                            <Grid Margin="0 40 0 0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Button Grid.Column="0"
+                                        Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                                        HorizontalAlignment="Right"
+                                        Margin="0 0 20 0"
+                                        Background="#febb00"
+                                        Foreground="#000"
+                                        materialDesign:ButtonAssist.CornerRadius="3"
+                                        Width="100"
+                                        Height="32"
+                                        ToolTip="Lưu"
+                                        Content="Lưu"
+                                        Command="{Binding EditProfileCmd}" />
+                                <Button Grid.Column="1"
+                                        Name="btnCloseEditModal"
+                                        Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                                        HorizontalAlignment="Left"
+                                        Margin="20 0 0 0"
+                                        Background="#707070"
+                                        Foreground="#fff"
+                                        materialDesign:ButtonAssist.CornerRadius="3"
+                                        Width="100"
+                                        Height="32"
+                                        ToolTip="Huỷ"
+                                        Content="Huỷ"
+                                        Command="{Binding CloseEditModalCmd}" />
                             </Grid>
                         </StackPanel>
                     </Grid>
@@ -195,9 +275,15 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Margin="16" HorizontalAlignment="Center">
-                            <Button Style="{StaticResource ButtonProfileItem}" x:Name="ProfileItem">
+                            <Button Style="{StaticResource ButtonProfileItem}"
+                                    Name="btnOpenEditModal" ToolTip="Chỉnh sửa"
+                                    Tag="{Binding Id}"
+                                     Command="{Binding DataContext.SelectedProfileCmd,
+                                    RelativeSource={RelativeSource Mode=FindAncestor,
+                                                               AncestorType={x:Type ItemsControl}}}"
+                                    CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}">
                                 <Grid HorizontalAlignment="Stretch">
-                                    <Image Source="{Binding Avatar, Converter={StaticResource ImgCvt}}"
+                                    <Image Source="{Binding Avatar, Converter={StaticResource pathAbsolute}}"
                                         Stretch="UniformToFill"
                                         VerticalAlignment="Stretch"
                                         HorizontalAlignment="Stretch"
@@ -210,12 +296,11 @@
                                     HorizontalContentAlignment="Center"
                                     VerticalContentAlignment="Center"
                                     Width="24"
-                                    Height="24"
-                                    ToolTip="Chỉnh sửa" />
+                                    Height="24" />
                                     </Grid>
                                 </Grid>
                                 <Button.Triggers>
-                                    <EventTrigger RoutedEvent="MouseEnter" SourceName="ProfileItem">
+                                    <EventTrigger RoutedEvent="MouseEnter" SourceName="btnOpenEditModal">
                                         <BeginStoryboard>
                                             <Storyboard>
                                                 <DoubleAnimation Storyboard.TargetName="EditGrid"
@@ -225,7 +310,7 @@
                                             </Storyboard>
                                         </BeginStoryboard>
                                     </EventTrigger>
-                                    <EventTrigger RoutedEvent="MouseLeave" SourceName="ProfileItem">
+                                    <EventTrigger RoutedEvent="MouseLeave" SourceName="btnOpenEditModal">
                                         <BeginStoryboard>
                                             <Storyboard>
                                                 <DoubleAnimation Storyboard.TargetName="EditGrid"
@@ -234,6 +319,9 @@
                                                                      Duration="0:0:0.15" />
                                             </Storyboard>
                                         </BeginStoryboard>
+                                    </EventTrigger>
+                                    <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="btnOpenEditModal">
+                                        <BeginStoryboard Storyboard="{StaticResource OpenEditModal}" />
                                     </EventTrigger>
                                 </Button.Triggers>
                             </Button>
@@ -255,4 +343,16 @@
             </ListView>
         </StackPanel>
     </Border>
+
+    <UserControl.Triggers>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="btnOpenModal">
+            <BeginStoryboard Storyboard="{StaticResource OpenNewModal}" />
+        </EventTrigger>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="btnCloseNewModal">
+            <BeginStoryboard Storyboard="{StaticResource CloseNewModal}" />
+        </EventTrigger>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="btnCloseEditModal">
+            <BeginStoryboard Storyboard="{StaticResource CloseEditModal}" />
+        </EventTrigger>
+    </UserControl.Triggers>
 </UserControl>

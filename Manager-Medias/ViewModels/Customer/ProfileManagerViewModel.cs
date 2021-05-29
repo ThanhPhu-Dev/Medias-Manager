@@ -18,15 +18,20 @@ namespace Manager_Medias.ViewModels.Customer
 {
     public class ProfileManagerViewModel : BaseViewModel
     {
-        private const string DEFAULT_AVATAR = "Profile\\default_avatar.png";
+        private const string DEFAULT_AVATAR = "default_avatar.png";
         private readonly UserStore _userStore;
 
         #region Command
 
         public ICommand SwitchProfileCmd { get; set; }
         public ICommand NewProfileCmd { get; set; }
-        public ICommand OpenFileDialogCmd { get; set; }
-        public ICommand CloseFileDialogCmd { get; set; }
+        public ICommand OpenNewFileDialogCmd { get; set; }
+        public ICommand CloseNewModalCmd { get; set; }
+
+        public ICommand SelectedProfileCmd { get; set; }
+        public ICommand OpenEditFileDialogCmd { get; set; }
+        public ICommand CloseEditModalCmd { get; set; }
+        public ICommand EditProfileCmd { get; set; }
 
         #endregion Command
 
@@ -69,6 +74,18 @@ namespace Manager_Medias.ViewModels.Customer
             }
         }
 
+        private Profile _selectedProfile;
+
+        public Profile SelectedProfile
+        {
+            get => _selectedProfile;
+            set
+            {
+                _selectedProfile = value;
+                OnPropertyChanged();
+            }
+        }
+
         #endregion Binding
 
         public ProfileManagerViewModel(UserStore userStore)
@@ -89,8 +106,15 @@ namespace Manager_Medias.ViewModels.Customer
         {
             SwitchProfileCmd = new RelayCommand<Object>(ActionSwitchProfile);
             NewProfileCmd = new RelayCommand<Object>(ActionNewProfile, (Object) => !HasErrors);
-            OpenFileDialogCmd = new RelayCommand<Object>(ActionOpenFile);
-            CloseFileDialogCmd = new RelayCommand<Object>(ActionCloseModal);
+            OpenNewFileDialogCmd = new RelayCommand<Object>(ActionOpenFile);
+            CloseNewModalCmd = new RelayCommand<Object>(ActionCloseModal);
+            SelectedProfileCmd = new RelayCommand<Object>((Object id) =>
+            {
+                using (var db = new MediasManangementEntities())
+                {
+                    SelectedProfile = db.Profiles.Single(p => p.Id == (int)id);
+                }
+            });
         }
 
         public void LoadProfile()
@@ -134,27 +158,26 @@ namespace Manager_Medias.ViewModels.Customer
                 var baseFolder = AppDomain.CurrentDomain.BaseDirectory;
                 var imagePath = Path.Combine(baseFolder, "Images\\Profile", $"{uniqueFileName}{fileExtension}");
                 File.Copy(PathAvatarFile, imagePath);
-                PathAvatarFile = $"Profile\\{uniqueFileName}{fileExtension}";
+                PathAvatarFile = $"{uniqueFileName}{fileExtension}";
+            }
 
-                profile.Avatar = $"{uniqueFileName}{fileExtension}";
-            }
-            else
-            {
-                profile.Avatar = "default_avatar.png";
-            }
+            profile.Avatar = PathAvatarFile;
 
             using (var db = new MediasManangementEntities())
             {
                 db.Profiles.Add(profile);
                 db.SaveChanges();
+
+                System.Windows.MessageBox.Show("Thành công!");
             }
 
             // reset
             PathAvatarFile = DEFAULT_AVATAR;
-            NewProfileName = string.Empty;
+            NewProfileName = null;
+            LoadProfile();
         }
 
-        public void ActionOpenFile(object obj)
+        public void ActionOpenFile(Object obj)
         {
             OpenFileDialog fd = new OpenFileDialog()
             {
@@ -171,7 +194,7 @@ namespace Manager_Medias.ViewModels.Customer
         {
             // reset
             PathAvatarFile = DEFAULT_AVATAR;
-            NewProfileName = string.Empty;
+            NewProfileName = null;
         }
     }
 }

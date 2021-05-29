@@ -12,7 +12,7 @@ namespace Manager_Medias.Validates
     {
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
-            if (string.IsNullOrEmpty((string)value))
+            if ((string)value == string.Empty)
             {
                 return new ValidationResult(false, "Cần điền đủ thông tin để tiếp tục");
             }

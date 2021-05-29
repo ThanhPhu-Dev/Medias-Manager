@@ -189,6 +189,7 @@
     <Compile Include="Validates\CartNumberValidationRule.cs" />
     <Compile Include="Validates\CheckAppyValidationRule.cs" />
     <Compile Include="Validates\DateExpirationValidationRule.cs" />
+    <Compile Include="Validates\EmptyStringValidationRule.cs" />
     <Compile Include="Validates\ValidateEmail.cs" />
     <Compile Include="Validates\ValidateEmailRegister.cs" />
     <Compile Include="Validates\ValidatePassword.cs" />
@@ -601,6 +602,9 @@
     <Resource Include="Images\Profile\pr3.jpg" />
     <Resource Include="Images\Profile\pr4.jpg" />
     <Resource Include="Images\Profile\pr5.jpg" />
+    <None Include="Images\Profile\default_avatar.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="Images\video.mp4">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

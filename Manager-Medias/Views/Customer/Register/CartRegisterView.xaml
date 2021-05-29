@@ -41,110 +41,171 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <StackPanel Grid.Column="1" Margin="0 20 0 50">
-                <TextBlock Text="BƯỚC 3/3"
+            <StackPanel Grid.Column="1" Margin="0 30 0 0">
+                <!--<TextBlock Text="BƯỚC 3/3"
                        Style="{StaticResource text-primary}"
-                       FontSize="20"/>
+                       FontSize="20"/>-->
+
+                <!--thanh cho có bước đăng ký hiện tại-->
+                <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="60"/>
+                        <ColumnDefinition Width="60"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="60"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="60"/>
+                        <ColumnDefinition Width="60"/>
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="1" 
+                            Background="#FFbb00"
+                            BorderThickness="1"
+                            BorderBrush="#ffbb00"
+                            Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                            ToolTip="Thông tin cơ bản" Height="60" Width="Auto">
+                        <materialDesign:PackIcon Kind="AccountMultiplePlusOutline" 
+                                                 Height="30" Width="35"
+                                                 Foreground="#222"/>
+                    </Button>
+                    
+                    <Border Grid.Column="2"
+                            Width="auto"
+                            Height="3"
+                            Background="#FFbb00"/>
+                    <Button Grid.Column="3" 
+                            Background="#FFbb00"
+                            BorderThickness="1"
+                            BorderBrush="#FFbb00"
+                            Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                            ToolTip="Chọn gói dịch vụ" Height="60" Width="Auto">
+                        <materialDesign:PackIcon Kind="AlignVerticalBottom" 
+                                                 Width="30" Height="30"
+                                                 Foreground="#222"/>
+                    </Button>
+                    <Border Grid.Column="4"
+                            Width="auto"
+                            Height="3"
+                            Background="#FFbb00"/>
+                    <Button Grid.Column="5" 
+                            Background="#FFbb00"
+                            BorderThickness="1"
+                            BorderBrush="#FFbb00"
+                            Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                            ToolTip="Thêm thẻ thanh toán" Height="60" Width="Auto">
+                        <materialDesign:PackIcon Kind="CreditCardOutline" 
+                                                 Width="30" Height="30"
+                                                 Foreground="#222"/>
+                    </Button>
+                </Grid>
+                <Grid Margin="0 0 0 20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock 
+                        Text="Thông tin cơ bản"
+                        FontSize="17"
+                        Foreground="#ffbb00"
+                        TextAlignment="Right"/>
+                    <TextBlock Grid.Column="1"
+                        Text="Chọn gói cước"
+                        FontSize="17"
+                        Foreground="#ffbb00"
+                        TextAlignment="Center"/>
+                    <TextBlock Grid.Column="2"
+                        Text="Thêm thanh toán"
+                        FontSize="17"
+                        Foreground="#ffbb00"
+                        TextAlignment="Left"
+                        />
+                </Grid>
+
                 <TextBlock Text="Hãy thiết lập thẻ tín dụng hoặc thẻ ghi nợ của bạn."
                        Style="{StaticResource text-primary}"
                        FontSize="24"
                        FontWeight="DemiBold"
-                       Padding="0 10"/>
+                       Padding="0 0 0 10"/>
                 <StackPanel Background="#fff"
                         Margin="0 8">
                     <TextBox Name="tb_Name"
-                    Style="{StaticResource MaterialDesignFilledTextBox}"
-                    VerticalAlignment="Top"
-                    Foreground="#222"
-                    AcceptsReturn="True"
-                    TextWrapping="Wrap"
-                    materialDesign:HintAssist.Hint="Họ và Tên"
+                        Style="{StaticResource MaterialDesignFilledTextBox}"
+                        VerticalAlignment="Top"
+                        Foreground="#222"
+                        AcceptsReturn="True"
+                        TextWrapping="Wrap"
+                        materialDesign:HintAssist.Hint="Họ và Tên"
                         materialDesign:HintAssist.FloatingScale="0.55"
-                    materialDesign:TextFieldAssist.TextBoxViewMargin="0 -3 0 0"
-                    Height="60"
-                    FontSize="20"
-                    Text="{Binding Name, ValidatesOnNotifyDataErrors=True, 
-                    UpdateSourceTrigger=PropertyChanged}"
-                     Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"/>
+                        materialDesign:TextFieldAssist.TextBoxViewMargin="0 -3 0 0"
+                        Height="60"
+                        FontSize="20"
+                        Text="{Binding Name, ValidatesOnNotifyDataErrors=True, 
+                        UpdateSourceTrigger=PropertyChanged}"
+                        Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"/>
                 </StackPanel>
-                <!--<StackPanel Background="#fff"
-                        Margin="0 8">
-                    <TextBox
-                    Style="{StaticResource MaterialDesignFilledTextBox}"
-                    VerticalAlignment="Top"
-                    Foreground="#222"
-                    AcceptsReturn="True"
-                    TextWrapping="Wrap"
-                    materialDesign:HintAssist.Hint="Họ"
-                        materialDesign:HintAssist.FloatingScale="0.55"
-                    materialDesign:TextFieldAssist.TextBoxViewMargin="0 -3 0 0"
-                    Height="60"
-                    FontSize="20"/>
-                </StackPanel>-->
                 <StackPanel Background="#fff"
                         Margin="0 8">
                     <TextBox Name="tb_CartNum"
-                    Style="{StaticResource MaterialDesignFilledTextBox}"
-                    VerticalAlignment="Top"
-                    Foreground="#222"
-                    AcceptsReturn="True"
-                    TextWrapping="Wrap"
-                    materialDesign:HintAssist.Hint="Số thẻ"
+                        Style="{StaticResource MaterialDesignFilledTextBox}"
+                        VerticalAlignment="Top"
+                        Foreground="#222"
+                        AcceptsReturn="True"
+                        TextWrapping="Wrap"
+                        materialDesign:HintAssist.Hint="Số thẻ"
                         materialDesign:HintAssist.FloatingScale="0.55"
-                    materialDesign:TextFieldAssist.TextBoxViewMargin="0 -3 0 0"
-                    Height="60"
-                    FontSize="20"
+                        materialDesign:TextFieldAssist.TextBoxViewMargin="0 -3 0 0"
+                        Height="60"
+                        FontSize="20"
                         Text="{Binding CartNum, ValidatesOnNotifyDataErrors=True, 
-                    UpdateSourceTrigger=PropertyChanged}"
-                     Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"/>
+                        UpdateSourceTrigger=PropertyChanged}"
+                        Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"/>
                 </StackPanel>
                 <StackPanel Background="#fff"
                         Margin="0 8">
                     <TextBox Name="tb_Date"
-                    Style="{StaticResource MaterialDesignFilledTextBox}"
-                    VerticalAlignment="Top"
-                    Foreground="#222"
-                    AcceptsReturn="True"
-                    TextWrapping="Wrap"
-                    materialDesign:HintAssist.Hint="Ngày hết hạn (MM/YY)"
+                        Style="{StaticResource MaterialDesignFilledTextBox}"
+                        VerticalAlignment="Top"
+                        Foreground="#222"
+                        AcceptsReturn="True"
+                        TextWrapping="Wrap"
+                        materialDesign:HintAssist.Hint="Ngày hết hạn (MM/YY)"
                         materialDesign:HintAssist.FloatingScale="0.55"
-                    materialDesign:TextFieldAssist.TextBoxViewMargin="0 -3 0 0"
-                    Height="60"
-                    FontSize="20"
+                        materialDesign:TextFieldAssist.TextBoxViewMargin="0 -3 0 0"
+                        Height="60"
+                        FontSize="20"
                         Text="{Binding DateExpiration, ValidatesOnNotifyDataErrors=True, 
-                    UpdateSourceTrigger=PropertyChanged}"
-                     Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"/>
+                        UpdateSourceTrigger=PropertyChanged}"
+                        Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"/>
                 </StackPanel>
 
                 <DockPanel Background="#ffefb5" Margin="0 8">
-
                     <TextBlock  Text="{Binding LevelSelected.Name, StringFormat={}Gói {0}}"
-                            FontSize="20"
-                            DockPanel.Dock="Right"
+                                FontSize="20"
+                                DockPanel.Dock="Right"
                                 Foreground="#222"
-                            Padding="15"/>
+                                Padding="15"/>
                     <TextBlock Text="{Binding LevelSelected.Price, StringFormat={}{0} ₫/tháng}"
                                FontSize="20"
                                FontWeight="DemiBold"
                                Foreground="#222"
-                           Padding="15"/>
+                               Padding="15"/>
                 </DockPanel>
 
                 <TextBlock 
-                       Style="{StaticResource text-primary}"
-                       Padding="0 15">
-                Bằng cách đánh dấu vào hộp kiểm bên dưới, bạn đồng ý với 
-                <Span Foreground="#FFbb00">
-                    Điều khoản sử dụng, Tuyên bố về quyền riêng tư 
+                        Style="{StaticResource text-primary}"
+                        Padding="0 15">
+                        Bằng cách đánh dấu vào hộp kiểm bên dưới, bạn đồng ý với 
+                <Span   Foreground="#FFbb00">
+                        Điều khoản sử dụng, Tuyên bố về quyền riêng tư 
                 </Span>
-                của chúng tôi, đồng thời xác nhận rằng bạn trên 18 tuổi. 
-                Netflix sẽ tự động tiếp tục duy trì tư cách thành viên của bạn và tính phí thành viên (hiện tại là 180.000 ₫) theo tháng vào phương thức thanh toán của bạn cho đến khi bạn hủy. Bạn có thể hủy bất kỳ lúc nào để tránh bị tính phí về sau."
+                    của chúng tôi, đồng thời xác nhận rằng bạn trên 18 tuổi. 
+                    Netflix sẽ tự động tiếp tục duy trì tư cách thành viên của bạn và tính phí thành viên (hiện tại là 180.000 ₫) theo tháng vào phương thức thanh toán của bạn cho đến khi bạn hủy. Bạn có thể hủy bất kỳ lúc nào để tránh bị tính phí về sau."
                 </TextBlock>
                 <StackPanel Margin="0 13">
                     <CheckBox
                         IsChecked="{Binding CheckApply, ValidatesOnNotifyDataErrors=True, 
-                    UpdateSourceTrigger=PropertyChanged}"
-                     Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"
+                        UpdateSourceTrigger=PropertyChanged}"
+                        Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"
                         Content="Tôi đồng ý"
                         materialDesign:CheckBoxAssist.CheckBoxSize="30" 
                         Foreground="#fff"
@@ -158,7 +219,6 @@
                 </StackPanel>
 
                 <StackPanel >
-
                     <Button
                         Background="#FFbb00"
                         Style="{StaticResource MaterialDesignRaisedButton}"

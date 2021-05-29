@@ -24,7 +24,7 @@
                 <TextBlock Text="Chưa Cập nhật" FontSize="16"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0 15 0 0">
-                <TextBlock Text="SĐT: " FontSize="16" Margin="0 0 60 0"/>
+                <TextBlock Text="Số Tài Khoản: " FontSize="16" Margin="0 0 60 0"/>
                 <TextBlock Text="Chưa Cập nhật" FontSize="16"/>
             </StackPanel>
         </StackPanel>
@@ -33,7 +33,7 @@
                 <GridView>
                     <GridViewColumn Header="STT" />
                     <GridViewColumn Header="Thanh Toán"   />
-                    <GridViewColumn Header="Mục Đích thanh toán" Width="200"/>
+                    <GridViewColumn Header="Ghi Chú" Width="200"/>
                     <GridViewColumn Header="Ngày Thanh Toán"  />
                 </GridView>
             </ListView.View>

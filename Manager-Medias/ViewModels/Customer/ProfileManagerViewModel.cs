@@ -28,6 +28,7 @@ namespace Manager_Medias.ViewModels.Customer
         public ICommand OpenNewFileDialogCmd { get; set; }
         public ICommand CloseNewModalCmd { get; set; }
 
+        public ICommand SelectedProfileCmd { get; set; }
         public ICommand OpenEditFileDialogCmd { get; set; }
         public ICommand CloseEditModalCmd { get; set; }
         public ICommand EditProfileCmd { get; set; }
@@ -73,6 +74,18 @@ namespace Manager_Medias.ViewModels.Customer
             }
         }
 
+        private Profile _selectedProfile;
+
+        public Profile SelectedProfile
+        {
+            get => _selectedProfile;
+            set
+            {
+                _selectedProfile = value;
+                OnPropertyChanged();
+            }
+        }
+
         #endregion Binding
 
         public ProfileManagerViewModel(UserStore userStore)
@@ -95,6 +108,13 @@ namespace Manager_Medias.ViewModels.Customer
             NewProfileCmd = new RelayCommand<Object>(ActionNewProfile, (Object) => !HasErrors);
             OpenNewFileDialogCmd = new RelayCommand<Object>(ActionOpenFile);
             CloseNewModalCmd = new RelayCommand<Object>(ActionCloseModal);
+            SelectedProfileCmd = new RelayCommand<Object>((Object id) =>
+            {
+                using (var db = new MediasManangementEntities())
+                {
+                    SelectedProfile = db.Profiles.Single(p => p.Id == (int)id);
+                }
+            });
         }
 
         public void LoadProfile()
@@ -157,7 +177,7 @@ namespace Manager_Medias.ViewModels.Customer
             LoadProfile();
         }
 
-        public void ActionOpenFile(object obj)
+        public void ActionOpenFile(Object obj)
         {
             OpenFileDialog fd = new OpenFileDialog()
             {

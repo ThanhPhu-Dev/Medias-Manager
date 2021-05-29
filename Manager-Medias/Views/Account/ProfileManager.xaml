@@ -210,7 +210,7 @@
                                          Padding="0"
                                          Background="#FFD4D4D4"
                                          Command="{Binding OpenEditFileDialogCmd}">
-                                    <Image Source="{Binding PathAvatarFile, Converter={StaticResource pathAbsolute}}"
+                                    <Image Source="{Binding SelectedProfile.Avatar, Converter={StaticResource pathAbsolute}}"
                                             Width="74" Height="74"
                                             Stretch="UniformToFill"
                                             Cursor="Hand" />
@@ -227,7 +227,7 @@
                                          FontSize="11"
                                          CaretBrush="#febb00"
                                          Height="34"
-                                         Text="{Binding NewProfileName, UpdateSourceTrigger=LostFocus, ValidatesOnNotifyDataErrors=True}"
+                                         Text="{Binding SelectedProfile.Name, UpdateSourceTrigger=LostFocus, ValidatesOnNotifyDataErrors=True}"
                                          Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}" />
                             </DockPanel>
                             <Grid Margin="0 40 0 0">
@@ -275,7 +275,13 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Margin="16" HorizontalAlignment="Center">
-                            <Button Style="{StaticResource ButtonProfileItem}" Name="btnOpenEditModal" ToolTip="Chỉnh sửa">
+                            <Button Style="{StaticResource ButtonProfileItem}"
+                                    Name="btnOpenEditModal" ToolTip="Chỉnh sửa"
+                                    Tag="{Binding Id}"
+                                     Command="{Binding DataContext.SelectedProfileCmd,
+                                    RelativeSource={RelativeSource Mode=FindAncestor,
+                                                               AncestorType={x:Type ItemsControl}}}"
+                                    CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}">
                                 <Grid HorizontalAlignment="Stretch">
                                     <Image Source="{Binding Avatar, Converter={StaticResource pathAbsolute}}"
                                         Stretch="UniformToFill"
@@ -345,7 +351,6 @@
         <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="btnCloseNewModal">
             <BeginStoryboard Storyboard="{StaticResource CloseNewModal}" />
         </EventTrigger>
-
         <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="btnCloseEditModal">
             <BeginStoryboard Storyboard="{StaticResource CloseEditModal}" />
         </EventTrigger>

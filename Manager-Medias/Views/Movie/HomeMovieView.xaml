@@ -41,7 +41,7 @@
                         <Setter Property="ClickMode" Value="Hover"/>
                         <EventSetter Event="Click" Handler="Button_Click"/>
 
-                        <Setter Property="Template" >
+                        <!--<Setter Property="Template" >
                             <Setter.Value>
                                 <ControlTemplate TargetType="RepeatButton">
                                     <Border>
@@ -55,7 +55,7 @@
                             <Trigger Property="IsMouseOver" Value="true">
                                 <Setter Property="Background" Value="Transparent" />
                             </Trigger>
-                        </Style.Triggers>
+                        </Style.Triggers>-->
                     </Style>
                 </Grid.Resources>
                 <Grid.ColumnDefinitions>

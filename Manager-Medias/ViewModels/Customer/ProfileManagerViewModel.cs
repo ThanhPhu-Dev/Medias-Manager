@@ -49,15 +49,15 @@ namespace Manager_Medias.ViewModels.Customer
             }
         }
 
-        private string _newProfileName;
+        private string _inputProfileName;
 
-        public string NewProfileName
+        public string InputProfileName
         {
-            get => _newProfileName;
+            get => _inputProfileName;
             set
             {
                 ValidateProperty(value);
-                _newProfileName = value;
+                _inputProfileName = value;
                 OnPropertyChanged();
             }
         }
@@ -74,14 +74,14 @@ namespace Manager_Medias.ViewModels.Customer
             }
         }
 
-        private Profile _selectedProfile;
+        private int _selectedProfileId;
 
-        public Profile SelectedProfile
+        public int SelectedProfileId
         {
-            get => _selectedProfile;
+            get => _selectedProfileId;
             set
             {
-                _selectedProfile = value;
+                _selectedProfileId = value;
                 OnPropertyChanged();
             }
         }
@@ -97,7 +97,7 @@ namespace Manager_Medias.ViewModels.Customer
 
             // Create a Dictionary of validation rules for fast lookup.
             // Each property name of a validated property maps to one or more ValidationRule.
-            this.ValidationRules.Add(nameof(this.NewProfileName), new List<ValidationRule>() { new EmptyStringValidationRule() });
+            this.ValidationRules.Add(nameof(this.InputProfileName), new List<ValidationRule>() { new EmptyStringValidationRule() });
             LoadCommand();
             LoadProfile();
         }
@@ -112,14 +112,28 @@ namespace Manager_Medias.ViewModels.Customer
             {
                 using (var db = new MediasManangementEntities())
                 {
-                    SelectedProfile = db.Profiles.Single(p => p.Id == (int)id);
+                    var profile = db.Profiles.Single(p => p.Id == (int)id);
+                    SelectedProfileId = profile.Id;
+                    PathAvatarFile = profile.Avatar;
+                    InputProfileName = profile.Name;
                 }
             });
+
+            EditProfileCmd = new RelayCommand<Object>(ActionEditProfile);
+            OpenEditFileDialogCmd = new RelayCommand<Object>(ActionEditFile);
+            CloseEditModalCmd = new RelayCommand<Object>((Object) => ResetBinding());
         }
 
         public void LoadProfile()
         {
             Profiles = _userStore.Profiles;
+        }
+
+        public void ResetBinding()
+        {
+            PathAvatarFile = DEFAULT_AVATAR;
+            InputProfileName = null;
+            LoadProfile();
         }
 
         public void ActionSwitchProfile(Object profileId)
@@ -141,12 +155,12 @@ namespace Manager_Medias.ViewModels.Customer
 
         public void ActionNewProfile(Object obj)
         {
-            if (string.IsNullOrEmpty(NewProfileName)) return;
+            if (string.IsNullOrEmpty(InputProfileName)) return;
 
             Profile profile = new Profile
             {
                 Email = _userStore.Email,
-                Name = NewProfileName,
+                Name = InputProfileName,
                 Status = 0,
             };
 
@@ -167,14 +181,10 @@ namespace Manager_Medias.ViewModels.Customer
             {
                 db.Profiles.Add(profile);
                 db.SaveChanges();
-
-                System.Windows.MessageBox.Show("Thành công!");
             }
 
             // reset
-            PathAvatarFile = DEFAULT_AVATAR;
-            NewProfileName = null;
-            LoadProfile();
+            ResetBinding();
         }
 
         public void ActionOpenFile(Object obj)
@@ -192,9 +202,45 @@ namespace Manager_Medias.ViewModels.Customer
 
         public void ActionCloseModal(Object obj)
         {
-            // reset
-            PathAvatarFile = DEFAULT_AVATAR;
-            NewProfileName = null;
+            ResetBinding();
+        }
+
+        public void ActionEditFile(Object obj)
+        {
+            OpenFileDialog fd = new OpenFileDialog()
+            {
+                Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png"
+            };
+
+            if (fd.ShowDialog() == DialogResult.OK)
+            {
+                PathAvatarFile = fd.FileName;
+            }
+        }
+
+        public void ActionEditProfile(Object obj)
+        {
+            using (var db = new MediasManangementEntities())
+            {
+                var profile = db.Profiles.Single(p => p.Id == SelectedProfileId);
+
+                profile.Name = InputProfileName;
+                if (Path.IsPathRooted(PathAvatarFile))
+                {
+                    var uniqueFileName = Guid.NewGuid();
+                    var fileExtension = Path.GetExtension(PathAvatarFile);
+
+                    var baseFolder = AppDomain.CurrentDomain.BaseDirectory;
+                    var imagePath = Path.Combine(baseFolder, "Images\\Profile", $"{uniqueFileName}{fileExtension}");
+                    File.Copy(PathAvatarFile, imagePath);
+                    PathAvatarFile = $"{uniqueFileName}{fileExtension}";
+                }
+                profile.Avatar = PathAvatarFile;
+
+                db.SaveChanges();
+            }
+
+            ResetBinding();
         }
     }
 }

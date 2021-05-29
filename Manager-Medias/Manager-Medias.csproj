@@ -201,6 +201,7 @@
     <Compile Include="ViewModels\Customer\FavoriteViewModel.cs" />
     <Compile Include="ViewModels\Customer\ForgetPassword.cs" />
     <Compile Include="ViewModels\Customer\HistoryViewModel.cs" />
+    <Compile Include="ViewModels\Customer\HomeMovieViewModel.cs" />
     <Compile Include="ViewModels\Customer\HomeViewModel.cs" />
     <Compile Include="Models\Album.cs">
       <DependentUpon>MediasManagement.tt</DependentUpon>
@@ -324,11 +325,11 @@
     <Compile Include="Views\Layouts\MainLayoutView.xaml.cs">
       <DependentUpon>MainLayoutView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Movie\DetaiImages.xaml.cs">
-      <DependentUpon>DetaiImages.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Movie\DetailMovieView.xaml.cs">
       <DependentUpon>DetailMovieView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Movie\HomeMovieView.xaml.cs">
+      <DependentUpon>HomeMovieView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Payment.xaml.cs">
       <DependentUpon>Payment.xaml</DependentUpon>
@@ -440,11 +441,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Movie\DetaiImages.xaml">
+    <Page Include="Views\Movie\DetailMovieView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Movie\DetailMovieView.xaml">
+    <Page Include="Views\Movie\HomeMovieView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

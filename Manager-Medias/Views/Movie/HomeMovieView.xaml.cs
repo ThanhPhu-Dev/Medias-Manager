@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Manager_Medias.Views.Movie
 {
     /// <summary>
-    /// Interaction logic for DetaiImages.xaml
+    /// Interaction logic for HomeMovieView.xaml
     /// </summary>
-    public partial class DetaiImages : UserControl
+    public partial class HomeMovieView : UserControl
     {
-        public DetaiImages()
+        public HomeMovieView()
         {
             InitializeComponent();
         }

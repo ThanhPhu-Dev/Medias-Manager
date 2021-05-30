@@ -5,6 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Manager_Medias.Views.Account"
+             xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:cv="clr-namespace:Manager_Medias.Converters"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
@@ -16,8 +17,7 @@
         <ListView x:Name="lvPlayList" ItemsSource="{Binding PlayList}"
                   HorizontalAlignment="Stretch"
                   HorizontalContentAlignment="Stretch"
-                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                  >
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel Margin="60 30" />
@@ -32,6 +32,34 @@
                     VerticalContentAlignment="Stretch"
                     Padding="8"
                     Cursor="Hand">
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding MediaType}" Value="Hình ảnh">
+                                        <Setter Property="Command" Value="{Binding DataContext.NavigateDetailAlbum,
+                                                RelativeSource={RelativeSource Mode=FindAncestor,
+                                                AncestorType={x:Type ItemsControl}}}" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding MediaType}" Value="Âm nhạc">
+                                        <Setter Property="Command" Value="{Binding DataContext.NavigateDetailAudio,
+                                                RelativeSource={RelativeSource Mode=FindAncestor,
+                                                AncestorType={x:Type ItemsControl}}}" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding MediaType}" Value="Phim">
+                                        <Setter Property="Command" Value="{Binding DataContext.NavigateDetailMovie,
+                                                RelativeSource={RelativeSource Mode=FindAncestor,
+                                                AncestorType={x:Type ItemsControl}}}" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Behaviors:Interaction.Triggers>
+                            <Behaviors:EventTrigger EventName="Click">
+                                <Behaviors:InvokeCommandAction Command="{Binding DataContext.ItemClickCmd,
+                                                RelativeSource={RelativeSource Mode=FindAncestor,
+                                                AncestorType={x:Type ItemsControl}}}" CommandParameter="{Binding}" />
+                            </Behaviors:EventTrigger>
+                        </Behaviors:Interaction.Triggers>
                         <Grid>
                             <materialDesign:Card
                         UniformCornerRadius="3"
@@ -84,7 +112,12 @@
                                             <Button HorizontalContentAlignment="Stretch"
                                                     VerticalContentAlignment="Stretch"
                                                     HorizontalAlignment="Right"
-                                                    DockPanel.Dock="Right">
+                                                    DockPanel.Dock="Right"
+                                                    x:Name="btnRemove"
+                                                    Command="{Binding DataContext.RemoveCmd,
+                                                            RelativeSource={RelativeSource Mode=FindAncestor,
+                                                            AncestorType={x:Type ItemsControl}}}"
+                                                    CommandParameter="{Binding}">
                                                 <Grid HorizontalAlignment="Stretch" VerticalAlignment="Center">
                                                     <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
                                                         <materialDesign:PackIcon Kind="BookmarkOffOutline"

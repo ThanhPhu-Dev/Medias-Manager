@@ -8,12 +8,25 @@ using System.Text;
 using System.Threading.Tasks;
 using Manager_Medias.CustomModels;
 using System.Windows.Data;
+using System.Windows.Input;
+using Manager_Medias.Commands;
+using Manager_Medias.Services;
 
 namespace Manager_Medias.ViewModels.Customer
 {
     public class FavoriteListViewModel : BaseViewModel
     {
         private readonly UserStore _userStore;
+
+        #region Command
+
+        public ICommand ItemClickCmd { get; }
+        public ICommand NavigateDetailAlbum { get; }
+        public ICommand NavigateDetailAudio { get; }
+        public ICommand NavigateDetailMovie { get; }
+        public ICommand RemoveCmd { get; }
+
+        #endregion Command
 
         #region Binding
 
@@ -31,9 +44,32 @@ namespace Manager_Medias.ViewModels.Customer
 
         #endregion Binding
 
-        public FavoriteListViewModel(UserStore userStore)
+        public FavoriteListViewModel(UserStore userStore, NavigationStore navigationStore)
         {
             _userStore = userStore;
+            _navigationStore = navigationStore;
+            ItemClickCmd = new RelayCommand<Object>((Object selectedItem) =>
+            {
+                if (selectedItem != null)
+                {
+                    PlayList.MoveCurrentTo(selectedItem as MediaCustomModel);
+                }
+            });
+
+            NavigateDetailAlbum = new NavigateCommand<DetailPictureViewModel>(
+                                   new NavigationService<DetailPictureViewModel>(_navigationStore, () =>
+                                   new DetailPictureViewModel(_userStore.CurrentProfile.Id, (PlayList.CurrentItem as MediaCustomModel).MediaID)));
+
+            NavigateDetailAudio = new NavigateCommand<DetailAudioViewModel>(
+                                   new NavigationService<DetailAudioViewModel>(_navigationStore, () =>
+                                   new DetailAudioViewModel(_userStore.CurrentProfile.Id, (PlayList.CurrentItem as MediaCustomModel).MediaID)));
+
+            NavigateDetailMovie = new NavigateCommand<DetailMovieViewModel>(
+                                   new NavigationService<DetailMovieViewModel>(_navigationStore, () =>
+                                   new DetailMovieViewModel()));
+
+            RemoveCmd = new RelayCommand<Object>(ActionRemove);
+
             GetList();
         }
 
@@ -56,7 +92,7 @@ namespace Manager_Medias.ViewModels.Customer
                             media.Image = likes.Media.Movy.Poster;
                             media.Date = (DateTime)likes.Date;
                             media.Time = likes.Media.Movy.Time;
-                            media.MediaType = "Movie";
+                            media.MediaType = "Phim";
                             break;
 
                         case "hình ảnh":
@@ -71,17 +107,17 @@ namespace Manager_Medias.ViewModels.Customer
                             media.Image = image;
                             media.Date = (DateTime)likes.Date;
                             media.Time = null;
-                            media.MediaType = "Album";
+                            media.MediaType = "Hình ảnh";
                             break;
 
-                        case "âm thanh":
+                        case "âm nhạc":
                             media.ID = likes.Id;
                             media.MediaID = likes.Media.Id;
                             media.Name = likes.Media.Audio.Name;
                             media.Image = likes.Media.Audio.Image;
                             media.Date = (DateTime)likes.Date;
                             media.Time = likes.Media.Audio.Time;
-                            media.MediaType = "Audio";
+                            media.MediaType = "Âm nhạc";
 
                             break;
 
@@ -93,6 +129,21 @@ namespace Manager_Medias.ViewModels.Customer
 
                 PlayList = new ListCollectionView(MediaList);
             }
+        }
+
+        public void ActionRemove(Object o)
+        {
+            if (o == null) return;
+            var Item = o as MediaCustomModel;
+
+            using (var db = new MediasManangementEntities())
+            {
+                var likes = db.Likes.Single(l => l.Id == Item.ID);
+                db.Likes.Remove(likes);
+                db.SaveChanges();
+            }
+
+            PlayList.Remove(Item);
         }
     }
 }

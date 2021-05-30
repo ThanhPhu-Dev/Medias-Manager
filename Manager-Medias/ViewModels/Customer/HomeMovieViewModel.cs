@@ -16,6 +16,7 @@ namespace Manager_Medias.ViewModels.Customer
     {
         public static readonly DependencyProperty MovieListProperty;
         public ICommand CmdToDetailMovie { get; set; }
+        private UserStore _user;
 
         static HomeMovieViewModel()
         {
@@ -27,8 +28,11 @@ namespace Manager_Medias.ViewModels.Customer
             set => SetValue(MovieListProperty, value);
         }
 
-        public HomeMovieViewModel(NavigationStore navigationStore)
+        public HomeMovieViewModel(NavigationStore navigationStore, UserStore userStore)
         {
+            //user hiện tại
+            _user = userStore;
+
             //gán biến chuyển trang 
             _navigationStore = navigationStore;
 
@@ -45,7 +49,7 @@ namespace Manager_Medias.ViewModels.Customer
 
             var id = (int)obj;
             //chuyển trang
-            _navigationStore.ContentViewModel = new DetailMovieViewModel(id);
+            _navigationStore.ContentViewModel = new DetailMovieViewModel(id, _user);
         }
 
         private void LoadMovie()

@@ -46,7 +46,7 @@ namespace Manager_Medias.ViewModels.Customer
             }
         }
 
-        public DetailMovieViewModel(int idMovie)
+        public DetailMovieViewModel(int idMovie, UserStore userStore)
         {
 
             CmdLikesClick = new RelayCommand<Object>(Likes);

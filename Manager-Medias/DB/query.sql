@@ -181,6 +181,7 @@ select * from My_Lists
 select * from Movies
 select * from Movie_Categories
 select * from levels
+select * from Album_Details
 
 --insert cấp độ
 INSERT INTO Levels (Name, Price) values
@@ -194,8 +195,11 @@ update Levels set Price = 260000 where Id = 3
 --Insert user 
 INSERT INTO Users VALUES ('nghiadx2001@gmail.c', '123', 1, 'CDCD', '362')
 INSERT INTO Users (Email, Password) VALUES ('1@gmail.c', '123')
+Insert into Users(Email,Password,NumberCard,Level)values ('user@gmail.com', 'G9BBbVflIID4fJFh4ljRqrOgtzA33ztt4q474rYmz8IhcOqD', '1253871235', 1) 
+
 --insert profile
 INSERT INTO Profiles (Email, Name) VALUES ('nghiadx2001@gmail.c', N'Nguyễn H Nghĩa')
+insert into profiles(Email,Name,Status) values ('user@gmail.com', '5 coder bị đơ', 1)
 
 --MEDIA_CAT// chỉ có 3 cái thui, không thêm- sửa -xóa nữa
 INSERT INTO Media_Categories (Name) VALUES (N'Hinh Ảnh'), (N'Phim'), (N'Âm Nhạc')
@@ -213,11 +217,11 @@ INSERT INTO Audios VALUES
 	(3, 2, N'Sóng gió', '3', null),
 	(4, 2, N'Bạc phận', '4', null),
 	(5, 3, N'Nhỏ ơi', '5', null)
-update Audios set Mp3 = 'a_mp3_1.mp3', Image = 'a_avatar_1.jpg' where Id = 1
-update Audios set Mp3 = 'a_mp3_2.mp3', Image = 'a_avatar_2.jpg' where Id = 2
-update Audios set Mp3 = 'a_mp3_3.mp3', Image = 'a_avatar_3.jpg' where Id = 3
-update Audios set Mp3 = 'a_mp3_4.mp3', Image = 'a_avatar_4.jpg' where Id = 4
-update Audios set Mp3 = 'a_mp3_5.mp3', Image = 'a_avatar_5.jpg' where Id = 5
+update Audios set Mp3 = 'audiomp3_mp3_1.mp3', Image = 'audioposter_avatar_1.jpg' where Id = 1
+update Audios set Mp3 = 'audiomp3_mp3_2.mp3', Image = 'audioposter_avatar_2.jpg' where Id = 2
+update Audios set Mp3 = 'audiomp3_mp3_3.mp3', Image = 'audioposter_avatar_3.jpg' where Id = 3
+update Audios set Mp3 = 'audiomp3_mp3_4.mp3', Image = 'audioposter_avatar_4.jpg' where Id = 4
+update Audios set Mp3 = 'audiomp3_mp3_5.mp3', Image = 'audioposter_avatar_5.jpg' where Id = 5
 
 --INSERT ALBUM_CAT
 select * from Albums
@@ -227,11 +231,11 @@ INSERT INTO Albums values
 
 --INSERT ALBUM
 INSERT INTO Album_Details (IdAlbum, Image) VALUES
-(8, 'PT_TN_1.jpg'),
-(8, 'PT_TN_2.jpg'),
-(8, 'PT_TN_3.jpg'),
-(8, 'PT_TN_4.jpg'),
-(8, 'PT_TN_5.jpg')
+(8, 'album_PT_TN_1.jpg'),
+(8, 'album_PT_TN_2.jpg'),
+(8, 'album_PT_TN_3.jpg'),
+(8, 'album_PT_TN_4.jpg'),
+(8, 'album_PT_TN_5.jpg')
 
 --them media yeu thích và mylist
 insert into Likes (IdProfile, IdMedia, Date) values 
@@ -243,21 +247,19 @@ insert into My_Lists(IdProfile, IdMedia, Date) values
 (1, 2, '01-03-2021'),
 (1, 7, '01-03-2021')
 
---insert phim 
-insert into Movies (Id, IdCategory, IMDB, Likes, Name, NumberOfViews, Poster, Age)
-			values (18, 1, 6.5, 4, N'Iron Man 1', 23, 'action_ironman_1.jpg', 18),
-				   (19, 1, 5, 0, N'Iron Man 1', 23, 'action_ironman_2.jpg', 18),
-				   (20, 1, 6, 0, N'Nhiệm Vụ Bất KT', 103, 'action_NVBKT_5.jpg', 18),
-				   (21, 1, 7, 0, N'Người Nhện ', 23, 'action_SD.jpg', 18),
-				   (22, 1, 4, 0, N'Quá Nhanh Quá NH', 1000, 'action_ff_9.jpg', 18)
-
-
-
-update Medias set Lvl = 1 where Id = 7
-insert into Movies (Id, IdCategory,IMDB,Likes,Name,NumberOfViews,Poster,Age,Description,Season,Time,Video)
-values (7,1,6.5,4,N'Super Hero', 23, 'postermovieHuter.jpg', 18,N'Super hero hân hạnh tài trợ', 'kn92','00:12:30','video.mp4')
-Insert into Users(Email,Password,NumberCard,Level)values ('user@gmail.com', 'G9BBbVflIID4fJFh4ljRqrOgtzA33ztt4q474rYmz8IhcOqD', '1253871235', 1) 
-insert into profiles(Email,Name,Status) values ('user@gmail.com', '5 coder bị đơ', 1)
+--insert payment history
 insert into payment_history(Email,DateOfPayment,Note,Price) values ('user@gmail.com', '2021-05-29', '',180000)
 insert into payment_history(Email,DateOfPayment,Note,Price) values ('user@gmail.com', '2021-05-28', '',170000)
 insert into payment_history(Email,DateOfPayment,Note,Price) values ('user@gmail.com', '2021-05-30', '',200000)
+
+--insert phim 
+insert into Movies (Id, IdCategory, IMDB, Likes, Name, NumberOfViews, Poster, Age)
+			values (18, 1, 6.5, 4, N'Iron Man 1', 23, 'movieposter_action_ironman_1.jpg', 18),
+				   (19, 1, 5, 0, N'Iron Man 1', 23, 'movieposter_action_ironman_2.jpg', 18),
+				   (20, 1, 6, 0, N'Nhiệm Vụ Bất KT', 103, 'movieposter_action_NVBKT_5.jpg', 18),
+				   (21, 1, 7, 0, N'Người Nhện ', 23, 'movieposter_action_SD.jpg', 18),
+				   (22, 1, 4, 0, N'Quá Nhanh Quá NH', 1000, 'movieposter_action_ff_9.jpg', 18)
+
+insert into Movies (Id, IdCategory,IMDB,Likes,Name,NumberOfViews,Poster,Age,Description,Season,Time,Video)
+values (7,1,6.5,4,N'Super Hero', 23, 'movieposter_postermovieHuter.jpg', 18,N'Super hero hân hạnh tài trợ', 'kn92','00:12:30','movievideo_video.mp4')
+

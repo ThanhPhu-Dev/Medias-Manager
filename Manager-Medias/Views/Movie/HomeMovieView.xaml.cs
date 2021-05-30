@@ -37,10 +37,10 @@ namespace Manager_Medias.Views.Movie
             switch (turn)
             {
                 case "KeyboardArrowRight":
-                    sv.ScrollToHorizontalOffset(curPos + 40);
+                    sv.ScrollToHorizontalOffset(curPos + 80);
                     break;
                 case "ChevronLeft":
-                    sv.ScrollToHorizontalOffset(curPos - 40);
+                    sv.ScrollToHorizontalOffset(curPos - 80);
                     break;
                 default:
                     break;

@@ -17,15 +17,29 @@ namespace Manager_Medias.Converters
             {
                 return null;
             }
-            string img = value.ToString();
-            var currentfolder = AppDomain.CurrentDomain.BaseDirectory;
-            if (Path.IsPathRooted(img))
+            string val = value.ToString();
+            var type = val.Split('_');
+            StringBuilder url = new StringBuilder(AppDomain.CurrentDomain.BaseDirectory + "Images" + Path.DirectorySeparatorChar);
+            switch (type[0].Trim())
             {
-                return img;
-            }
+                case "album":
+                    url.Append("Album" + Path.DirectorySeparatorChar);
+                    break;
+                case "audiomp3":
+                    url.Append("Audio" + Path.DirectorySeparatorChar + "mp3" + Path.DirectorySeparatorChar);
+                    break;
+                case "audioposter":
+                    url.Append("Audio" + Path.DirectorySeparatorChar + "Poster" + Path.DirectorySeparatorChar);
+                    break;
+                case "movieposter":
+                    url.Append("Movie" + Path.DirectorySeparatorChar + "Poster" + Path.DirectorySeparatorChar);
+                    break;
+                case "movievideo":
+                    url.Append("Movie" + Path.DirectorySeparatorChar + "Video" + Path.DirectorySeparatorChar);
+                    break;
 
-            String url = currentfolder + "Images\\" + img;
-            return url;
+            }
+            return url.Append(val).ToString();
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

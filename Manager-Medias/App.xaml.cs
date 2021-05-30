@@ -23,8 +23,8 @@ namespace Manager_Medias
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("NDUwNjgwQDMxMzkyZTMxMmUzMEFCRUZSUzU4RGNhTGo0eHkvMW9YYVJkMUd5UXhxbTdaNTdtSFFJSS84dlU9");
             // Init location
             NavigationStore navigationStore = new NavigationStore();
-            navigationStore.ContentViewModel = new GuestHomeViewModel();
-            navigationStore.CurrentViewModel = new GuestMainViewModel(navigationStore);
+            navigationStore.ContentViewModel = new HomeViewModel();
+            navigationStore.CurrentViewModel = new HomeViewModel();
             //User currentUser = new User
             //{
             //    Code = "usercode",

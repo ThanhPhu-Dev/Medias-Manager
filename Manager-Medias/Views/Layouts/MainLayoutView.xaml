@@ -279,7 +279,7 @@
         <Grid Grid.Row="1">
             <Grid.Resources>
                 <DataTemplate DataType="{x:Type viewmodels:HomeViewModel}">
-                    <vhome:Home />
+                    <vhome:HomeView />
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type viewmodels:MainAccountViewModel}">
                     <vprofile:MainAccountView />

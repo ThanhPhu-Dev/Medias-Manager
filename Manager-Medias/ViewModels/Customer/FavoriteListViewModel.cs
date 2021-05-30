@@ -67,7 +67,7 @@ namespace Manager_Medias.ViewModels.Customer
 
             NavigateDetailMovie = new NavigateCommand<DetailMovieViewModel>(
                                    new NavigationService<DetailMovieViewModel>(_navigationStore, () =>
-                                   new DetailMovieViewModel((PlayList.CurrentItem as MediaCustomModel).MediaID)));
+                                   new DetailMovieViewModel((PlayList.CurrentItem as MediaCustomModel).MediaID, _userStore)));
 
             RemoveCmd = new RelayCommand<Object>(ActionRemove);
 

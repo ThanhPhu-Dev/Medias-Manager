@@ -340,9 +340,6 @@
     <Compile Include="Views\PasswordBoxUC.xaml.cs">
       <DependentUpon>PasswordBoxUC.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Payment.xaml.cs">
-      <DependentUpon>Payment.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Picture\DetailPictrue.xaml.cs">
       <DependentUpon>DetailPictrue.xaml</DependentUpon>
     </Compile>
@@ -459,10 +456,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\PasswordBoxUC.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Payment.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -165,6 +165,7 @@
     <Compile Include="CustomModels\DetailMovieCustomModel.cs" />
     <Compile Include="CustomModels\InfoPaymentHistoryCustomModelcs.cs" />
     <Compile Include="CustomModels\MediaCustomModel.cs" />
+    <Compile Include="Functions\HashPassword.cs" />
     <Compile Include="Models\Album_Detail.cs">
       <DependentUpon>MediasManagement.tt</DependentUpon>
     </Compile>

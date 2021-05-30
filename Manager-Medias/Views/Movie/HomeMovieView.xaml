@@ -13,7 +13,34 @@
     <UserControl.Resources>
         <cvt:ConvertImage x:Key="imageCvt"/>
 
+        <!--style cho 2 button scroll-->
+        <Style TargetType="RepeatButton">
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Width" Value="40"/>
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            <Setter Property="ClickMode" Value="Hover"/>
+            <EventSetter Event="Click" Handler="Button_Click"/>
 
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate TargetType="RepeatButton">
+                        <Border>
+                            <ContentPresenter Height="auto"/>
+                        </Border>
+
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter Property="Background" Value="Transparent" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!--template khi chưa hover-->
         <DataTemplate DataType="{x:Type model:Movie}" x:Key="carouselItemDefault">
             <Grid Margin="3 1">
                 <Image Height="120" Width="250" 
@@ -27,6 +54,8 @@
                                        Panel.ZIndex="0"/>
             </Grid>
         </DataTemplate>
+        
+        <!--template khi đã hover-->
         <DataTemplate DataType="{x:Type model:Movie}" x:Key="carouselItemMouse">
             <Grid Margin="3 1">
                 <Image Height="120" Width="250" 
@@ -54,38 +83,10 @@
                 </StackPanel>
             </Grid>
         </DataTemplate>
-        <Style x:Key="gridItemCarousel" TargetType="Grid">
-        </Style>
+
     </UserControl.Resources>
     <ScrollViewer Background="Black">
         <Grid>
-            <Grid.Resources>
-                <Style TargetType="RepeatButton">
-                    <Setter Property="Cursor" Value="Hand"/>
-                    <Setter Property="Width" Value="40"/>
-                    <Setter Property="BorderThickness" Value="0" />
-                    <Setter Property="BorderBrush" Value="Transparent" />
-                    <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-                    <Setter Property="ClickMode" Value="Hover"/>
-                    <EventSetter Event="Click" Handler="Button_Click"/>
-
-                    <Setter Property="Template" >
-                        <Setter.Value>
-                            <ControlTemplate TargetType="RepeatButton">
-                                <Border>
-                                    <ContentPresenter Height="auto"/>
-                                </Border>
-
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                    <Style.Triggers>
-                        <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Background" Value="Transparent" />
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </Grid.Resources>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition Width="8*"/>
@@ -99,34 +100,6 @@
 
             <Grid VerticalAlignment="Top" 
                       Grid.Row="1" Grid.Column="1" >
-                <Grid.Resources>
-                    
-                    <Style TargetType="RepeatButton">
-                        <Setter Property="Cursor" Value="Hand"/>
-                        <Setter Property="Width" Value="40"/>
-                        <Setter Property="BorderThickness" Value="0" />
-                        <Setter Property="BorderBrush" Value="Transparent" />
-                        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-                        <Setter Property="ClickMode" Value="Hover"/>
-                        <EventSetter Event="Click" Handler="Button_Click"/>
-
-                        <Setter Property="Template" >
-                            <Setter.Value>
-                                <ControlTemplate TargetType="RepeatButton">
-                                    <Border>
-                                        <ContentPresenter Height="auto"/>
-                                    </Border>
-
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="true">
-                                <Setter Property="Background" Value="Transparent" />
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Grid.Resources>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="55"/>
                     <ColumnDefinition/>
@@ -145,7 +118,7 @@
 
                 <StackPanel VerticalAlignment="Center" Grid.ColumnSpan="3" Grid.Row="1"
                         HorizontalAlignment="Center">
-                    <ItemsControl Name="itc_movie" ItemsSource="{Binding MovieList}">
+                    <ItemsControl Name="itc_movie" ItemsSource="{Binding MovieList}" >
                         <ItemsControl.ItemContainerStyle>
                             <Style TargetType="ContentPresenter" >
                                 <Setter Property="ContentTemplate" Value="{StaticResource carouselItemDefault}"/>

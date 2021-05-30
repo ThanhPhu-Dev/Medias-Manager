@@ -221,8 +221,8 @@
                 <DataTemplate DataType="{x:Type vm:ProfileManagerViewModel}">
                     <local:ProfileManager />
                 </DataTemplate>
-                <DataTemplate DataType="{x:Type vm:FavoriteViewModel}">
-                    <local:PlayListView />
+                <DataTemplate DataType="{x:Type vm:FavoriteListViewModel}">
+                    <local:FavoriteListView />
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type vm:HistoryViewModel}">
                     <local:PlayListView />

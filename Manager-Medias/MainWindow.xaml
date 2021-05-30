@@ -20,6 +20,9 @@
             <DataTemplate DataType="{x:Type cusvm:HomeViewModel}">
                 <vhome:HomeView />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type cusvm:MainLayoutViewModel}">
+                <layout:MainLayoutView />
+            </DataTemplate>
             <DataTemplate DataType="{x:Type guestvm:GuestMainViewModel}">
                 <vguest:MainCustomerView />
             </DataTemplate>

@@ -15,6 +15,7 @@ namespace Manager_Medias.ViewModels.Customer
     public class DetailMovieViewModel : BaseViewModel
     {
         private readonly UserStore _userStore;
+        private int id;
         public static readonly DependencyProperty MovieProperty;
         public ICommand CmdLikesClick { get; set; }
         public ICommand CmdShareClick { get; set; }
@@ -47,10 +48,12 @@ namespace Manager_Medias.ViewModels.Customer
 
         public DetailMovieViewModel(int idMovie)
         {
+
             CmdLikesClick = new RelayCommand<Object>(Likes);
             CmdShareClick = new RelayCommand<Object>(Share);
             CmdErrorClick = new RelayCommand<Object>(Error);
             CmdAddMyListClick = new RelayCommand<Object>(AddMyList);
+            this.id = idMovie;
             loaded();
         }
 
@@ -62,7 +65,7 @@ namespace Manager_Medias.ViewModels.Customer
         {
             using (var x = new MediasManangementEntities())
             {
-                Movie Movie = x.Movies.Where(p => p.Id == 7).FirstOrDefault() as Movie;
+                Movie Movie = x.Movies.Where(p => p.Id == id).FirstOrDefault() as Movie;
                 DetailMovies = new DetailMovieCustomModel()
                 {
                     Id = Movie.Id,

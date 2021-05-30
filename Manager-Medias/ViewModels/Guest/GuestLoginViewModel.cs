@@ -133,7 +133,7 @@ namespace Manager_Medias.ViewModels.Guest
                 UserStore userStore = new UserStore(user);
 
                 _navigationStore.CurrentViewModel = new MainLayoutViewModel(userStore, _navigationStore);
-                _navigationStore.ContentViewModel = new HomeMovieViewModel();
+                _navigationStore.ContentViewModel = new HomeAudioViewModel();
             }
         }
     }

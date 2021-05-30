@@ -27,7 +27,7 @@
             <Setter Property="Height" Value="0"/>
         </Style>
         <Storyboard SlipBehavior="Slip" x:Key="anm_PlayVideo">
-            <MediaTimeline Source="F:\2021 - 2022\UDQL2\Project\Medias-Manager\Manager-Medias\bin\Debug\Images\video.mp4"
+            <MediaTimeline Source="{Binding DetailMovies.Video, Converter={StaticResource cvt}}"
                            Storyboard.TargetName="mea_video"
                            BeginTime="0:0:0" Duration="{Binding DetailMovies.Time}"/>
         </Storyboard>
@@ -62,18 +62,7 @@
     <ScrollViewer Background="Black" Width="1200">
         <StackPanel>
             <StackPanel Name="mediaContainer" Height="0">
-                <MediaElement
-                x:Name="mea_video">
-                    <!--<MediaElement.Style>
-                    <Style>
-                        <Style.Triggers>
-                            <Trigger Property="Height" Value="0">
-                                <Setter Property=""/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </MediaElement.Style>-->
-                </MediaElement>
+                <MediaElement x:Name="mea_video"/>
                 <ToggleButton Width="55" Height="55" Padding="0" 
                                       Background="Transparent" 
                                       Foreground="#febb00"

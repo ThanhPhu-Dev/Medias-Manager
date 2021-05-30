@@ -203,6 +203,7 @@
     <Compile Include="ViewModels\Customer\FavoriteViewModel.cs" />
     <Compile Include="ViewModels\Customer\ForgetPassword.cs" />
     <Compile Include="ViewModels\Customer\HistoryViewModel.cs" />
+    <Compile Include="ViewModels\Customer\HomeAudioViewModel.cs" />
     <Compile Include="ViewModels\Customer\HomeMovieViewModel.cs" />
     <Compile Include="ViewModels\Customer\HomeViewModel.cs" />
     <Compile Include="Models\Album.cs">
@@ -333,9 +334,6 @@
     <Compile Include="Views\Movie\HomeMovieView.xaml.cs">
       <DependentUpon>HomeMovieView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Payment.xaml.cs">
-      <DependentUpon>Payment.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Picture\DetailPictrue.xaml.cs">
       <DependentUpon>DetailPictrue.xaml</DependentUpon>
     </Compile>
@@ -448,10 +446,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Movie\HomeMovieView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Payment.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

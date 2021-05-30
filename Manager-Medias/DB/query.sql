@@ -119,10 +119,10 @@ CREATE TABLE Audios
 	Name NVARCHAR(20),
 	Image VARCHAR(MAX),
 	Mp3 VARCHAR(MAX),
+	Singer NVARCHAR(20),
 
 	CONSTRAINT PK_Audios PRIMARY KEY (Id)
 )
-
 
 CREATE TABLE My_Lists
 (
@@ -217,11 +217,11 @@ INSERT INTO Audios VALUES
 	(3, 2, N'Sóng gió', '3', null),
 	(4, 2, N'Bạc phận', '4', null),
 	(5, 3, N'Nhỏ ơi', '5', null)
-update Audios set Mp3 = 'audiomp3_mp3_1.mp3', Image = 'audioposter_avatar_1.jpg' where Id = 1
-update Audios set Mp3 = 'audiomp3_mp3_2.mp3', Image = 'audioposter_avatar_2.jpg' where Id = 2
-update Audios set Mp3 = 'audiomp3_mp3_3.mp3', Image = 'audioposter_avatar_3.jpg' where Id = 3
-update Audios set Mp3 = 'audiomp3_mp3_4.mp3', Image = 'audioposter_avatar_4.jpg' where Id = 4
-update Audios set Mp3 = 'audiomp3_mp3_5.mp3', Image = 'audioposter_avatar_5.jpg' where Id = 5
+update Audios set Singer='DATKAA X QT BEATZ' where Id = 1
+update Audios set Singer=N'Doãn Hiếu' where Id = 2
+update Audios set Singer='K-ICM x JACK' where Id = 3
+update Audios set Singer='K-ICM x JACK' where Id = 4
+update Audios set Singer=N'Chí Tài' where Id = 5
 
 --INSERT ALBUM_CAT
 select * from Albums

@@ -62,7 +62,7 @@ namespace Manager_Medias.ViewModels.Customer
         {
             using (var x = new MediasManangementEntities())
             {
-                Movie Movie = x.Movies.FirstOrDefault() as Movie;
+                Movie Movie = x.Movies.Where(p => p.Id == 7).FirstOrDefault() as Movie;
                 DetailMovies = new DetailMovieCustomModel()
                 {
                     Id = Movie.Id,
@@ -78,11 +78,9 @@ namespace Manager_Medias.ViewModels.Customer
                     Video = Movie.Video,
                     Directors = Movie.Directors,
                     Nation = Movie.Nation,
+                    
                 };
 
-                //ktr xem video có trong mylist chưa 
-                var n_Save = x.My_Lists.Where(mylist => mylist.IdMedia == DetailMovies.Id && mylist.IdProfile == 1).Count();
-                CheckSave = true ? n_Save > 0 : false;
             }
         }
 

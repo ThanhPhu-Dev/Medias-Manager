@@ -11,6 +11,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 using Manager_Medias.Commands;
 using Manager_Medias.Services;
+using System.ComponentModel;
 
 namespace Manager_Medias.ViewModels.Customer
 {
@@ -128,6 +129,7 @@ namespace Manager_Medias.ViewModels.Customer
                 });
 
                 PlayList = new ListCollectionView(MediaList);
+                PlayList.SortDescriptions.Add(new SortDescription("Date", ListSortDirection.Descending));
             }
         }
 

@@ -50,8 +50,8 @@ namespace Manager_Medias.ViewModels.Customer
             NavigateFavoriteManagerCmd = new NavigateCommand<FavoriteListViewModel>(
                 new NavigationService<FavoriteListViewModel>(_acccountNavigateStore, () => new FavoriteListViewModel(userStore, _navigationStore)));
 
-            NavigateHistoryListCmd = new NavigateCommand<HistoryViewModel>(
-                new NavigationService<HistoryViewModel>(_acccountNavigateStore, () => new HistoryViewModel(userStore)));
+            NavigateHistoryListCmd = new NavigateCommand<HistoryListViewModel>(
+                new NavigationService<HistoryListViewModel>(_acccountNavigateStore, () => new HistoryListViewModel(userStore, _navigationStore)));
 
             NavigatePaymentHistoryCmd = new NavigateCommand<PaymentHistoryViewModel>(
                 new NavigationService<PaymentHistoryViewModel>(_acccountNavigateStore, () => new PaymentHistoryViewModel(userStore)));

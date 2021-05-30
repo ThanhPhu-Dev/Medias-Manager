@@ -204,7 +204,7 @@
     <Compile Include="ViewModels\Customer\DetailPictureViewModel.cs" />
     <Compile Include="ViewModels\Customer\FavoriteListViewModel.cs" />
     <Compile Include="ViewModels\Customer\ForgetPassword.cs" />
-    <Compile Include="ViewModels\Customer\HistoryViewModel.cs" />
+    <Compile Include="ViewModels\Customer\HistoryListViewModel.cs" />
     <Compile Include="ViewModels\Customer\HomeMovieViewModel.cs" />
     <Compile Include="ViewModels\Customer\HomeViewModel.cs" />
     <Compile Include="Models\Album.cs">
@@ -268,6 +268,9 @@
     </Compile>
     <Compile Include="Views\Account\FavoriteListView.xaml.cs">
       <DependentUpon>FavoriteListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Account\HistoryListView.xaml.cs">
+      <DependentUpon>HistoryListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Account\MainAccountView.xaml.cs">
       <DependentUpon>MainAccountView.xaml</DependentUpon>
@@ -359,6 +362,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Account\FavoriteListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Account\HistoryListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -237,8 +237,8 @@
                 <DataTemplate DataType="{x:Type vm:FavoriteListViewModel}">
                     <local:FavoriteListView />
                 </DataTemplate>
-                <DataTemplate DataType="{x:Type vm:HistoryViewModel}">
-                    <local:PlayListView />
+                <DataTemplate DataType="{x:Type vm:HistoryListViewModel}">
+                    <local:HistoryListView />
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type vm:PaymentHistoryViewModel}">
                     <local:PaymentHistoryView />

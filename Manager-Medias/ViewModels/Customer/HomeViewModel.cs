@@ -5,27 +5,36 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Manager_Medias.ViewModels.Customer
 {
     public class HomeViewModel : BaseViewModel
     {
-        public ObservableCollection<string> MovieGenre { get; set; }
-        public ObservableCollection<MovieCarouselModel> CarouselCollection { get; set; }
+        public static readonly DependencyProperty MovieListProperty;
+        public ObservableCollection<Movie> Movies
+        {
+            get => (ObservableCollection<Movie>)GetValue(MovieListProperty);
+            set => SetValue(MovieListProperty, value);
+        }
+
+        public static ObservableCollection<Audio> Audios { get; set; }
+
+        public static ObservableCollection<Album_Detail> Albums { get; set; }
+
+        static HomeViewModel()
+        {
+            MovieListProperty = DependencyProperty.Register("MovieList", typeof(ObservableCollection<Movie>), typeof(HomeViewModel));
+        }
 
         public HomeViewModel()
         {
-            MovieGenre = new ObservableCollection<string>
+            using (var db = new MediasManangementEntities())
             {
-                "Hành động", "Viễn tưởng", "18+"
-            };
-
-            CarouselCollection = new ObservableCollection<MovieCarouselModel>()
-            {
-                  new MovieCarouselModel(){Image = "/Images/transitton-4.jpg", Title = "MIME", Description =" Sở hữu"},
-                  new MovieCarouselModel(){Image = "/Images/transitton-1.jpg", Title = "DOOM AT YOUR SERVICE", Description ="Một ngày nọ kẻ hủy diệt gõ cửa nhà tôi"},
-                  new MovieCarouselModel(){Image = "/Images/transitton-3.jpg", Title = "VIVY: FLUORITE EYE'S SONG", Description =" Câu chuyện VyVy"},
-            };
+                Albums = new ObservableCollection<Album_Detail>(db.Album_Details.ToList());
+                Audios = new ObservableCollection<Audio>(db.Audios.ToList());
+                Movies = new ObservableCollection<Movie>(db.Movies.ToList());
+            }
         }
     }
 }

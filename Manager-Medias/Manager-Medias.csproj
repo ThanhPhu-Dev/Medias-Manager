@@ -205,6 +205,7 @@
     <Compile Include="ViewModels\Customer\DetailPictureViewModel.cs" />
     <Compile Include="ViewModels\Customer\FavoriteListViewModel.cs" />
     <Compile Include="ViewModels\Customer\ForgetPassword.cs" />
+    <Compile Include="ViewModels\Customer\HomeAudioViewModel.cs" />
     <Compile Include="ViewModels\Customer\HistoryListViewModel.cs" />
     <Compile Include="ViewModels\Customer\HomeMovieViewModel.cs" />
     <Compile Include="ViewModels\Customer\HomeViewModel.cs" />

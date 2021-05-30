@@ -194,7 +194,7 @@ namespace Manager_Medias.ViewModels.Customer
             {
                 player = new MediaPlayer();
                 var currentfolder = AppDomain.CurrentDomain.BaseDirectory;
-                string url = currentfolder + "Images\\Audio\\mp3\\" + audioMame;
+                string url = currentfolder+ "Images\\Audio\\mp3\\" + audioMame;
                 player.Open(new Uri(url));
                 player.Play();
             }

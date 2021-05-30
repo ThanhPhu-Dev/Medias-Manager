@@ -37,6 +37,7 @@
           <Property Name="Image" Type="varchar(max)" />
           <Property Name="Mp3" Type="varchar(max)" />
           <Property Name="Time" Type="varchar" MaxLength="8" />
+          <Property Name="Singer" Type="nvarchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="Levels">
           <Key>
@@ -444,6 +445,7 @@
           <NavigationProperty Name="Audio_Categories" Relationship="Self.FK_Audios_AudioCategories" FromRole="Audios" ToRole="Audio_Categories" />
           <NavigationProperty Name="Media" Relationship="Self.FK_Audios_Medias" FromRole="Audios" ToRole="Medias" />
           <Property Name="Time" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="Singer" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Level">
           <Key>
@@ -867,6 +869,7 @@
           <EntitySetMapping Name="Audios">
             <EntityTypeMapping TypeName="MediasManangementModel.Audio">
               <MappingFragment StoreEntitySet="Audios">
+                <ScalarProperty Name="Singer" ColumnName="Singer" />
                 <ScalarProperty Name="Time" ColumnName="Time" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="IdCategory" ColumnName="IdCategory" />

@@ -1,4 +1,5 @@
 ﻿using Manager_Medias.Commands;
+using Manager_Medias.Functions;
 using Manager_Medias.Models;
 using Manager_Medias.Stores;
 using Manager_Medias.Validates;
@@ -14,7 +15,7 @@ using System.Windows.Input;
 
 namespace Manager_Medias.ViewModels.Guest
 {
-    class GuestInfoRegisterViewModel : BaseViewModel
+    internal class GuestInfoRegisterViewModel : BaseViewModel
     {
         public ICommand CmdContinue { get; }
 
@@ -76,17 +77,7 @@ namespace Manager_Medias.ViewModels.Guest
         private void Continue(object[] obj)
         {
             //hash password
-            byte[] salt;
-            new RNGCryptoServiceProvider().GetBytes(salt = new byte[16]);
-
-            var pbkdf2 = new Rfc2898DeriveBytes(Password, salt, 10000);
-            byte[] hash = pbkdf2.GetBytes(20);
-
-            byte[] hashBytes = new byte[36];
-            Array.Copy(salt, 0, hashBytes, 0, salt.Length);
-            Array.Copy(hash, 0, hashBytes, salt.Length, hash.Length);
-
-            string pwHash = Convert.ToBase64String(hashBytes);
+            string pwHash = HashPassword.Hash(Password);
 
             //tạo user
             User user = new User()

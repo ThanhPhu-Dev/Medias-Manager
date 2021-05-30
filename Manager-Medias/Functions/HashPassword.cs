@@ -31,5 +31,22 @@ namespace Manager_Medias.Functions
             }
             return true;
         }
+
+        public static string Hash(string plainPw)
+        {
+            byte[] salt;
+            new RNGCryptoServiceProvider().GetBytes(salt = new byte[16]);
+
+            var pbkdf2 = new Rfc2898DeriveBytes(plainPw, salt, 10000);
+            byte[] hash = pbkdf2.GetBytes(20);
+
+            byte[] hashBytes = new byte[36];
+            Array.Copy(salt, 0, hashBytes, 0, salt.Length);
+            Array.Copy(hash, 0, hashBytes, salt.Length, hash.Length);
+
+            string pwHash = Convert.ToBase64String(hashBytes);
+
+            return pwHash;
+        }
     }
 }

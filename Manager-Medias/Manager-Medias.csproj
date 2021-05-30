@@ -161,8 +161,10 @@
     <Compile Include="Converters\ProfileImageConverter.cs" />
     <Compile Include="Converters\ProfileLoginEnableConverter.cs" />
     <Compile Include="Converters\TextToPasswordCharConverter.cs" />
+    <Compile Include="Converters\ToShortDateConverter.cs" />
     <Compile Include="CustomModels\DetailMovieCustomModel.cs" />
     <Compile Include="CustomModels\InfoPaymentHistoryCustomModelcs.cs" />
+    <Compile Include="CustomModels\MediaCustomModel.cs" />
     <Compile Include="Models\Album_Detail.cs">
       <DependentUpon>MediasManagement.tt</DependentUpon>
     </Compile>
@@ -200,7 +202,7 @@
     <Compile Include="ViewModels\Customer\DetailAudioViewModel.cs" />
     <Compile Include="ViewModels\Customer\DetailMovieViewModel.cs" />
     <Compile Include="ViewModels\Customer\DetailPictureViewModel.cs" />
-    <Compile Include="ViewModels\Customer\FavoriteViewModel.cs" />
+    <Compile Include="ViewModels\Customer\FavoriteListViewModel.cs" />
     <Compile Include="ViewModels\Customer\ForgetPassword.cs" />
     <Compile Include="ViewModels\Customer\HistoryViewModel.cs" />
     <Compile Include="ViewModels\Customer\HomeMovieViewModel.cs" />
@@ -263,6 +265,9 @@
     </Compile>
     <Compile Include="Views\Account\ChangePasswordView.xaml.cs">
       <DependentUpon>ChangePasswordView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Account\FavoriteListView.xaml.cs">
+      <DependentUpon>FavoriteListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Account\MainAccountView.xaml.cs">
       <DependentUpon>MainAccountView.xaml</DependentUpon>
@@ -356,6 +361,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Account\ChangePasswordView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Account\FavoriteListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

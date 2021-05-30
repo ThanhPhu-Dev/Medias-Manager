@@ -17,6 +17,9 @@
         Width="1200">
     <Grid x:Name="grid">
         <Grid.Resources>
+            <DataTemplate DataType="{x:Type cusvm:HomeViewModel}">
+                <vhome:HomeView />
+            </DataTemplate>
             <DataTemplate DataType="{x:Type cusvm:MainLayoutViewModel}">
                 <layout:MainLayoutView />
             </DataTemplate>

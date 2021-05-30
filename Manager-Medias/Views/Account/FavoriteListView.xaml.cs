@@ -1,6 +1,4 @@
-﻿using Manager_Medias.ViewModels;
-using Manager_Medias.ViewModels.Customer;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,17 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Manager_Medias.Views.Movie
+namespace Manager_Medias.Views.Account
 {
     /// <summary>
-    /// Interaction logic for DetailMovie.xaml
+    /// Interaction logic for FavoriteListView.xaml
     /// </summary>
-    public partial class DetailMovie : UserControl
+    public partial class FavoriteListView : UserControl
     {
-        public DetailMovie()
+        public FavoriteListView()
         {
             InitializeComponent();
-            DataContext = new DetailMovieViewModel(null);
         }
     }
 }

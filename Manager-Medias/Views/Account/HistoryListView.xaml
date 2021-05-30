@@ -1,0 +1,136 @@
+﻿<UserControl x:Class="Manager_Medias.Views.Account.HistoryListView"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Manager_Medias.Views.Account"
+            xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:cv="clr-namespace:Manager_Medias.Converters"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <cv:ConvertImage x:Key="imgCvt" />
+        <cv:ToShortDateConverter x:Key="dateCvt" />
+    </UserControl.Resources>
+    <Border Background="#000" Margin="20 30" CornerRadius="3">
+        <ListView x:Name="lvPlayList" ItemsSource="{Binding PlayList}"
+                  HorizontalAlignment="Stretch"
+                  HorizontalContentAlignment="Stretch"
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Margin="60 30" />
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Button x:Name="Item"
+                    Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                    Height="120"
+                    HorizontalContentAlignment="Stretch"
+                    VerticalContentAlignment="Stretch"
+                    Padding="8"
+                    Cursor="Hand">
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Background="{TemplateBinding Background}"
+                                                    Padding="8">
+                                                <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Background" Value="#FF303030" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding MediaType}" Value="Hình ảnh">
+                                        <Setter Property="Command" Value="{Binding DataContext.NavigateDetailAlbum,
+                                                RelativeSource={RelativeSource Mode=FindAncestor,
+                                                AncestorType={x:Type ItemsControl}}}" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding MediaType}" Value="Âm nhạc">
+                                        <Setter Property="Command" Value="{Binding DataContext.NavigateDetailAudio,
+                                                RelativeSource={RelativeSource Mode=FindAncestor,
+                                                AncestorType={x:Type ItemsControl}}}" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding MediaType}" Value="Phim">
+                                        <Setter Property="Command" Value="{Binding DataContext.NavigateDetailMovie,
+                                                RelativeSource={RelativeSource Mode=FindAncestor,
+                                                AncestorType={x:Type ItemsControl}}}" />
+                                    </DataTrigger>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#FF616161" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Behaviors:Interaction.Triggers>
+                            <Behaviors:EventTrigger EventName="Click">
+                                <Behaviors:InvokeCommandAction Command="{Binding DataContext.ItemClickCmd,
+                                                RelativeSource={RelativeSource Mode=FindAncestor,
+                                                AncestorType={x:Type ItemsControl}}}" CommandParameter="{Binding}" />
+                            </Behaviors:EventTrigger>
+                        </Behaviors:Interaction.Triggers>
+                        <Grid>
+                            <materialDesign:Card
+                        UniformCornerRadius="3"
+                        Background="Transparent">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="{Binding ActualHeight, ElementName=Item}" />
+                                        <ColumnDefinition Width="24" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Border Grid.Column="0" CornerRadius="3" ClipToBounds="True">
+                                        <Image Source="{Binding Image, Converter={StaticResource imgCvt}}" />
+                                    </Border>
+                                    <StackPanel Grid.Column="2">
+                                        <TextBlock Text="{Binding Name}"
+                                           TextWrapping="Wrap"
+                                           FontSize="18"
+                                           FontWeight="Medium"
+                                           Foreground="#fff"
+                                           Margin="0 12 0 0" />
+                                        <StackPanel Orientation="Horizontal"
+                                                    Margin="0 12 0 0">
+                                            <TextBlock Text="{Binding MediaType}"
+                                                    Foreground="#fff"
+                                                    FontSize="14"
+                                                    VerticalAlignment="Center" />
+                                            <TextBlock Text="{Binding Time, StringFormat='{}  -  Thời lượng: {0}' }"
+                                                    Foreground="#fff"
+                                                    FontSize="14"
+                                                    VerticalAlignment="Center">
+                                                <TextBlock.Style>
+                                                    <Style TargetType="TextBlock">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding Time}" Value="{x:Null}">
+                                                                <Setter Property="Visibility" Value="Hidden" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                        </StackPanel>
+
+                                        <DockPanel LastChildFill="True">
+                                            <TextBlock Text="{Binding Date, StringFormat='{}Đã xem ngày {0}', Converter={StaticResource dateCvt}}"
+                                                    Foreground="#FFB8B8B8"
+                                                    FontSize="13"
+                                                    VerticalAlignment="Bottom"
+                                                    DockPanel.Dock="Left"
+                                                       FontWeight="Light" />
+                                        </DockPanel>
+                                    </StackPanel>
+                                </Grid>
+                            </materialDesign:Card>
+                        </Grid>
+                    </Button>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Border>
+</UserControl>

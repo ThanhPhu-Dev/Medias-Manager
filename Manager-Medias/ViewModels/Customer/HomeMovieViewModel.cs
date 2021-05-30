@@ -1,4 +1,6 @@
-﻿using Manager_Medias.Models;
+﻿using Manager_Medias.Commands;
+using Manager_Medias.Models;
+using Manager_Medias.Stores;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -6,12 +8,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 
 namespace Manager_Medias.ViewModels.Customer
 {
     public class HomeMovieViewModel:BaseViewModel
     {
         public static readonly DependencyProperty MovieListProperty;
+        public ICommand CmdToDetailMovie { get; set; }
+
         static HomeMovieViewModel()
         {
             MovieListProperty = DependencyProperty.Register("MovieList", typeof(ObservableCollection<Movie>), typeof(HomeMovieViewModel));
@@ -22,9 +27,25 @@ namespace Manager_Medias.ViewModels.Customer
             set => SetValue(MovieListProperty, value);
         }
 
-        public HomeMovieViewModel()
+        public HomeMovieViewModel(NavigationStore navigationStore)
         {
+            //gán biến chuyển trang 
+            _navigationStore = navigationStore;
+
+            //gọi hàm load giao diện
             LoadMovie();
+
+            //command
+            CmdToDetailMovie = new RelayCommand<object>(ToDetailMovie);
+        }
+
+        private void ToDetailMovie(object obj)
+        {
+            
+
+            var id = (int)obj;
+            //chuyển trang
+            _navigationStore.ContentViewModel = new DetailMovieViewModel(id);
         }
 
         private void LoadMovie()

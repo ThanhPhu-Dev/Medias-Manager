@@ -607,7 +607,9 @@
     <None Include="Images\Album\album_PT_TN_5.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <Resource Include="Images\Profile\pr1.jpg" />
+    <None Include="Images\Profile\pr1.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Resource Include="Images\Profile\pr2.jpg" />
     <Resource Include="Images\Profile\pr3.jpg" />
     <Resource Include="Images\Profile\pr4.jpg" />

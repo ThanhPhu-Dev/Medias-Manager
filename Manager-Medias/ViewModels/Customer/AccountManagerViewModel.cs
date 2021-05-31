@@ -31,38 +31,33 @@ namespace Manager_Medias.ViewModels.Customer
 
         #region BindingProperty
 
-        private string _name;
+        private string _cardNumber;
 
-        public string Name
+        public string CardNumber
         {
-            get => _name;
+            get => _cardNumber;
             set
             {
                 ValidateProperty(value);
-                _name = value;
+                _cardNumber = value;
                 OnPropertyChanged();
             }
         }
 
-        private string _phoneNumber;
+        private string _expires;
 
-        public string PhoneNumber
+        public string Expires
         {
-            get => _phoneNumber;
+            get => _expires;
             set
             {
                 ValidateProperty(value);
-                _phoneNumber = value;
+                _expires = value;
                 OnPropertyChanged();
             }
         }
 
         #endregion BindingProperty
-
-        // Change email to name
-        //public string Name => _userStore.CurrentUser.Email;
-
-        //public string PhoneNumber => _userStore.CurrentUser.PhoneNumber;
 
         public AccountManagerViewModel(UserStore userStore, NavigationStore navigationStore)
         {
@@ -75,27 +70,35 @@ namespace Manager_Medias.ViewModels.Customer
 
             // Create a Dictionary of validation rules for fast lookup.
             // Each property name of a validated property maps to one or more ValidationRule.
-            this.ValidationRules.Add(nameof(this.Name), new List<ValidationRule>() { new AccountManagerValidationRule() });
-            this.ValidationRules.Add(nameof(this.PhoneNumber), new List<ValidationRule>() { new PhoneNumberValidationRule() });
+            //this.ValidationRules.Add(nameof(this.CardNumber), new List<ValidationRule>() { new () });
+            this.ValidationRules.Add(nameof(this.Expires), new List<ValidationRule>() { new DateExpirationValidationRule() });
             InitValidate();
+            GetCurrentData();
 
-            SaveCmd = new RelayCommand<Object[]>(ActionSave, (Object[] obj) => !HasErrors);
+            SaveCmd = new RelayCommand<Object>(ActionSave, (Object) => !HasErrors);
         }
 
         public void InitValidate()
         {
-            ValidateProperty(Name, "Name");
-            ValidateProperty(PhoneNumber, "PhoneNumber");
+            ValidateProperty(CardNumber, "CardNumber");
+            ValidateProperty(Expires, "Expires");
         }
 
-        // Object[name, phoneNumber]
-        public void ActionSave(Object[] values)
+        public void GetCurrentData()
         {
             using (var db = new MediasManangementEntities())
             {
-                //_userStore.CurrentUser.Name = Name;
-                //_userStore.CurrentUser.PhoneNumber = PhoneNumber;
+                var account = db.Users.Single(u => u.Email == _userStore.Email);
+                CardNumber = account.NumberCard;
+            }
+        }
 
+        public void ActionSave(Object o)
+        {
+            using (var db = new MediasManangementEntities())
+            {
+                var account = db.Users.Single(u => u.Email == _userStore.Email);
+                account.NumberCard = CardNumber;
                 db.SaveChanges();
                 MessageBox.Show("Cập nhật thông tin thành công", "Thành công", MessageBoxButton.OK);
             }

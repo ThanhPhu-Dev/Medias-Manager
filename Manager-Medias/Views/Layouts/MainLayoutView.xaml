@@ -12,6 +12,7 @@
              xmlns:vmovie ="clr-namespace:Manager_Medias.Views.Movie"
              xmlns:vlogin ="clr-namespace:Manager_Medias.Views.Customer"
              xmlns:vpicture ="clr-namespace:Manager_Medias.Views.Picture"
+             xmlns:cv="clr-namespace:Manager_Medias.Converters"
              mc:Ignorable="d"
              xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
              d:DesignHeight="650" d:DesignWidth="1200">
@@ -44,6 +45,31 @@
                     Value="4 0 0 0" />
         </Style>
 
+        <Style TargetType="Button" x:Key="PopupItemButton">
+            <Setter Property="Background" Value="#000" />
+            <Setter Property="Foreground" Value="#fff" />
+            <Setter Property="Padding" Value="12 8" />
+            <Setter Property="Height" Value="48" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Margin" Value="0 6" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FF303030" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
         <!--TRANSITION-->
         <Storyboard x:Key="SidebarOpen">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)"
@@ -64,6 +90,9 @@
                                       Value="0" />
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
+
+        <!--CONVERTER-->
+        <cv:ProfileImageConverter x:Key="imgCvt" />
     </UserControl.Resources>
 
     <UserControl.Triggers>
@@ -82,81 +111,135 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0"
-              Background="#000">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="100" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" HorizontalAlignment="Left"
-                    Padding="0"
-                    Margin="20 0 0 0"
-                    Name="btnOpenMenu">
-                <materialDesign:PackIcon Kind="Menu"
-                                         Foreground="#fff"
-                                         Width="26"
-                                         Height="26" />
-            </Button>
+        <Border Grid.Row="0"
+                Background="#000"
+                BorderThickness="0 0 0 0.5" BorderBrush="#fff">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" HorizontalAlignment="Left"
+                        Padding="0"
+                        Margin="20 0 0 0"
+                        Name="btnOpenMenu">
+                    <materialDesign:PackIcon Kind="Menu"
+                                             Foreground="#fff"
+                                             Width="26"
+                                             Height="26" />
+                </Button>
 
-            <StackPanel Grid.Column="2" HorizontalAlignment="Right"
-                        VerticalAlignment="Center"
-                        Orientation="Horizontal"
-                        Margin="0 0 20 0">
-                <TextBox Style="{StaticResource MaterialDesignFilledTextBox}"
-                             materialDesign:TextFieldAssist.UnderlineBrush="White"
-                             materialDesign:HintAssist.Hint="Nhập từ khóa"
-                             Foreground="White"
-                             Height="45"
-                             Width="150" />
-                <Button Content="{materialDesign:PackIcon Kind=Search, Size=24}"
-                        Background="{x:Null}"
-                        Padding="16 11 16 2"
-                        Height="46"
-                        VerticalContentAlignment="Center"
-                        VerticalAlignment="Center" />
-                <ComboBox Style="{StaticResource MaterialDesignOutlinedComboBox}"
-                          materialDesign:HintAssist.Hint="{materialDesign:PackIcon Kind=Account}"
-                          materialDesign:HintAssist.IsFloating="False"
-                          FontWeight="Bold"
-                          Margin="5"
-                          Background="Orange"
-                          x:Name="cbbTaiKhoan">
-                    <Behaviors:Interaction.Triggers>
-                        <Behaviors:EventTrigger EventName="SelectionChanged">
-                            <Behaviors:InvokeCommandAction Command="{Binding NavigateAccountCmd}"
-                                                           PassEventArgsToCommand="True" />
-                        </Behaviors:EventTrigger>
-                    </Behaviors:Interaction.Triggers>
-
-                    <ComboBoxItem Content="Tài khoản" />
-                    <ComboBoxItem Content="Đăng xuất" />
-                </ComboBox>
-            </StackPanel>
-
-            <!--<Button Grid.Column="2"
-                    Padding="4 0"
-                    Margin="0 0 20 0"
-                    VerticalAlignment="Center"
-                    VerticalContentAlignment="Center"
-                    HorizontalAlignment="Right"
-                    HorizontalContentAlignment="Right"
-                    Background="Transparent"
-                    BorderBrush="Transparent"
-                    Command="{Binding NavigateProfileCmd}">
-                <StackPanel Orientation="Horizontal"
-                            VerticalAlignment="Center">
-                    <materialDesign:PackIcon Kind="AccountCircleOutline"
-                                             Width="24"
-                                             Height="24"
-                                             Foreground="#febb00"
-                                             VerticalAlignment="Center" />
-                    <Label Content="{Binding Email}"
-                           Foreground="#fff"
-                           Margin="6 0 0 0" />
+                <StackPanel Grid.Column="2" HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            Orientation="Horizontal"
+                            Margin="0 0 20 0">
+                    <!--<TextBox Style="{StaticResource MaterialDesignFilledTextBox}"
+                                 materialDesign:TextFieldAssist.UnderlineBrush="White"
+                                 materialDesign:HintAssist.Hint="Nhập từ khóa"
+                                 Foreground="White"
+                                 Height="45"
+                                 Width="150" />
+                    <Button Content="{materialDesign:PackIcon Kind=Search, Size=24}"
+                            Background="{x:Null}"
+                            Padding="16 11 16 2"
+                            Height="46"
+                            VerticalContentAlignment="Center"
+                            VerticalAlignment="Center" />-->
+                    <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                        <ToggleButton Height="Auto" Background="{x:Null}"
+                                      Padding="0"
+                                      BorderThickness="0"
+                                      IsChecked="False"
+                                      Name="TogglePopup"
+                                      Cursor="Hand">
+                            <ToggleButton.Template>
+                                <ControlTemplate>
+                                    <StackPanel Orientation="Horizontal"
+                                        HorizontalAlignment="Right">
+                                        <Border CornerRadius="40" ClipToBounds="True"
+                                                Width="36"
+                                                Height="36">
+                                            <Ellipse VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                                <Ellipse.Fill>
+                                                    <ImageBrush ImageSource="{Binding Avatar, Converter={StaticResource imgCvt}}"
+                                                                Stretch="Fill"
+                                                                RenderOptions.BitmapScalingMode="Linear" />
+                                                </Ellipse.Fill>
+                                                <Ellipse.Stroke>
+                                                    <SolidColorBrush Color="#FFFEBB00" />
+                                                </Ellipse.Stroke>
+                                            </Ellipse>
+                                        </Border>
+                                        <TextBlock Text="{Binding ProfileName}"
+                                           VerticalAlignment="Center"
+                                           Margin="12 0 8 0" />
+                                        <materialDesign:PackIcon VerticalAlignment="Center"
+                                                         Width="24" Height="24">
+                                            <materialDesign:PackIcon.Style>
+                                                <Style TargetType="materialDesign:PackIcon">
+                                                    <Setter Property="Kind"  Value="MenuDown" />
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding ElementName=TogglePopup, Path=IsChecked}" Value="True">
+                                                            <Setter Property="Kind" Value="MenuUp" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </materialDesign:PackIcon.Style>
+                                        </materialDesign:PackIcon>
+                                    </StackPanel>
+                                </ControlTemplate>
+                            </ToggleButton.Template>
+                        </ToggleButton>
+                        <Popup x:Name="PopupMenu" IsOpen="{Binding ElementName=TogglePopup, Path=IsChecked}"
+                                PlacementTarget="{Binding ElementName=TogglePopup}"
+                                Placement="Left"
+                                HorizontalOffset="{Binding ActualWidth, ElementName=TogglePopup}"
+                                VerticalOffset="42"
+                                StaysOpen="True"
+                               PopupAnimation="Fade">
+                            <Border Background="Black"
+                                    BorderThickness="1" BorderBrush="#FF363636"
+                                    materialDesign:ShadowAssist.ShadowDepth="Depth2">
+                                <StackPanel Width="160" Height="Auto">
+                                    <Button Content="Tài khoản"
+                                            Style="{StaticResource PopupItemButton}"
+                                            Command="{Binding NavigateAccountCmd}">
+                                        <Button.Triggers>
+                                            <EventTrigger RoutedEvent="Button.Click">
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <BooleanAnimationUsingKeyFrames Storyboard.TargetProperty="IsChecked"
+                                                                                        Storyboard.TargetName="TogglePopup">
+                                                            <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="False" />
+                                                        </BooleanAnimationUsingKeyFrames>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </EventTrigger>
+                                        </Button.Triggers>
+                                    </Button>
+                                    <Button Content="Đăng xuất"
+                                            Style="{StaticResource PopupItemButton}">
+                                        <Button.Triggers>
+                                            <EventTrigger RoutedEvent="Button.Click">
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <BooleanAnimationUsingKeyFrames Storyboard.TargetProperty="IsChecked"
+                                                                                        Storyboard.TargetName="TogglePopup">
+                                                            <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="False" />
+                                                        </BooleanAnimationUsingKeyFrames>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </EventTrigger>
+                                        </Button.Triggers>
+                                    </Button>
+                                </StackPanel>
+                            </Border>
+                        </Popup>
+                    </StackPanel>
                 </StackPanel>
-            </Button>-->
-        </Grid>
+            </Grid>
+        </Border>
         <Canvas Panel.ZIndex="100">
             <Grid x:Name="Sidebar"
                   Background="#000"

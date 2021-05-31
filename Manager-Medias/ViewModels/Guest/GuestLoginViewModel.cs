@@ -107,7 +107,7 @@ namespace Manager_Medias.ViewModels.Guest
 
             using (var db = new MediasManangementEntities())
             {
-                User user = db.Users.Single(u => u.Email == "user@gmail.com");
+                User user = db.Users.Single(u => u.Email == "nghiadx2001@gmail.c");
                 UserStore userStore = new UserStore(user);
 
                 _navigationStore.CurrentViewModel = new MainLayoutViewModel(userStore, _navigationStore);

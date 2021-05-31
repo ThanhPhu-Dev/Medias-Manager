@@ -15,6 +15,12 @@
 
         <!--style cho 2 button scroll-->
         <Style TargetType="RepeatButton">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Foreground" Value="#fff"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Padding" Value="0"/>
             <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="Width" Value="40"/>
             <Setter Property="BorderThickness" Value="0" />
@@ -95,6 +101,16 @@
             </Grid>
         </DataTemplate>
 
+        <!--style cho itemcontroll carousel-->
+        <Style TargetType="ContentPresenter" x:Key="carouselMovieStyle">
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="ContentTemplate" Value="{StaticResource carouselItemDefault}"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="ContentTemplate" Value="{StaticResource carouselItemMouse}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </UserControl.Resources>
     <ScrollViewer Background="Black">
         <Grid>
@@ -103,95 +119,80 @@
                 <ColumnDefinition Width="8*"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="30"/>
-                <RowDefinition Height="200"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
 
-            <Grid VerticalAlignment="Top" 
-                      Grid.Row="1" Grid.Column="1" >
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="55"/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition Width="55"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="20"/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
+            <StackPanel Grid.Column="1" Margin="0 30 0 0">
+                <GroupBox Padding="0" Margin="0"
+                          BorderThickness="0">
+                    <GroupBox.Header>
+                        <DockPanel Background="Black" >
+                            <materialDesign:PackIcon Kind="Image"
+                                                     FontSize="30"
+                                                     Foreground="Orange"
+                                                     VerticalAlignment="Center"
+                                                     Margin="0 0 5 0" />
+                            <TextBlock 
+                                Foreground="Orange"
+                                FontWeight="Bold"
+                                VerticalAlignment="Center">
+                                Phim Hành động
+                            </TextBlock>
+                        </DockPanel>
+                    </GroupBox.Header>
+                    <Grid VerticalAlignment="Top" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="55"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="55"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="20"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
 
-                <!--tên thể loại phim-->
-                <TextBlock Text="HÀNG ĐỘNG" Foreground="#fff"
-                           FontSize="18"
-                           Grid.ColumnSpan="3"
-                           Margin="0 0 0 0"/>
-
-                <StackPanel VerticalAlignment="Center" Grid.ColumnSpan="3" Grid.Row="1"
-                        HorizontalAlignment="Center">
-                    <ItemsControl Name="itc_movie" ItemsSource="{Binding MovieList}" >
-                        <ItemsControl.ItemContainerStyle>
-                            <Style TargetType="ContentPresenter" >
-                                <Setter Property="Cursor" Value="Hand"/>
-                                <Setter Property="ContentTemplate" Value="{StaticResource carouselItemDefault}"/>
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="ContentTemplate" Value="{StaticResource carouselItemMouse}"/>
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </ItemsControl.ItemContainerStyle>
-
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <VirtualizingStackPanel Orientation="Horizontal"/>
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-
-                        <ItemsControl.Template>
-                            <ControlTemplate TargetType="ItemsControl">
-                                <ScrollViewer Name="sv_itc" HorizontalScrollBarVisibility="Hidden"
-                                          VerticalScrollBarVisibility="Disabled">
-                                    <ItemsPresenter/>
-                                </ScrollViewer>
-                            </ControlTemplate>
-                        </ItemsControl.Template>
-                    </ItemsControl>
-                </StackPanel>
-                <!--Hai nút để scroll carousel-->
-                <Grid Margin="0" Grid.Column="2" Grid.Row="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <Border Background="Black" Opacity=".6" Panel.ZIndex="0" BorderThickness="0" Margin="0" Padding="0" />
-                    <RepeatButton
-                        Background="Transparent" 
-                        BorderThickness="0"
-                        HorizontalAlignment="Center" 
-                        Foreground="#fff" 
-                        Panel.ZIndex="1" 
-                        Margin="0" Padding="0">
-                        <materialDesign:PackIcon Kind="ChevronRight" Width="55" Height="55" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                    </RepeatButton>
-                </Grid>
-
-                <Grid Margin="0" Grid.Row="1" Grid.Column="0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <Border Background="Black" Opacity=".6" Panel.ZIndex="0" BorderThickness="0" Margin="0" Padding="0" />
-                    <RepeatButton
-                        Background="Transparent" 
-                        BorderThickness="0"
-                        HorizontalAlignment="Center" 
-                        Foreground="#fff" 
-                        Panel.ZIndex="1" 
-                        Margin="0" Padding="0">
-                        <materialDesign:PackIcon Kind="ChevronLeft" Width="55" Height="55" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                    </RepeatButton>
-                </Grid>
-            </Grid>
+                        <StackPanel VerticalAlignment="Center" 
+                                    Grid.ColumnSpan="3"
+                                    Grid.Row="1"
+                                    HorizontalAlignment="Center">
+                            <ItemsControl Name="itc_movie" 
+                                          ItemsSource="{Binding MovieList}" ItemContainerStyle="{StaticResource carouselMovieStyle}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <VirtualizingStackPanel Orientation="Horizontal"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.Template>
+                                    <ControlTemplate TargetType="ItemsControl">
+                                        <ScrollViewer Name="sv_itc" HorizontalScrollBarVisibility="Hidden"
+                                                      VerticalScrollBarVisibility="Disabled">
+                                            <ItemsPresenter/>
+                                        </ScrollViewer>
+                                    </ControlTemplate>
+                                </ItemsControl.Template>
+                            </ItemsControl>
+                        </StackPanel>
+                        
+                        <!--Hai nút để scroll carousel-->
+                        <Grid Margin="0" Grid.Column="2" Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Border Background="Black" Opacity=".6" Panel.ZIndex="0" BorderThickness="0" Margin="0" Padding="0" />
+                            <RepeatButton>
+                                <materialDesign:PackIcon Kind="ChevronRight" Width="55" Height="55" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </RepeatButton>
+                        </Grid>
+                        <Grid Margin="0" Grid.Row="1" Grid.Column="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Border Background="Black" Opacity=".6" Panel.ZIndex="0" BorderThickness="0" Margin="0" Padding="0" />
+                            <RepeatButton>
+                                <materialDesign:PackIcon Kind="ChevronLeft" Width="55" Height="55" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </RepeatButton>
+                        </Grid>
+                    </Grid>
+                </GroupBox>
+            </StackPanel>
         </Grid>
-
     </ScrollViewer>
 </UserControl>

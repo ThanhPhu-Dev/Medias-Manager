@@ -25,6 +25,11 @@ namespace Manager_Medias.Stores
             get => _currentProfile;
         }
 
+        public string PathAvatar
+        {
+            get => _currentProfile.Avatar;
+        }
+
         public string Email => _currentUser.Email;
 
         public ObservableCollection<Profile> Profiles

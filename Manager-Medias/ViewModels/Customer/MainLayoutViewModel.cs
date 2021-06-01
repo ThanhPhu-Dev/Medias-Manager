@@ -23,14 +23,27 @@ namespace Manager_Medias.ViewModels.Customer
 
         #region Command
 
-        public ICommand ComboboxAccountCmd { get; set; }
-
         public ICommand NavigateMovieCmd { get; }
         public ICommand NavigateAlbumCmd { get; }
         public ICommand NavigateAudioCmd { get; }
         public ICommand NavigateAccountCmd { get; }
+        public ICommand MovieCmd { get; set; }
 
         #endregion Command
+
+        #region Binding
+
+        public string Avatar
+        {
+            get => _userStore.PathAvatar;
+        }
+
+        public string ProfileName
+        {
+            get => _userStore.CurrentProfile.Name;
+        }
+
+        #endregion Binding
 
         public MainLayoutViewModel(UserStore userStore, NavigationStore navigationStore)
         {
@@ -43,6 +56,7 @@ namespace Manager_Medias.ViewModels.Customer
                 new NavigationService<MainAccountViewModel>(_navigationStore, () => new MainAccountViewModel(userStore, _navigationStore)));
 
             _navigationStore.CurrentContentViewModelChanged += _navigationStore_CurrentContentViewModelChanged;
+            MovieCmd = new RelayCommand<object>(MoviewShow);
         }
 
         private void Clickaudio(object obj)
@@ -52,7 +66,7 @@ namespace Manager_Medias.ViewModels.Customer
 
         private void ComboboxAccountChanged(SelectionChangedEventArgs e)
         {
-            e.Handled = true;
+            _navigationStore.ContentViewModel = new HomeMovieViewModel(_navigationStore, _userStore);
         }
     }
 }

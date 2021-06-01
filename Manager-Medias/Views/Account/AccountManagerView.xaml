@@ -55,7 +55,7 @@
                     <ColumnDefinition Width="200" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" Content="Họ tên" Foreground="#8c8c8c" FontSize="16" />
+                <Label Grid.Column="0" Content="Số thẻ" Foreground="#8c8c8c" FontSize="16" />
                 <Border Grid.Column="1" Style="{StaticResource TextBoxBorder}">
                     <TextBox x:Name="txtName"
                              Style="{StaticResource Input}"
@@ -65,7 +65,7 @@
                              CaretBrush="#febb00"
                              BorderThickness="0"
                              BorderBrush="Transparent"
-                             Text="{Binding Name, ValidatesOnNotifyDataErrors=True,
+                             Text="{Binding CardNumber, ValidatesOnNotifyDataErrors=True,
                             UpdateSourceTrigger=PropertyChanged}"
                              Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}">
                     </TextBox>
@@ -77,7 +77,7 @@
                     <ColumnDefinition Width="200" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" Content="Số điện thoại" Foreground="#8c8c8c" FontSize="16" />
+                <Label Grid.Column="0" Content="Ngày hết hạn" Foreground="#8c8c8c" FontSize="16" />
                 <Border Grid.Column="1"  CornerRadius="16" ClipToBounds="True" Padding="12 4" Background="Transparent" BorderThickness="1" BorderBrush="#FFDADADA" VerticalAlignment="Center">
                     <TextBox x:Name="txtPhoneNumber"
                              Style="{StaticResource Input}"
@@ -85,7 +85,7 @@
                              Height="30" VerticalContentAlignment="Center"
                              CaretBrush="#febb00" BorderThickness="0"
                              BorderBrush="Transparent"
-                             Text="{Binding PhoneNumber, ValidatesOnNotifyDataErrors=True,
+                             Text="{Binding Expires, ValidatesOnNotifyDataErrors=True,
                             UpdateSourceTrigger=PropertyChanged}"
                              Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}" />
                 </Border>

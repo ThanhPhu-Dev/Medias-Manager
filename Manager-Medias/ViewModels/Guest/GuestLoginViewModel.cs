@@ -1,16 +1,12 @@
 ﻿using Manager_Medias.Commands;
+using Manager_Medias.Functions;
 using Manager_Medias.Models;
-using Manager_Medias.Services;
 using Manager_Medias.Stores;
 using Manager_Medias.Validates;
 using Manager_Medias.ViewModels.Customer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -70,12 +66,6 @@ namespace Manager_Medias.ViewModels.Guest
 
         public void ActionLogin(object[] values)
         {
-            //Byte[] salt;
-            //Rfc2898DeriveBytes pbkdf2;
-            //byte[] hashBytes;
-            //byte[] hash;
-            //new RNGCryptoServiceProvider().GetBytes(salt = new byte[16]);
-
             //if (string.IsNullOrEmpty(values.ToString()) || string.IsNullOrEmpty(values[0].ToString()) ||
             //    string.IsNullOrEmpty(values[1].ToString()))
             //{
@@ -86,40 +76,27 @@ namespace Manager_Medias.ViewModels.Guest
             //using (var db = new MediasManangementEntities())
             //{
             //    currentUser = db.Users.Where(p => p.Email == Email).FirstOrDefault() as User;
-
             //}
 
             //if (currentUser != null)
             //{
-            //    Error = null;
-            //    hashBytes = Convert.FromBase64String(currentUser.Password);
-            //    salt = new byte[16];
-            //    Array.Copy(hashBytes, 0, salt, 0, salt.Length);
-            //    pbkdf2 = new Rfc2898DeriveBytes(Password, salt, 10000);
-            //    hash = pbkdf2.GetBytes(20);
-            //    for (int i = 0; i < 20; i++)
-            //    {
-            //        if (hashBytes[i + 16] != hash[i])
-            //        {
-            //            Error = "Mật khẩu không đúng";
-            //            return;
-            //        }
-            //    }
+            //    bool compare = HashPassword.ComparePassword(Password, currentUser.Password);
+
+            //    Error = !compare ? "Mật khẩu không đúng" : null;
+
             //    UserStore userStore = new UserStore(currentUser);
             //    if (currentUser.Level == null)
             //    {
             //        _navigationStore.ContentViewModel = new GuestLevelRegisterViewModel(currentUser, _navigationStore);
-
             //    }
             //    else if (currentUser.NumberCard == null)
             //    {
             //        _navigationStore.ContentViewModel = new GuestCartRegisterViewModel(currentUser, _navigationStore);
-
             //    }
             //    else
             //    {
             //        _navigationStore.CurrentViewModel = new MainLayoutViewModel(userStore, _navigationStore);
-            //        _navigationStore.ContentViewModel = new HomeMovieViewModel();
+            //        _navigationStore.ContentViewModel = new HomeMovieViewModel(_navigationStore);
             //    }
             //}
             //else
@@ -127,13 +104,15 @@ namespace Manager_Medias.ViewModels.Guest
             //    Error = "Tài khoản không tồn tại";
             //    return;
             //}
+
             using (var db = new MediasManangementEntities())
             {
-                User user = db.Users.Single(u => u.Email == "user@gmail.com");
+                User user = db.Users.Single(u => u.Email == "nghiadx2001@gmail.c");
                 UserStore userStore = new UserStore(user);
 
                 _navigationStore.CurrentViewModel = new MainLayoutViewModel(userStore, _navigationStore);
-                _navigationStore.ContentViewModel = new HomeMovieViewModel(_navigationStore);
+                _navigationStore.ContentViewModel = new HomeViewModel();
+                //_navigationStore.ContentViewModel = new HomeMovieViewModel(_navigationStore, userStore);
             }
         }
     }

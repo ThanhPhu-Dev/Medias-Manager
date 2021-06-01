@@ -9,34 +9,6 @@
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
-        <Storyboard x:Key="OpenNewModal">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Canvas.Top)" Storyboard.TargetName="ModalNewProfile">
-                <DiscreteDoubleKeyFrame KeyTime="0:0:0.0" Value="-500" />
-                <DiscreteDoubleKeyFrame KeyTime="0:0:0.15" Value="4" />
-            </DoubleAnimationUsingKeyFrames>
-        </Storyboard>
-
-        <Storyboard x:Key="CloseNewModal">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Canvas.Top)" Storyboard.TargetName="ModalNewProfile">
-                <DiscreteDoubleKeyFrame KeyTime="0:0:0.0" Value="4" />
-                <DiscreteDoubleKeyFrame KeyTime="0:0:0.15" Value="-500" />
-            </DoubleAnimationUsingKeyFrames>
-        </Storyboard>
-
-        <Storyboard x:Key="OpenEditModal">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Canvas.Bottom)" Storyboard.Target="{Binding ElementName=ModalEditProfile}">
-                <DiscreteDoubleKeyFrame KeyTime="0:0:0.0" Value="-800" />
-                <DiscreteDoubleKeyFrame KeyTime="0:0:0.15" Value="-320" />
-            </DoubleAnimationUsingKeyFrames>
-        </Storyboard>
-
-        <Storyboard x:Key="CloseEditModal">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Canvas.Bottom)" Storyboard.TargetName="ModalEditProfile">
-                <DiscreteDoubleKeyFrame KeyTime="0:0:0.0" Value="-320" />
-                <DiscreteDoubleKeyFrame KeyTime="0:0:0.15" Value="-800" />
-            </DoubleAnimationUsingKeyFrames>
-        </Storyboard>
-
         <!--STYLE-->
         <Style x:Key="ButtonProfileItem" TargetType="{x:Type Button}"
                BasedOn="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
@@ -100,7 +72,8 @@
                         VerticalContentAlignment="Center"
                         HorizontalContentAlignment="Stretch"
                         HorizontalAlignment="Right"
-                        Height="40">
+                        Height="40"
+                        Command="{Binding OpenNewModal}">
                     <DockPanel LastChildFill="True"
                                 HorizontalAlignment="Stretch">
                         <materialDesign:PackIcon DockPanel.Dock="Left" Kind="Plus" VerticalAlignment="Center" VerticalContentAlignment="Center" Foreground="#000" />
@@ -110,8 +83,7 @@
                 </Button>
             </DockPanel>
             <Canvas Panel.ZIndex="100">
-                <Border x:Name="ModalNewProfile"
-                        Canvas.Top="-500" Width="550" Height="340"
+                <Border x:Name="ModalNewProfile" Width="550" Height="340"
                         CornerRadius="3" ClipToBounds="True"
                         Background="#FF303030"
                         HorizontalAlignment="Center"
@@ -187,9 +159,22 @@
                             </Grid>
                         </StackPanel>
                     </Grid>
+                    <Border.Style>
+                        <Style>
+                            <Setter Property="Canvas.Top" Value="-500" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsNewModalOpen}" Value="false">
+                                    <Setter Property="Canvas.Top" Value="-500" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsNewModalOpen}" Value="true">
+                                    <Setter Property="Canvas.Top" Value="4" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
                 </Border>
                 <Border x:Name="ModalEditProfile"
-                        Canvas.Bottom="-800" Width="550" Height="340"
+                        Width="550" Height="340"
                         CornerRadius="3" ClipToBounds="True"
                         Background="#FF303030"
                         HorizontalAlignment="Center"
@@ -264,6 +249,19 @@
                             </Grid>
                         </StackPanel>
                     </Grid>
+                    <Border.Style>
+                        <Style>
+                            <Setter Property="Canvas.Bottom" Value="-800" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsEditModalOpen}" Value="false">
+                                    <Setter Property="Canvas.Bottom" Value="-800" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsEditModalOpen}" Value="true">
+                                    <Setter Property="Canvas.Bottom" Value="-320" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
                 </Border>
             </Canvas>
             <ListView Margin="0 20 0 0" Panel.ZIndex="1" ItemsSource="{Binding Profiles}">
@@ -321,9 +319,6 @@
                                             </Storyboard>
                                         </BeginStoryboard>
                                     </EventTrigger>
-                                    <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="btnOpenEditModal">
-                                        <BeginStoryboard Storyboard="{StaticResource OpenEditModal}" />
-                                    </EventTrigger>
                                 </Button.Triggers>
                             </Button>
                             <Label Content="{Binding Name}" Foreground="#fff" Margin="0 12 0 0" />
@@ -344,16 +339,4 @@
             </ListView>
         </StackPanel>
     </Border>
-
-    <UserControl.Triggers>
-        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="btnOpenModal">
-            <BeginStoryboard Storyboard="{StaticResource OpenNewModal}" />
-        </EventTrigger>
-        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="btnCloseNewModal">
-            <BeginStoryboard Storyboard="{StaticResource CloseNewModal}" />
-        </EventTrigger>
-        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="btnCloseEditModal">
-            <BeginStoryboard Storyboard="{StaticResource CloseEditModal}" />
-        </EventTrigger>
-    </UserControl.Triggers>
 </UserControl>

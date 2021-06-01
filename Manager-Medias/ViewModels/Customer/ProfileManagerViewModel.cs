@@ -23,6 +23,7 @@ namespace Manager_Medias.ViewModels.Customer
         #region Command
 
         public ICommand SwitchProfileCmd { get; set; }
+        public ICommand OpenNewModal { get; set; }
         public ICommand NewProfileCmd { get; set; }
         public ICommand OpenNewFileDialogCmd { get; set; }
         public ICommand CloseNewModalCmd { get; set; }
@@ -85,6 +86,29 @@ namespace Manager_Medias.ViewModels.Customer
             }
         }
 
+        private bool _isNewModalOpen = false;
+        private bool _isEditModalOpen = false;
+
+        public bool IsNewModalOpen
+        {
+            get => _isNewModalOpen;
+            set
+            {
+                _isNewModalOpen = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool IsEditModalOpen
+        {
+            get => _isEditModalOpen;
+            set
+            {
+                _isEditModalOpen = value;
+                OnPropertyChanged();
+            }
+        }
+
         #endregion Binding
 
         public ProfileManagerViewModel()
@@ -96,6 +120,7 @@ namespace Manager_Medias.ViewModels.Customer
             // Create a Dictionary of validation rules for fast lookup.
             // Each property name of a validated property maps to one or more ValidationRule.
             this.ValidationRules.Add(nameof(this.InputProfileName), new List<ValidationRule>() { new EmptyStringValidationRule() });
+
             LoadCommand();
             LoadProfile();
         }
@@ -103,6 +128,7 @@ namespace Manager_Medias.ViewModels.Customer
         public void LoadCommand()
         {
             SwitchProfileCmd = new RelayCommand<Object>(ActionSwitchProfile);
+            OpenNewModal = new RelayCommand<Object>((Object o) => IsNewModalOpen = true);
             NewProfileCmd = new RelayCommand<Object>(ActionNewProfile, (Object) => !HasErrors);
             OpenNewFileDialogCmd = new RelayCommand<Object>(ActionOpenFile);
             CloseNewModalCmd = new RelayCommand<Object>(ActionCloseModal);
@@ -114,6 +140,8 @@ namespace Manager_Medias.ViewModels.Customer
                     SelectedProfileId = profile.Id;
                     PathAvatarFile = profile.Avatar;
                     InputProfileName = profile.Name;
+
+                    IsEditModalOpen = true;
                 }
             });
 
@@ -129,6 +157,8 @@ namespace Manager_Medias.ViewModels.Customer
 
         public void ResetBinding()
         {
+            IsNewModalOpen = false;
+            IsEditModalOpen = false;
             PathAvatarFile = DEFAULT_AVATAR;
             InputProfileName = null;
             LoadProfile();

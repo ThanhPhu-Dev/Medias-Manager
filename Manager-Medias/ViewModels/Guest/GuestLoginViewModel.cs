@@ -110,8 +110,8 @@ namespace Manager_Medias.ViewModels.Guest
                 _userStore = userStore;
 
                 _navigationStore.CurrentViewModel = new MainLayoutViewModel();
-                _navigationStore.ContentViewModel = new HomeViewModel();
-                //_navigationStore.ContentViewModel = new HomeMovieViewModel(_navigationStore, userStore);
+                //_navigationStore.ContentViewModel = new HomeViewModel();
+                _navigationStore.ContentViewModel = new DetailAudioViewModel(1);
             }
         }
     }

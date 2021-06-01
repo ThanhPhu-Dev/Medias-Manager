@@ -83,7 +83,7 @@ namespace Manager_Medias.ViewModels.Customer
             CmdLike = new RelayCommand<object>(Likemt);
             CmdSave = new RelayCommand<object>(Savemt);
 
-            loadaudio(SelectedAudio.Mp3);
+            //loadaudio(SelectedAudio.Mp3);
         }
 
         private void Savemt(object obj)
@@ -181,12 +181,12 @@ namespace Manager_Medias.ViewModels.Customer
         private void SelectionChange(object obj)
         {
             //check lại like và save của bài hát này
-            LoadLikeAndSave();
-            string audioName = (string)obj;
-            //sp.Play();
-            player.Stop();
-            player = null;
-            loadaudio(audioName);
+            //LoadLikeAndSave();
+            //string audioName = (string)obj;
+            ////sp.Play();
+            //player.Stop();
+            //player = null;
+            //loadaudio(audioName);
         }
 
         public void loadaudio(string audioMame)

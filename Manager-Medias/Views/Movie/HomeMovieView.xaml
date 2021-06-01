@@ -67,7 +67,7 @@
                     <i:EventTrigger EventName="MouseLeftButtonDown">
                         <i:InvokeCommandAction Command="{Binding DataContext.CmdToDetailMovie,
                                     RelativeSource={RelativeSource Mode=FindAncestor,
-                                                               AncestorType={x:Type ItemsControl}}}"
+                                    AncestorType={x:Type ItemsControl}, AncestorLevel=2}}"
                                                CommandParameter="{Binding Id}">
                         </i:InvokeCommandAction>
                     </i:EventTrigger>

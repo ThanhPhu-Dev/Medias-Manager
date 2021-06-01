@@ -14,7 +14,6 @@ namespace Manager_Medias.ViewModels.Customer
 {
     public class DetailMovieViewModel : BaseViewModel
     {
-        private readonly UserStore _userStore;
         private int id;
         public static readonly DependencyProperty MovieProperty;
         public ICommand CmdLikesClick { get; set; }
@@ -36,6 +35,7 @@ namespace Manager_Medias.ViewModels.Customer
             get => (DetailMovieCustomModel)GetValue(MovieProperty);
             set => SetValue(MovieProperty, value);
         }
+
         public bool CheckSave
         {
             get => _checkSave;
@@ -46,9 +46,8 @@ namespace Manager_Medias.ViewModels.Customer
             }
         }
 
-        public DetailMovieViewModel(int idMovie, UserStore userStore)
+        public DetailMovieViewModel(int idMovie)
         {
-
             CmdLikesClick = new RelayCommand<Object>(Likes);
             CmdShareClick = new RelayCommand<Object>(Share);
             CmdErrorClick = new RelayCommand<Object>(Error);
@@ -61,6 +60,7 @@ namespace Manager_Medias.ViewModels.Customer
         {
             _userStore = userStore;
         }
+
         public void loaded()
         {
             using (var x = new MediasManangementEntities())
@@ -81,9 +81,7 @@ namespace Manager_Medias.ViewModels.Customer
                     Video = Movie.Video,
                     Directors = Movie.Directors,
                     Nation = Movie.Nation,
-                    
                 };
-
             }
         }
 
@@ -138,7 +136,8 @@ namespace Manager_Medias.ViewModels.Customer
             using (var db = new MediasManangementEntities())
             {
                 My_List mydelete = db.My_Lists.Where(p => p.IdMedia == my_List.IdMedia && p.IdProfile == my_List.IdProfile).FirstOrDefault() as My_List;
-                if (mydelete != null){
+                if (mydelete != null)
+                {
                     db.My_Lists.Remove(mydelete);
                 }
                 else

@@ -22,8 +22,8 @@ namespace Manager_Medias.ViewModels.Guest
         public ICommand CmdPre { get; }
 
         public int LevelCurrent
-        { 
-            get => _levelCurrent; 
+        {
+            get => _levelCurrent;
             set
             {
                 _levelCurrent = value;
@@ -31,11 +31,8 @@ namespace Manager_Medias.ViewModels.Guest
             }
         }
 
-        public GuestLevelRegisterViewModel(User u, NavigationStore navigationStore)
+        public GuestLevelRegisterViewModel(User u)
         {
-            //khởi tạo để chuyển trang 
-            _navigationStore = navigationStore;
-
             //user local
             _userCurrent = u;
 
@@ -54,7 +51,7 @@ namespace Manager_Medias.ViewModels.Guest
 
         private void Pre(object obj)
         {
-            _navigationStore.ContentViewModel = new GuestInfoRegisterViewModel(_navigationStore);
+            _navigationStore.ContentViewModel = new GuestInfoRegisterViewModel();
         }
 
         private void Continue(object obj)
@@ -63,10 +60,10 @@ namespace Manager_Medias.ViewModels.Guest
             {
                 var user = db.Users.Where(u => u.Email == _userCurrent.Email).Single() as User;
                 user.Level = LevelCurrent;
-                
-                if(db.SaveChanges() > 0)
+
+                if (db.SaveChanges() > 0)
                 {
-                    _navigationStore.ContentViewModel = new GuestCartRegisterViewModel(user, _navigationStore);
+                    _navigationStore.ContentViewModel = new GuestCartRegisterViewModel(user);
                 }
             }
         }

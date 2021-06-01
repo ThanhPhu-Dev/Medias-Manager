@@ -13,7 +13,6 @@ namespace Manager_Medias.ViewModels.Customer
     public class MainAccountViewModel : BaseViewModel
     {
         private readonly NavigationStore _acccountNavigateStore;
-        private readonly UserStore _userStore;
         public BaseViewModel ContentAccountViewModel => _acccountNavigateStore.ContentViewModel;
 
         #region Command
@@ -27,34 +26,32 @@ namespace Manager_Medias.ViewModels.Customer
 
         #endregion Command
 
-        public MainAccountViewModel(UserStore userStore, NavigationStore navigationStore)
+        public MainAccountViewModel()
         {
             _acccountNavigateStore = new NavigationStore();
-            _navigationStore = navigationStore;
-            _userStore = userStore;
 
             // ViewModel(Account, ParentNavigation use to Cancel command)
-            _acccountNavigateStore.ContentViewModel = new AccountManagerViewModel(_userStore, _navigationStore);
+            _acccountNavigateStore.ContentViewModel = new AccountManagerViewModel();
 
             //_navigationStore.ContentViewModel = new AccountManagerViewModel(userStore, _navigationStore);
 
             NavigateAccountManagerCmd = new NavigateCommand<AccountManagerViewModel>(
-                new NavigationService<AccountManagerViewModel>(_acccountNavigateStore, () => new AccountManagerViewModel(userStore, _navigationStore)));
+                new NavigationService<AccountManagerViewModel>(_acccountNavigateStore, () => new AccountManagerViewModel()));
 
             NavigateChangePasswordCmd = new NavigateCommand<ChangePasswordViewModel>(
-                new NavigationService<ChangePasswordViewModel>(_acccountNavigateStore, () => new ChangePasswordViewModel(userStore, _navigationStore)));
+                new NavigationService<ChangePasswordViewModel>(_acccountNavigateStore, () => new ChangePasswordViewModel()));
 
             NavigateProfileManagerCmd = new NavigateCommand<ProfileManagerViewModel>(
-                new NavigationService<ProfileManagerViewModel>(_acccountNavigateStore, () => new ProfileManagerViewModel(userStore)));
+                new NavigationService<ProfileManagerViewModel>(_acccountNavigateStore, () => new ProfileManagerViewModel()));
 
             NavigateFavoriteManagerCmd = new NavigateCommand<FavoriteListViewModel>(
-                new NavigationService<FavoriteListViewModel>(_acccountNavigateStore, () => new FavoriteListViewModel(userStore, _navigationStore)));
+                new NavigationService<FavoriteListViewModel>(_acccountNavigateStore, () => new FavoriteListViewModel()));
 
             NavigateHistoryListCmd = new NavigateCommand<HistoryListViewModel>(
-                new NavigationService<HistoryListViewModel>(_acccountNavigateStore, () => new HistoryListViewModel(userStore, _navigationStore)));
+                new NavigationService<HistoryListViewModel>(_acccountNavigateStore, () => new HistoryListViewModel()));
 
             NavigatePaymentHistoryCmd = new NavigateCommand<PaymentHistoryViewModel>(
-                new NavigationService<PaymentHistoryViewModel>(_acccountNavigateStore, () => new PaymentHistoryViewModel(userStore)));
+                new NavigationService<PaymentHistoryViewModel>(_acccountNavigateStore, () => new PaymentHistoryViewModel()));
 
             _navigationStore.CurrentContentViewModelChanged += _navigationStore_CurrentContentViewModelChanged;
             _acccountNavigateStore.CurrentContentViewModelChanged += _acccountNavigateStore_CurrentContentViewModelChanged;

@@ -18,8 +18,6 @@ namespace Manager_Medias.ViewModels.Customer
 {
     public class ChangePasswordViewModel : BaseViewModel
     {
-        private readonly UserStore _userStore;
-
         #region Command
 
         public ICommand SaveCmd { get; }
@@ -70,11 +68,8 @@ namespace Manager_Medias.ViewModels.Customer
 
         #endregion Binding
 
-        public ChangePasswordViewModel(UserStore userStore, NavigationStore navigationStore)
+        public ChangePasswordViewModel()
         {
-            _userStore = userStore;
-            _navigationStore = navigationStore;
-
             this.Errors = new Dictionary<string, List<string>>();
             this.ValidationRules = new Dictionary<string, List<ValidationRule>>();
 

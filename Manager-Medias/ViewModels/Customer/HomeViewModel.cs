@@ -12,6 +12,7 @@ namespace Manager_Medias.ViewModels.Customer
     public class HomeViewModel : BaseViewModel
     {
         public static readonly DependencyProperty MovieListProperty;
+
         public ObservableCollection<Movie> Movies
         {
             get => (ObservableCollection<Movie>)GetValue(MovieListProperty);

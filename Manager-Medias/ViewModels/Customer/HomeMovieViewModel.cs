@@ -12,7 +12,7 @@ using System.Windows.Input;
 
 namespace Manager_Medias.ViewModels.Customer
 {
-    public class HomeMovieViewModel:BaseViewModel
+    public class HomeMovieViewModel : BaseViewModel
     {
         public static readonly DependencyProperty MovieListProperty;
         public ICommand CmdToDetailMovie { get; set; }
@@ -22,6 +22,7 @@ namespace Manager_Medias.ViewModels.Customer
         {
             MovieListProperty = DependencyProperty.Register("MovieList", typeof(ObservableCollection<Movie>), typeof(HomeMovieViewModel));
         }
+
         public ObservableCollection<Movie> MovieList
         {
             get => (ObservableCollection<Movie>)GetValue(MovieListProperty);
@@ -33,7 +34,7 @@ namespace Manager_Medias.ViewModels.Customer
             //user hiện tại
             _user = userStore;
 
-            //gán biến chuyển trang 
+            //gán biến chuyển trang
             _navigationStore = navigationStore;
 
             //gọi hàm load giao diện
@@ -45,11 +46,9 @@ namespace Manager_Medias.ViewModels.Customer
 
         private void ToDetailMovie(object obj)
         {
-            
-
             var id = (int)obj;
             //chuyển trang
-            _navigationStore.ContentViewModel = new DetailMovieViewModel(id, _user);
+            _navigationStore.ContentViewModel = new DetailMovieViewModel(id);
         }
 
         private void LoadMovie()

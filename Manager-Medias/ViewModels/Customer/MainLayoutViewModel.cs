@@ -45,15 +45,10 @@ namespace Manager_Medias.ViewModels.Customer
 
         #endregion Binding
 
-        public MainLayoutViewModel(UserStore userStore, NavigationStore navigationStore)
+        public MainLayoutViewModel()
         {
-            _userStore = userStore;
-            _navigationStore = navigationStore;
-            ClickAudio = new RelayCommand<object>(Clickaudio);
-            ComboboxAccountCmd = new RelayCommand<SelectionChangedEventArgs>(ComboboxAccountChanged);
-
             NavigateAccountCmd = new NavigateCommand<MainAccountViewModel>(
-                new NavigationService<MainAccountViewModel>(_navigationStore, () => new MainAccountViewModel(userStore, _navigationStore)));
+                new NavigationService<MainAccountViewModel>(_navigationStore, () => new MainAccountViewModel()));
 
             _navigationStore.CurrentContentViewModelChanged += _navigationStore_CurrentContentViewModelChanged;
             MovieCmd = new RelayCommand<object>(MoviewShow);
@@ -66,9 +61,7 @@ namespace Manager_Medias.ViewModels.Customer
 
         private void ComboboxAccountChanged(SelectionChangedEventArgs e)
         {
-            //chuyển trang 
             _navigationStore.ContentViewModel = new HomeMovieViewModel(_navigationStore, _userStore);
-            //_navigationStore.ContentViewModel = new HomeMovieViewModel(_navigationStore, _userStore);
         }
     }
 }

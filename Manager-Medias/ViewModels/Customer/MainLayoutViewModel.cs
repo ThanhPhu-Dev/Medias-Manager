@@ -55,6 +55,7 @@ namespace Manager_Medias.ViewModels.Customer
         {
             //chuyển trang 
             _navigationStore.ContentViewModel = new HomeMovieViewModel(_navigationStore, _userStore);
+            //_navigationStore.ContentViewModel = new HomeMovieViewModel(_navigationStore, _userStore);
         }
     }
 }

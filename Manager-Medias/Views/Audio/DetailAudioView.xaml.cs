@@ -24,6 +24,22 @@ namespace Manager_Medias.Views.Audio
         public DetailAudioView()
         {
             InitializeComponent();
+            
+        }
+
+        private void MediaTimeline_CurrentTimeInvalidated(object sender, EventArgs e)
+        {
+            timelineSlider.Value = audio.Position.TotalMilliseconds;
+        }
+
+        private void audio_MediaOpened(object sender, RoutedEventArgs e)
+        {
+            timelineSlider.Maximum = audio.NaturalDuration.TimeSpan.TotalMilliseconds;
+        }
+
+        private void timelineSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            timeChange.Text = TimeSpan.FromSeconds(timelineSlider.Value).ToString(@"hh\:mm\:ss");
         }
     }
 }

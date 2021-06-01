@@ -13,8 +13,6 @@ namespace Manager_Medias.ViewModels.Customer
 {
     public class MainLayoutViewModel : BaseViewModel
     {
-        private readonly UserStore _userStore;
-
         #region Command
 
         public ICommand NavigateMovieCmd { get; }
@@ -38,13 +36,10 @@ namespace Manager_Medias.ViewModels.Customer
 
         #endregion Binding
 
-        public MainLayoutViewModel(UserStore userStore, NavigationStore navigationStore)
+        public MainLayoutViewModel()
         {
-            _userStore = userStore;
-            _navigationStore = navigationStore;
-
             NavigateAccountCmd = new NavigateCommand<MainAccountViewModel>(
-                new NavigationService<MainAccountViewModel>(_navigationStore, () => new MainAccountViewModel(userStore, _navigationStore)));
+                new NavigationService<MainAccountViewModel>(_navigationStore, () => new MainAccountViewModel()));
 
             _navigationStore.CurrentContentViewModelChanged += _navigationStore_CurrentContentViewModelChanged;
         }

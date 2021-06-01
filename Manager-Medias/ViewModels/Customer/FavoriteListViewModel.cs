@@ -17,8 +17,6 @@ namespace Manager_Medias.ViewModels.Customer
 {
     public class FavoriteListViewModel : BaseViewModel
     {
-        private readonly UserStore _userStore;
-
         #region Command
 
         public ICommand ItemClickCmd { get; }
@@ -45,10 +43,8 @@ namespace Manager_Medias.ViewModels.Customer
 
         #endregion Binding
 
-        public FavoriteListViewModel(UserStore userStore, NavigationStore navigationStore)
+        public FavoriteListViewModel()
         {
-            _userStore = userStore;
-            _navigationStore = navigationStore;
             ItemClickCmd = new RelayCommand<Object>((Object selectedItem) =>
             {
                 if (selectedItem != null)
@@ -59,15 +55,15 @@ namespace Manager_Medias.ViewModels.Customer
 
             NavigateDetailAlbum = new NavigateCommand<DetailPictureViewModel>(
                                    new NavigationService<DetailPictureViewModel>(_navigationStore, () =>
-                                   new DetailPictureViewModel(_userStore.CurrentProfile.Id, (PlayList.CurrentItem as MediaCustomModel).MediaID)));
+                                   new DetailPictureViewModel((PlayList.CurrentItem as MediaCustomModel).MediaID)));
 
             NavigateDetailAudio = new NavigateCommand<DetailAudioViewModel>(
                                    new NavigationService<DetailAudioViewModel>(_navigationStore, () =>
-                                   new DetailAudioViewModel(_userStore.CurrentProfile.Id, (PlayList.CurrentItem as MediaCustomModel).MediaID)));
+                                   new DetailAudioViewModel((PlayList.CurrentItem as MediaCustomModel).MediaID)));
 
             NavigateDetailMovie = new NavigateCommand<DetailMovieViewModel>(
                                    new NavigationService<DetailMovieViewModel>(_navigationStore, () =>
-                                   new DetailMovieViewModel((PlayList.CurrentItem as MediaCustomModel).MediaID, _userStore)));
+                                   new DetailMovieViewModel((PlayList.CurrentItem as MediaCustomModel).MediaID)));
 
             RemoveCmd = new RelayCommand<Object>(ActionRemove);
 

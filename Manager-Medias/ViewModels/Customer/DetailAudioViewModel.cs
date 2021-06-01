@@ -21,8 +21,10 @@ namespace Manager_Medias.ViewModels.Customer
         public ICommand CmdSelectionChange { get; set; }
         public ICommand CmdPlayAudio { get; set; }
         public ICommand CmdPauseAudio { get; set; }
+
         //command like và lưu
         public ICommand CmdLike { get; set; }
+
         public ICommand CmdSave { get; set; }
 
         private MediaPlayer player = null;
@@ -32,6 +34,7 @@ namespace Manager_Medias.ViewModels.Customer
         {
             AudioListProperty = DependencyProperty.Register("AudioList", typeof(ObservableCollection<Audio>), typeof(DetailAudioViewModel));
         }
+
         public ObservableCollection<Audio> AudioList
         {
             get => (ObservableCollection<Audio>)GetValue(AudioListProperty);
@@ -40,6 +43,7 @@ namespace Manager_Medias.ViewModels.Customer
 
         public Audio SelectedAudio { get => _selectedAudio; set => _selectedAudio = value; }
         public string TimeAudio { get => _timeAudio; set => _timeAudio = value; }
+
         public bool CheckLike
         {
             get => _checkLike;
@@ -49,6 +53,7 @@ namespace Manager_Medias.ViewModels.Customer
                 OnPropertyChanged();
             }
         }
+
         public bool CheckSave
         {
             get => _checkSave;
@@ -57,8 +62,8 @@ namespace Manager_Medias.ViewModels.Customer
                 _checkSave = value;
                 OnPropertyChanged();
             }
-
         }
+
         public string Test { get => test; set => test = value; }
 
         private Audio _selectedAudio;
@@ -67,10 +72,9 @@ namespace Manager_Medias.ViewModels.Customer
         private bool _checkSave;
         private string test;
 
-
-        public DetailAudioViewModel(int profileid, int audioid)
+        public DetailAudioViewModel(int audioid)
         {
-            currentProfile = profileid;
+            currentProfile = _userStore.CurrentProfile.Id;
 
             Loaded(audioid);
             CmdSelectionChange = new RelayCommand<object>(SelectionChange);
@@ -90,7 +94,6 @@ namespace Manager_Medias.ViewModels.Customer
                 IdProfile = currentProfile,
                 IdMedia = mediaId,
                 //date
-
             };
             using (var db = new MediasManangementEntities())
             {
@@ -121,7 +124,6 @@ namespace Manager_Medias.ViewModels.Customer
                         MessageBox.Show("Đã bỏ lưu");
                     }
                 }
-
             }
         }
 
@@ -133,7 +135,6 @@ namespace Manager_Medias.ViewModels.Customer
                 IdProfile = currentProfile,
                 IdMedia = mediaId,
                 //date
-
             };
             using (var db = new MediasManangementEntities())
             {
@@ -164,7 +165,6 @@ namespace Manager_Medias.ViewModels.Customer
                         MessageBox.Show("Đã xóa khỏi ds yêu thích");
                     }
                 }
-
             }
         }
 
@@ -180,7 +180,7 @@ namespace Manager_Medias.ViewModels.Customer
 
         private void SelectionChange(object obj)
         {
-            //check lại like và save của bài hát này 
+            //check lại like và save của bài hát này
             LoadLikeAndSave();
             string audioName = (string)obj;
             //sp.Play();
@@ -188,13 +188,14 @@ namespace Manager_Medias.ViewModels.Customer
             player = null;
             loadaudio(audioName);
         }
+
         public void loadaudio(string audioMame)
         {
             if (player == null)
             {
                 player = new MediaPlayer();
                 var currentfolder = AppDomain.CurrentDomain.BaseDirectory;
-                string url = currentfolder+ "Images\\Audio\\mp3\\" + audioMame;
+                string url = currentfolder + "Images\\Audio\\mp3\\" + audioMame;
                 player.Open(new Uri(url));
                 player.Play();
             }
@@ -210,7 +211,6 @@ namespace Manager_Medias.ViewModels.Customer
                 //cập nhật danh sách bài hát liên quan (chung danh mục) cho UI
                 AudioList = new ObservableCollection<Audio>(db.Audios.Where(au => au.IdCategory == SelectedAudio.IdCategory).ToList());
 
-               
                 LoadLikeAndSave();
             }
         }
@@ -219,7 +219,7 @@ namespace Manager_Medias.ViewModels.Customer
         {
             using (var db = new MediasManangementEntities())
             {
-                //ktr xem đã like và lưu bài nhạc này chưa 
+                //ktr xem đã like và lưu bài nhạc này chưa
                 //chưa có user id
                 var nLike = db.Likes.Where(l => l.IdMedia == SelectedAudio.Id && l.IdProfile == currentProfile).Count();
                 var nSave = db.My_Lists.Where(l => l.IdMedia == SelectedAudio.Id && l.IdProfile == currentProfile).Count();

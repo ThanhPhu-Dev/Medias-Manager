@@ -24,6 +24,7 @@ namespace Manager_Medias.ViewModels.Guest
         private bool _checkApply;
 
         #region BindingProperty
+
         public string Name
         {
             get => _name;
@@ -34,6 +35,7 @@ namespace Manager_Medias.ViewModels.Guest
                 OnPropertyChanged();
             }
         }
+
         public string CartNum
         {
             get => _cartNum;
@@ -44,6 +46,7 @@ namespace Manager_Medias.ViewModels.Guest
                 OnPropertyChanged();
             }
         }
+
         public string DateExpiration
         {
             get => _dateExpiration;
@@ -54,9 +57,10 @@ namespace Manager_Medias.ViewModels.Guest
                 OnPropertyChanged();
             }
         }
+
         public bool CheckApply
-        { 
-            get => _checkApply; 
+        {
+            get => _checkApply;
             set
             {
                 ValidateProperty(value);
@@ -66,14 +70,12 @@ namespace Manager_Medias.ViewModels.Guest
         }
 
         public Level LevelSelected { get => levelSelected; set => levelSelected = value; }
+
         #endregion BindingProperty
 
-        public GuestCartRegisterViewModel(User u, NavigationStore navigationStore)
+        public GuestCartRegisterViewModel(User u)
         {
             _userCurrent = u;
-
-            //tạo biến chuyển trang
-            _navigationStore = navigationStore;
 
             //tạo command
             CmdFinish = new RelayCommand<Object[]>(Finish, (Object[] obj) => !HasErrors);
@@ -99,7 +101,7 @@ namespace Manager_Medias.ViewModels.Guest
 
         private void PrePage(object[] obj)
         {
-            _navigationStore.ContentViewModel = new GuestLevelRegisterViewModel(_userCurrent, _navigationStore);
+            _navigationStore.ContentViewModel = new GuestLevelRegisterViewModel(_userCurrent);
         }
 
         private void Finish(object[] obj)
@@ -110,7 +112,7 @@ namespace Manager_Medias.ViewModels.Guest
                 Name = obj[0].ToString(),
             };
 
-            using(var db = new MediasManangementEntities())
+            using (var db = new MediasManangementEntities())
             {
                 var user = db.Users.Where(u => u.Email == _userCurrent.Email).Single() as User;
 
@@ -118,12 +120,11 @@ namespace Manager_Medias.ViewModels.Guest
                 user.NumberCard = obj[1].ToString();
                 //db.SaveChanges();
 
-                //tạo user 
+                //tạo user
                 db.Profiles.Add(profile);
                 db.SaveChanges();
 
                 //chuyển trang dên trang chủ
-
             }
         }
     }

@@ -14,9 +14,11 @@ namespace Manager_Medias.ViewModels
 {
     public class BaseViewModel : DependencyObject, INotifyPropertyChanged, INotifyDataErrorInfo
     {
+        protected static UserStore _userStore;
+
         #region Navigate
 
-        protected NavigationStore _navigationStore;
+        protected static NavigationStore _navigationStore;
 
         public BaseViewModel ContentViewModel => _navigationStore.ContentViewModel;
         public BaseViewModel CurrentViewModel => _navigationStore.CurrentViewModel;

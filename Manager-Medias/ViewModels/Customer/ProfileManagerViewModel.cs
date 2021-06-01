@@ -19,7 +19,6 @@ namespace Manager_Medias.ViewModels.Customer
     public class ProfileManagerViewModel : BaseViewModel
     {
         private const string DEFAULT_AVATAR = "default_avatar.png";
-        private readonly UserStore _userStore;
 
         #region Command
 
@@ -88,9 +87,8 @@ namespace Manager_Medias.ViewModels.Customer
 
         #endregion Binding
 
-        public ProfileManagerViewModel(UserStore userStore)
+        public ProfileManagerViewModel()
         {
-            _userStore = userStore;
             _pathAvatarFile = DEFAULT_AVATAR;
             this.Errors = new Dictionary<string, List<string>>();
             this.ValidationRules = new Dictionary<string, List<ValidationRule>>();

@@ -1,5 +1,6 @@
 ﻿using LiveCharts;
 using LiveCharts.Wpf;
+using Manager_Medias.ViewModels.Admin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,10 +22,13 @@ namespace Manager_Medias.Views.Admin
     /// </summary>
     public partial class DashboardAdmin : Window
     {
+        AdminViewVM vm;
         public DashboardAdmin()
         {
             InitializeComponent();
-            
+
+
+
         }
 
 
@@ -65,19 +69,5 @@ namespace Manager_Medias.Views.Admin
             mainGrid.Children.Clear();
             mainGrid.Children.Add(new StatisticalUserControl());
         }
-    }
-    public class User
-    {
-        public string Email { get; set; }
-        public int Level { get; set; }
-
-        public string Password { get; set; }
-
-        public DateTime CreateAt { get; set; }
-
-        public double Balance { get; set; }
-        public string cardNum { get; set; }
-        public int Accumulated { get; set; }
-        public string Code { get; set; }
     }
 }

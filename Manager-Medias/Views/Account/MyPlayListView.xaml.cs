@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Manager_Medias.Views.Account
 {
     /// <summary>
-    /// Interaction logic for PlayListView.xaml
+    /// Interaction logic for MyPlayListView.xaml
     /// </summary>
-    public partial class PlayListView : UserControl
+    public partial class MyPlayListView : UserControl
     {
-        public PlayListView()
+        public MyPlayListView()
         {
             InitializeComponent();
         }

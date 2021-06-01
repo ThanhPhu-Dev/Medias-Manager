@@ -52,6 +52,8 @@ namespace Manager_Medias.ViewModels
 
         #endregion InvokeViewChanged
 
+
+
         #region INotifyDataErrorInfo
 
         public Dictionary<string, List<string>> Errors { get; set; }

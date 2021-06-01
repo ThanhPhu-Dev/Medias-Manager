@@ -16,7 +16,6 @@ namespace Manager_Medias.ViewModels.Customer
     {
         public static readonly DependencyProperty CatMovieListProperty;
         public ICommand CmdToDetailMovie { get; set; }
-        private UserStore _user;
 
         static HomeMovieViewModel()
         {
@@ -28,14 +27,8 @@ namespace Manager_Medias.ViewModels.Customer
             set => SetValue(CatMovieListProperty, value);
         }
 
-        public HomeMovieViewModel(NavigationStore navigationStore, UserStore userStore)
+        public HomeMovieViewModel()
         {
-            //user hiện tại
-            _user = userStore;
-
-            //gán biến chuyển trang
-            _navigationStore = navigationStore;
-
             //gọi hàm load giao diện
             LoadMovie();
 

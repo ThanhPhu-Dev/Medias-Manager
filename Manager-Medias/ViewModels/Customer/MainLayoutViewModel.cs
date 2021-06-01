@@ -1,4 +1,5 @@
 ﻿using Manager_Medias.Commands;
+using Manager_Medias.Models;
 using Manager_Medias.Services;
 using Manager_Medias.Stores;
 using System;
@@ -13,16 +14,9 @@ namespace Manager_Medias.ViewModels.Customer
 {
     public class MainLayoutViewModel : BaseViewModel
     {
-
-
-
-
-        //public Profile currentProfile => _userStore.Profiles
-
         #region Command
 
         public ICommand NavigateMovieCmd { get; }
-        public ICommand ClickAudio { get; }
         public ICommand NavigateAlbumCmd { get; }
         public ICommand NavigateAudioCmd { get; }
         public ICommand NavigateAccountCmd { get; }
@@ -39,7 +33,7 @@ namespace Manager_Medias.ViewModels.Customer
 
         public string ProfileName
         {
-            get => _userStore.CurrentProfile.Name;
+            get => _userStore.ProfileName;
         }
 
         #endregion Binding
@@ -51,22 +45,31 @@ namespace Manager_Medias.ViewModels.Customer
 
             _navigationStore.CurrentContentViewModelChanged += _navigationStore_CurrentContentViewModelChanged;
             MovieCmd = new RelayCommand<object>(MoviewShow);
-            ClickAudio = new RelayCommand<object>(Clickaudio);
+
+            _userStore.ProfileChanged += _userStore_ProfileChanged;
+            _userStore.AvatarChanged += _userStore_AvatarChanged;
+            _userStore.NameChanged += _userStore_NameChanged;
+        }
+
+        private void _userStore_ProfileChanged()
+        {
+            OnPropertyChanged(nameof(ProfileName));
+            OnPropertyChanged(nameof(Avatar));
+        }
+
+        private void _userStore_NameChanged()
+        {
+            OnPropertyChanged(nameof(ProfileName));
+        }
+
+        private void _userStore_AvatarChanged()
+        {
+            OnPropertyChanged(nameof(Avatar));
         }
 
         private void MoviewShow(object obj)
         {
-            _navigationStore.ContentViewModel = new HomeMovieViewModel(_navigationStore, _userStore);
-        }
-
-        private void Clickaudio(object obj)
-        {
-            _navigationStore.ContentViewModel = new HomeAudioViewModel();
-        }
-
-        private void ComboboxAccountChanged(SelectionChangedEventArgs e)
-        {
-            _navigationStore.ContentViewModel = new HomeMovieViewModel(_navigationStore, _userStore);
+            _navigationStore.ContentViewModel = new HomeMovieViewModel();
         }
     }
 }

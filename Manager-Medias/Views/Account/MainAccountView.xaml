@@ -189,6 +189,18 @@
                             Command="{Binding NavigateFavoriteManagerCmd}">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="BookmarkMultipleOutline" Foreground="#febb00" />
+                            <TextBlock Text="Danh sách cá nhân"
+                                   Margin="2 0 0 0" Foreground="#fff"
+                                   FontSize="16"
+                                   HorizontalAlignment="Left" TextWrapping="Wrap"
+                                       Width="120" />
+                        </StackPanel>
+                    </Button>
+
+                    <Button Style="{StaticResource BtnNav}"
+                            Command="{Binding NavigateFavoriteManagerCmd}">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="HeartOutline" Foreground="#febb00" />
                             <Label Content="Yêu thích"
                                    Margin="2 0 0 0" Foreground="#fff"
                                    FontSize="16"
@@ -233,6 +245,9 @@
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type vm:ProfileManagerViewModel}">
                     <local:ProfileManager />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type vm:MyPlayListViewModel}">
+                    <local:MyPlayListView />
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type vm:FavoriteListViewModel}">
                     <local:FavoriteListView />

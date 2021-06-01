@@ -254,6 +254,7 @@
     </Compile>
     <Compile Include="ViewModels\Customer\MainAccountViewModel.cs" />
     <Compile Include="ViewModels\Customer\MainLayoutViewModel.cs" />
+    <Compile Include="ViewModels\Customer\MyPlayListViewModel.cs" />
     <Compile Include="ViewModels\Customer\PaymentHistoryViewModel.cs" />
     <Compile Include="ViewModels\Customer\ProfileManagerViewModel.cs" />
     <Compile Include="ViewModels\Guest\GuestCartRegisterViewModel.cs" />
@@ -278,11 +279,11 @@
     <Compile Include="Views\Account\MainAccountView.xaml.cs">
       <DependentUpon>MainAccountView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Account\MyPlayListView.xaml.cs">
+      <DependentUpon>MyPlayListView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Account\PaymentHistoryView.xaml.cs">
       <DependentUpon>PaymentHistoryView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Account\PlayListView.xaml.cs">
-      <DependentUpon>PlayListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Account\ProfileManager.xaml.cs">
       <DependentUpon>ProfileManager.xaml</DependentUpon>
@@ -376,11 +377,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Account\PaymentHistoryView.xaml">
+    <Page Include="Views\Account\MyPlayListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Account\PlayListView.xaml">
+    <Page Include="Views\Account\PaymentHistoryView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -123,7 +123,7 @@
       <HintPath>..\packages\Syncfusion.Tools.WPF.19.1.0.64\lib\net46\Syncfusion.Tools.WPF.dll</HintPath>
     </Reference>
     <Reference Include="System">
-      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.dll</HintPath>
     </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
@@ -197,6 +197,7 @@
     <Compile Include="Validates\ValidateEmailRegister.cs" />
     <Compile Include="Validates\ValidatePassword.cs" />
     <Compile Include="Validates\PhoneNumberValidationRule.cs" />
+    <Compile Include="ViewModels\Admin\AdminViewVM.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\Customer\AccountManagerViewModel.cs" />
     <Compile Include="ViewModels\Customer\ChangePasswordViewModel.cs" />
@@ -514,9 +515,7 @@
   <ItemGroup>
     <Resource Include="Images\desktop.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModels\Admin\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
       <Visible>False</Visible>

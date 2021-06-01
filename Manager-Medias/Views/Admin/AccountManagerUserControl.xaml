@@ -5,8 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:Manager_Medias.Views.Admin"
+             xmlns:localConvert="clr-namespace:Manager_Medias.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <localConvert:ProfileImageConverter x:Key="ProfileImageConverter"/>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="70*"/>
@@ -215,7 +220,7 @@
                     </StackPanel>
                     <DataGrid Name="UsersDg" IsReadOnly="True"
                               SelectionMode="Single" Width="560" Height="500"
-                              ItemsSource="{Binding users}" Margin="15 15 15 15"
+                              ItemsSource="{Binding UserList}" Margin="15 15 15 15"
                               ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                               AutoGenerateColumns="False" Grid.ColumnSpan="2">
 
@@ -235,10 +240,10 @@
                             </Style>
                         </DataGrid.Resources>
                         <DataGrid.Columns>
-                            <materialDesign:DataGridTextColumn Header="Email" Binding="{Binding Email}" />
-                            <materialDesign:DataGridTextColumn Header="Cấp độ" Binding="{Binding Level}" />
-                            <materialDesign:DataGridTextColumn Header="Số thẻ" Binding="{Binding cardNum}" />
-                            <materialDesign:DataGridTextColumn Header="Tích điểm" Binding="{Binding Accumulated}" />
+                            <materialDesign:DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="180" />
+                            <materialDesign:DataGridTextColumn Header="Cấp độ" Binding="{Binding Level}" Width="110"/>
+                            <materialDesign:DataGridTextColumn Header="Số thẻ" Binding="{Binding NumberCard}" Width="150"/>
+                            <materialDesign:DataGridTextColumn Header="Code" Binding="{Binding Code}" Width="120"/>
                         </DataGrid.Columns>
                         <DataGrid.RowDetailsTemplate>
                             <DataTemplate>
@@ -247,6 +252,11 @@
                                                              Foreground="DodgerBlue"
                                                              Kind="Account" Height="64" Width="60" Margin="10" />
                                     <Grid Margin="0,10">
+                                        <Grid.Resources>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="Margin" Value="0 4 0 0"/>
+                                            </Style>
+                                        </Grid.Resources>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto" />
                                             <ColumnDefinition Width="*" />
@@ -258,14 +268,12 @@
                                             <RowDefinition Height="Auto" />
 
                                         </Grid.RowDefinitions>
-                                        <TextBlock Text="Mật khẩu: " FontWeight="Bold" />
-                                        <TextBlock Text="{Binding Password}" Grid.Column="1" />
-                                        <TextBlock Text="Số dư: " FontWeight="Bold" Grid.Row="2" />
-                                        <TextBlock Text="{Binding Balance}" Grid.Column="1" Grid.Row="2" />
+                                        <TextBlock Text="Cấp độ: " FontWeight="Bold" Grid.Row="2" />
+                                        <TextBox Text="{Binding Level}" Grid.Column="1" Grid.Row="2" />
                                         <TextBlock Text="Code: " FontWeight="Bold" Grid.Row="1" />
-                                        <TextBlock Text="{Binding Code}" Grid.Column="1" Grid.Row="1" />
-                                        <TextBlock Text="Ngày tạo: " FontWeight="Bold" Grid.Row="3" />
-                                        <TextBlock Text="{Binding CreateAt, StringFormat=d}" Grid.Column="1" Grid.Row="3" />
+                                        <TextBox Text="{Binding Code}" Grid.Column="1" Grid.Row="1" />
+                                        <TextBlock Text="Số thẻ: " FontWeight="Bold" Grid.Row="3" />
+                                        <TextBox Text="{Binding NumberCard}" Grid.Column="1" Grid.Row="3" />
                                     </Grid>
                                     <StackPanel>
                                         <Button Content="Xóa người dùng" 
@@ -282,52 +290,61 @@
                     </DataGrid>
                 </StackPanel>
 
+                <Border BorderBrush="Beige"
+                         Margin="0 45 0 20"  BorderThickness="2"
+                        CornerRadius="4">
+                    <StackPanel Width="290"                         
+                            Background="Wheat">
+                        <StackPanel.Resources>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Margin" Value="5 3 5 0"/>
+                                <Setter Property="FontSize" Value="14"/>
+                                <Setter Property="FontWeight" Value="Bold"/>
+                            </Style>
 
-                <StackPanel Width="305">
-                    <StackPanel.Resources>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="Margin" Value="5 5 5 0"/>
-                            <Setter Property="FontSize" Value="14"/>
-                            <Setter Property="FontWeight" Value="Bold"/>
-                        </Style>
-                    </StackPanel.Resources>
-                    <materialDesign:PackIcon DockPanel.Dock="Left" 
-                                             HorizontalAlignment="Center"
-                                             Foreground="DodgerBlue"
-                                             Kind="Account" Height="88" Width="100" Margin="10" />
-                    <TextBlock Text="Email"/>
-                    <TextBox Name="emailTbx" Margin="5 0 15 0"
+                        </StackPanel.Resources>
+                        <TextBlock Text="Danh sách profile: " />
+                        <ComboBox ItemsSource="{Binding ProfileList}"
+                                  Padding="20 0 0 0" Margin="5 5 50 0">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding Id}"/>
+                                        <TextBlock Text=" - "/>
+                                        <TextBlock Text="{Binding Name}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                        <Border BorderBrush="Gray"
+                                Padding="5"
+                                Height="140" Width="150"  BorderThickness="2"
+                                Margin="0 10 0 0">
+                            <Image Source="{Binding Profile.Avatar, Converter={StaticResource ProfileImageConverter}}" />
+                        </Border>
+                        
+                        
+                        <TextBlock Text="Email"/>
+                        <TextBox Name="emailTbx" Margin="5 0 15 0"
                                  IsReadOnly="True" Style="{StaticResource MaterialDesignTextBox}"
-                                 Text="{Binding ElementName=UsersDg, Path=SelectedItem.Email, Mode=OneWay}"/>
-                    <TextBlock Text="Mật khẩu" />
-                    <TextBox Name="passwordTbx" Margin="5 0 15 0"
-                                 Text="{Binding ElementName=UsersDg, Path=SelectedItem.Password, Mode=OneWay}" IsReadOnly="True"/>
-                    <TextBlock Text="Số tài khoản"  />
-                    <TextBox Name="cardNumTbx" Margin="5 0 15 0"
-                                 Text="{Binding ElementName=UsersDg, Path=SelectedItem.cardNum, Mode=OneWay}"
-                                 IsReadOnly="True"/>
-                    <TextBlock Text="Tích lũy" />
-                    <TextBox Name="AccumulatedTbx" Margin="5 0 15 0"
-                                 Text="{Binding ElementName=UsersDg, Path=SelectedItem.Accumulated, Mode=OneWay}"
-                                 IsReadOnly="True"/>
-                    <TextBlock Text="Cấp độ" />
-                    <TextBox Name="levelTbx" Margin="5 0 15 0"
-                                 Text="{Binding ElementName=UsersDg, Path=SelectedItem.Level, Mode=OneWay}"
-                                 IsReadOnly="True"/>
-                    <TextBlock Text="Số dư" />
-                    <TextBox Name="balanceTbx" Margin="5 0 15 0"
-                                 Text="{Binding ElementName=UsersDg, Path=SelectedItem.Balance, Mode=OneWay}"
-                                 IsReadOnly="True"/>
-                    <TextBlock Text="Code" />
-                    <TextBox Name="codeTbx" Margin="5 0 15 0"
-                                 Text="{Binding ElementName=UsersDg, Path=SelectedItem.Code, Mode=OneWay}"
-                                 IsReadOnly="True"/>
-                    <TextBlock Text="Ngày tạo" Margin="5 5 5 0"/>
-                    <DatePicker Name="createDateTbx" Margin="5 0 15 0"
+                                 Text="{Binding ElementName=UsersDg, Path=SelectedValue.Email}"/>
+
+                        <TextBlock Text="Họ tên"  />
+                        <TextBox Name="cardNumTbx" Margin="5 0 15 0"
+                             Text="{Binding Profile.Name}"
+                             IsReadOnly="True"/>
+                        <TextBlock Text="Tình trạng" />
+                        <TextBox Name="AccumulatedTbx" Margin="5 0 15 0"
+                             Text="{Binding Profile.Status}"
+                             IsReadOnly="True"/>
+                        <TextBlock Text="Ngày tạo"/>
+                        <DatePicker Name="createDateTbx" Margin="5 0 15 0"
                                     IsEnabled="False"
                                     SelectedDate="{Binding ElementName=UsersDg, Path=SelectedItem.CreateAt, Mode=OneWay}"/>
-                    <Button Content="Lưu" Name="saveUserBt" Background="Gray" Margin="35 25 35 0"/>
-                </StackPanel>
+                        <Button Content="Lưu" Name="saveUserBt" Background="Gray" Margin="35 25 35 0"/>
+                    </StackPanel>
+                </Border>
+                
             </StackPanel>
         </Grid>
     </Grid>

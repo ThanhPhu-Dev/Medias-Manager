@@ -13,6 +13,13 @@ namespace Manager_Medias.ViewModels.Customer
 {
     public class MainLayoutViewModel : BaseViewModel
     {
+
+        public ICommand ClickAudio { get; set; }
+
+
+
+        //public Profile currentProfile => _userStore.Profiles
+
         #region Command
 
         public ICommand NavigateMovieCmd { get; }
@@ -47,6 +54,16 @@ namespace Manager_Medias.ViewModels.Customer
         }
 
         private void MoviewShow(object obj)
+        {
+            _navigationStore.ContentViewModel = new HomeMovieViewModel(_navigationStore, _userStore);
+        }
+
+        private void Clickaudio(object obj)
+        {
+            _navigationStore.ContentViewModel = new HomeAudioViewModel();
+        }
+
+        private void ComboboxAccountChanged(SelectionChangedEventArgs e)
         {
             _navigationStore.ContentViewModel = new HomeMovieViewModel(_navigationStore, _userStore);
         }

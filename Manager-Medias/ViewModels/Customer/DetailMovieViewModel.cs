@@ -23,7 +23,6 @@ namespace Manager_Medias.ViewModels.Customer
         public ICommand CmdAddMyListClick { get; set; }
         private bool _checkSave;
 
-        public User currentUser => _userStore.CurrentUser;
 
         static DetailMovieViewModel()
         {
@@ -56,10 +55,7 @@ namespace Manager_Medias.ViewModels.Customer
             loaded();
         }
 
-        public DetailMovieViewModel(UserStore userStore)
-        {
-            _userStore = userStore;
-        }
+     
 
         public void loaded()
         {
@@ -130,7 +126,7 @@ namespace Manager_Medias.ViewModels.Customer
             {
                 IdMedia = id,
                 Date = DateTime.Now.Date,
-                IdProfile = 1,
+                IdProfile = _userStore.CurrentProfile.Id,
             };
             using (var db = new MediasManangementEntities())
             {

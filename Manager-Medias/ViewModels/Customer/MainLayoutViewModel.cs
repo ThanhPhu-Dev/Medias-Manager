@@ -14,7 +14,6 @@ namespace Manager_Medias.ViewModels.Customer
     public class MainLayoutViewModel : BaseViewModel
     {
 
-        public ICommand ClickAudio { get; set; }
 
 
 
@@ -23,6 +22,7 @@ namespace Manager_Medias.ViewModels.Customer
         #region Command
 
         public ICommand NavigateMovieCmd { get; }
+        public ICommand ClickAudio { get; }
         public ICommand NavigateAlbumCmd { get; }
         public ICommand NavigateAudioCmd { get; }
         public ICommand NavigateAccountCmd { get; }
@@ -51,6 +51,7 @@ namespace Manager_Medias.ViewModels.Customer
 
             _navigationStore.CurrentContentViewModelChanged += _navigationStore_CurrentContentViewModelChanged;
             MovieCmd = new RelayCommand<object>(MoviewShow);
+            ClickAudio = new RelayCommand<object>(Clickaudio);
         }
 
         private void MoviewShow(object obj)

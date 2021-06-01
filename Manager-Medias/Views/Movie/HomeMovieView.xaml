@@ -177,7 +177,7 @@
                                     Grid.ColumnSpan="3"
                                     Grid.Row="1"
                                     HorizontalAlignment="Center">
-                                        <ItemsControl Name="itc_movie"
+                                        <ItemsControl
                                           ItemsSource="{Binding Movies}" ItemContainerStyle="{StaticResource carouselMovieStyle}">
 
                                             <ItemsControl.ItemsPanel>

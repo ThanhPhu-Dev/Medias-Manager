@@ -20,6 +20,7 @@ namespace Manager_Medias.ViewModels.Customer
         public ICommand NavigateAlbumCmd { get; }
         public ICommand NavigateAudioCmd { get; }
         public ICommand NavigateAccountCmd { get; }
+        public ICommand NavigateHomeCmd { get; }
         public ICommand MovieCmd { get; set; }
 
         #endregion Command
@@ -42,6 +43,9 @@ namespace Manager_Medias.ViewModels.Customer
         {
             NavigateAccountCmd = new NavigateCommand<MainAccountViewModel>(
                 new NavigationService<MainAccountViewModel>(_navigationStore, () => new MainAccountViewModel()));
+
+            NavigateHomeCmd = new NavigateCommand<HomeViewModel>(
+                new NavigationService<HomeViewModel>(_navigationStore, () => new HomeViewModel()));
 
             _navigationStore.CurrentContentViewModelChanged += _navigationStore_CurrentContentViewModelChanged;
             MovieCmd = new RelayCommand<object>(MoviewShow);

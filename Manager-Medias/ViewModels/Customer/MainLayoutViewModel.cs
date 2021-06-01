@@ -53,6 +53,7 @@ namespace Manager_Medias.ViewModels.Customer
 
         private void MoviewShow(object obj)
         {
+            //chuyển trang 
             _navigationStore.ContentViewModel = new HomeMovieViewModel(_navigationStore, _userStore);
         }
     }

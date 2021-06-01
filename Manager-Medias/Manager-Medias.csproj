@@ -333,6 +333,9 @@
     <Compile Include="Views\Layouts\MainLayoutView.xaml.cs">
       <DependentUpon>MainLayoutView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\LoadingUC.xaml.cs">
+      <DependentUpon>LoadingUC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Movie\DetailMovieView.xaml.cs">
       <DependentUpon>DetailMovieView.xaml</DependentUpon>
     </Compile>
@@ -446,6 +449,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Layouts\MainLayoutView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LoadingUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -13,8 +13,6 @@ namespace Manager_Medias.ViewModels.Customer
 {
     public class MainLayoutViewModel : BaseViewModel
     {
-        public ICommand ClickAudio { get; set; }
-
         #region Command
 
         public ICommand NavigateMovieCmd { get; }

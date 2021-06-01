@@ -207,6 +207,7 @@ INSERT INTO Media_Categories (Name) VALUES (N'Hinh Ảnh'), (N'Phim'), (N'Âm Nh
 
 --MEDIA
 INSERT INTO Medias (IdCategory) values (1), (1), (1), (1), (1), (1), (1), (1), (1), (1)
+update Medias set IdCategory = 2 where Id between 28 and 37 
 
 --INSERT AUDIO_Cat
 INSERT INTO Audio_Categories(Name) values (N'Ballad'), (N'Sôi động'), (N'Trữ tình')
@@ -255,7 +256,11 @@ insert into payment_history(Email,DateOfPayment,Note,Price) values ('user@gmail.
 
 select * from Movies
 select * from Movie_Categories
-insert into Movie_Categories (Name) values (N'Tình cảm')
+insert into Movie_Categories (Name) values 
+--(N'Tình cảm'), 
+(N'Phiêu lưu'), 
+(N'Viễn tưởng'), 
+(N'Kinh dị')
 --insert phim 
 insert into Movies (Id, IdCategory, IMDB, Likes, Name, NumberOfViews, Poster, Age)
 			values (18, 1, 6.5, 4, N'Iron Man 1', 23, 'movieposter_action_ironman_1.jpg', 18),
@@ -269,6 +274,17 @@ insert into Movies (Id, IdCategory, IMDB, Likes, Name, NumberOfViews, Poster, Ag
 				   (25, 2, 6, 0, N'Người thầy y đức', 103, 'movieposter_action_NVBKT_5.jpg', 14),
 				   (26, 2, 7, 0, N'Cửa hàng tiện lợi', 23, 'movieposter_action_SD.jpg', 15),
 				   (27, 2, 4, 0, N'Hình dáng thanh âm', 1000, 'movieposter_action_ff_9.jpg', 10)
+insert into Movies (Id, IdCategory, IMDB, Likes, Name, NumberOfViews, Poster, Age)
+			values (28, 3, 6.5, 4, N'Điểm mù 2', 23, 'movieposter_action_ironman_1.jpg', 18),
+				   (29, 3, 5, 0, N'Gozzila', 23, 'movieposter_action_ironman_2.jpg', 18),
+				   (30, 3, 6, 0, N'Edens Zero', 103, 'movieposter_action_NVBKT_5.jpg', 14),
+				   (31, 4, 6, 0, N'Đồi tuyết máu', 103, 'movieposter_action_NVBKT_5.jpg', 14),
+				   (32, 4, 6.5, 4, N'Bạn trai tôi', 23, 'movieposter_action_ironman_1.jpg', 18),
+				   (33, 4, 5, 0, N'Doctor Animal', 23, 'movieposter_action_ironman_2.jpg', 18),
+				   (34, 4, 6, 0, N'Thảm họa toàn cầu', 103, 'movieposter_action_NVBKT_5.jpg', 14),
+				   (35, 5, 6.5, 4, N'Lời ru tử thần', 23, 'movieposter_action_SD.jpg', 18),
+				   (36, 5, 5, 0, N'Nuốt chửng', 23, 'movieposter_action_ironman_2.jpg', 18),
+				   (37, 5, 6, 0, N'Bùa chú', 103, 'movieposter_action_ff_9.jpg', 14)
 
 insert into Movies (Id, IdCategory,IMDB,Likes,Name,NumberOfViews,Poster,Age,Description,Season,Time,Video)
 values (7,1,6.5,4,N'Super Hero', 23, 'movieposter_postermovieHuter.jpg', 18,N'Super hero hân hạnh tài trợ', 'kn92','00:12:30','movievideo_video.mp4')

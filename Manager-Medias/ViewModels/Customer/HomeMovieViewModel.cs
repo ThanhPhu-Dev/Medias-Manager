@@ -14,22 +14,13 @@ namespace Manager_Medias.ViewModels.Customer
 {
     public class HomeMovieViewModel : BaseViewModel
     {
-        public static readonly DependencyProperty MovieListProperty;
         public static readonly DependencyProperty CatMovieListProperty;
         public ICommand CmdToDetailMovie { get; set; }
 
         static HomeMovieViewModel()
         {
-            MovieListProperty = DependencyProperty.Register("MovieList", typeof(ObservableCollection<Movie>), typeof(HomeMovieViewModel));
             CatMovieListProperty = DependencyProperty.Register("CatMovieList", typeof(ObservableCollection<Movie_Category>), typeof(HomeMovieViewModel));
         }
-
-        public ObservableCollection<Movie> MovieList
-        {
-            get => (ObservableCollection<Movie>)GetValue(MovieListProperty);
-            set => SetValue(MovieListProperty, value);
-        }
-
         public ObservableCollection<Movie_Category> CatMovieList
         {
             get => (ObservableCollection<Movie_Category>)GetValue(CatMovieListProperty);
@@ -57,7 +48,6 @@ namespace Manager_Medias.ViewModels.Customer
             using (var db = new MediasManangementEntities())
             {
                 //cập nhật danh sách bài hát liên quan (chung danh mục) cho UI
-                MovieList = new ObservableCollection<Movie>(db.Movies.ToList());
                 CatMovieList = new ObservableCollection<Movie_Category>(db.Movie_Categories.Include("Movies").ToList());
             }
         }

@@ -138,14 +138,9 @@ namespace Manager_Medias.ViewModels.Customer
         {
             using (var db = new MediasManangementEntities())
             {
-                var user = db.Users.Where(u => u.Email == _userStore.Email).Single();
-                var currentActiveProfile = user.Profiles.Where(p => p.Status == 1).Single();
-
-                var selectedProfile = user.Profiles.Where(p => p.Id == int.Parse(profileId.ToString())).Single();
-                currentActiveProfile.Status = 0;
-                selectedProfile.Status = 1;
-
-                db.SaveChanges();
+                var user = db.Users.Single(u => u.Email == _userStore.Email);
+                var selectedProfile = user.Profiles.Single(p => p.Id == int.Parse(profileId.ToString()));
+                _userStore.CurrentProfile = selectedProfile;
             }
 
             Profiles = _userStore.Profiles;
@@ -218,25 +213,19 @@ namespace Manager_Medias.ViewModels.Customer
 
         public void ActionEditProfile(Object obj)
         {
-            using (var db = new MediasManangementEntities())
+            if (Path.IsPathRooted(PathAvatarFile))
             {
-                var profile = db.Profiles.Single(p => p.Id == SelectedProfileId);
+                var uniqueFileName = Guid.NewGuid();
+                var fileExtension = Path.GetExtension(PathAvatarFile);
 
-                profile.Name = InputProfileName;
-                if (Path.IsPathRooted(PathAvatarFile))
-                {
-                    var uniqueFileName = Guid.NewGuid();
-                    var fileExtension = Path.GetExtension(PathAvatarFile);
-
-                    var baseFolder = AppDomain.CurrentDomain.BaseDirectory;
-                    var imagePath = Path.Combine(baseFolder, "Images\\Profile", $"{uniqueFileName}{fileExtension}");
-                    File.Copy(PathAvatarFile, imagePath);
-                    PathAvatarFile = $"{uniqueFileName}{fileExtension}";
-                }
-                profile.Avatar = PathAvatarFile;
-
-                db.SaveChanges();
+                var baseFolder = AppDomain.CurrentDomain.BaseDirectory;
+                var imagePath = Path.Combine(baseFolder, "Images\\Profile", $"{uniqueFileName}{fileExtension}");
+                File.Copy(PathAvatarFile, imagePath);
+                PathAvatarFile = $"{uniqueFileName}{fileExtension}";
             }
+
+            _userStore.ProfileName = InputProfileName;
+            _userStore.PathAvatar = PathAvatarFile;
 
             ResetBinding();
         }

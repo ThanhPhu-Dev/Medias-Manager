@@ -162,7 +162,7 @@
                                                 Height="36">
                                             <Ellipse VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                                                 <Ellipse.Fill>
-                                                    <ImageBrush ImageSource="{Binding Avatar, Converter={StaticResource imgCvt}}"
+                                                    <ImageBrush ImageSource="{Binding Avatar, Converter={StaticResource imgCvt}, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}"
                                                                 Stretch="Fill"
                                                                 RenderOptions.BitmapScalingMode="Linear" />
                                                 </Ellipse.Fill>
@@ -171,7 +171,7 @@
                                                 </Ellipse.Stroke>
                                             </Ellipse>
                                         </Border>
-                                        <TextBlock Text="{Binding ProfileName}"
+                                        <TextBlock Text="{Binding ProfileName, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}"
                                            VerticalAlignment="Center"
                                            Margin="12 0 8 0" />
                                         <materialDesign:PackIcon VerticalAlignment="Center"
@@ -278,7 +278,7 @@
                         <StackPanel x:Name="SidebarList">
                             <Button Margin="0 10 0 10"
                                     Padding="20 4"
-                                    Style="{StaticResource SidebarButton}" 
+                                    Style="{StaticResource SidebarButton}"
                                     Command="{Binding MovieCmd}">
                                 <StackPanel Orientation="Horizontal">
                                     <materialDesign:PackIcon Kind="MovieOutline"
@@ -342,9 +342,7 @@
                                            Foreground="#fff" />
                                 </StackPanel>
                             </Button>
-                            <Button 
-                                    Command="{Binding ClickAudio}"
-                                    Margin="0 10 0 10"
+                            <Button Margin="0 10 0 10"
                                     Padding="20 4"
                                     Style="{StaticResource SidebarButton}">
                                 <StackPanel Orientation="Horizontal">

@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -20,7 +22,6 @@ namespace Manager_Medias.Stores
             set
             {
                 _email = value;
-                OnCurrentUserChanged();
             }
         }
 
@@ -45,17 +46,50 @@ namespace Manager_Medias.Stores
                     .Profiles.Single(p => p.Status == 1);
                 }
             }
+            set
+            {
+                using (var db = new MediasManangementEntities())
+                {
+                    var user = db.Users.Single(u => u.Email == _email);
+                    var currentActiveProfile = user.Profiles.Single(p => p.Status == 1);
+
+                    var selectedProfile = user.Profiles.Single(p => p.Id == value.Id);
+                    currentActiveProfile.Status = 0;
+                    selectedProfile.Status = 1;
+
+                    db.SaveChanges();
+                }
+                OnProfileChanged();
+            }
         }
 
         public string PathAvatar
         {
-            get
+            get => this.CurrentProfile.Avatar;
+            set
             {
                 using (var db = new MediasManangementEntities())
                 {
-                    return db.Users.Single(u => u.Email == _email)
-                    .Profiles.Single(p => p.Status == 1).Avatar;
+                    var profile = db.Users.Single(u => u.Email == _email).Profiles.Single(p => p.Status == 1);
+                    profile.Avatar = value;
+                    db.SaveChanges();
                 }
+                OnAvatarChanged();
+            }
+        }
+
+        public string ProfileName
+        {
+            get => this.CurrentProfile.Name;
+            set
+            {
+                using (var db = new MediasManangementEntities())
+                {
+                    var profile = db.Users.Single(u => u.Email == _email).Profiles.Single(p => p.Status == 1);
+                    profile.Name = value;
+                    db.SaveChanges();
+                }
+                OnProfileNameChanged();
             }
         }
 
@@ -77,16 +111,30 @@ namespace Manager_Medias.Stores
 
         #endregion Property
 
-        public event Action CurrentUserChanged;
+        public event Action AvatarChanged;
+
+        public event Action NameChanged;
+
+        public event Action ProfileChanged;
 
         public UserStore(User user)
         {
             Email = user.Email;
         }
 
-        public void OnCurrentUserChanged()
+        public void OnAvatarChanged()
         {
-            CurrentUserChanged?.Invoke();
+            AvatarChanged?.Invoke();
+        }
+
+        public void OnProfileNameChanged()
+        {
+            NameChanged?.Invoke();
+        }
+
+        public void OnProfileChanged()
+        {
+            ProfileChanged?.Invoke();
         }
     }
 }

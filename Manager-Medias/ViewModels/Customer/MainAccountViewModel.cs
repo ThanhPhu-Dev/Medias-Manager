@@ -20,6 +20,7 @@ namespace Manager_Medias.ViewModels.Customer
         public ICommand NavigateAccountManagerCmd { get; }
         public ICommand NavigateChangePasswordCmd { get; }
         public ICommand NavigateProfileManagerCmd { get; }
+        public ICommand NavigateMyListCmd { get; }
         public ICommand NavigateFavoriteManagerCmd { get; }
         public ICommand NavigateHistoryListCmd { get; }
         public ICommand NavigatePaymentHistoryCmd { get; }
@@ -30,10 +31,7 @@ namespace Manager_Medias.ViewModels.Customer
         {
             _acccountNavigateStore = new NavigationStore();
 
-            // ViewModel(Account, ParentNavigation use to Cancel command)
             _acccountNavigateStore.ContentViewModel = new AccountManagerViewModel();
-
-            //_navigationStore.ContentViewModel = new AccountManagerViewModel(userStore, _navigationStore);
 
             NavigateAccountManagerCmd = new NavigateCommand<AccountManagerViewModel>(
                 new NavigationService<AccountManagerViewModel>(_acccountNavigateStore, () => new AccountManagerViewModel()));
@@ -43,6 +41,9 @@ namespace Manager_Medias.ViewModels.Customer
 
             NavigateProfileManagerCmd = new NavigateCommand<ProfileManagerViewModel>(
                 new NavigationService<ProfileManagerViewModel>(_acccountNavigateStore, () => new ProfileManagerViewModel()));
+
+            NavigateMyListCmd = new NavigateCommand<MyPlayListViewModel>(
+                new NavigationService<MyPlayListViewModel>(_acccountNavigateStore, () => new MyPlayListViewModel()));
 
             NavigateFavoriteManagerCmd = new NavigateCommand<FavoriteListViewModel>(
                 new NavigationService<FavoriteListViewModel>(_acccountNavigateStore, () => new FavoriteListViewModel()));

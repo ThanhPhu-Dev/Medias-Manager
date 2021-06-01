@@ -52,6 +52,15 @@ namespace Manager_Medias.ViewModels
 
         #endregion InvokeViewChanged
 
+        #region InvokeUserChanged
+
+        protected void _userStore_CurrentUserChanged()
+        {
+            OnPropertyChanged("Email");
+        }
+
+        #endregion InvokeUserChanged
+
         #region INotifyDataErrorInfo
 
         public Dictionary<string, List<string>> Errors { get; set; }

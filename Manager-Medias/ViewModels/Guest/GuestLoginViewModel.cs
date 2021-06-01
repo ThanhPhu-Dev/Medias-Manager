@@ -111,6 +111,7 @@ namespace Manager_Medias.ViewModels.Guest
 
                 _navigationStore.CurrentViewModel = new MainLayoutViewModel();
                 _navigationStore.ContentViewModel = new HomeViewModel();
+                _userStore.CurrentUserChanged += _userStore_CurrentUserChanged;
                 //_navigationStore.ContentViewModel = new HomeMovieViewModel(_navigationStore, userStore);
             }
         }

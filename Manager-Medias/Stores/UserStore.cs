@@ -10,37 +10,64 @@ namespace Manager_Medias.Stores
 {
     public class UserStore
     {
-        private User _currentUser;
+        #region Property
+
+        private string _email;
+
+        public string Email
+        {
+            get => _email;
+            set
+            {
+                _email = value;
+                OnCurrentUserChanged();
+            }
+        }
 
         public User CurrentUser
         {
-            get => _currentUser;
-            set => _currentUser = value;
+            get
+            {
+                using (var db = new MediasManangementEntities())
+                {
+                    return db.Users.Single(u => u.Email == _email);
+                }
+            }
         }
-
-        private Profile _currentProfile;
 
         public Profile CurrentProfile
         {
-            get => _currentProfile;
+            get
+            {
+                using (var db = new MediasManangementEntities())
+                {
+                    return db.Users.Single(u => u.Email == _email)
+                    .Profiles.Single(p => p.Status == 1);
+                }
+            }
         }
 
         public string PathAvatar
         {
-            get => _currentProfile.Avatar;
+            get
+            {
+                using (var db = new MediasManangementEntities())
+                {
+                    return db.Users.Single(u => u.Email == _email)
+                    .Profiles.Single(p => p.Status == 1).Avatar;
+                }
+            }
         }
-
-        public string Email => _currentUser.Email;
 
         public ObservableCollection<Profile> Profiles
         {
             get
             {
-                if (_currentUser != null)
+                if (_email != null)
                 {
                     using (var db = new MediasManangementEntities())
                     {
-                        return new ObservableCollection<Profile>(db.Users.Where(u => u.Email == _currentUser.Email).Single().Profiles);
+                        return new ObservableCollection<Profile>(db.Users.Single(u => u.Email == _email).Profiles);
                     }
                 }
 
@@ -48,14 +75,18 @@ namespace Manager_Medias.Stores
             }
         }
 
+        #endregion Property
+
+        public event Action CurrentUserChanged;
+
         public UserStore(User user)
         {
-            using (var db = new MediasManangementEntities())
-            {
-                this._currentUser = user;
-                this._currentProfile = db.Users.Where(u => u.Email == user.Email).Single()
-                    .Profiles.Where(p => p.Status == 1).Single();
-            }
+            Email = user.Email;
+        }
+
+        public void OnCurrentUserChanged()
+        {
+            CurrentUserChanged?.Invoke();
         }
     }
 }

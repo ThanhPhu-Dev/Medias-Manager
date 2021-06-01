@@ -21,6 +21,7 @@ namespace Manager_Medias.ViewModels.Customer
         public ICommand NavigateAlbumCmd { get; }
         public ICommand NavigateAudioCmd { get; }
         public ICommand NavigateAccountCmd { get; }
+        public ICommand MovieCmd { get; set; }
 
         #endregion Command
 
@@ -47,6 +48,14 @@ namespace Manager_Medias.ViewModels.Customer
                 new NavigationService<MainAccountViewModel>(_navigationStore, () => new MainAccountViewModel(userStore, _navigationStore)));
 
             _navigationStore.CurrentContentViewModelChanged += _navigationStore_CurrentContentViewModelChanged;
+            MovieCmd = new RelayCommand<object>(MoviewShow);
+        }
+
+        private void MoviewShow(object obj)
+        {
+            //chuyển trang 
+            _navigationStore.ContentViewModel = new HomeMovieViewModel(_navigationStore, _userStore);
+            //_navigationStore.ContentViewModel = new HomeMovieViewModel(_navigationStore, _userStore);
         }
     }
 }

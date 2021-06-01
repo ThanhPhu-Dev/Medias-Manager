@@ -110,6 +110,28 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+
+        <Storyboard x:Key="stb_OpicityTo1">
+            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                             To="1" Duration="0:0:0"/>
+        </Storyboard>
+        <Storyboard x:Key="stb_OpicityTo0">
+            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                             To="0" Duration="0:0:0"/>
+        </Storyboard>
+        <!--style grid 2 nút trái phải-->
+        <Style TargetType="Grid" x:Key="g_opicityRepeatButton">
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Trigger.EnterActions>
+                        <BeginStoryboard Storyboard="{StaticResource stb_OpicityTo1}"/>
+                    </Trigger.EnterActions>
+                    <Trigger.ExitActions>
+                        <BeginStoryboard Storyboard="{StaticResource stb_OpicityTo0}"/>
+                    </Trigger.ExitActions>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </UserControl.Resources>
 
     <!--//trigger-->
@@ -156,10 +178,10 @@
                                                      VerticalAlignment="Center"
                                                      Margin="0 0 5 0" />
                                         <TextBlock
-                                Foreground="Orange"
-                                FontWeight="Bold"
-                                VerticalAlignment="Center"
-                                    Text="{Binding Name}"/>
+                                            Foreground="Orange"
+                                            FontWeight="Bold"
+                                            VerticalAlignment="Center"
+                                            Text="{Binding Name}"/>
                                     </DockPanel>
                                 </GroupBox.Header>
                                 <Grid Name="g_carousel" VerticalAlignment="Top">
@@ -174,12 +196,11 @@
                                     </Grid.RowDefinitions>
 
                                     <StackPanel VerticalAlignment="Center"
-                                    Grid.ColumnSpan="3"
-                                    Grid.Row="1"
-                                    HorizontalAlignment="Center">
-                                        <ItemsControl Name="itc_movie"
+                                                Grid.ColumnSpan="3"
+                                                Grid.Row="1"
+                                                HorizontalAlignment="Center">
+                                        <ItemsControl 
                                           ItemsSource="{Binding Movies}" ItemContainerStyle="{StaticResource carouselMovieStyle}">
-
                                             <ItemsControl.ItemsPanel>
                                                 <ItemsPanelTemplate>
                                                     <VirtualizingStackPanel Orientation="Horizontal" />
@@ -187,7 +208,7 @@
                                             </ItemsControl.ItemsPanel>
                                             <ItemsControl.Template>
                                                 <ControlTemplate TargetType="ItemsControl">
-                                                    <ScrollViewer Name="sv_itc" HorizontalScrollBarVisibility="Hidden"
+                                                    <ScrollViewer  HorizontalScrollBarVisibility="Hidden"
                                                       VerticalScrollBarVisibility="Disabled">
                                                         <ItemsPresenter />
                                                     </ScrollViewer>
@@ -197,7 +218,8 @@
                                     </StackPanel>
 
                                     <!--Hai nút để scroll carousel-->
-                                    <Grid Name="gScrollRight" Margin="0" Grid.Column="2" Grid.Row="1" Opacity="0">
+                                    <Grid Name="gScrollRight" Margin="0" Grid.Column="2" Grid.Row="1" Opacity="0"
+                                          Style="{StaticResource g_opicityRepeatButton}">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition />
                                         </Grid.ColumnDefinitions>
@@ -206,7 +228,8 @@
                                             <materialDesign:PackIcon Kind="ChevronRight" Width="55" Height="55" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                         </RepeatButton>
                                     </Grid>
-                                    <Grid Name="gScrollLeft" Margin="0" Grid.Row="1" Grid.Column="0" Opacity="0">
+                                    <Grid Name="gScrollLeft" Margin="0" Grid.Row="1" Grid.Column="0" Opacity="0"
+                                          Style="{StaticResource g_opicityRepeatButton}">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition />
                                         </Grid.ColumnDefinitions>
@@ -219,10 +242,7 @@
                             </GroupBox>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
-                   
                 </ItemsControl>
-                
-              
             </StackPanel>
         </Grid>
     </ScrollViewer>

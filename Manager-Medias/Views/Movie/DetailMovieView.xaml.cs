@@ -25,7 +25,6 @@ namespace Manager_Medias.Views.Movie
         public DetailMovie()
         {
             InitializeComponent();
-            DataContext = new DetailMovieViewModel();
         }
     }
 }

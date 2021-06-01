@@ -1,0 +1,198 @@
+﻿<UserControl x:Class="Manager_Medias.Views.Movie.HomeMovieView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Manager_Medias.Views.Movie"
+             mc:Ignorable="d" 
+             xmlns:model="clr-namespace:Manager_Medias.Models"
+             xmlns:cvt="clr-namespace:Manager_Medias.Converters"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             d:DesignHeight="585" d:DesignWidth="1200"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
+    <UserControl.Resources>
+        <cvt:ConvertImage x:Key="imageCvt"/>
+
+        <!--style cho 2 button scroll-->
+        <Style TargetType="RepeatButton">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Foreground" Value="#fff"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Width" Value="40"/>
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            <Setter Property="ClickMode" Value="Hover"/>
+            <EventSetter Event="Click" Handler="Button_Click"/>
+
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate TargetType="RepeatButton">
+                        <Border>
+                            <ContentPresenter Height="auto"/>
+                        </Border>
+
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter Property="Background" Value="Transparent" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!--template khi chưa hover-->
+        <DataTemplate DataType="{x:Type model:Movie}" x:Key="carouselItemDefault">
+            <Grid Margin="3 1">
+                <Image Height="120" Width="250" 
+                                   Panel.ZIndex="1"
+                                   Source="{Binding Poster, Converter={StaticResource imageCvt}}" Stretch="Fill"/>
+                <TextBlock Text="Tên phim" Name="tb_namemovie"
+                                       Foreground="#fff"
+                                       FontSize="20"
+                                       FontWeight="DemiBold"
+                                      IsHitTestVisible="True"
+                                       Panel.ZIndex="0"/>
+            </Grid>
+        </DataTemplate>
+        
+        <!--template khi đã hover-->
+        <DataTemplate DataType="{x:Type model:Movie}" x:Key="carouselItemMouse">
+            <Grid Margin="3 1">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                        <i:InvokeCommandAction Command="{Binding DataContext.CmdToDetailMovie,
+                                    RelativeSource={RelativeSource Mode=FindAncestor,
+                                                               AncestorType={x:Type ItemsControl}}}"
+                                               CommandParameter="{Binding Id}">
+                        </i:InvokeCommandAction>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <Image Height="120" Width="250" 
+                                   Panel.ZIndex="1" 
+                                   Source="{Binding Poster, Converter={StaticResource imageCvt}}" Stretch="Fill"/>
+
+                <Border Background="Black" Opacity=".5" Panel.ZIndex="2" />
+                
+                <StackPanel Panel.ZIndex="3" VerticalAlignment="Bottom" Margin="5">
+                    <materialDesign:PackIcon Kind="PlayCircleOutline" Width="45" Height="45" 
+                                             Foreground="#ffbb00"/>
+                    <TextBlock Text="{Binding Name}"
+                               Name="tb_namemovie"
+                               Foreground="#fff"
+                               FontSize="16"
+                               FontWeight="DemiBold"/>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom">
+                        <Border BorderBrush="#bdbdbd" BorderThickness="0.5" CornerRadius="2">
+                            <TextBlock Text="{Binding Age, StringFormat={}{0}+}"
+                                       Foreground="#fff"
+                                       Padding="7 1"/>
+                        </Border>
+                        <TextBlock Text="{Binding NumberOfViews, StringFormat={}{0} Lượt xem}"
+                                       Foreground="#fff"
+                                       Padding="7 1"/>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+
+        <!--style cho itemcontroll carousel-->
+        <Style TargetType="ContentPresenter" x:Key="carouselMovieStyle">
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="ContentTemplate" Value="{StaticResource carouselItemDefault}"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="ContentTemplate" Value="{StaticResource carouselItemMouse}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+    <ScrollViewer Background="Black">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="8*"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="1" Margin="0 30 0 0">
+                <GroupBox Padding="0" Margin="0"
+                          BorderThickness="0">
+                    <GroupBox.Header>
+                        <DockPanel Background="Black" >
+                            <materialDesign:PackIcon Kind="Image"
+                                                     FontSize="30"
+                                                     Foreground="Orange"
+                                                     VerticalAlignment="Center"
+                                                     Margin="0 0 5 0" />
+                            <TextBlock 
+                                Foreground="Orange"
+                                FontWeight="Bold"
+                                VerticalAlignment="Center">
+                                Phim Hành động
+                            </TextBlock>
+                        </DockPanel>
+                    </GroupBox.Header>
+                    <Grid VerticalAlignment="Top" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="55"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="55"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="20"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel VerticalAlignment="Center" 
+                                    Grid.ColumnSpan="3"
+                                    Grid.Row="1"
+                                    HorizontalAlignment="Center">
+                            <ItemsControl Name="itc_movie" 
+                                          ItemsSource="{Binding MovieList}" ItemContainerStyle="{StaticResource carouselMovieStyle}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <VirtualizingStackPanel Orientation="Horizontal"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.Template>
+                                    <ControlTemplate TargetType="ItemsControl">
+                                        <ScrollViewer Name="sv_itc" HorizontalScrollBarVisibility="Hidden"
+                                                      VerticalScrollBarVisibility="Disabled">
+                                            <ItemsPresenter/>
+                                        </ScrollViewer>
+                                    </ControlTemplate>
+                                </ItemsControl.Template>
+                            </ItemsControl>
+                        </StackPanel>
+                        
+                        <!--Hai nút để scroll carousel-->
+                        <Grid Margin="0" Grid.Column="2" Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Border Background="Black" Opacity=".6" Panel.ZIndex="0" BorderThickness="0" Margin="0" Padding="0" />
+                            <RepeatButton>
+                                <materialDesign:PackIcon Kind="ChevronRight" Width="55" Height="55" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </RepeatButton>
+                        </Grid>
+                        <Grid Margin="0" Grid.Row="1" Grid.Column="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Border Background="Black" Opacity=".6" Panel.ZIndex="0" BorderThickness="0" Margin="0" Padding="0" />
+                            <RepeatButton>
+                                <materialDesign:PackIcon Kind="ChevronLeft" Width="55" Height="55" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </RepeatButton>
+                        </Grid>
+                    </Grid>
+                </GroupBox>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</UserControl>

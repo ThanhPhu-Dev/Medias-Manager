@@ -15,11 +15,7 @@ namespace Manager_Medias.ViewModels.Customer
     {
         private readonly UserStore _userStore;
 
-        //public Profile currentProfile => _userStore.Profiles
-
         #region Command
-
-        public ICommand ComboboxAccountCmd { get; set; }
 
         public ICommand NavigateMovieCmd { get; }
         public ICommand NavigateAlbumCmd { get; }
@@ -28,21 +24,29 @@ namespace Manager_Medias.ViewModels.Customer
 
         #endregion Command
 
+        #region Binding
+
+        public string Avatar
+        {
+            get => _userStore.PathAvatar;
+        }
+
+        public string ProfileName
+        {
+            get => _userStore.CurrentProfile.Name;
+        }
+
+        #endregion Binding
+
         public MainLayoutViewModel(UserStore userStore, NavigationStore navigationStore)
         {
             _userStore = userStore;
             _navigationStore = navigationStore;
-            ComboboxAccountCmd = new RelayCommand<SelectionChangedEventArgs>(ComboboxAccountChanged);
 
-            NavigateAccountCmd = new NavigateCommand<MainAccountView>(
-                new NavigationService<MainAccountView>(_navigationStore, () => new MainAccountView(userStore, _navigationStore)));
+            NavigateAccountCmd = new NavigateCommand<MainAccountViewModel>(
+                new NavigationService<MainAccountViewModel>(_navigationStore, () => new MainAccountViewModel(userStore, _navigationStore)));
 
             _navigationStore.CurrentContentViewModelChanged += _navigationStore_CurrentContentViewModelChanged;
-        }
-
-        private void ComboboxAccountChanged(SelectionChangedEventArgs e)
-        {
-            e.Handled = true;
         }
     }
 }

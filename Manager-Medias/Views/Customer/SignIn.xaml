@@ -83,7 +83,7 @@
                         Height="60"
                         FontSize="18" 
                         Text="{Binding Email, ValidatesOnNotifyDataErrors=True,
-                        UpdateSourceTrigger=PropertyChanged}"
+                        UpdateSourceTrigger=LostFocus}"
                         Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"/>
                 </StackPanel>
                 <StackPanel Background="#fff"
@@ -102,13 +102,14 @@
                         Height="60"
                         FontSize="18"
                         Text="{Binding Password, ValidatesOnNotifyDataErrors=True,
-                        UpdateSourceTrigger=PropertyChanged}"
+                        UpdateSourceTrigger=LostFocus}"
                         Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"/>
                 </StackPanel>
 
                 <Button
                     Command="{Binding LoginCmd}"
                     Background="#FFbb00"
+                    IsDefault="True"
                     Style="{StaticResource MaterialDesignRaisedButton}"
                     ToolTip="Resource name: MaterialDesignRaisedButton"
                     Height="54"
@@ -151,18 +152,7 @@
                          Đăng ký ngay.
                     </Span>
                 </TextBlock>
-                <TextBlock
-                           Style="{StaticResource text-primary}"
-                           FontSize="12">
-                    <Span Foreground="#b3b3b3">
-                        Trang này được Google reCAPTCHA bảo vệ để đảm bảo bạn không phải là robot.
-                    </Span>
-                    <Span Foreground="#4929ff"
-                          Cursor="Hand"
-                          Style="{StaticResource hoverSpan}">
-                        Tìm hiểu thêm.
-                    </Span>
-                </TextBlock>
+                
             </StackPanel>
         </StackPanel>
     </Grid>

@@ -5,8 +5,436 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Manager_Medias.Views.Audio"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+             xmlns:model="clr-namespace:Manager_Medias.Models"
+             xmlns:cvt="clr-namespace:Manager_Medias.Converters"
+             d:DesignHeight="585" d:DesignWidth="1200"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
+    <UserControl.Resources>
+        <cvt:ConvertImage x:Key="imageCvt"/>
+
+
+        <DataTemplate DataType="{x:Type model:Audio}" x:Key="carouselItemDefault">
+            <Grid Margin="3 1">
+                <Image Height="120" Width="250" 
+                                   Panel.ZIndex="1"
+                                   Source="{Binding Image, Converter={StaticResource imageCvt}}" Stretch="Fill"/>
+                <TextBlock Text="Tên phim" Name="tb_namemovie"
+                                       Foreground="#fff"
+                                       FontSize="20"
+                                       FontWeight="DemiBold"
+                                      IsHitTestVisible="True"
+                                       Panel.ZIndex="0"/>
+            </Grid>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type model:Movie}" x:Key="carouselItemMouse">
+            <Grid Margin="3 1">
+                <Image Height="120" Width="250" 
+                                   Panel.ZIndex="1" 
+                                   Source="{Binding Image, Converter={StaticResource imageCvt}}" Stretch="Fill"/>
+                <Border Background="Black" Opacity=".5" Panel.ZIndex="2"/>
+                <StackPanel Panel.ZIndex="3" VerticalAlignment="Bottom" Margin="5">
+                    <materialDesign:PackIcon Kind="PlayCircleOutline" Width="45" Height="45" 
+                                             Foreground="#ffbb00"/>
+                    <TextBlock Text="{Binding Name}"
+                               Name="tb_namemovie"
+                               Foreground="#fff"
+                               FontSize="16"
+                               FontWeight="DemiBold"/>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom">
+                            <TextBlock Text="{Binding Time, StringFormat={}Thời lượng: {0}}"
+                                       Foreground="#fff"
+                                       Padding="7 1"/>
+                        <TextBlock Text="{Binding Singer, StringFormat={}Ca sĩ: {0}}"
+                                       Foreground="#fff"
+                                       Padding="7 1"/>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+        <Style x:Key="gridItemCarousel" TargetType="Grid">
+        </Style>
+    </UserControl.Resources>
+    <ScrollViewer Background="Black">
+        <Grid>
+            <Grid.Resources>
+                <Style TargetType="RepeatButton">
+                    <Setter Property="Cursor" Value="Hand"/>
+                    <Setter Property="Width" Value="40"/>
+                    <Setter Property="BorderThickness" Value="0" />
+                    <Setter Property="BorderBrush" Value="Transparent" />
+                    <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                    <Setter Property="ClickMode" Value="Hover"/>
+                    <EventSetter Event="Click" Handler="Button1_Click"/>
+
+                    <Setter Property="Template" >
+                        <Setter.Value>
+                            <ControlTemplate TargetType="RepeatButton">
+                                <Border>
+                                    <ContentPresenter Height="auto"/>
+                                </Border>
+
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Background" Value="Transparent" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Resources>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="8*"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="300"/>
+                <RowDefinition Height="300"/>
+                <RowDefinition Height="300"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Grid.Column="1" Text="Audio" Foreground="White"
+                       FontSize="33" VerticalAlignment="Center" HorizontalAlignment="Center"
+                       />
+
+            <!--loai 1-->
+            <Grid VerticalAlignment="Top" 
+                      Grid.Row="1" Grid.Column="1" >
+                <Grid.Resources>
+
+                    <Style TargetType="RepeatButton">
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Setter Property="Width" Value="40"/>
+                        <Setter Property="BorderThickness" Value="0" />
+                        <Setter Property="BorderBrush" Value="Transparent" />
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                        <Setter Property="ClickMode" Value="Hover"/>
+                        <EventSetter Event="Click" Handler="Button1_Click"/>
+
+                        <Setter Property="Template" >
+                            <Setter.Value>
+                                <ControlTemplate TargetType="RepeatButton">
+                                    <Border>
+                                        <ContentPresenter Height="auto"/>
+                                    </Border>
+
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" Value="Transparent" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Grid.Resources>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="55"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="55"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+
+                <!--tên thể loại phim-->
+                <TextBlock Text="Ballad" Foreground="#fff"
+                           FontSize="18"
+                           Grid.ColumnSpan="3"
+                           Margin="0 0 0 0"/>
+
+                <StackPanel VerticalAlignment="Center" Grid.ColumnSpan="3" Grid.Row="1"
+                        HorizontalAlignment="Center">
+                    <ItemsControl Name="itc_movie1" ItemsSource="{Binding AudioList[0]}">
+                        <ItemsControl.ItemContainerStyle>
+                            <Style TargetType="ContentPresenter" >
+                                <Setter Property="ContentTemplate" Value="{StaticResource carouselItemDefault}"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="ContentTemplate" Value="{StaticResource carouselItemMouse}"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ItemsControl.ItemContainerStyle>
+
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+
+                        <ItemsControl.Template>
+                            <ControlTemplate TargetType="ItemsControl">
+                                <ScrollViewer Name="sv_itc" HorizontalScrollBarVisibility="Hidden"
+                                          VerticalScrollBarVisibility="Disabled">
+                                    <ItemsPresenter/>
+                                </ScrollViewer>
+                            </ControlTemplate>
+                        </ItemsControl.Template>
+                    </ItemsControl>
+                </StackPanel>
+                <!--Hai nút để scroll carousel-->
+                <Grid Margin="0" Grid.Column="2" Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Border Background="Black" Opacity=".6" Panel.ZIndex="0" BorderThickness="0" Margin="0" Padding="0" />
+                    <RepeatButton
+                        Background="Transparent" 
+                        BorderThickness="0"
+                        HorizontalAlignment="Center" 
+                        Foreground="#fff" 
+                        Panel.ZIndex="1" 
+                        Margin="0" Padding="0">
+                        <materialDesign:PackIcon Kind="ChevronRight" Width="55" Height="55" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </RepeatButton>
+                </Grid>
+
+                <Grid Margin="0" Grid.Row="1" Grid.Column="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Border Background="Black" Opacity=".6" Panel.ZIndex="0" BorderThickness="0" Margin="0" Padding="0" />
+                    <RepeatButton
+                        Background="Transparent" 
+                        BorderThickness="0"
+                        HorizontalAlignment="Center" 
+                        Foreground="#fff" 
+                        Panel.ZIndex="1" 
+                        Margin="0" Padding="0">
+                        <materialDesign:PackIcon Kind="ChevronLeft" Width="55" Height="55" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </RepeatButton>
+                </Grid>
+            </Grid>
             
-    </Grid>
+            <!--Loại 2-->
+            <Grid VerticalAlignment="Top" 
+                      Grid.Row="2" Grid.Column="1" >
+                <Grid.Resources>
+
+                    <Style TargetType="RepeatButton">
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Setter Property="Width" Value="40"/>
+                        <Setter Property="BorderThickness" Value="0" />
+                        <Setter Property="BorderBrush" Value="Transparent" />
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                        <Setter Property="ClickMode" Value="Hover"/>
+                        <!--<EventSetter Event="Click" Handler="Button1_Click"/>-->
+
+                        <Setter Property="Template" >
+                            <Setter.Value>
+                                <ControlTemplate TargetType="RepeatButton">
+                                    <Border>
+                                        <ContentPresenter Height="auto"/>
+                                    </Border>
+
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" Value="Transparent" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Grid.Resources>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="55"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="55"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+
+                <!--tên thể loại phim-->
+                <TextBlock Text="Sôi động" Foreground="#fff"
+                           FontSize="18"
+                           Grid.ColumnSpan="3"
+                           Margin="0 0 0 0"/>
+
+                <StackPanel VerticalAlignment="Center" Grid.ColumnSpan="3" Grid.Row="1"
+                        HorizontalAlignment="Center">
+                    <ItemsControl Name="itc_movie2" ItemsSource="{Binding AudioList[1]}">
+                        <ItemsControl.ItemContainerStyle>
+                            <Style TargetType="ContentPresenter" >
+                                <Setter Property="ContentTemplate" Value="{StaticResource carouselItemDefault}"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="ContentTemplate" Value="{StaticResource carouselItemMouse}"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ItemsControl.ItemContainerStyle>
+
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+
+                        <ItemsControl.Template>
+                            <ControlTemplate TargetType="ItemsControl">
+                                <ScrollViewer Name="sv_itc" HorizontalScrollBarVisibility="Hidden"
+                                          VerticalScrollBarVisibility="Disabled">
+                                    <ItemsPresenter/>
+                                </ScrollViewer>
+                            </ControlTemplate>
+                        </ItemsControl.Template>
+                    </ItemsControl>
+                </StackPanel>
+                <!--Hai nút để scroll carousel-->
+                <Grid Margin="0" Grid.Column="2" Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Border Background="Black" Opacity=".6" Panel.ZIndex="0" BorderThickness="0" Margin="0" Padding="0" />
+                    <RepeatButton
+                        Background="Transparent" 
+                        BorderThickness="0"
+                        HorizontalAlignment="Center" 
+                        Foreground="#fff" 
+                        Panel.ZIndex="1" 
+                        Margin="0" Padding="0">
+                        <materialDesign:PackIcon Kind="ChevronRight" Width="55" Height="55" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </RepeatButton>
+                </Grid>
+
+                <Grid Margin="0" Grid.Row="1" Grid.Column="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Border Background="Black" Opacity=".6" Panel.ZIndex="0" BorderThickness="0" Margin="0" Padding="0" />
+                    <RepeatButton
+                        Background="Transparent" 
+                        BorderThickness="0"
+                        HorizontalAlignment="Center" 
+                        Foreground="#fff" 
+                        Panel.ZIndex="1" 
+                        Margin="0" Padding="0">
+                        <materialDesign:PackIcon Kind="ChevronLeft" Width="55" Height="55" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </RepeatButton>
+                </Grid>
+            </Grid>
+            <!--Loại 3-->
+            <Grid VerticalAlignment="Top" 
+                      Grid.Row="3" Grid.Column="1" >
+                <Grid.Resources>
+
+                    <Style TargetType="RepeatButton">
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Setter Property="Width" Value="40"/>
+                        <Setter Property="BorderThickness" Value="0" />
+                        <Setter Property="BorderBrush" Value="Transparent" />
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                        <Setter Property="ClickMode" Value="Hover"/>
+                        <!--<EventSetter Event="Click" Handler="Button_Click"/>-->
+
+                        <Setter Property="Template" >
+                            <Setter.Value>
+                                <ControlTemplate TargetType="RepeatButton">
+                                    <Border>
+                                        <ContentPresenter Height="auto"/>
+                                    </Border>
+
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" Value="Transparent" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Grid.Resources>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="55"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="55"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+
+                <!--tên thể loại phim-->
+                <TextBlock Text="Trữ tình" Foreground="#fff"
+                           FontSize="18"
+                           Grid.ColumnSpan="3"
+                           Margin="0 0 0 0"/>
+
+                <StackPanel VerticalAlignment="Center" Grid.ColumnSpan="3" Grid.Row="1"
+                        HorizontalAlignment="Center">
+                    <ItemsControl Name="itc_movie3" ItemsSource="{Binding AudioList[2]}">
+                        <ItemsControl.ItemContainerStyle>
+                            <Style TargetType="ContentPresenter" >
+                                <Setter Property="ContentTemplate" Value="{StaticResource carouselItemDefault}"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="ContentTemplate" Value="{StaticResource carouselItemMouse}"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ItemsControl.ItemContainerStyle>
+
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+
+                        <ItemsControl.Template>
+                            <ControlTemplate TargetType="ItemsControl">
+                                <ScrollViewer Name="sv_itc" HorizontalScrollBarVisibility="Hidden"
+                                          VerticalScrollBarVisibility="Disabled">
+                                    <ItemsPresenter/>
+                                </ScrollViewer>
+                            </ControlTemplate>
+                        </ItemsControl.Template>
+                    </ItemsControl>
+                </StackPanel>
+                <!--Hai nút để scroll carousel-->
+                <Grid Margin="0" Grid.Column="2" Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Border Background="Black" Opacity=".6" Panel.ZIndex="0" BorderThickness="0" Margin="0" Padding="0" />
+                    <RepeatButton
+                        Background="Transparent" 
+                        BorderThickness="0"
+                        HorizontalAlignment="Center" 
+                        Foreground="#fff" 
+                        Panel.ZIndex="1" 
+                        Margin="0" Padding="0">
+                        <materialDesign:PackIcon Kind="ChevronRight" Width="55" Height="55" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </RepeatButton>
+                </Grid>
+
+                <Grid Margin="0" Grid.Row="1" Grid.Column="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Border Background="Black" Opacity=".6" Panel.ZIndex="0" BorderThickness="0" Margin="0" Padding="0" />
+                    <RepeatButton
+                        Background="Transparent" 
+                        BorderThickness="0"
+                        HorizontalAlignment="Center" 
+                        Foreground="#fff" 
+                        Panel.ZIndex="1" 
+                        Margin="0" Padding="0">
+                        <materialDesign:PackIcon Kind="ChevronLeft" Width="55" Height="55" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </RepeatButton>
+                </Grid>
+            </Grid>
+
+        </Grid>
+
+    </ScrollViewer>
 </UserControl>

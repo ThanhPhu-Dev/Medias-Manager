@@ -37,6 +37,7 @@
           <Property Name="Image" Type="varchar(max)" />
           <Property Name="Mp3" Type="varchar(max)" />
           <Property Name="Time" Type="varchar" MaxLength="8" />
+          <Property Name="Singer" Type="nvarchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="Levels">
           <Key>
@@ -122,7 +123,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Email" Type="varchar" MaxLength="20" />
           <Property Name="Name" Type="nvarchar" MaxLength="20" />
-          <Property Name="Avatar" Type="varchar" MaxLength="30" />
+          <Property Name="Avatar" Type="varchar" MaxLength="200" />
           <Property Name="Status" Type="int" />
         </EntityType>
         <EntityType Name="Users">
@@ -130,7 +131,7 @@
             <PropertyRef Name="Email" />
           </Key>
           <Property Name="Email" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="Password" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Password" Type="varchar(max)" />
           <Property Name="Level" Type="int" />
           <Property Name="Code" Type="varchar(max)" />
           <Property Name="NumberCard" Type="varchar" MaxLength="16" />
@@ -444,6 +445,7 @@
           <NavigationProperty Name="Audio_Categories" Relationship="Self.FK_Audios_AudioCategories" FromRole="Audios" ToRole="Audio_Categories" />
           <NavigationProperty Name="Media" Relationship="Self.FK_Audios_Medias" FromRole="Audios" ToRole="Medias" />
           <Property Name="Time" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="Singer" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Level">
           <Key>
@@ -546,7 +548,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Email" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="Avatar" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Avatar" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="Status" Type="Int32" />
           <NavigationProperty Name="Likes" Relationship="Self.FK_Likes_Profiles" FromRole="Profiles" ToRole="Likes" />
           <NavigationProperty Name="User" Relationship="Self.FK_Profile_User" FromRole="Profiles" ToRole="Users" />
@@ -557,7 +559,7 @@
             <PropertyRef Name="Email" />
           </Key>
           <Property Name="Email" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Level" Type="Int32" />
           <Property Name="Code" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="NumberCard" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
@@ -867,6 +869,7 @@
           <EntitySetMapping Name="Audios">
             <EntityTypeMapping TypeName="MediasManangementModel.Audio">
               <MappingFragment StoreEntitySet="Audios">
+                <ScalarProperty Name="Singer" ColumnName="Singer" />
                 <ScalarProperty Name="Time" ColumnName="Time" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="IdCategory" ColumnName="IdCategory" />

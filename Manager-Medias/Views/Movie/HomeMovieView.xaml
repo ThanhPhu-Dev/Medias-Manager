@@ -111,8 +111,32 @@
             </Style.Triggers>
         </Style>
     </UserControl.Resources>
+
+    <!--//trigger-->
+    <UserControl.Triggers>
+        <!--<EventTrigger RoutedEvent="MouseEnter" SourceName="g_carousel">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation Storyboard.TargetName="gScrollRight"
+                                     Storyboard.TargetProperty="Opacity"
+                                     To="1"
+                                     Duration="0:0:0"/>
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="MouseLeave" SourceName="itc_movie">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation Storyboard.TargetName="gScrollRight"
+                                     Storyboard.TargetProperty="Opacity"
+                                     To="0"
+                                     Duration="0:0:0"/>
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>-->
+    </UserControl.Triggers>
     <ScrollViewer Background="Black">
-        <Grid>
+        <Grid >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition Width="8*" />
@@ -120,77 +144,85 @@
             </Grid.ColumnDefinitions>
 
             <StackPanel Grid.Column="1" Margin="0 30 0 0">
-                <GroupBox Padding="0" Margin="0"
-                          BorderThickness="0">
-                    <GroupBox.Header>
-                        <DockPanel Background="Black">
-                            <materialDesign:PackIcon Kind="Image"
+                <ItemsControl ItemsSource="{Binding CatMovieList}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="{x:Type model:Movie_Category}">
+                            <GroupBox Padding="0" Margin="0" BorderThickness="0">
+                                <GroupBox.Header>
+                                    <DockPanel Background="Black">
+                                        <materialDesign:PackIcon Kind="Image"
                                                      FontSize="30"
                                                      Foreground="Orange"
                                                      VerticalAlignment="Center"
                                                      Margin="0 0 5 0" />
-                            <TextBlock
+                                        <TextBlock
                                 Foreground="Orange"
                                 FontWeight="Bold"
-                                VerticalAlignment="Center">
-                                Phim Hành động
-                            </TextBlock>
-                        </DockPanel>
-                    </GroupBox.Header>
-                    <Grid VerticalAlignment="Top">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="55" />
-                            <ColumnDefinition />
-                            <ColumnDefinition Width="55" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="20" />
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
+                                VerticalAlignment="Center"
+                                    Text="{Binding Name}"/>
+                                    </DockPanel>
+                                </GroupBox.Header>
+                                <Grid Name="g_carousel" VerticalAlignment="Top">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="55" />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="55" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="20" />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
 
-                        <StackPanel VerticalAlignment="Center"
+                                    <StackPanel VerticalAlignment="Center"
                                     Grid.ColumnSpan="3"
                                     Grid.Row="1"
                                     HorizontalAlignment="Center">
-                            <ItemsControl Name="itc_movie"
-                                          ItemsSource="{Binding MovieList}" ItemContainerStyle="{StaticResource carouselMovieStyle}">
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <VirtualizingStackPanel Orientation="Horizontal" />
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
-                                <ItemsControl.Template>
-                                    <ControlTemplate TargetType="ItemsControl">
-                                        <ScrollViewer Name="sv_itc" HorizontalScrollBarVisibility="Hidden"
-                                                      VerticalScrollBarVisibility="Disabled">
-                                            <ItemsPresenter />
-                                        </ScrollViewer>
-                                    </ControlTemplate>
-                                </ItemsControl.Template>
-                            </ItemsControl>
-                        </StackPanel>
+                                        <ItemsControl Name="itc_movie"
+                                          ItemsSource="{Binding Movies}" ItemContainerStyle="{StaticResource carouselMovieStyle}">
 
-                        <!--Hai nút để scroll carousel-->
-                        <Grid Margin="0" Grid.Column="2" Grid.Row="1">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <Border Background="Black" Opacity=".6" Panel.ZIndex="0" BorderThickness="0" Margin="0" Padding="0" />
-                            <RepeatButton>
-                                <materialDesign:PackIcon Kind="ChevronRight" Width="55" Height="55" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                            </RepeatButton>
-                        </Grid>
-                        <Grid Margin="0" Grid.Row="1" Grid.Column="0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <Border Background="Black" Opacity=".6" Panel.ZIndex="0" BorderThickness="0" Margin="0" Padding="0" />
-                            <RepeatButton>
-                                <materialDesign:PackIcon Kind="ChevronLeft" Width="55" Height="55" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                            </RepeatButton>
-                        </Grid>
-                    </Grid>
-                </GroupBox>
+                                            <ItemsControl.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <VirtualizingStackPanel Orientation="Horizontal" />
+                                                </ItemsPanelTemplate>
+                                            </ItemsControl.ItemsPanel>
+                                            <ItemsControl.Template>
+                                                <ControlTemplate TargetType="ItemsControl">
+                                                    <ScrollViewer Name="sv_itc" HorizontalScrollBarVisibility="Hidden"
+                                                      VerticalScrollBarVisibility="Disabled">
+                                                        <ItemsPresenter />
+                                                    </ScrollViewer>
+                                                </ControlTemplate>
+                                            </ItemsControl.Template>
+                                        </ItemsControl>
+                                    </StackPanel>
+
+                                    <!--Hai nút để scroll carousel-->
+                                    <Grid Name="gScrollRight" Margin="0" Grid.Column="2" Grid.Row="1" Opacity="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <Border Background="Black" Opacity=".6" Panel.ZIndex="0" BorderThickness="0" Margin="0" Padding="0" />
+                                        <RepeatButton>
+                                            <materialDesign:PackIcon Kind="ChevronRight" Width="55" Height="55" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                        </RepeatButton>
+                                    </Grid>
+                                    <Grid Name="gScrollLeft" Margin="0" Grid.Row="1" Grid.Column="0" Opacity="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <Border Background="Black" Opacity=".6" Panel.ZIndex="0" BorderThickness="0" Margin="0" Padding="0" />
+                                        <RepeatButton>
+                                            <materialDesign:PackIcon Kind="ChevronLeft" Width="55" Height="55" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                        </RepeatButton>
+                                    </Grid>
+                                </Grid>
+                            </GroupBox>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                   
+                </ItemsControl>
+                
+              
             </StackPanel>
         </Grid>
     </ScrollViewer>

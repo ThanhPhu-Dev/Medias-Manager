@@ -176,6 +176,7 @@ ALTER TABLE View_History ADD CONSTRAINT FK_ViewHistory_Profiles FOREIGN KEY (IdP
 select * from Audios
 select * from Audio_Categories
 select * from Medias 
+select * from Media_Categories 
 select * from Likes 
 select * from My_Lists
 select * from Movies
@@ -252,6 +253,9 @@ insert into payment_history(Email,DateOfPayment,Note,Price) values ('user@gmail.
 insert into payment_history(Email,DateOfPayment,Note,Price) values ('user@gmail.com', '2021-05-28', '',170000)
 insert into payment_history(Email,DateOfPayment,Note,Price) values ('user@gmail.com', '2021-05-30', '',200000)
 
+select * from Movies
+select * from Movie_Categories
+insert into Movie_Categories (Name) values (N'Tình cảm')
 --insert phim 
 insert into Movies (Id, IdCategory, IMDB, Likes, Name, NumberOfViews, Poster, Age)
 			values (18, 1, 6.5, 4, N'Iron Man 1', 23, 'movieposter_action_ironman_1.jpg', 18),
@@ -259,6 +263,12 @@ insert into Movies (Id, IdCategory, IMDB, Likes, Name, NumberOfViews, Poster, Ag
 				   (20, 1, 6, 0, N'Nhiệm Vụ Bất KT', 103, 'movieposter_action_NVBKT_5.jpg', 18),
 				   (21, 1, 7, 0, N'Người Nhện ', 23, 'movieposter_action_SD.jpg', 18),
 				   (22, 1, 4, 0, N'Quá Nhanh Quá NH', 1000, 'movieposter_action_ff_9.jpg', 18)
+insert into Movies (Id, IdCategory, IMDB, Likes, Name, NumberOfViews, Poster, Age)
+			values (23, 2, 6.5, 4, N'Your Name', 23, 'movieposter_action_ironman_1.jpg', 18),
+				   (24, 2, 5, 0, N'Chúng ta', 23, 'movieposter_action_ironman_2.jpg', 18),
+				   (25, 2, 6, 0, N'Người thầy y đức', 103, 'movieposter_action_NVBKT_5.jpg', 14),
+				   (26, 2, 7, 0, N'Cửa hàng tiện lợi', 23, 'movieposter_action_SD.jpg', 15),
+				   (27, 2, 4, 0, N'Hình dáng thanh âm', 1000, 'movieposter_action_ff_9.jpg', 10)
 
 insert into Movies (Id, IdCategory,IMDB,Likes,Name,NumberOfViews,Poster,Age,Description,Season,Time,Video)
 values (7,1,6.5,4,N'Super Hero', 23, 'movieposter_postermovieHuter.jpg', 18,N'Super hero hân hạnh tài trợ', 'kn92','00:12:30','movievideo_video.mp4')

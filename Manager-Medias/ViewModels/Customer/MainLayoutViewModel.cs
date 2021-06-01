@@ -13,7 +13,6 @@ namespace Manager_Medias.ViewModels.Customer
 {
     public class MainLayoutViewModel : BaseViewModel
     {
-        private readonly UserStore _userStore;
 
         public ICommand ClickAudio { get; set; }
 
@@ -54,9 +53,14 @@ namespace Manager_Medias.ViewModels.Customer
             MovieCmd = new RelayCommand<object>(MoviewShow);
         }
 
+        private void MoviewShow(object obj)
+        {
+            _navigationStore.ContentViewModel = new HomeMovieViewModel(_navigationStore, _userStore);
+        }
+
         private void Clickaudio(object obj)
         {
-            _navigationStore.ContentViewModel = new HomeAudioViewModel(_userStore);
+            _navigationStore.ContentViewModel = new HomeAudioViewModel();
         }
 
         private void ComboboxAccountChanged(SelectionChangedEventArgs e)

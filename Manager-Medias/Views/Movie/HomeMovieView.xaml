@@ -13,6 +13,115 @@
     <UserControl.Resources>
         <cvt:ConvertImage x:Key="imageCvt" />
 
+        <!--SCROLL STYLE-->
+        <Style x:Key="{x:Type ScrollBar}" TargetType="{x:Type ScrollBar}">
+            <Setter Property="Stylus.IsFlicksEnabled" Value="false" />
+            <Setter Property="Foreground" Value="#FF666666" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Width" Value="8" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ScrollBar}">
+                        <Grid
+                            x:Name="GridRoot"
+                            Width="10"
+                            Background="{TemplateBinding Background}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="0.00001*" />
+                            </Grid.RowDefinitions>
+
+                            <Track
+                                x:Name="PART_Track"
+                                Grid.Row="0"
+                                Focusable="false"
+                                IsDirectionReversed="true">
+                                <Track.Thumb>
+                                    <Thumb
+                                        x:Name="Thumb"
+                                        Background="{TemplateBinding Foreground}"
+                                        Style="{DynamicResource ScrollThumbs}" />
+                                </Track.Thumb>
+                                <Track.IncreaseRepeatButton>
+                                    <RepeatButton
+                                        x:Name="PageUp"
+                                        Command="ScrollBar.PageDownCommand"
+                                        Focusable="false"
+                                        Opacity="0" />
+                                </Track.IncreaseRepeatButton>
+                                <Track.DecreaseRepeatButton>
+                                    <RepeatButton
+                                        x:Name="PageDown"
+                                        Command="ScrollBar.PageUpCommand"
+                                        Focusable="false"
+                                        Opacity="0" />
+                                </Track.DecreaseRepeatButton>
+                            </Track>
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger SourceName="Thumb" Property="IsMouseOver" Value="true">
+                                <Setter TargetName="Thumb" Property="Background" Value="{DynamicResource ButtonSelectBrush}" />
+                            </Trigger>
+                            <Trigger SourceName="Thumb" Property="IsDragging" Value="true">
+                                <Setter TargetName="Thumb" Property="Background" Value="{DynamicResource DarkBrush}" />
+                            </Trigger>
+
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter TargetName="Thumb" Property="Visibility" Value="Collapsed" />
+                            </Trigger>
+                            <Trigger Property="Orientation" Value="Horizontal">
+                                <Setter TargetName="GridRoot" Property="LayoutTransform">
+                                    <Setter.Value>
+                                        <RotateTransform Angle="-90" />
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="PART_Track" Property="LayoutTransform">
+                                    <Setter.Value>
+                                        <RotateTransform Angle="-90" />
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Width" Value="Auto" />
+                                <Setter Property="Height" Value="12" />
+                                <Setter TargetName="Thumb" Property="Tag" Value="Horizontal" />
+                                <Setter TargetName="PageDown" Property="Command" Value="ScrollBar.PageLeftCommand" />
+                                <Setter TargetName="PageUp" Property="Command" Value="ScrollBar.PageRightCommand" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ScrollThumbs" TargetType="{x:Type Thumb}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Thumb}">
+                        <Grid x:Name="Grid">
+                            <Rectangle
+                                Width="Auto"
+                                Height="Auto"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                Fill="Transparent" />
+                            <Border
+                                x:Name="Rectangle1"
+                                Width="Auto"
+                                Height="Auto"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="8" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Tag" Value="Horizontal">
+                                <Setter TargetName="Rectangle1" Property="Width" Value="Auto" />
+                                <Setter TargetName="Rectangle1" Property="Height" Value="7" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
         <!--style cho 2 button scroll-->
         <Style TargetType="RepeatButton">
             <Setter Property="Background" Value="Transparent" />
@@ -48,7 +157,7 @@
         <!--template khi chưa hover-->
         <DataTemplate DataType="{x:Type model:Movie}" x:Key="carouselItemDefault">
             <Grid Margin="3 1">
-                <Image Height="120" Width="250"
+                <Image Height="117" Width="230"
                                    Panel.ZIndex="1"
                                    Source="{Binding Poster, Converter={StaticResource imageCvt}}" Stretch="Fill" />
                 <TextBlock Text="Tên phim" Name="tb_namemovie"
@@ -72,7 +181,7 @@
                         </i:InvokeCommandAction>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
-                <Image Height="120" Width="250"
+                <Image Height="117" Width="230"
                                    Panel.ZIndex="1"
                                    Source="{Binding Poster, Converter={StaticResource imageCvt}}" Stretch="Fill" />
 
@@ -169,37 +278,26 @@
                 <ItemsControl ItemsSource="{Binding CatMovieList}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate DataType="{x:Type model:Movie_Category}">
-                            <GroupBox Padding="0" Margin="0" BorderThickness="0">
+                            <GroupBox Padding="0" BorderThickness="0" Margin="0 0 0 45">
                                 <GroupBox.Header>
-                                    <DockPanel Background="Black">
-                                        <materialDesign:PackIcon Kind="Image"
-                                                     FontSize="30"
-                                                     Foreground="Orange"
-                                                     VerticalAlignment="Center"
-                                                     Margin="0 0 5 0" />
-                                        <TextBlock
-                                            Foreground="Orange"
+                                    <TextBlock Background="Black"
+                                            Foreground="#ffbb00"
                                             FontWeight="Bold"
                                             VerticalAlignment="Center"
-                                            Text="{Binding Name}"/>
-                                    </DockPanel>
+                                            Text="{Binding Name}"
+                                            FontSize="20"/>
                                 </GroupBox.Header>
-                                <Grid Name="g_carousel" VerticalAlignment="Top">
+                                <Grid Name="g_carousel" Margin="0">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="55" />
                                         <ColumnDefinition />
                                         <ColumnDefinition Width="55" />
                                     </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="20" />
-                                        <RowDefinition />
-                                    </Grid.RowDefinitions>
 
                                     <StackPanel VerticalAlignment="Center"
                                                 Grid.ColumnSpan="3"
-                                                Grid.Row="1"
-                                                HorizontalAlignment="Center">
-                                        <ItemsControl 
+                                                HorizontalAlignment="Center" Margin="0">
+                                        <ItemsControl Margin="0"
                                           ItemsSource="{Binding Movies}" ItemContainerStyle="{StaticResource carouselMovieStyle}">
                                             <ItemsControl.ItemsPanel>
                                                 <ItemsPanelTemplate>
@@ -218,7 +316,7 @@
                                     </StackPanel>
 
                                     <!--Hai nút để scroll carousel-->
-                                    <Grid Name="gScrollRight" Margin="0" Grid.Column="2" Grid.Row="1" Opacity="0"
+                                    <Grid Name="gScrollRight" Margin="0" Grid.Column="2" Opacity="0"
                                           Style="{StaticResource g_opicityRepeatButton}">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition />
@@ -228,7 +326,7 @@
                                             <materialDesign:PackIcon Kind="ChevronRight" Width="55" Height="55" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                         </RepeatButton>
                                     </Grid>
-                                    <Grid Name="gScrollLeft" Margin="0" Grid.Row="1" Grid.Column="0" Opacity="0"
+                                    <Grid Name="gScrollLeft" Margin="0" Grid.Column="0" Opacity="0"
                                           Style="{StaticResource g_opicityRepeatButton}">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition />
@@ -239,6 +337,8 @@
                                         </RepeatButton>
                                     </Grid>
                                 </Grid>
+                            <!--</StackPanel>-->
+                            
                             </GroupBox>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>

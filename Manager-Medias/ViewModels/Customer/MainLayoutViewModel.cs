@@ -66,6 +66,7 @@ namespace Manager_Medias.ViewModels.Customer
 
         private void ComboboxAccountChanged(SelectionChangedEventArgs e)
         {
+            //chuyển trang 
             _navigationStore.ContentViewModel = new HomeMovieViewModel(_navigationStore, _userStore);
         }
     }

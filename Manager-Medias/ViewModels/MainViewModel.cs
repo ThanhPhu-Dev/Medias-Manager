@@ -15,6 +15,9 @@ namespace Manager_Medias.ViewModels
         {
             _navigationStore = navigationStore;
 
+            _navigationStore.ContentViewModel = new GuestHomeViewModel();
+            _navigationStore.CurrentViewModel = new GuestMainViewModel();
+
             _navigationStore.CurrentContentViewModelChanged += _navigationStore_CurrentViewModelChanged;
             _navigationStore.CurrentViewModelChanged += _navigationStore_CurrentContentViewModelChanged;
         }

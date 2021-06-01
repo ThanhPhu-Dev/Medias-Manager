@@ -12,14 +12,16 @@ namespace Manager_Medias.ViewModels.Customer
 {
     public class PaymentHistoryViewModel : BaseViewModel
     {
-        UserStore usercurrent;
-        public PaymentHistoryViewModel(UserStore userStore)
-        {
-            this.usercurrent = userStore;
-            loaded();
+        private UserStore usercurrent;
 
+        public PaymentHistoryViewModel()
+        {
+            this.usercurrent = _userStore;
+            loaded();
         }
+
         private string _email;
+
         public string Email
         {
             get => _email;
@@ -31,6 +33,7 @@ namespace Manager_Medias.ViewModels.Customer
         }
 
         private string _name;
+
         public string Name
         {
             get => _name;
@@ -42,6 +45,7 @@ namespace Manager_Medias.ViewModels.Customer
         }
 
         private string _numberCard;
+
         public string NumberCard
         {
             get => _numberCard;
@@ -53,6 +57,7 @@ namespace Manager_Medias.ViewModels.Customer
         }
 
         private ObservableCollection<InfoPaymentHistoryCustomModelcs> _infoPM;
+
         public ObservableCollection<InfoPaymentHistoryCustomModelcs> InfoPM
         {
             get => _infoPM;
@@ -78,7 +83,6 @@ namespace Manager_Medias.ViewModels.Customer
                     info.STT = i + 1;
                     InfoPM.Add(info);
                 }
-
             }
         }
     }

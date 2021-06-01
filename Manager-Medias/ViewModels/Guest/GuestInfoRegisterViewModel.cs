@@ -59,10 +59,8 @@ namespace Manager_Medias.ViewModels.Guest
 
         #endregion BindingProperty
 
-        public GuestInfoRegisterViewModel(NavigationStore navigationStore)
+        public GuestInfoRegisterViewModel()
         {
-            _navigationStore = navigationStore;
-
             CmdContinue = new RelayCommand<Object[]>(Continue, (Object[] obj) => !HasErrors);
             this.Errors = new Dictionary<string, List<string>>();
             this.ValidationRules = new Dictionary<string, List<ValidationRule>>();
@@ -91,7 +89,7 @@ namespace Manager_Medias.ViewModels.Guest
                 if (db.SaveChanges() > 0)
                 {
                     //chuyển trang
-                    _navigationStore.ContentViewModel = new GuestLevelRegisterViewModel(user, _navigationStore);
+                    _navigationStore.ContentViewModel = new GuestLevelRegisterViewModel(user);
                 }
             }
         }

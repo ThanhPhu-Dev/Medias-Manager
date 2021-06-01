@@ -11,19 +11,22 @@ using System.Windows.Input;
 
 namespace Manager_Medias.ViewModels.Customer
 {
-    public class DetailPictureViewModel:BaseViewModel
+    public class DetailPictureViewModel : BaseViewModel
     {
         public static readonly DependencyProperty PictureListProperty;
         public int _currentProfileID;
         public int _currentAlbumID;
+
         //command like và lưu
         public ICommand CmdLike { get; set; }
+
         public ICommand CmdSave { get; set; }
 
         static DetailPictureViewModel()
         {
             PictureListProperty = DependencyProperty.Register("PictureList", typeof(ObservableCollection<Album_Detail>), typeof(DetailPictureViewModel));
         }
+
         public ObservableCollection<Album_Detail> PictureList
         {
             get => (ObservableCollection<Album_Detail>)GetValue(PictureListProperty);
@@ -39,6 +42,7 @@ namespace Manager_Medias.ViewModels.Customer
                 OnPropertyChanged();
             }
         }
+
         public bool CheckSave
         {
             get => _checkSave;
@@ -47,15 +51,15 @@ namespace Manager_Medias.ViewModels.Customer
                 _checkSave = value;
                 OnPropertyChanged();
             }
-
         }
+
         private bool _checkLike;
         private bool _checkSave;
 
-        public DetailPictureViewModel(int idProfile, int idAlbum)
+        public DetailPictureViewModel(int idAlbum)
         {
             _currentAlbumID = idAlbum;
-            _currentProfileID = idProfile;
+            _currentProfileID = _userStore.CurrentProfile.Id;
             using (var db = new MediasManangementEntities())
             {
                 PictureList = new ObservableCollection<Album_Detail>(db.Album_Details.Where(al => al.IdAlbum == _currentAlbumID).ToList());
@@ -79,7 +83,6 @@ namespace Manager_Medias.ViewModels.Customer
                 IdProfile = _currentProfileID,
                 IdMedia = _currentAlbumID,
                 //date
-
             };
             using (var db = new MediasManangementEntities())
             {
@@ -110,7 +113,6 @@ namespace Manager_Medias.ViewModels.Customer
                         MessageBox.Show("Đã xóa khỏi ds yêu thích");
                     }
                 }
-
             }
         }
 
@@ -121,7 +123,6 @@ namespace Manager_Medias.ViewModels.Customer
                 IdProfile = _currentProfileID,
                 IdMedia = _currentAlbumID,
                 //date
-
             };
             using (var db = new MediasManangementEntities())
             {
@@ -152,7 +153,6 @@ namespace Manager_Medias.ViewModels.Customer
                         MessageBox.Show("Đã bỏ lưu");
                     }
                 }
-
             }
         }
     }

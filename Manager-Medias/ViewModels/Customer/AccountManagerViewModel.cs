@@ -20,8 +20,6 @@ namespace Manager_Medias.ViewModels.Customer
 {
     public class AccountManagerViewModel : BaseViewModel
     {
-        private readonly UserStore _userStore;
-
         #region Command
 
         public ICommand SaveCmd { get; }
@@ -59,10 +57,8 @@ namespace Manager_Medias.ViewModels.Customer
 
         #endregion BindingProperty
 
-        public AccountManagerViewModel(UserStore userStore, NavigationStore navigationStore)
+        public AccountManagerViewModel()
         {
-            _userStore = userStore;
-            _navigationStore = navigationStore;
             NavigateHomeCmd = new NavigateCommand<HomeViewModel>(new NavigationService<HomeViewModel>(_navigationStore, () => new HomeViewModel()));
 
             this.Errors = new Dictionary<string, List<string>>();

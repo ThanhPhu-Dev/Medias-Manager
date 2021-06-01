@@ -52,10 +52,8 @@ namespace Manager_Medias.ViewModels.Guest
             }
         }
 
-        public GuestLoginViewModel(NavigationStore navigationStore)
+        public GuestLoginViewModel()
         {
-            _navigationStore = navigationStore;
-
             LoginCmd = new RelayCommand<Object[]>(ActionLogin, (Object[] obj) => !HasErrors);
             this.Errors = new Dictionary<string, List<string>>();
             this.ValidationRules = new Dictionary<string, List<ValidationRule>>();
@@ -109,8 +107,9 @@ namespace Manager_Medias.ViewModels.Guest
             {
                 User user = db.Users.Single(u => u.Email == "nghiadx2001@gmail.c");
                 UserStore userStore = new UserStore(user);
+                _userStore = userStore;
 
-                _navigationStore.CurrentViewModel = new MainLayoutViewModel(userStore, _navigationStore);
+                _navigationStore.CurrentViewModel = new MainLayoutViewModel();
                 _navigationStore.ContentViewModel = new HomeViewModel();
                 //_navigationStore.ContentViewModel = new HomeMovieViewModel(_navigationStore, userStore);
             }

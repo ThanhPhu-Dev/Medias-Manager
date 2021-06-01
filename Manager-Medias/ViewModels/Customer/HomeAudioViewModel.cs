@@ -1,4 +1,5 @@
 ﻿using Manager_Medias.Models;
+using Manager_Medias.Stores;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,6 +13,8 @@ namespace Manager_Medias.ViewModels.Customer
     public class HomeAudioViewModel : BaseViewModel
     {
         public static readonly DependencyProperty AudioListProperty;
+
+        private UserStore _user;
         static HomeAudioViewModel()
         {
             AudioListProperty = DependencyProperty.Register("AudioList", typeof(ObservableCollection<List<Audio>>), typeof(HomeAudioViewModel));
@@ -24,7 +27,12 @@ namespace Manager_Medias.ViewModels.Customer
 
         public HomeAudioViewModel()
         {
+        }
+
+        public HomeAudioViewModel(UserStore us)
+        {
             LoadMovie();
+            _user = us;
         }
 
         private void LoadMovie()

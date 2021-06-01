@@ -128,11 +128,12 @@ namespace Manager_Medias.ViewModels.Customer
         public void AddMyList(Object ob)
         {
             var id = int.Parse(ob.ToString());
+            var x = _userStore;
             My_List my_List = new My_List()
             {
                 IdMedia = id,
                 Date = DateTime.Now.Date,
-                IdProfile = 1,
+                IdProfile = _userStore.CurrentProfile.Id,
             };
             using (var db = new MediasManangementEntities())
             {

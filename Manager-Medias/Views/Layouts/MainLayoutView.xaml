@@ -258,7 +258,9 @@
                                            Foreground="#fff" />
                                 </StackPanel>
                             </Button>
-                            <Button Margin="0 10 0 10"
+                            <Button 
+                                    Command="{Binding ClickAudio}"
+                                    Margin="0 10 0 10"
                                     Padding="20 4"
                                     Style="{StaticResource SidebarButton}">
                                 <StackPanel Orientation="Horizontal">

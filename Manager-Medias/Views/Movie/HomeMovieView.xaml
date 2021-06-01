@@ -136,7 +136,7 @@
             <Setter Property="BorderBrush" Value="Transparent" />
             <Setter Property="FocusVisualStyle" Value="{x:Null}" />
             <Setter Property="ClickMode" Value="Hover" />
-            <EventSetter Event="Click" Handler="Button_Click" />
+            <!--<EventSetter Event="Click" Handler="Button_Click" />-->
 
             <Setter Property="Template">
                 <Setter.Value>
@@ -216,6 +216,9 @@
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="ContentTemplate" Value="{StaticResource carouselItemMouse}" />
+                </Trigger>
+                <Trigger Property="IsFocused" Value="True">
+
                 </Trigger>
             </Style.Triggers>
         </Style>
@@ -298,7 +301,8 @@
                                                 Grid.ColumnSpan="3"
                                                 HorizontalAlignment="Center" Margin="0">
                                         <ItemsControl Margin="0"
-                                          ItemsSource="{Binding Movies}" ItemContainerStyle="{StaticResource carouselMovieStyle}">
+                                          ItemsSource="{Binding Movies}" ItemContainerStyle="{StaticResource carouselMovieStyle}"
+                                                      PreviewMouseWheel="ItemsControl_PreviewMouseWheel">
                                             <ItemsControl.ItemsPanel>
                                                 <ItemsPanelTemplate>
                                                     <VirtualizingStackPanel Orientation="Horizontal" />
@@ -306,23 +310,60 @@
                                             </ItemsControl.ItemsPanel>
                                             <ItemsControl.Template>
                                                 <ControlTemplate TargetType="ItemsControl">
-                                                    <ScrollViewer  HorizontalScrollBarVisibility="Hidden"
-                                                      VerticalScrollBarVisibility="Disabled">
-                                                        <ItemsPresenter />
-                                                    </ScrollViewer>
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="40"/>
+                                                            <ColumnDefinition/>
+                                                            <ColumnDefinition Width="40"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <ScrollViewer 
+                                                            Grid.ColumnSpan="3"
+                                                            Name="sv_carousel" HorizontalScrollBarVisibility="Hidden"
+                                                            VerticalScrollBarVisibility="Disabled">
+                                                            <ItemsPresenter />
+                                                        </ScrollViewer>
+                                                        
+                                                        <Grid Name="gScrollLeft" Margin="0" Grid.Column="0" Opacity="0"
+                                                                Style="{StaticResource g_opicityRepeatButton}">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition />
+                                                            </Grid.ColumnDefinitions>
+                                                            <Border Background="Black" Opacity=".6" Panel.ZIndex="0" BorderThickness="0" Margin="0" Padding="0" />
+                                                            <RepeatButton
+                                                                    Command="{x:Static ScrollBar.LineLeftCommand}"
+                                                                    CommandTarget="{Binding ElementName=sv_carousel}">
+                                                                <materialDesign:PackIcon Kind="ChevronLeft" Width="55" Height="55" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                                            </RepeatButton>
+                                                        </Grid>
+                                                        <Grid Name="gScrollRight" Margin="0" Grid.Column="2" Opacity="0"
+                                                                Style="{StaticResource g_opicityRepeatButton}">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition />
+                                                            </Grid.ColumnDefinitions>
+                                                            <Border Background="Black" Opacity=".6" Panel.ZIndex="0" BorderThickness="0" Margin="0" Padding="0" />
+                                                            <RepeatButton 
+                                                                Command="{x:Static ScrollBar.LineRightCommand}"
+                                                                CommandTarget="{Binding ElementName=sv_carousel}">
+                                                                <materialDesign:PackIcon Kind="ChevronRight" Width="55" Height="55" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                                            </RepeatButton>
+                                                        </Grid>
+                                                    </Grid>
+
                                                 </ControlTemplate>
                                             </ItemsControl.Template>
                                         </ItemsControl>
                                     </StackPanel>
 
                                     <!--Hai nút để scroll carousel-->
-                                    <Grid Name="gScrollRight" Margin="0" Grid.Column="2" Opacity="0"
+                                    <!--<Grid Name="gScrollRight" Margin="0" Grid.Column="2" Opacity="0"
                                           Style="{StaticResource g_opicityRepeatButton}">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition />
                                         </Grid.ColumnDefinitions>
                                         <Border Background="Black" Opacity=".6" Panel.ZIndex="0" BorderThickness="0" Margin="0" Padding="0" />
-                                        <RepeatButton>
+                                        <RepeatButton 
+                                            Command="{x:Static ScrollBar.LineRightCommand}"
+                                            CommandTarget="{Binding ElementName=sv_carousel}">
                                             <materialDesign:PackIcon Kind="ChevronRight" Width="55" Height="55" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                         </RepeatButton>
                                     </Grid>
@@ -332,13 +373,15 @@
                                             <ColumnDefinition />
                                         </Grid.ColumnDefinitions>
                                         <Border Background="Black" Opacity=".6" Panel.ZIndex="0" BorderThickness="0" Margin="0" Padding="0" />
-                                        <RepeatButton>
+                                        <RepeatButton
+                                            Command="{x:Static ScrollBar.LineLeftCommand}"
+                                            CommandTarget="{Binding ElementName=sv_carousel}">
                                             <materialDesign:PackIcon Kind="ChevronLeft" Width="55" Height="55" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                         </RepeatButton>
-                                    </Grid>
+                                    </Grid>-->
                                 </Grid>
-                            <!--</StackPanel>-->
-                            
+                                <!--</StackPanel>-->
+
                             </GroupBox>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>

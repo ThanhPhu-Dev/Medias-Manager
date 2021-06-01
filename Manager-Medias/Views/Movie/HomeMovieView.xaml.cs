@@ -28,6 +28,7 @@ namespace Manager_Medias.Views.Movie
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            //ScrollViewer sv = FindVisualChild<ScrollViewer>(itc_movie);
             //var template = itc_movie.Template;
             //var sv = (ScrollViewer)template.FindName("sv_itc", itc_movie);
             //var curPos = sv.HorizontalOffset;
@@ -46,6 +47,39 @@ namespace Manager_Medias.Views.Movie
             //        break;
             //}
 
+        }
+        public static childItem FindVisualChild<childItem>(DependencyObject obj)
+                where childItem : DependencyObject
+        {
+            // Iterate through all immediate children
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(obj); i++)
+            {
+                DependencyObject child = VisualTreeHelper.GetChild(obj, i);
+
+                if (child != null && child is childItem)
+                    return (childItem)child;
+                else
+                {
+                    childItem childOfChild = FindVisualChild<childItem>(child);
+
+                    if (childOfChild != null)
+                        return childOfChild;
+                }
+            }
+
+            return null;
+        }
+        private void ItemsControl_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            if (sender is ItemsControl && !e.Handled)
+            {
+                e.Handled = true;
+                var eventArg = new MouseWheelEventArgs(e.MouseDevice, e.Timestamp, e.Delta);
+                eventArg.RoutedEvent = UIElement.MouseWheelEvent;
+                eventArg.Source = sender;
+                var parent = ((Control)sender).Parent as UIElement;
+                parent.RaiseEvent(eventArg);
+            }
         }
     }
 }

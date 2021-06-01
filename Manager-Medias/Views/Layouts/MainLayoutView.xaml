@@ -278,7 +278,8 @@
                         <StackPanel x:Name="SidebarList">
                             <Button Margin="0 10 0 10"
                                     Padding="20 4"
-                                    Style="{StaticResource SidebarButton}">
+                                    Style="{StaticResource SidebarButton}" 
+                                    Command="{Binding MovieCmd}">
                                 <StackPanel Orientation="Horizontal">
                                     <materialDesign:PackIcon Kind="MovieOutline"
                                                              Foreground="#febb00"

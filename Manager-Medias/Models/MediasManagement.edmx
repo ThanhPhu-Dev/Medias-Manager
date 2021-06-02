@@ -135,6 +135,7 @@
           <Property Name="Level" Type="int" />
           <Property Name="Code" Type="varchar(max)" />
           <Property Name="NumberCard" Type="varchar" MaxLength="16" />
+          <Property Name="Exp" Type="varchar" MaxLength="8" />
         </EntityType>
         <EntityType Name="View_History">
           <Key>
@@ -565,6 +566,7 @@
           <Property Name="NumberCard" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Payment_History" Relationship="Self.FK_PaymentHistory_User" FromRole="Users" ToRole="Payment_History" />
           <NavigationProperty Name="Profiles" Relationship="Self.FK_Profile_User" FromRole="Users" ToRole="Profiles" />
+          <Property Name="Exp" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="View_History">
           <Key>
@@ -978,6 +980,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="MediasManangementModel.User">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Exp" ColumnName="Exp" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Level" ColumnName="Level" />

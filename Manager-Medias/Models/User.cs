@@ -26,6 +26,7 @@ namespace Manager_Medias.Models
         public Nullable<int> Level { get; set; }
         public string Code { get; set; }
         public string NumberCard { get; set; }
+        public string Exp { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Payment_History> Payment_History { get; set; }

@@ -5,11 +5,10 @@
 	Level int,
 	Code varchar(MAX),
 	NumberCard varchar(16),
+	Exp varchar(8)
 
 	CONSTRAINT PK_Users PRIMARY KEY (Email)
 )
-
-
 
 CREATE TABLE Profiles
 (

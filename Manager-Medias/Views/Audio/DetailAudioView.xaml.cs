@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace Manager_Medias.Views.Audio
 {
@@ -21,25 +22,50 @@ namespace Manager_Medias.Views.Audio
     /// </summary>
     public partial class DetailAudioView : UserControl
     {
+        private DispatcherTimer seeker;
+        private bool isSeekingMedia = false;
+
         public DetailAudioView()
         {
             InitializeComponent();
-            
         }
 
         private void MediaTimeline_CurrentTimeInvalidated(object sender, EventArgs e)
         {
-            timelineSlider.Value = audio.Position.TotalMilliseconds;
         }
 
         private void audio_MediaOpened(object sender, RoutedEventArgs e)
         {
             timelineSlider.Maximum = audio.NaturalDuration.TimeSpan.TotalMilliseconds;
+            seeker = new DispatcherTimer();
+            seeker.Interval = TimeSpan.FromSeconds(1);
+            seeker.Tick += Seeker_Tick;
+            seeker.Start();
         }
 
-        private void timelineSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        private void Seeker_Tick(object sender, EventArgs e)
         {
-            timeChange.Text = TimeSpan.FromSeconds(timelineSlider.Value).ToString(@"hh\:mm\:ss");
+            if (!isSeekingMedia)
+            {
+                timelineSlider.Value = audio.Position.TotalMilliseconds;
+            }
+        }
+
+        private void timelineSlider_DragStarted(object sender, System.Windows.Controls.Primitives.DragStartedEventArgs e)
+        {
+            isSeekingMedia = true;
+        }
+
+        private void timelineSlider_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
+        {
+            isSeekingMedia = false;
+            int SliderValue = (int)timelineSlider.Value;
+
+            // Overloaded constructor takes the arguments days, hours, minutes, seconds, milliseconds.
+            // Create a TimeSpan with miliseconds equal to the slider value.
+            TimeSpan ts = new TimeSpan(0, 0, 0, 0, SliderValue);
+            audio.Position = ts;
+            isSeekingMedia = false;
         }
     }
 }

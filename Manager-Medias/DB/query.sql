@@ -9,7 +9,7 @@
 	CONSTRAINT PK_Users PRIMARY KEY (Email)
 )
 
-alter table Users add Exp VARCHAR(8)
+
 
 CREATE TABLE Profiles
 (

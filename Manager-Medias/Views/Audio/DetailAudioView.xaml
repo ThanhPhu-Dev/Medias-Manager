@@ -112,19 +112,6 @@
     </UserControl.Resources>
 
     <UserControl.Triggers>
-        <!--F:\2021 - 2022\UDQL2\Project\Medias-Manager\Manager-Medias\bin\Debug\Images\Audio\mp3\audiomp3_mp3_1.mp3-->
-        <!--<EventTrigger RoutedEvent="ListBox.SelectionChanged" SourceName="lb_Audio">
-            <EventTrigger.Actions>
-                <BeginStoryboard Name="myBegin">
-                    <Storyboard SlipBehavior="Slip">
-                        <MediaTimeline Source="F:\3-2\LT\LTW2\Medias-Manager\Manager-Medias\bin\Debug\Images\Audio\mp3\audiomp3_mp3_1.mp3"
-                                       Storyboard.TargetName="audio"
-                                       CurrentTimeInvalidated="MediaTimeline_CurrentTimeInvalidated" />
-                    </Storyboard>
-                </BeginStoryboard>
-            </EventTrigger.Actions>
-        </EventTrigger>-->
-
         <!--khi nhấn play-->
         <EventTrigger RoutedEvent="ToggleButton.Checked" SourceName="btn_playvideo">
             <!--<PauseStoryboard BeginStoryboardName="anm_rotate" x:Name="pause_anm" />-->
@@ -197,7 +184,8 @@
                               Width="0"
                               Visibility="Hidden"
                               MediaOpened="audio_MediaOpened"
-                              Source="F:\3-2\LT\LTW2\Medias-Manager\Manager-Medias\bin\Debug\Images\Audio\mp3\audiomp3_mp3_1.mp3" />
+                              LoadedBehavior="Manual"
+                              Source="{Binding ElementName=lb_Audio, Path=SelectedItem.Mp3, Converter={StaticResource imgCvt}}" />
                 <StackPanel Grid.ColumnSpan="3"
                             Grid.Row="2"
                             Margin="10"
@@ -276,16 +264,9 @@
                                       Foreground="#febb00"
                                       BorderThickness="0"
                                       Cursor="Hand"
-                                      Name="btn_playvideo">
-
-                            <!--<i:Interaction.Triggers>
-                                <i:EventTrigger EventName="Checked">
-                                    <i:InvokeCommandAction Command="{Binding CmdPauseAudio}" />
-                                </i:EventTrigger>
-                                <i:EventTrigger EventName="Unchecked">
-                                    <i:InvokeCommandAction Command="{Binding CmdPlayAudio}" />
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>-->
+                                      Name="btn_playvideo"
+                                      Checked="btn_playvideo_Checked"
+                                      Unchecked="btn_playvideo_Unchecked">
                             <ToggleButton.Style>
                                 <Style TargetType="{x:Type ToggleButton}">
                                     <Setter Property="Content" Value="{materialDesign:PackIcon Pause, Size=55}" />
@@ -370,24 +351,6 @@
                  SelectedItem="{Binding SelectedAudio}"
                  Margin="30 0 15 0"
                  ItemContainerStyle="{DynamicResource _ListBoxItemStyle}">
-                <!--<i:Interaction.Triggers>
-                    <i:EventTrigger EventName="SelectionChanged">
-                        <i:InvokeCommandAction Command="{Binding CmdSelectionChange}"
-                                                CommandParameter="{Binding ElementName=lb_Audio, Path=SelectedItem.Mp3}" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>-->
-                <!--<ListBox.Style>
-                    <Style>
-                        <Style.Triggers>
-                            <EventTrigger RoutedEvent="ListBox.SelectionChanged">
-                                <EventTrigger.Actions>
-                                    <BeginStoryboard Name= "myBegin" Storyboard="{StaticResource audioStart}">
-                                    </BeginStoryboard>
-                                </EventTrigger.Actions>
-                            </EventTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </ListBox.Style>-->
                 <ListBox.Resources>
                     <Style TargetType="Thumb">
                         <Setter Property="Template">
@@ -436,8 +399,5 @@
                 </ListBox.Resources>
             </ListBox>
         </Grid>
-
-        <!--<TextBlock Text="{Binding TimeAudio}"
-                   Foreground="#fff" />-->
     </Grid>
 </UserControl>

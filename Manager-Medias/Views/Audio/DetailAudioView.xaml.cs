@@ -28,6 +28,7 @@ namespace Manager_Medias.Views.Audio
         public DetailAudioView()
         {
             InitializeComponent();
+            audio.Play();
         }
 
         private void MediaTimeline_CurrentTimeInvalidated(object sender, EventArgs e)
@@ -66,6 +67,16 @@ namespace Manager_Medias.Views.Audio
             TimeSpan ts = new TimeSpan(0, 0, 0, 0, SliderValue);
             audio.Position = ts;
             isSeekingMedia = false;
+        }
+
+        private void btn_playvideo_Checked(object sender, RoutedEventArgs e)
+        {
+            audio.Pause();
+        }
+
+        private void btn_playvideo_Unchecked(object sender, RoutedEventArgs e)
+        {
+            audio.Play();
         }
     }
 }

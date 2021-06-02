@@ -108,8 +108,8 @@ namespace Manager_Medias.ViewModels.Guest
                 User user = db.Users.Single(u => u.Email == "nghiadx2001@gmail.c");
                 _userStore = new UserStore(user);
                 _navigationStore.CurrentViewModel = new MainLayoutViewModel();
-                //_navigationStore.ContentViewModel = new HomeViewModel();
-                _navigationStore.ContentViewModel = new DetailAudioViewModel(1);
+                _navigationStore.ContentViewModel = new HomeViewModel();
+                //_navigationStore.ContentViewModel = new DetailAudioViewModel(1);
             }
         }
     }

@@ -12,6 +12,7 @@
     <UserControl.Resources>
         <cv:ConvertImage x:Key="imgCvt" />
         <cv:ToShortDateConverter x:Key="dateCvt" />
+        <cv:PercentWidthItemConverter x:Key="WidthCvt" />
     </UserControl.Resources>
     <Border Background="#000" Margin="20 30" CornerRadius="3">
         <ListView x:Name="lvPlayList" ItemsSource="{Binding PlayList}"
@@ -75,6 +76,40 @@
                             </Behaviors:EventTrigger>
                         </Behaviors:Interaction.Triggers>
                         <Grid>
+                            <Canvas>
+                                <Grid Canvas.Left="-8"
+                                      Canvas.Top="-9"
+                                      Width="{Binding ElementName=Item, Path=ActualWidth}">
+                                    <materialDesign:Card Background="#55000000"
+                                                         Height="{Binding ElementName=Item, Path=ActualHeight}"
+                                                         HorizontalAlignment="Left">
+                                        <materialDesign:Card.Width>
+                                            <MultiBinding Converter="{StaticResource WidthCvt}">
+                                                <Binding ElementName="Item" Path="ActualWidth" />
+                                                <Binding Path="WatchedPercent" />
+                                            </MultiBinding>
+                                        </materialDesign:Card.Width>
+                                    </materialDesign:Card>
+                                    <TextBlock VerticalAlignment="Center"
+                                               HorizontalAlignment="Center"
+                                               Foreground="#FFECECEC"
+                                               FontSize="16"
+                                               FontWeight="DemiBold">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsWatched}" Value="False">
+                                                        <Setter Property="Text" Value="0%" />
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding IsWatched}" Value="True">
+                                                        <Setter Property="Text" Value="{Binding WatchedPercent, StringFormat={}{0}%}" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </Grid>
+                            </Canvas>
                             <materialDesign:Card
                                 UniformCornerRadius="3"
                                 Background="Transparent">
@@ -100,7 +135,7 @@
                                                     Foreground="#fff"
                                                     FontSize="14"
                                                     VerticalAlignment="Center" />
-                                            <TextBlock Text="{Binding Time, StringFormat='{}  -  Thời lượng: {0}' }"
+                                            <TextBlock Text="{Binding Time, StringFormat='{}  -  {0}' }"
                                                     Foreground="#fff"
                                                     FontSize="14"
                                                     VerticalAlignment="Center">
@@ -117,12 +152,31 @@
                                         </StackPanel>
 
                                         <DockPanel LastChildFill="True">
-                                            <TextBlock Text="{Binding Date, StringFormat='{}Đã lưu ngày {0}', Converter={StaticResource dateCvt}}"
+                                            <TextBlock Text="{Binding Date, StringFormat='{}Đã lưu: {0}', Converter={StaticResource dateCvt}}"
                                                     Foreground="#FFB8B8B8"
                                                     FontSize="13"
                                                     VerticalAlignment="Bottom"
                                                     DockPanel.Dock="Left"
-                                                       FontWeight="Light" />
+                                                    FontWeight="Light" />
+                                            <TextBlock
+                                                    Foreground="#FFB8B8B8"
+                                                    FontSize="13"
+                                                    VerticalAlignment="Bottom"
+                                                    DockPanel.Dock="Left"
+                                                    FontWeight="Light">
+                                                <TextBlock.Style>
+                                                    <Style TargetType="TextBlock">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding IsWatched}" Value="False">
+                                                                <Setter Property="Text" Value=" - Chưa xem" />
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding IsWatched}" Value="True">
+                                                                <Setter Property="Text" Value="{Binding WatchedDate, StringFormat='{} - Đã xem: {0}', Converter={StaticResource dateCvt}}" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
                                             <Button HorizontalContentAlignment="Stretch"
                                                     VerticalContentAlignment="Stretch"
                                                     HorizontalAlignment="Right"

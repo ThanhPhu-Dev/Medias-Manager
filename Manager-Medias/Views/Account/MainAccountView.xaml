@@ -186,7 +186,7 @@
                     </Button>
 
                     <Button Style="{StaticResource BtnNav}"
-                            Command="{Binding NavigateFavoriteManagerCmd}">
+                            Command="{Binding NavigateMyListCmd}">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="BookmarkMultipleOutline" Foreground="#febb00" />
                             <TextBlock Text="Danh sách cá nhân"

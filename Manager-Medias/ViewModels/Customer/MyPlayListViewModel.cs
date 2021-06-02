@@ -77,6 +77,9 @@ namespace Manager_Medias.ViewModels.Customer
                 List<MediaCustomModel> MediaList = new List<MediaCustomModel>();
                 MyList.ToList().ForEach(item =>
                 {
+                    var history = db.View_History.Where(h =>
+                                    h.IdProfile == _userStore.CurrentProfile.Id &&
+                                    h.IdMedia == item.IdMedia);
                     MediaCustomModel media = new MediaCustomModel();
                     switch (item.Media.Media_Categories.Name.ToLower())
                     {
@@ -85,10 +88,26 @@ namespace Manager_Medias.ViewModels.Customer
                             media.MediaID = item.Media.Id;
                             media.Name = item.Media.Movy.Name;
                             media.Image = item.Media.Movy.Poster;
-                            media.Date = (DateTime)item.Date;
+                            if (item.Date != null)
+                            {
+                                media.Date = (DateTime)item.Date;
+                            }
                             media.Time = item.Media.Movy.Time;
                             media.MediaType = "Phim";
-                            //media.TimeWatched = item
+
+                            if (history.Any())
+                            {
+                                media.IsWatched = true;
+                                media.WatchedDate = (DateTime)history.Single().Date;
+                                media.TimeWatched = double.Parse(history.Single().time);
+                                var time = item.Media.Movy.Time;
+                                string[] t = time.Split(':');
+                                TimeSpan tsMax = new TimeSpan(int.Parse(t[0]), int.Parse(t[1]), int.Parse(t[2]));
+                                TimeSpan tsCur = new TimeSpan(0, 0, 0, 0, Convert.ToInt32(media.TimeWatched));
+                                var percent = (tsCur.TotalMilliseconds / tsMax.TotalMilliseconds) * 100;
+                                media.WatchedPercent = Math.Round(percent, 1).ToString();
+                            }
+
                             break;
 
                         case "hình ảnh":
@@ -104,6 +123,11 @@ namespace Manager_Medias.ViewModels.Customer
                             media.Date = (DateTime)item.Date;
                             media.Time = null;
                             media.MediaType = "Hình ảnh";
+                            if (history.Any())
+                            {
+                                media.WatchedDate = (DateTime)history.Single().Date;
+                                media.WatchedPercent = "100";
+                            }
                             break;
 
                         case "âm nhạc":
@@ -114,7 +138,11 @@ namespace Manager_Medias.ViewModels.Customer
                             media.Date = (DateTime)item.Date;
                             media.Time = item.Media.Audio.Time;
                             media.MediaType = "Âm nhạc";
-
+                            if (history.Any())
+                            {
+                                media.WatchedDate = (DateTime)history.Single().Date;
+                                media.WatchedPercent = "100";
+                            }
                             break;
 
                         default:

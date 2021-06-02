@@ -140,16 +140,16 @@
 
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate TargetType="RepeatButton">
+                    <ControlTemplate TargetType="{x:Type RepeatButton}">
                         <Border>
-                            <ContentPresenter Height="auto" />
+                            <ContentPresenter Height="auto" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="true">
-                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="Background" Value="#333" />
                 </Trigger>
             </Style.Triggers>
         </Style>
@@ -171,16 +171,7 @@
 
         <!--template khi đã hover-->
         <DataTemplate DataType="{x:Type model:Movie}" x:Key="carouselItemMouse">
-            <Grid Margin="3 1">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="MouseLeftButtonDown">
-                        <i:InvokeCommandAction Command="{Binding DataContext.CmdToDetailMovie,
-                                    RelativeSource={RelativeSource Mode=FindAncestor,
-                                    AncestorType={x:Type ItemsControl}, AncestorLevel=2}}"
-                                               CommandParameter="{Binding Id}">
-                        </i:InvokeCommandAction>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
+            <Grid Margin="3 1" Name="gDatatemplate">
                 <Image Height="117" Width="230"
                                    Panel.ZIndex="1"
                                    Source="{Binding Poster, Converter={StaticResource imageCvt}}" Stretch="Fill" />
@@ -210,15 +201,42 @@
         </DataTemplate>
 
         <!--style cho itemcontroll carousel-->
-        <Style TargetType="ContentPresenter" x:Key="carouselMovieStyle">
+        <Style TargetType="ListBoxItem" x:Key="carouselMovieStyle">
             <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border Name="Border"
+                            BorderThickness="2"
+                            Padding="2"
+                            SnapsToDevicePixels="true">
+                            <ContentPresenter />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected"
+                                 Value="true">
+                                <Setter TargetName="Border"
+                                    Property="Background"
+                                    Value="{x:Static Brushes.Transparent}" />
+
+                                <Setter TargetName="Border"
+                                    Property="BorderBrush"
+                                    Value="{x:Static Brushes.WhiteSmoke}" />
+
+                            </Trigger>
+                            <Trigger Property="IsEnabled"
+                                 Value="false">
+                                <Setter Property="Foreground"
+                                    Value="{x:Static Brushes.Transparent}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
             <Setter Property="ContentTemplate" Value="{StaticResource carouselItemDefault}" />
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="ContentTemplate" Value="{StaticResource carouselItemMouse}" />
-                </Trigger>
-                <Trigger Property="IsFocused" Value="True">
-
                 </Trigger>
             </Style.Triggers>
         </Style>
@@ -246,28 +264,9 @@
         </Style>
     </UserControl.Resources>
 
-    <!--//trigger-->
+    <!--//Eventtrigger-->
     <UserControl.Triggers>
-        <!--<EventTrigger RoutedEvent="MouseEnter" SourceName="g_carousel">
-            <BeginStoryboard>
-                <Storyboard>
-                    <DoubleAnimation Storyboard.TargetName="gScrollRight"
-                                     Storyboard.TargetProperty="Opacity"
-                                     To="1"
-                                     Duration="0:0:0"/>
-                </Storyboard>
-            </BeginStoryboard>
-        </EventTrigger>
-        <EventTrigger RoutedEvent="MouseLeave" SourceName="itc_movie">
-            <BeginStoryboard>
-                <Storyboard>
-                    <DoubleAnimation Storyboard.TargetName="gScrollRight"
-                                     Storyboard.TargetProperty="Opacity"
-                                     To="0"
-                                     Duration="0:0:0"/>
-                </Storyboard>
-            </BeginStoryboard>
-        </EventTrigger>-->
+
     </UserControl.Triggers>
     <ScrollViewer Background="Black">
         <Grid >
@@ -284,8 +283,8 @@
                             <GroupBox Padding="0" BorderThickness="0" Margin="0 0 0 45">
                                 <GroupBox.Header>
                                     <TextBlock Background="Black"
-                                            Foreground="#ffbb00"
-                                            FontWeight="Bold"
+                                            Foreground="#fff"
+                                            FontWeight="DemiBold"
                                             VerticalAlignment="Center"
                                             Text="{Binding Name}"
                                             FontSize="20"/>
@@ -300,15 +299,41 @@
                                     <StackPanel VerticalAlignment="Center"
                                                 Grid.ColumnSpan="3"
                                                 HorizontalAlignment="Center" Margin="0">
-                                        <ItemsControl Margin="0"
-                                          ItemsSource="{Binding Movies}" ItemContainerStyle="{StaticResource carouselMovieStyle}"
+                                        <StackPanel.Triggers>
+                                            <EventTrigger RoutedEvent="ListBox.SelectionChanged" 
+                                                          SourceName="lb_carousel">
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation  Storyboard.TargetName="detailMovie"
+                                                                          Storyboard.TargetProperty="Height" From="0"
+                                                                          To="300"
+                                                                          Duration="0:0:.2"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </EventTrigger>
+                                            <EventTrigger RoutedEvent="Button.Click" 
+                                                          SourceName="btn_closeDetailMovie">
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation  Storyboard.TargetName="detailMovie"
+                                                                          Storyboard.TargetProperty="Height" 
+                                                                          From="300"
+                                                                          To="0"
+                                                                          Duration="0:0:.2"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </EventTrigger>
+                                        </StackPanel.Triggers>
+                                        <ListBox Margin="0" Name="lb_carousel" 
+                                                ItemsSource="{Binding Movies}" ItemContainerStyle="{StaticResource carouselMovieStyle}"
                                                       PreviewMouseWheel="ItemsControl_PreviewMouseWheel">
-                                            <ItemsControl.ItemsPanel>
+
+                                            <ListBox.ItemsPanel>
                                                 <ItemsPanelTemplate>
                                                     <VirtualizingStackPanel Orientation="Horizontal" />
                                                 </ItemsPanelTemplate>
-                                            </ItemsControl.ItemsPanel>
-                                            <ItemsControl.Template>
+                                            </ListBox.ItemsPanel>
+                                            <ListBox.Template>
                                                 <ControlTemplate TargetType="ItemsControl">
                                                     <Grid>
                                                         <Grid.ColumnDefinitions>
@@ -322,7 +347,7 @@
                                                             VerticalScrollBarVisibility="Disabled">
                                                             <ItemsPresenter />
                                                         </ScrollViewer>
-                                                        
+
                                                         <Grid Name="gScrollLeft" Margin="0" Grid.Column="0" Opacity="0"
                                                                 Style="{StaticResource g_opicityRepeatButton}">
                                                             <Grid.ColumnDefinitions>
@@ -350,38 +375,90 @@
                                                     </Grid>
 
                                                 </ControlTemplate>
-                                            </ItemsControl.Template>
-                                        </ItemsControl>
+                                            </ListBox.Template>
+                                        </ListBox>
+
+                                        <!--Chi tiết phim--> 
+                                        <Grid Name="detailMovie" Margin="0 10 0 0" Height="0">
+                                            <Grid.Resources>
+                                                <Style TargetType="TextBlock">
+                                                    <Setter Property="FontSize" Value="15"/>
+                                                </Style>
+                                            </Grid.Resources>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="4*"/>
+                                                <ColumnDefinition Width="6*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <StackPanel > 
+                                                <!--logo-->
+                                                <Image Source="/Images/logo.png" Width="85"/>
+
+                                                <!--tên phim + lượt xem + độ tuổi-->
+                                                <StackPanel HorizontalAlignment="Center" Margin="0 10">
+                                                    <TextBlock Text="{Binding ElementName=lb_carousel, Path=SelectedItem.Name}"
+                                                           FontSize="40"
+                                                           Foreground="#fff"
+                                                           FontWeight="DemiBold"/>
+                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom"
+                                                                Margin="0 4">
+                                                        <Border
+                                                            BorderThickness=".5"
+                                                            BorderBrush="#bdbdbd"
+                                                            Padding="7 0"
+                                                            CornerRadius="3"
+                                                            Margin="5 0">
+                                                            <TextBlock Text="{Binding ElementName=lb_carousel, 
+                                                                Path=SelectedItem.Age, StringFormat={}{0}+}"
+                                                                       Margin="0" Padding="0"/>
+                                                        </Border>
+                                                        <Border
+                                                            BorderThickness=".5"
+                                                            BorderBrush="#bdbdbd"
+                                                            Padding="7 0"
+                                                            CornerRadius="3"
+                                                            Margin="5 0">
+                                                            <TextBlock Text="{Binding ElementName=lb_carousel, Path=SelectedItem.NumberOfViews, StringFormat={}{0} lượt xem}"/>
+                                                        </Border>
+                                                    </StackPanel>
+                                                </StackPanel>
+                                                <TextBlock Text="{Binding ElementName=lb_carousel, Path=SelectedItem.IMDB, StringFormat={}Điểm IMDB: {0}}"/>
+
+                                                <!--chi tiêt-->
+                                                <TextBlock Text="{Binding ElementName=lb_carousel, Path=SelectedItem.Description}"/>
+                                                
+                                                <Button
+                                                    VerticalAlignment="Bottom" 
+                                                    Margin="0 10"
+                                                    Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                                                    Background="#ffbb00"
+                                                    Width="150"
+                                                    HorizontalAlignment="Center"
+                                                    Content="Xem chi tiết " 
+                                                    Command="{Binding DataContext.CmdToDetailMovie,
+                                                                      RelativeSource={RelativeSource Mode=FindAncestor,
+                                                                      AncestorType={x:Type ItemsControl}}}"
+                                                   CommandParameter="{Binding ElementName=lb_carousel, Path=SelectedItem.Id}"/>
+                                                
+                                            </StackPanel>
+                                            <Image Source="{Binding ElementName=lb_carousel, Path=SelectedItem.Poster, 
+                                                                    Converter={StaticResource imageCvt}}"
+                                                   Grid.Column="1" 
+                                                   Stretch="Fill"/>
+                                            <Button Name="btn_closeDetailMovie"
+                                                    Grid.Column="1" 
+                                                    BorderThickness="0"
+                                                    BorderBrush="Transparent"
+                                                    Background="Transparent"
+                                                    Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                                                    ToolTip="Đóng"
+                                                    HorizontalAlignment="Right"
+                                                    VerticalAlignment="Top">
+                                                <materialDesign:PackIcon Kind="Close" Height="30" Width="30" Foreground="#fff"
+                                                                         />
+                                            </Button>
+                                        </Grid>
                                     </StackPanel>
-
-                                    <!--Hai nút để scroll carousel-->
-                                    <!--<Grid Name="gScrollRight" Margin="0" Grid.Column="2" Opacity="0"
-                                          Style="{StaticResource g_opicityRepeatButton}">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition />
-                                        </Grid.ColumnDefinitions>
-                                        <Border Background="Black" Opacity=".6" Panel.ZIndex="0" BorderThickness="0" Margin="0" Padding="0" />
-                                        <RepeatButton 
-                                            Command="{x:Static ScrollBar.LineRightCommand}"
-                                            CommandTarget="{Binding ElementName=sv_carousel}">
-                                            <materialDesign:PackIcon Kind="ChevronRight" Width="55" Height="55" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                        </RepeatButton>
-                                    </Grid>
-                                    <Grid Name="gScrollLeft" Margin="0" Grid.Column="0" Opacity="0"
-                                          Style="{StaticResource g_opicityRepeatButton}">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition />
-                                        </Grid.ColumnDefinitions>
-                                        <Border Background="Black" Opacity=".6" Panel.ZIndex="0" BorderThickness="0" Margin="0" Padding="0" />
-                                        <RepeatButton
-                                            Command="{x:Static ScrollBar.LineLeftCommand}"
-                                            CommandTarget="{Binding ElementName=sv_carousel}">
-                                            <materialDesign:PackIcon Kind="ChevronLeft" Width="55" Height="55" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                        </RepeatButton>
-                                    </Grid>-->
                                 </Grid>
-                                <!--</StackPanel>-->
-
                             </GroupBox>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>

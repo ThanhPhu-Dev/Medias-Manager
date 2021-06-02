@@ -13,6 +13,84 @@
     <UserControl.Resources>
         <cvt:ConvertImage x:Key="imageCvt" />
 
+        <!--SCROLL STYLE-->
+        <Style x:Key="{x:Type ScrollBar}" TargetType="{x:Type ScrollBar}">
+            <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+            <Setter Property="Foreground" Value="#FF666666"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Width" Value="8"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ScrollBar}">
+                        <Grid
+                            x:Name="GridRoot"
+                            Width="10"
+                            Background="{TemplateBinding Background}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="0.00001"/>
+                            </Grid.RowDefinitions>
+                            <Track
+                                x:Name="PART_Track"
+                                Grid.Row="0"
+                                Focusable="false"
+                                IsDirectionReversed="true">
+                                <Track.Thumb>
+                                    <Thumb
+                                        x:Name="Thumb"
+                                        Background="{TemplateBinding Foreground}"
+                                        Style="{DynamicResource ScrollThumbs}" />
+                                </Track.Thumb>
+                                <Track.IncreaseRepeatButton>
+                                    <RepeatButton
+                                        x:Name="PageUp"
+                                        Command="ScrollBar.PageDownCommand"
+                                        Focusable="false"
+                                        Opacity="0" />
+                                </Track.IncreaseRepeatButton>
+                                <Track.DecreaseRepeatButton>
+                                    <RepeatButton
+                                        x:Name="PageDown"
+                                        Command="ScrollBar.PageUpCommand"
+                                        Focusable="false"
+                                        Opacity="0" />
+                                </Track.DecreaseRepeatButton>
+                            </Track>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ScrollThumbs" TargetType="{x:Type Thumb}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Thumb}">
+                        <Grid x:Name="Grid">
+                            <Rectangle
+                                Width="Auto"
+                                Height="Auto"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                Fill="Transparent" />
+                            <Border
+                                x:Name="Rectangle1"
+                                Width="Auto"
+                                Height="Auto"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="8" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Tag" Value="Horizontal">
+                                <Setter TargetName="Rectangle1" Property="Width" Value="Auto" />
+                                <Setter TargetName="Rectangle1" Property="Height" Value="7" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
         <!--style cho 2 button scroll-->
         <Style TargetType="RepeatButton">
             <Setter Property="Background" Value="Transparent" />
@@ -27,20 +105,20 @@
             <Setter Property="BorderBrush" Value="Transparent" />
             <Setter Property="FocusVisualStyle" Value="{x:Null}" />
             <Setter Property="ClickMode" Value="Hover" />
-            <EventSetter Event="Click" Handler="Button1_Click" />
+            <!--<EventSetter Event="Click" Handler="Button_Click" />-->
 
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate TargetType="RepeatButton">
+                    <ControlTemplate TargetType="{x:Type RepeatButton}">
                         <Border>
-                            <ContentPresenter Height="auto" />
+                            <ContentPresenter Height="auto" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="true">
-                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="Background" Value="#333" />
                 </Trigger>
             </Style.Triggers>
         </Style>
@@ -48,10 +126,10 @@
         <!--template khi chưa hover-->
         <DataTemplate DataType="{x:Type model:Audio}" x:Key="carouselItemDefault">
             <Grid Margin="3 1">
-                <Image Height="120" Width="250"
+                <Image Height="117" Width="230"
                                    Panel.ZIndex="1"
                                    Source="{Binding Image, Converter={StaticResource imageCvt}}" Stretch="Fill" />
-                <TextBlock Text="Tên phim" Name="tb_namemovie"
+                <TextBlock Text="Bài Hát" Name="tb_nameaudio"
                                        Foreground="#fff"
                                        FontSize="20"
                                        FontWeight="DemiBold"
@@ -59,20 +137,10 @@
                                        Panel.ZIndex="0" />
             </Grid>
         </DataTemplate>
-
         <!--template khi đã hover-->
         <DataTemplate DataType="{x:Type model:Audio}" x:Key="carouselItemMouse">
-            <Grid Margin="3 1">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="MouseLeftButtonDown">
-                        <i:InvokeCommandAction Command="{Binding DataContext.CmdToDetailAudio,
-                                    RelativeSource={RelativeSource Mode=FindAncestor,
-                                                               AncestorType={x:Type ItemsControl}}}"
-                                               CommandParameter="{Binding Id}">
-                        </i:InvokeCommandAction>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-                <Image Height="120" Width="250"
+            <Grid Margin="3 1" Name="gDatatemplate">
+                <Image Height="117" Width="230"
                                    Panel.ZIndex="1"
                                    Source="{Binding Image, Converter={StaticResource imageCvt}}" Stretch="Fill" />
 
@@ -92,17 +160,47 @@
                                        Foreground="#fff"
                                        Padding="7 1" />
                         </Border>
-                        <TextBlock Text="{Binding Singer, StringFormat={}Ca Sĩ: {0}}"
+                        <TextBlock Text="{Binding Singer, StringFormat={}Ca sĩ: {0}}"
                                        Foreground="#fff"
                                        Padding="7 1" />
                     </StackPanel>
                 </StackPanel>
             </Grid>
         </DataTemplate>
-
+        <!--tm-->
         <!--style cho itemcontroll carousel-->
-        <Style TargetType="ContentPresenter" x:Key="carouselAudioStyle">
+        <Style TargetType="ListBoxItem" x:Key="carouselAudioStyle">
             <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border Name="Border"
+                            BorderThickness="2"
+                            Padding="2"
+                            SnapsToDevicePixels="true">
+                            <ContentPresenter />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected"
+                                 Value="true">
+                                <Setter TargetName="Border"
+                                    Property="Background"
+                                    Value="{x:Static Brushes.Transparent}" />
+
+                                <Setter TargetName="Border"
+                                    Property="BorderBrush"
+                                    Value="{x:Static Brushes.WhiteSmoke}" />
+
+                            </Trigger>
+                            <Trigger Property="IsEnabled"
+                                 Value="false">
+                                <Setter Property="Foreground"
+                                    Value="{x:Static Brushes.Transparent}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
             <Setter Property="ContentTemplate" Value="{StaticResource carouselItemDefault}" />
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
@@ -110,119 +208,217 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+
+        <Storyboard x:Key="stb_OpicityTo1">
+            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                             To="1" Duration="0:0:0"/>
+        </Storyboard>
+        <Storyboard x:Key="stb_OpicityTo0">
+            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                             To="0" Duration="0:0:0"/>
+        </Storyboard>
+
+        <!--style grid 2 nút trái phải-->
+        <Style TargetType="Grid" x:Key="g_opicityRepeatButton">
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Trigger.EnterActions>
+                        <BeginStoryboard Storyboard="{StaticResource stb_OpicityTo1}"/>
+                    </Trigger.EnterActions>
+                    <Trigger.ExitActions>
+                        <BeginStoryboard Storyboard="{StaticResource stb_OpicityTo0}"/>
+                    </Trigger.ExitActions>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </UserControl.Resources>
 
-    <!--//trigger-->
-    <UserControl.Triggers>
-        <!--<EventTrigger RoutedEvent="MouseEnter" SourceName="g_carousel">
-            <BeginStoryboard>
-                <Storyboard>
-                    <DoubleAnimation Storyboard.TargetName="gScrollRight"
-                                     Storyboard.TargetProperty="Opacity"
-                                     To="1"
-                                     Duration="0:0:0"/>
-                </Storyboard>
-            </BeginStoryboard>
-        </EventTrigger>
-        <EventTrigger RoutedEvent="MouseLeave" SourceName="itc_movie">
-            <BeginStoryboard>
-                <Storyboard>
-                    <DoubleAnimation Storyboard.TargetName="gScrollRight"
-                                     Storyboard.TargetProperty="Opacity"
-                                     To="0"
-                                     Duration="0:0:0"/>
-                </Storyboard>
-            </BeginStoryboard>
-        </EventTrigger>-->
-    </UserControl.Triggers>
     <ScrollViewer Background="Black">
-        <Grid >
+        <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition Width="8*" />
-                <ColumnDefinition />
+                <ColumnDefinition/>
+                <ColumnDefinition Width="8*"/>
+                <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
             <StackPanel Grid.Column="1" Margin="0 30 0 0">
                 <ItemsControl ItemsSource="{Binding CatAudioList}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate DataType="{x:Type model:Audio_Category}">
-                            <GroupBox Padding="0" Margin="0" BorderThickness="0">
+                            <GroupBox Padding="0" BorderThickness="0" Margin="0 0 0 45">
                                 <GroupBox.Header>
-                                    <DockPanel Background="Black">
-                                        <materialDesign:PackIcon Kind="Image"
-                                                     FontSize="30"
-                                                     Foreground="Orange"
-                                                     VerticalAlignment="Center"
-                                                     Margin="0 0 5 0" />
-                                        <TextBlock
-                                Foreground="Orange"
-                                FontWeight="Bold"
-                                VerticalAlignment="Center"
-                                    Text="{Binding Name}"/>
-                                    </DockPanel>
+                                    <TextBlock Background="Black"
+                                               Foreground="White"
+                                               FontWeight="DemiBold"
+                                               Text="{Binding Name}"
+                                               FontSize="20"/>
                                 </GroupBox.Header>
-                                <Grid Name="g_carousel" VerticalAlignment="Top">
+                                <Grid Name="g_carousel" Margin="0">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="55" />
-                                        <ColumnDefinition />
-                                        <ColumnDefinition Width="55" />
+                                        <ColumnDefinition Width="55"/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="55"/>
                                     </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="20" />
-                                        <RowDefinition />
-                                    </Grid.RowDefinitions>
 
+                                    <!--Detail audio-->
                                     <StackPanel VerticalAlignment="Center"
-                                    Grid.ColumnSpan="3"
-                                    Grid.Row="1"
-                                    HorizontalAlignment="Center">
-                                        <ItemsControl 
-                                          ItemsSource="{Binding Audios}" ItemContainerStyle="{StaticResource carouselAudioStyle}">
-
-                                            <ItemsControl.ItemsPanel>
+                                                Grid.ColumnSpan="3"
+                                                HorizontalAlignment="Center" Margin="0">
+                                        <!--thay doi chon item thi thay đổi kich thuoc detail-->
+                                        <StackPanel.Triggers>
+                                            <EventTrigger RoutedEvent="ListBox.SelectionChanged"
+                                                          SourceName="lb_carousel">
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetName="detailAudio"
+                                                                         Storyboard.TargetProperty="Height" From="0"
+                                                                         To="300" Duration="0:0:.2"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </EventTrigger>
+                                            <!--click vao button thi chuyen height =0-->
+                                            <EventTrigger RoutedEvent="Button.Click"
+                                                          SourceName="btn_closeDetailAudio">
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetName="detailAudio"
+                                                                         Storyboard.TargetProperty="Height"
+                                                                         From="300" To="0" Duration="0:0:.2"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </EventTrigger>
+                                        </StackPanel.Triggers>
+                                        <!--binding audio tren carousel-->
+                                        <ListBox Margin="0" Name="lb_carousel"
+                                                 ItemsSource="{Binding Audios}" ItemContainerStyle="{StaticResource carouselAudioStyle}"
+                                                 PreviewMouseWheel="ItemControl_previewMouseWheel">
+                                            <!--tm-->
+                                            <ListBox.ItemsPanel>
                                                 <ItemsPanelTemplate>
-                                                    <VirtualizingStackPanel Orientation="Horizontal" />
+                                                    <VirtualizingStackPanel Orientation="Horizontal"/>
                                                 </ItemsPanelTemplate>
-                                            </ItemsControl.ItemsPanel>
-                                            <ItemsControl.Template>
+                                            </ListBox.ItemsPanel>
+                                            <ListBox.Template>
                                                 <ControlTemplate TargetType="ItemsControl">
-                                                    <ScrollViewer Name="sv_itc" HorizontalScrollBarVisibility="Hidden"
-                                                      VerticalScrollBarVisibility="Disabled">
-                                                        <ItemsPresenter />
-                                                    </ScrollViewer>
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="40"/>
+                                                            <ColumnDefinition/>
+                                                            <ColumnDefinition Width="40"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <ScrollViewer Grid.ColumnSpan="3"
+                                                                      Name="sv_carousel"
+                                                                      HorizontalScrollBarVisibility="Hidden"
+                                                                      VerticalScrollBarVisibility="Disabled">
+                                                                <ItemsPresenter />
+                                                        </ScrollViewer>
+                                                        <!--thanh left cacousel-->
+                                                        <Grid Name="gScrollLeft" Margin="0" Opacity="0"
+                                                              Grid.Column="0"
+                                                              Style="{StaticResource g_opicityRepeatButton}">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition/>
+                                                            </Grid.ColumnDefinitions>
+                                                            <Border Background="Black" Opacity=".6" Panel.ZIndex="0"
+                                                                    BorderThickness="0" Margin="0" Padding="0"/>
+                                                            <RepeatButton
+                                                                Command="{x:Static ScrollBar.LineLeftCommand}"
+                                                                CommandTarget="{Binding ElementName=sv_carousel}">
+                                                                <materialDesign:PackIcon Kind="ChevronLeft" Width="55" Height="55" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                                            </RepeatButton>
+                                                        </Grid>
+                                                        <!--thanh right cacousel-->
+                                                        <Grid Name="gScrollRight" Margin="0" Opacity="0"
+                                                              Grid.Column="2"
+                                                              Style="{StaticResource g_opicityRepeatButton}">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition/>
+                                                            </Grid.ColumnDefinitions>
+                                                            <Border Background="Black" Opacity=".6" Panel.ZIndex="0"
+                                                                    BorderThickness="0" Margin="0" Padding="0"/>
+                                                            <RepeatButton
+                                                                Command="{x:Static ScrollBar.LineLeftCommand}"
+                                                                CommandTarget="{Binding ElementName=sv_carousel}">
+                                                                <materialDesign:PackIcon Kind="ChevronRight" Width="55" Height="55" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                                            </RepeatButton>
+                                                        </Grid>
+                                                    </Grid>
                                                 </ControlTemplate>
-                                            </ItemsControl.Template>
-                                        </ItemsControl>
-                                    </StackPanel>
+                                            </ListBox.Template>
+                                        </ListBox>
+                                        
+                                        <!--chi tiet audio-->
+                                        <Border BorderBrush="#FFB3A89B" BorderThickness="1" Height="0" Name="detailAudio">
+                                        <Grid  Margin="0 10 0 0">
+                                            <Grid.Resources>
+                                                <Style TargetType="TextBlock">
+                                                    <Setter Property="FontSize" Value="15"/>
+                                                </Style>
+                                            </Grid.Resources>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="4*"/>
+                                                <ColumnDefinition Width="6*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <StackPanel Grid.Column="0" Margin="10 0 20 0">
+                                                
+                                                <!--ten phim - ca si - thoi luong-->
+                                                <StackPanel  Margin="0 10" >
+                                                    <TextBlock Text="{Binding ElementName=lb_carousel, Path=SelectedItem.Name}"
+                                                               FontSize="32"
+                                                               Foreground="White"
+                                                               FontWeight="DemiBold"/>
+                                                    <StackPanel Orientation="Vertical" HorizontalAlignment="Center"
+                                                                VerticalAlignment="Bottom"
+                                                                Margin="0 4">
+                                                        
+                                                            <TextBlock Text="{Binding ElementName=lb_carousel,
+                                                                Path=SelectedItem.Time, StringFormat={}Thời Lượng: {0}}"
+                                                                       Margin="0" Padding="0" Foreground="White"/>
+                                                       
+                                                            <TextBlock Text="{Binding ElementName=lb_carousel,
+                                                                Path=SelectedItem.Singer, StringFormat={}Ca Sĩ: {0}}"
+                                                                       Margin="0" Padding="0" Foreground="White" FontSize="12"/>
+                                                    </StackPanel>
+                                                </StackPanel>
 
-                                    <!--Hai nút để scroll carousel-->
-                                    <Grid Name="gScrollRight" Margin="0" Grid.Column="2" Grid.Row="1" Opacity="0">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition />
-                                        </Grid.ColumnDefinitions>
-                                        <Border Background="Black" Opacity=".6" Panel.ZIndex="0" BorderThickness="0" Margin="0" Padding="0" />
-                                        <RepeatButton>
-                                            <materialDesign:PackIcon Kind="ChevronRight" Width="55" Height="55" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                        </RepeatButton>
-                                    </Grid>
-                                    <Grid Name="gScrollLeft" Margin="0" Grid.Row="1" Grid.Column="0" Opacity="0">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition />
-                                        </Grid.ColumnDefinitions>
-                                        <Border Background="Black" Opacity=".6" Panel.ZIndex="0" BorderThickness="0" Margin="0" Padding="0" />
-                                        <RepeatButton>
-                                            <materialDesign:PackIcon Kind="ChevronLeft" Width="55" Height="55" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                        </RepeatButton>
-                                    </Grid>
+                                                <Button
+                                                    VerticalAlignment="Bottom" 
+                                                    Margin="0 10"
+                                                    Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                                                    Background="#ffbb00"
+                                                    Width="150"
+                                                    HorizontalAlignment="Center"
+                                                    Content="Xem chi tiết " 
+                                                    Command="{Binding DataContext.CmdToDetailAudio,
+                                                                      RelativeSource={RelativeSource Mode=FindAncestor,
+                                                                      AncestorType={x:Type ItemsControl}}}"
+                                                   CommandParameter="{Binding ElementName=lb_carousel, Path=SelectedItem.Id}"/>
+
+                                            </StackPanel>
+                                            <Image Source="{Binding ElementName=lb_carousel, Path=SelectedItem.Image,
+                                                Converter={StaticResource imageCvt}}"
+                                                   Grid.Column="1"
+                                                   Stretch="Fill"/>
+                                            <Button Name="btn_closeDetailAudio"
+                                                    Grid.Column="1" 
+                                                    BorderThickness="0"
+                                                    BorderBrush="Transparent"
+                                                    Background="Transparent"
+                                                    Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                                                    ToolTip="Đóng"
+                                                    HorizontalAlignment="Right"
+                                                    VerticalAlignment="Top">
+                                                <materialDesign:PackIcon Kind="Close" Height="30" Width="30" Foreground="#fff"/>
+                                            </Button>
+                                        </Grid>
+                                        </Border>
+
+                                    </StackPanel>
                                 </Grid>
                             </GroupBox>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
-
                 </ItemsControl>
-
-
             </StackPanel>
         </Grid>
     </ScrollViewer>

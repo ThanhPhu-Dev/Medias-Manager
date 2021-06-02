@@ -15,6 +15,17 @@ namespace Manager_Medias.ViewModels
     public class BaseViewModel : DependencyObject, INotifyPropertyChanged, INotifyDataErrorInfo
     {
         protected static UserStore _userStore;
+        private bool _isLoading;
+
+        public bool IsLoading
+        {
+            get => _isLoading;
+            set
+            {
+                _isLoading = value;
+                OnPropertyChanged();
+            }
+        }
 
         #region Navigate
 
@@ -51,8 +62,6 @@ namespace Manager_Medias.ViewModels
         }
 
         #endregion InvokeViewChanged
-
-
 
         #region INotifyDataErrorInfo
 

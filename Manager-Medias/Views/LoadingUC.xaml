@@ -6,23 +6,34 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Manager_Medias.Views"
              mc:Ignorable="d"
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Popup IsOpen="True"
-           Placement="Center"
-           VerticalOffset="-100"
-           AllowsTransparency="True">
+             d:DesignHeight="450" d:DesignWidth="800"
+             Loaded="UserControl_Loaded">
+    <Canvas x:Name="Container">
+        <Border Canvas.Left="0"
+                Canvas.Top="0"
+                Width="{Binding WindowWidth}"
+                Height="{Binding WindowHeight}"
+                Background="#7E4D4D4D" />
         <Border Background="#7E000000"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Width="200"
-                Height="200"
-                CornerRadius="8">
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Width="200"
+            Height="200"
+            CornerRadius="8"
+            Canvas.Top="{Binding HalfHeight}"
+            Canvas.Left="{Binding HalfWidth}">
             <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}"
-                        Value="0"
-                        IsIndeterminate="True"
-                        Foreground="{DynamicResource SecondaryAccentBrush}"
-                         Width="100"
-                         Height="100" />
+                    Value="0"
+                    IsIndeterminate="True"
+                    Foreground="{DynamicResource SecondaryAccentBrush}"
+                    Width="100"
+                    Height="100" />
+            <Border.RenderTransform>
+                <TranslateTransform>
+                    <TranslateTransform.X>-100</TranslateTransform.X>
+                    <TranslateTransform.Y>-100</TranslateTransform.Y>
+                </TranslateTransform>
+            </Border.RenderTransform>
         </Border>
-    </Popup>
+    </Canvas>
 </UserControl>

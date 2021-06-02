@@ -7,6 +7,7 @@
              xmlns:vm="clr-namespace:Manager_Medias.ViewModels.Guest"
              xmlns:t="clr-namespace:Manager_Medias.ViewModels.Customer"
              xmlns:us="clr-namespace:Manager_Medias.Views.Customer.Register"
+             xmlns:view="clr-namespace:Manager_Medias.Views"
              mc:Ignorable="d"
              d:DesignHeight="650" d:DesignWidth="1200">
     <UserControl.Resources>
@@ -30,7 +31,6 @@
             <RowDefinition Height="65" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-
         <Border Grid.Row="0" Background="Black" BorderThickness="0 0 0 0.5" BorderBrush="#fff">
             <DockPanel LastChildFill="False" Margin="10">
                 <Image DockPanel.Dock="Left" Source="/Images/logo.png" Width="131" />
@@ -82,5 +82,6 @@
             </Grid.Resources>
             <ContentControl Content="{Binding ContentViewModel}" />
         </Grid>
+        <view:LoadingUC IsLoading="{Binding IsLoading}" />
     </Grid>
 </UserControl>

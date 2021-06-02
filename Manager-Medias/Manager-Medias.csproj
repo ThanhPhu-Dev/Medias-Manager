@@ -156,6 +156,7 @@
     <Compile Include="Converters\ChangeColorLevel_2Converter.cs" />
     <Compile Include="Converters\ChangeColorLevel_3Converter.cs" />
     <Compile Include="Converters\ConvertImage.cs" />
+    <Compile Include="Converters\IsLoadingConverter.cs" />
     <Compile Include="Converters\MainLayoutModalWidthConverter.cs" />
     <Compile Include="Converters\MillisecondToTimeLapseConverter.cs" />
     <Compile Include="Converters\MoneyConverter.cs" />

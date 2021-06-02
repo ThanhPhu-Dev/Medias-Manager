@@ -368,7 +368,8 @@
                             </Button>
                             <Button Margin="0 10 0 10"
                                     Padding="20 4"
-                                    Style="{StaticResource SidebarButton}">
+                                    Style="{StaticResource SidebarButton}"
+                                    Command="{Binding AudioCmd}">
                                 <StackPanel Orientation="Horizontal">
                                     <materialDesign:PackIcon Kind="PlaylistMusic"
                                                              Foreground="#febb00"

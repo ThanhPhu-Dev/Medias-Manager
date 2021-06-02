@@ -423,7 +423,7 @@
                                                 </StackPanel>
                                                 <TextBlock Text="{Binding ElementName=lb_carousel, Path=SelectedItem.IMDB, StringFormat={}Điểm IMDB: {0}}"/>
 
-                                                <!--chi tiêt-->
+                                                <!--Mô tả phim-->
                                                 <TextBlock Text="{Binding ElementName=lb_carousel, Path=SelectedItem.Description}"/>
                                                 
                                                 <Button

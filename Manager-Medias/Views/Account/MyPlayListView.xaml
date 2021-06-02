@@ -76,8 +76,8 @@
                         </Behaviors:Interaction.Triggers>
                         <Grid>
                             <materialDesign:Card
-                        UniformCornerRadius="3"
-                        Background="Transparent">
+                                UniformCornerRadius="3"
+                                Background="Transparent">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="{Binding ActualHeight, ElementName=Item}" />

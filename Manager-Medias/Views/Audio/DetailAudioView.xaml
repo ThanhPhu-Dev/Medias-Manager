@@ -4,15 +4,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Manager_Medias.Views.Audio"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              xmlns:model="clr-namespace:Manager_Medias.Models"
-             xmlns:imgConverter="clr-namespace:Manager_Medias.Converters"
+             xmlns:cvt="clr-namespace:Manager_Medias.Converters"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              d:DesignHeight="585" d:DesignWidth="1200"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             >
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
     <UserControl.Resources>
-        <imgConverter:ConvertImage x:Key="imgCvt"/>
+        <cvt:ConvertImage x:Key="imgCvt" />
+        <cvt:MillisecondToTimeLapseConverter x:Key="TimeLapseCvt" />
         <Style TargetType="materialDesign:PackIcon" x:Key="iconPlay">
             <Setter Property="Foreground" Value="#fff" />
             <Setter Property="VerticalAlignment" Value="Center" />
@@ -60,13 +60,13 @@
                            FontSize="17"
                            Foreground="#fff"
                            Grid.Column="1"
-                           VerticalAlignment="Center"/>
+                           VerticalAlignment="Center" />
                 <TextBlock Text="{Binding Id}"
                            HorizontalAlignment="Right"
                            FontSize="17"
                            Foreground="#fff"
                            Grid.Column="2"
-                           VerticalAlignment="Center"/>
+                           VerticalAlignment="Center" />
             </Grid>
         </DataTemplate>
         <Style x:Key="_ListBoxItemStyle" TargetType="ListBoxItem">
@@ -100,40 +100,26 @@
             <DoubleAnimation
                         Storyboard.TargetName="lt_avartar"
                         Storyboard.TargetProperty="(RotateTransform.Angle)"
-                        From="0.0" To="360" 
+                        From="0.0" To="360"
                         Duration="0:0:7"
-                        RepeatBehavior="Forever"/>
+                        RepeatBehavior="Forever" />
         </Storyboard>-->
-        <Storyboard SlipBehavior="Slip" x:Key="audioStart" >
-            <MediaTimeline Source="{Binding ElementName=lb_Audio, Path=SelectedItem.Mp3, Converter={StaticResource imgCvt}}" 
-                                       Storyboard.TargetName="audio"  
+        <Storyboard SlipBehavior="Slip" x:Key="audioStart">
+            <MediaTimeline Source="{Binding ElementName=lb_Audio, Path=SelectedItem.Mp3, Converter={StaticResource imgCvt}}"
+                                       Storyboard.TargetName="audio"
                                        BeginTime="0:0:0" />
         </Storyboard>
     </UserControl.Resources>
 
     <UserControl.Triggers>
-        <!--F:\2021 - 2022\UDQL2\Project\Medias-Manager\Manager-Medias\bin\Debug\Images\Audio\mp3\audiomp3_mp3_1.mp3-->
-        <EventTrigger RoutedEvent="ListBox.SelectionChanged" SourceName="lb_Audio">
-            <EventTrigger.Actions>
-                <BeginStoryboard Name= "myBegin" >
-                    <Storyboard SlipBehavior="Slip" >
-                        <MediaTimeline Source="F:\2021 - 2022\UDQL2\Project\Medias-Manager\Manager-Medias\bin\Debug\Images\Audio\mp3\audiomp3_mp3_1.mp3" 
-                                       Storyboard.TargetName="audio"  
-                                       BeginTime="0:0:0" 
-                                       CurrentTimeInvalidated="MediaTimeline_CurrentTimeInvalidated"/>
-                    </Storyboard>
-                </BeginStoryboard>                                 
-            </EventTrigger.Actions>
-        </EventTrigger>
-
         <!--khi nhấn play-->
         <EventTrigger RoutedEvent="ToggleButton.Checked" SourceName="btn_playvideo">
-            <!--<PauseStoryboard BeginStoryboardName="anm_rotate" x:Name="pause_anm"/>-->
+            <!--<PauseStoryboard BeginStoryboardName="anm_rotate" x:Name="pause_anm" />-->
         </EventTrigger>
 
         <!--khi nhấn pause-->
         <EventTrigger RoutedEvent="ToggleButton.Unchecked" SourceName="btn_playvideo">
-            <!--<ResumeStoryboard BeginStoryboardName="anm_rotate"/>-->
+            <!--<ResumeStoryboard BeginStoryboardName="anm_rotate" />-->
         </EventTrigger>
     </UserControl.Triggers>
     <Grid Background="Black">
@@ -144,29 +130,29 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.6*"/>
-            <RowDefinition Height="5*"/>
+            <RowDefinition Height="0.6*" />
+            <RowDefinition Height="5*" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Button Grid.Row="0" Grid.Column="3" 
+        <Button Grid.Row="0" Grid.Column="3"
                 Background="#FF876400"
                 Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                 ToolTip="Thoát">
             <materialDesign:PackIcon Kind="Close" Height="25" Width="25" />
         </Button>
         <Border Grid.Row="1" Grid.Column="1"
-                Background="#FF070707" 
+                Background="#FF070707"
                 CornerRadius="8">
-            <Grid >
+            <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="0.45*"/>
-                    <RowDefinition Height="4*"/>
-                    <RowDefinition Height="1.5*"/>
+                    <RowDefinition Height="0.45*" />
+                    <RowDefinition Height="4*" />
+                    <RowDefinition Height="1.5*" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition Width="6.3*"/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="6.3*" />
+                    <ColumnDefinition />
                 </Grid.ColumnDefinitions>
                 <Ellipse Grid.Row="1"
                          Grid.Column="1"
@@ -186,48 +172,56 @@
                          RenderTransformOrigin="0.5, 0.5"
                          Name="lt_avartar">
                     <Ellipse.RenderTransform>
-                        <RotateTransform x:Name="rotate_avatar" Angle="0"/>
+                        <RotateTransform x:Name="rotate_avatar" Angle="0" />
                     </Ellipse.RenderTransform>
                     <Ellipse.Fill>
-                        <ImageBrush ImageSource="{Binding ElementName=lb_Audio, Path=SelectedItem.Image, Converter={StaticResource imgCvt}}"/>
+                        <ImageBrush ImageSource="{Binding ElementName=lb_Audio, Path=SelectedItem.Image, Converter={StaticResource imgCvt}}" />
                     </Ellipse.Fill>
                 </Ellipse>
-                <MediaElement Name="audio" 
+                <MediaElement Name="audio"
                               Grid.Row="1"
                               Grid.Column="1"
                               Width="0"
                               Visibility="Hidden"
-                              MediaOpened="audio_MediaOpened"/>
+                              MediaOpened="audio_MediaOpened"
+                              LoadedBehavior="Manual"
+                              Source="{Binding ElementName=lb_Audio, Path=SelectedItem.Mp3, Converter={StaticResource imgCvt}}" />
                 <StackPanel Grid.ColumnSpan="3"
                             Grid.Row="2"
                             Margin="10"
                             VerticalAlignment="Center">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition Width="8*"/>
-                            <ColumnDefinition/>
+                            <ColumnDefinition Width="60" />
+                            <ColumnDefinition Width="12" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="12" />
+                            <ColumnDefinition Width="60" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Name="timeChange" Text="00:00"
+                        <TextBlock Name="timeChange"
+                                   Text="{Binding ElementName=timelineSlider, Path=Value, Converter={StaticResource TimeLapseCvt}}"
                                    FontSize="15"
-                                   Foreground="#fff"/>
-                        <TextBlock Name="timeEnd" Text="00:00" Grid.Column="2"
+                                   Foreground="#fff" />
+                        <TextBlock Name="timeEnd"
+                                   Text="{Binding ElementName=timelineSlider, Path=Maximum, Converter={StaticResource TimeLapseCvt}}"
+                                   Grid.Column="4"
                                    FontSize="15"
-                                   Foreground="#fff"/>
-                        <Slider Grid.Column="1"
+                                   Foreground="#fff" />
+                        <Slider Grid.Column="2"
                                 TickFrequency="5"
                                 Orientation="Horizontal"
-                                Value="25"
+                                Value="0"
                                 Width="auto"
-                                Foreground="#febb00" 
+                                Foreground="#febb00"
                                 Name="timelineSlider"
-                                ValueChanged="timelineSlider_ValueChanged"/>
+                                Thumb.DragStarted="timelineSlider_DragStarted"
+                                Thumb.DragCompleted="timelineSlider_DragCompleted" />
                     </Grid>
                     <StackPanel Orientation="Horizontal"
                                 HorizontalAlignment="Center">
-                        
-                        <ToggleButton Width="35" Height="35" Padding="0" 
-                                      Background="Transparent" 
+
+                        <ToggleButton Width="35" Height="35" Padding="0"
+                                      Background="Transparent"
                                       Foreground="#febb00"
                                       BorderThickness="0"
                                       Cursor="Hand"
@@ -237,19 +231,18 @@
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Click">
                                     <i:InvokeCommandAction Command="{Binding CmdLike}"
-                                                           CommandParameter="{Binding ElementName=lb_Audio, Path=SelectedItem.Id}"/>
+                                                           CommandParameter="{Binding ElementName=lb_Audio, Path=SelectedItem.Id}" />
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                             <ToggleButton.Style>
                                 <Style TargetType="{x:Type ToggleButton}">
                                     <Setter Property="Content" Value="{materialDesign:PackIcon Heart, Size=35}" />
-                                    <Setter Property="Template" >
+                                    <Setter Property="Template">
                                         <Setter.Value>
                                             <ControlTemplate TargetType="ToggleButton">
                                                 <Border>
-                                                    <ContentPresenter/>
+                                                    <ContentPresenter />
                                                 </Border>
-
                                             </ControlTemplate>
                                         </Setter.Value>
                                     </Setter>
@@ -259,39 +252,30 @@
                                             <Setter Property="Background" Value="Transparent" />
                                         </Trigger>
                                     </Style.Triggers>
-
                                 </Style>
                             </ToggleButton.Style>
                         </ToggleButton>
-                        
-                        <materialDesign:PackIcon Kind="SkipPrevious" 
-                                                 Style="{StaticResource iconPlay}"/>
 
-                        <ToggleButton Width="55" Height="55" Padding="0" 
-                                      Background="Transparent" 
+                        <materialDesign:PackIcon Kind="SkipPrevious"
+                                                 Style="{StaticResource iconPlay}" />
+
+                        <ToggleButton Width="55" Height="55" Padding="0"
+                                      Background="Transparent"
                                       Foreground="#febb00"
                                       BorderThickness="0"
                                       Cursor="Hand"
-                                      Name="btn_playvideo">
-
-                            <!--<i:Interaction.Triggers>
-                                <i:EventTrigger EventName="Checked">
-                                    <i:InvokeCommandAction Command="{Binding CmdPauseAudio}"/>
-                                </i:EventTrigger>
-                                <i:EventTrigger EventName="Unchecked">
-                                    <i:InvokeCommandAction Command="{Binding CmdPlayAudio}"/>
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>-->
+                                      Name="btn_playvideo"
+                                      Checked="btn_playvideo_Checked"
+                                      Unchecked="btn_playvideo_Unchecked">
                             <ToggleButton.Style>
                                 <Style TargetType="{x:Type ToggleButton}">
                                     <Setter Property="Content" Value="{materialDesign:PackIcon Pause, Size=55}" />
-                                    <Setter Property="Template" >
+                                    <Setter Property="Template">
                                         <Setter.Value>
                                             <ControlTemplate TargetType="ToggleButton">
                                                 <Border>
-                                                    <ContentPresenter/>
+                                                    <ContentPresenter />
                                                 </Border>
-
                                             </ControlTemplate>
                                         </Setter.Value>
                                     </Setter>
@@ -301,16 +285,15 @@
                                             <Setter Property="Background" Value="Transparent" />
                                         </Trigger>
                                     </Style.Triggers>
-
                                 </Style>
                             </ToggleButton.Style>
                         </ToggleButton>
                         <!--<materialDesign:PackIcon Kind="Equal" />-->
-                        <materialDesign:PackIcon Kind="SkipNext" 
-                                                 Style="{StaticResource iconPlay}"/>
+                        <materialDesign:PackIcon Kind="SkipNext"
+                                                 Style="{StaticResource iconPlay}" />
 
-                        <ToggleButton Width="35" Height="35" Padding="0" 
-                                      Background="Transparent" 
+                        <ToggleButton Width="35" Height="35" Padding="0"
+                                      Background="Transparent"
                                       Foreground="#febb00"
                                       BorderThickness="0"
                                       Cursor="Hand"
@@ -320,19 +303,18 @@
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Click">
                                     <i:InvokeCommandAction Command="{Binding CmdSave}"
-                                                           CommandParameter="{Binding ElementName=lb_Audio, Path=SelectedItem.Id}"/>
+                                                           CommandParameter="{Binding ElementName=lb_Audio, Path=SelectedItem.Id}" />
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                             <ToggleButton.Style>
                                 <Style TargetType="{x:Type ToggleButton}">
                                     <Setter Property="Content" Value="{materialDesign:PackIcon BookmarkPlus, Size=35}" />
-                                    <Setter Property="Template" >
+                                    <Setter Property="Template">
                                         <Setter.Value>
                                             <ControlTemplate TargetType="ToggleButton">
                                                 <Border>
-                                                    <ContentPresenter/>
+                                                    <ContentPresenter />
                                                 </Border>
-
                                             </ControlTemplate>
                                         </Setter.Value>
                                     </Setter>
@@ -342,7 +324,6 @@
                                             <Setter Property="Background" Value="Transparent" />
                                         </Trigger>
                                     </Style.Triggers>
-
                                 </Style>
                             </ToggleButton.Style>
                         </ToggleButton>
@@ -370,40 +351,22 @@
                  SelectedItem="{Binding SelectedAudio}"
                  Margin="30 0 15 0"
                  ItemContainerStyle="{DynamicResource _ListBoxItemStyle}">
-                <!--<i:Interaction.Triggers>
-                    <i:EventTrigger EventName="SelectionChanged">
-                        <i:InvokeCommandAction Command="{Binding CmdSelectionChange}"  
-                                                CommandParameter="{Binding ElementName=lb_Audio, Path=SelectedItem.Mp3}"/>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>-->
-                <!--<ListBox.Style>
-                    <Style >
-                        <Style.Triggers >
-                            <EventTrigger RoutedEvent="ListBox.SelectionChanged" >
-                                <EventTrigger.Actions>
-                                    <BeginStoryboard Name= "myBegin" Storyboard="{StaticResource audioStart}">
-                                    </BeginStoryboard>
-                                </EventTrigger.Actions>
-                            </EventTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </ListBox.Style>-->
                 <ListBox.Resources>
                     <Style TargetType="Thumb">
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate>
                                     <Grid x:Name="Grid">
-                                        <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" 
-                                           Height="Auto" Fill="Transparent"/>
-                                        <Border x:Name="Rectangle1" CornerRadius="4" HorizontalAlignment="Stretch" 
-                                        VerticalAlignment="Stretch" Width="Auto" Height="Auto" 
-                                        Background="{TemplateBinding Background}"/>
+                                        <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto"
+                                           Height="Auto" Fill="Transparent" />
+                                        <Border x:Name="Rectangle1" CornerRadius="4" HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch" Width="Auto" Height="Auto"
+                                        Background="{TemplateBinding Background}" />
                                     </Grid>
                                     <ControlTemplate.Triggers>
                                         <Trigger Property="Tag" Value="Horizontal">
-                                            <Setter TargetName="Rectangle1" Property="Width" Value="Auto"/>
-                                            <Setter TargetName="Rectangle1" Property="Height" Value="7"/>
+                                            <Setter TargetName="Rectangle1" Property="Width" Value="Auto" />
+                                            <Setter TargetName="Rectangle1" Property="Height" Value="7" />
                                         </Trigger>
                                     </ControlTemplate.Triggers>
                                 </ControlTemplate>
@@ -411,21 +374,21 @@
                         </Setter>
                     </Style>
                     <Style TargetType="ScrollBar">
-                        <!--<Setter Property="Background" Value="#FF876400"/>-->
+                        <!--<Setter Property="Background" Value="#FF876400" />-->
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="ScrollBar">
                                     <Grid x:Name="GridRoot" Width="6" Background="{x:Null}">
                                         <Track x:Name="PART_Track" Grid.Row="0" IsDirectionReversed="true" Focusable="False">
                                             <Track.Thumb>
-                                                <Thumb x:Name="Thumb" Background="#FF876400" 
-                                               Style="{DynamicResource ScrollThumbs}"/>
+                                                <Thumb x:Name="Thumb" Background="#FF876400"
+                                               Style="{DynamicResource ScrollThumbs}" />
                                             </Track.Thumb>
                                             <Track.IncreaseRepeatButton>
-                                                <RepeatButton x:Name="PageUp" Command="ScrollBar.PageDownCommand" Opacity="0" Focusable="False"/>
+                                                <RepeatButton x:Name="PageUp" Command="ScrollBar.PageDownCommand" Opacity="0" Focusable="False" />
                                             </Track.IncreaseRepeatButton>
                                             <Track.DecreaseRepeatButton>
-                                                <RepeatButton x:Name="PageDown" Command="ScrollBar.PageUpCommand" Opacity="0" Focusable="False"/>
+                                                <RepeatButton x:Name="PageDown" Command="ScrollBar.PageUpCommand" Opacity="0" Focusable="False" />
                                             </Track.DecreaseRepeatButton>
                                         </Track>
                                     </Grid>
@@ -435,10 +398,6 @@
                     </Style>
                 </ListBox.Resources>
             </ListBox>
-
         </Grid>
-
-        <!--<TextBlock Text="{Binding TimeAudio}"
-                   Foreground="#fff"/>-->
     </Grid>
 </UserControl>

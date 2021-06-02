@@ -344,6 +344,9 @@
     <Compile Include="Views\Movie\HomeMovieView.xaml.cs">
       <DependentUpon>HomeMovieView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\PasswordBoxMaterialDesign.xaml.cs">
+      <DependentUpon>PasswordBoxMaterialDesign.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\PasswordBoxUC.xaml.cs">
       <DependentUpon>PasswordBoxUC.xaml</DependentUpon>
     </Compile>
@@ -463,6 +466,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Movie\HomeMovieView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PasswordBoxMaterialDesign.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

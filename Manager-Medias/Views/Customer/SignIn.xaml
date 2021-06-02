@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:Manager_Medias.Views.Customer"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:cv="clr-namespace:Manager_Medias.Converters"
+             xmlns:component="clr-namespace:Manager_Medias.Views"
              mc:Ignorable="d"
              d:DesignHeight="550" d:DesignWidth="1000">
     <UserControl.Resources>
@@ -83,27 +84,19 @@
                         Height="60"
                         FontSize="18" 
                         Text="{Binding Email, ValidatesOnNotifyDataErrors=True,
-                        UpdateSourceTrigger=LostFocus}"
+                        UpdateSourceTrigger=PropertyChanged}"
                         Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"/>
                 </StackPanel>
                 <StackPanel Background="#fff"
                         Margin="0 12">
-                    <TextBox
-                        x:Name="txtPassword"
-                        ToolTip="Tối thiểu 8 ký tự và có ít nhất một số"
-                        Style="{StaticResource MaterialDesignFilledTextBox}"
-                        VerticalAlignment="Top"
-                        Foreground="#222"
-                        AcceptsReturn="True"
-                        TextWrapping="Wrap"
-                        materialDesign:HintAssist.Hint="Mật khẩu"
-                        materialDesign:HintAssist.FloatingScale="0.55"
-                        materialDesign:TextFieldAssist.TextBoxViewMargin="0 -3 0 0"
+                    <component:PasswordBoxMaterialDesign x:Name="txtPassword" Password="{Binding Password, ValidatesOnNotifyDataErrors=True,
+                        UpdateSourceTrigger=PropertyChanged}" 
                         Height="60"
                         FontSize="18"
-                        Text="{Binding Password, ValidatesOnNotifyDataErrors=True,
-                        UpdateSourceTrigger=LostFocus}"
-                        Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"/>
+                        VerticalAlignment="Top"
+                        Foreground="#222"
+                        ToolTip="Tối thiểu 8 ký tự và có ít nhất một số"
+                        Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}" />
                 </StackPanel>
 
                 <Button
@@ -117,13 +110,6 @@
                     FontSize="23"
                     Margin="0 15  0 0 "
                     Foreground="#222" >
-                    <Button.CommandParameter>
-                        <MultiBinding Converter="{StaticResource MultiParamCvt}">
-                            <Binding ElementName="txtEmail" Path="Text" />
-                            <Binding ElementName="txtPassword" Path="Text" />
-                        </MultiBinding>
-                    </Button.CommandParameter>
-                    
                 </Button>
                 <TextBlock Text="{Binding Error}" Foreground="Red" FontSize="16"/>
                 <TextBlock Text="Quên mật khẩu?"

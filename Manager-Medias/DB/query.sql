@@ -9,7 +9,7 @@
 	CONSTRAINT PK_Users PRIMARY KEY (Email)
 )
 
-
+alter table Users add Exp VARCHAR(8)
 
 CREATE TABLE Profiles
 (
@@ -250,11 +250,11 @@ insert into My_Lists(IdProfile, IdMedia, Date) values
 (1, 7, '01-03-2021')
 
 --insert payment history
-insert into payment_history(Email,DateOfPayment,Note,Price) values ('user@gmail.com', '2021-05-29', '',180000)
-insert into payment_history(Email,DateOfPayment,Note,Price) values ('user@gmail.com', '2021-05-28', '',170000)
-insert into payment_history(Email,DateOfPayment,Note,Price) values ('user@gmail.com', '2021-05-30', '',200000)
+insert into payment_history(Email,DateOfPayment,Note,Price) values ('nghiadx2001@gmail.c', '2021-05-29', '',180000)
+insert into payment_history(Email,DateOfPayment,Note,Price) values ('nghiadx2001@gmail.c', '2021-05-28', '',170000)
+insert into payment_history(Email,DateOfPayment,Note,Price) values ('nghiadx2001@gmail.c', '2021-05-30', '',200000)
 
-select * from Movies
+select * from users
 select * from Movie_Categories
 insert into Movie_Categories (Name) values 
 --(N'Tình cảm'), 

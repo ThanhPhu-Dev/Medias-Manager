@@ -36,11 +36,11 @@
                            FontSize="17"
                            Foreground="#fff"
                            Grid.Column="1" />
-                <TextBlock Text="{Binding Id}"
+                <!--<TextBlock Text="{Binding Id}"
                            HorizontalAlignment="Right"
                            FontSize="17"
                            Foreground="#fff"
-                           Grid.Column="2" />
+                           Grid.Column="2" />-->
             </Grid>
         </DataTemplate>
         <DataTemplate x:Key="SelectedItemTemplate" DataType="{x:Type model:Audio}">
@@ -61,12 +61,12 @@
                            Foreground="#fff"
                            Grid.Column="1"
                            VerticalAlignment="Center" />
-                <TextBlock Text="{Binding Id}"
+                <!--<TextBlock Text="{Binding Id}"
                            HorizontalAlignment="Right"
                            FontSize="17"
                            Foreground="#fff"
                            Grid.Column="2"
-                           VerticalAlignment="Center" />
+                           VerticalAlignment="Center" />-->
             </Grid>
         </DataTemplate>
         <Style x:Key="_ListBoxItemStyle" TargetType="ListBoxItem">
@@ -109,18 +109,53 @@
                                        Storyboard.TargetName="audio"
                                        BeginTime="0:0:0" />
         </Storyboard>
+
+        <Storyboard x:Key="CloseMessage" >
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="bd_Message"
+                                                   Storyboard.TargetProperty="Width">
+                <EasingDoubleKeyFrame KeyTime="0:0:0"
+                                      Value="300" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.15"
+                                      Value="0" />
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="OpenMessage" >
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="bd_Message"
+                                                   Storyboard.TargetProperty="Width">
+                <EasingDoubleKeyFrame KeyTime="0:0:0"
+                                      Value="0" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.25"
+                                      Value="300" />
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
     </UserControl.Resources>
 
     <UserControl.Triggers>
         <!--khi nhấn play-->
+        <!--
         <EventTrigger RoutedEvent="ToggleButton.Checked" SourceName="btn_playvideo">
-            <!--<PauseStoryboard BeginStoryboardName="anm_rotate" x:Name="pause_anm" />-->
+            -->
+        <!--<PauseStoryboard BeginStoryboardName="anm_rotate" x:Name="pause_anm" />-->
+        <!--
         </EventTrigger>
 
+        -->
         <!--khi nhấn pause-->
+        <!--
         <EventTrigger RoutedEvent="ToggleButton.Unchecked" SourceName="btn_playvideo">
-            <!--<ResumeStoryboard BeginStoryboardName="anm_rotate" />-->
+            -->
+        <!--<ResumeStoryboard BeginStoryboardName="anm_rotate" />-->
+        <!--
+        </EventTrigger>-->
+        <EventTrigger RoutedEvent="ToggleButton.Click" SourceName="btn_likeAudio">
+            <BeginStoryboard Storyboard="{StaticResource OpenMessage}"/>
         </EventTrigger>
+        <EventTrigger RoutedEvent="ToggleButton.Click" SourceName="btn_bookmarkAudio">
+            <BeginStoryboard Storyboard="{StaticResource OpenMessage}"/>
+        </EventTrigger>
+        <!--<EventTrigger RoutedEvent="Button.Click" SourceName="btn_closeMessage">
+            <BeginStoryboard Storyboard="{StaticResource CloseMessage}"/>
+        </EventTrigger>-->
     </UserControl.Triggers>
     <Grid Background="Black">
         <Grid.ColumnDefinitions>
@@ -226,7 +261,8 @@
                                       BorderThickness="0"
                                       Cursor="Hand"
                                       Name="btn_likeAudio"
-                                      IsChecked="{Binding CheckLike, Mode=OneWay}">
+                                      IsChecked="{Binding CheckLike, Mode=OneWay}"
+                                      Click="btn_likeAudio_Click">
 
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Click">
@@ -289,7 +325,7 @@
                             </ToggleButton.Style>
                         </ToggleButton>
                         <!--<materialDesign:PackIcon Kind="Equal" />-->
-                        <materialDesign:PackIcon Kind="SkipNext"
+                        <materialDesign:PackIcon Kind="SkipNext" 
                                                  Style="{StaticResource iconPlay}" />
 
                         <ToggleButton Width="35" Height="35" Padding="0"
@@ -298,7 +334,8 @@
                                       BorderThickness="0"
                                       Cursor="Hand"
                                       Name="btn_bookmarkAudio"
-                                      IsChecked="{Binding CheckSave, Mode=OneWay}">
+                                      IsChecked="{Binding CheckSave, Mode=OneWay}"
+                                      Click="btn_likeAudio_Click">
 
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Click">
@@ -343,14 +380,20 @@
                        FontWeight="DemiBold"
                        Margin="60 0 0 0" />
             <ListBox Grid.Row="1" Name="lb_Audio"
-                 VerticalContentAlignment="Stretch"
+                     VerticalContentAlignment="Stretch"
                      VerticalAlignment="Stretch"
                      HorizontalContentAlignment="Stretch"
                      ScrollViewer.VerticalScrollBarVisibility ="Auto"
-                 ItemsSource="{Binding AudioList}"
-                 SelectedItem="{Binding SelectedAudio}"
-                 Margin="30 0 15 0"
-                 ItemContainerStyle="{DynamicResource _ListBoxItemStyle}">
+                     ItemsSource="{Binding AudioList}"
+                     SelectedItem="{Binding SelectedAudio}"
+                     Margin="30 0 15 0"
+                     ItemContainerStyle="{DynamicResource _ListBoxItemStyle}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction 
+                               Command="{Binding CmdSelectionChange}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
                 <ListBox.Resources>
                     <Style TargetType="Thumb">
                         <Setter Property="Template">
@@ -399,5 +442,63 @@
                 </ListBox.Resources>
             </ListBox>
         </Grid>
+
+        <!--message-->
+        <Canvas
+            Grid.RowSpan="3"
+            Grid.ColumnSpan="4"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Right"
+            Panel.ZIndex="10"
+            >
+            <Border Background="#fff"
+                    Width="0"
+                    Height="100" 
+                    Canvas.Right="0"
+                    CornerRadius="18"
+                    Padding="10 0" 
+                    Margin="10"
+                    Name="bd_Message">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="55"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    
+                    <materialDesign:PackIcon Kind="CheckCircleOutline" 
+                                             Width="55"
+                                             Height="55"
+                                             Foreground="#ffbb00"
+                                             VerticalAlignment="Center"
+                                             HorizontalAlignment="Center"
+                                             />
+                    <TextBlock Text="{Binding Message}"
+                               Grid.Column="1"
+                               FontSize="20"
+                               TextWrapping="Wrap"
+                               FontWeight="Heavy" Width="225"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               Padding="10 0 0 0"
+                               Foreground="#222"/>
+                    
+                    <Button Name="btn_closeMessage"
+                            Grid.Column="1" 
+                            BorderThickness="0"
+                            BorderBrush="Transparent"
+                            Background="Transparent"
+                            Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                            ToolTip="Đóng"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Top" 
+                            Height="24" Width="24"
+                            Margin="0 7 0 0">
+                        <materialDesign:PackIcon Kind="Close" 
+                                                 Height="20" Width="20" 
+                                                 Foreground="#222"/>
+                    </Button>
+                </Grid>
+            </Border>
+        </Canvas>
     </Grid>
 </UserControl>

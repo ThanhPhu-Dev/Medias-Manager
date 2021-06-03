@@ -11,7 +11,8 @@ namespace Manager_Medias.ViewModels.Customer
 {
     public class HomeViewModel : BaseViewModel
     {
-        public static readonly DependencyProperty MovieListProperty;
+        public static readonly DependencyProperty MovieListProperty =
+            DependencyProperty.Register("MovieList", typeof(ObservableCollection<Movie>), typeof(HomeViewModel));
 
         public ObservableCollection<Movie> Movies
         {
@@ -23,14 +24,15 @@ namespace Manager_Medias.ViewModels.Customer
 
         public static ObservableCollection<Album_Detail> Albums { get; set; }
 
-        static HomeViewModel()
-        {
-            MovieListProperty = DependencyProperty.Register("MovieList", typeof(ObservableCollection<Movie>), typeof(HomeViewModel));
-        }
-
         public HomeViewModel()
         {
-            LoadData();
+            using (var db = new MediasManangementEntities())
+            {
+                Albums = new ObservableCollection<Album_Detail>(db.Album_Details.ToList());
+                Audios = new ObservableCollection<Audio>(db.Audios.ToList());
+                Movies = new ObservableCollection<Movie>(db.Movies.ToList());
+            }
+            //LoadData();
         }
 
         public async void LoadData()

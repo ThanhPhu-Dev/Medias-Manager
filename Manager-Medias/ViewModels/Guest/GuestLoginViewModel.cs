@@ -63,7 +63,7 @@ namespace Manager_Medias.ViewModels.Guest
             this.ValidationRules.Add(nameof(this.Password), new List<ValidationRule>() { new ValidatePassword() });
         }
 
-        public async void ActionLogin(object[] values)
+        public void ActionLogin(object[] values)
         {
             //if (string.IsNullOrEmpty(values.ToString()) || string.IsNullOrEmpty(values[0].ToString()) ||
             //    string.IsNullOrEmpty(values[1].ToString()))
@@ -125,6 +125,7 @@ namespace Manager_Medias.ViewModels.Guest
                 _navigationStore.CurrentViewModel = new MainLayoutViewModel();
                 _navigationStore.ContentViewModel = new HomeViewModel();
             }
+            IsLoading = false;
 
             //_navigationStore.ContentViewModel = new DetailAudioViewModel(1);
         }

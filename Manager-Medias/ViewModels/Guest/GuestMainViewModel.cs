@@ -17,10 +17,9 @@ namespace Manager_Medias.ViewModels.Guest
 
         public GuestMainViewModel()
         {
+            IsLoading = true;
             Task.Run(() =>
             {
-                IsLoading = true;
-
                 NavigateLoginCmd = new NavigateCommand<GuestLoginViewModel>(
                     new NavigationService<GuestLoginViewModel>(_navigationStore, () => new GuestLoginViewModel()));
                 NavigateRegisterCmd = new NavigateCommand<GuestInfoRegisterViewModel>(
@@ -30,7 +29,7 @@ namespace Manager_Medias.ViewModels.Guest
                 _navigationStore.CurrentContentViewModelChanged += _navigationStore_CurrentContentViewModelChanged;
             }).ContinueWith(task =>
             {
-                //IsLoading = false;
+                IsLoading = false;
             }, System.Threading.CancellationToken.None, TaskContinuationOptions.None, TaskScheduler.FromCurrentSynchronizationContext());
         }
     }

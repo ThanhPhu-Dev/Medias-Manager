@@ -20,59 +20,8 @@ namespace Manager_Medias.Views
     /// <summary>
     /// Interaction logic for LoadingUC.xaml
     /// </summary>
-    public partial class LoadingUC : UserControl, INotifyPropertyChanged
+    public partial class LoadingUC : UserControl
     {
-        private double _windowWidth;
-        private double _windowHeight;
-        private double _halfWidth;
-        private double _halfHeight;
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        #region Binding
-
-        public double WindowWidth
-        {
-            get => _windowWidth;
-            set
-            {
-                _windowWidth = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public double WindowHeight
-        {
-            get => _windowHeight;
-            set
-            {
-                _windowHeight = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public double HalfWidth
-        {
-            get => _halfWidth;
-            set
-            {
-                _halfWidth = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public double HalfHeight
-        {
-            get => _halfHeight;
-            set
-            {
-                _halfHeight = value;
-                OnPropertyChanged();
-            }
-        }
-
-        #endregion Binding
-
         public bool IsLoading
         {
             get { return (bool)GetValue(IsLoadingProperty); }
@@ -96,27 +45,19 @@ namespace Manager_Medias.Views
         public LoadingUC()
         {
             InitializeComponent();
-            if (DesignerProperties.GetIsInDesignMode(new DependencyObject()))
-                return;
             Container.Visibility = Visibility.Hidden;
-            DataContext = this;
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             if (LicenseManager.UsageMode == LicenseUsageMode.Runtime)
             {
-                WindowWidth = Application.Current.MainWindow.ActualWidth;
-                WindowHeight = Application.Current.MainWindow.ActualHeight;
+                Modal.Width = Application.Current.MainWindow.ActualWidth;
+                Modal.Height = Application.Current.MainWindow.ActualHeight;
 
-                HalfWidth = WindowWidth / 2;
-                HalfHeight = WindowHeight / 2;
+                Canvas.SetTop(LoadingWrapper, Modal.Height / 2);
+                Canvas.SetLeft(LoadingWrapper, Modal.Width / 2);
             }
-        }
-
-        protected void OnPropertyChanged([CallerMemberName] string name = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
     }
 }

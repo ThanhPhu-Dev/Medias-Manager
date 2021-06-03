@@ -264,7 +264,8 @@
                                         </Button.Triggers>
                                     </Button>
                                     <Button Content="Đăng xuất"
-                                            Style="{StaticResource PopupItemButton}">
+                                            Style="{StaticResource PopupItemButton}"
+                                            Command="{Binding LogoutCmd}">
                                         <Button.Triggers>
                                             <EventTrigger RoutedEvent="Button.Click">
                                                 <BeginStoryboard>

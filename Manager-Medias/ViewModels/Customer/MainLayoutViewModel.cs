@@ -2,6 +2,7 @@
 using Manager_Medias.Models;
 using Manager_Medias.Services;
 using Manager_Medias.Stores;
+using Manager_Medias.ViewModels.Guest;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,7 @@ namespace Manager_Medias.ViewModels.Customer
         public ICommand NavigateAudioCmd { get; set; }
         public ICommand NavigateAccountCmd { get; set; }
         public ICommand NavigateHomeCmd { get; set; }
+        public ICommand LogoutCmd { get; set; }
         public ICommand MovieCmd { get; set; }
         public ICommand AudioCmd { get; set; }
 
@@ -49,6 +51,13 @@ namespace Manager_Medias.ViewModels.Customer
                 new NavigationService<HomeViewModel>(_navigationStore, () => new HomeViewModel()));
 
             _navigationStore.CurrentContentViewModelChanged += _navigationStore_CurrentContentViewModelChanged;
+
+            LogoutCmd = new RelayCommand<object>((object o) =>
+            {
+                _userStore = null;
+                _navigationStore.CurrentViewModel = new GuestMainViewModel();
+                _navigationStore.ContentViewModel = new GuestHomeViewModel();
+            });
             MovieCmd = new RelayCommand<object>(MoviewShow);
             AudioCmd = new RelayCommand<object>(AudioShow);
 

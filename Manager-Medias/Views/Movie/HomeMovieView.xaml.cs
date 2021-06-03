@@ -25,29 +25,6 @@ namespace Manager_Medias.Views.Movie
         {
             InitializeComponent();
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            //ScrollViewer sv = FindVisualChild<ScrollViewer>(itc_movie);
-            //var template = itc_movie.Template;
-            //var sv = (ScrollViewer)template.FindName("sv_itc", itc_movie);
-            //var curPos = sv.HorizontalOffset;
-            //var btn = sender as RepeatButton;
-            //var contentBtn = (MaterialDesignThemes.Wpf.PackIcon)btn.Content;
-            //string turn = contentBtn.Kind.ToString();
-            //switch (turn)
-            //{
-            //    case "KeyboardArrowRight":
-            //        sv.ScrollToHorizontalOffset(curPos + 80);
-            //        break;
-            //    case "ChevronLeft":
-            //        sv.ScrollToHorizontalOffset(curPos - 80);
-            //        break;
-            //    default:
-            //        break;
-            //}
-
-        }
         public static childItem FindVisualChild<childItem>(DependencyObject obj)
                 where childItem : DependencyObject
         {

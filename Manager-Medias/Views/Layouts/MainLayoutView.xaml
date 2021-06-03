@@ -13,6 +13,7 @@
              xmlns:vlogin ="clr-namespace:Manager_Medias.Views.Customer"
              xmlns:vpicture ="clr-namespace:Manager_Medias.Views.Picture"
              xmlns:cv="clr-namespace:Manager_Medias.Converters"
+             xmlns:view="clr-namespace:Manager_Medias.Views"
              mc:Ignorable="d"
              xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
              d:DesignHeight="650" d:DesignWidth="1200">
@@ -140,7 +141,6 @@
             <RowDefinition Height="65" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-
         <Border Grid.Row="0"
                 Background="#000"
                 BorderThickness="0 0 0 0.5" BorderBrush="#fff">

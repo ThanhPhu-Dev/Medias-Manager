@@ -12,18 +12,25 @@ namespace Manager_Medias.ViewModels.Guest
 {
     public class GuestMainViewModel : BaseViewModel
     {
-        public ICommand NavigateLoginCmd { get; }
-        public ICommand NavigateRegisterCmd { get; }
+        public ICommand NavigateLoginCmd { get; set; }
+        public ICommand NavigateRegisterCmd { get; set; }
 
         public GuestMainViewModel()
         {
-            NavigateLoginCmd = new NavigateCommand<GuestLoginViewModel>(
-                new NavigationService<GuestLoginViewModel>(_navigationStore, () => new GuestLoginViewModel()));
-            NavigateRegisterCmd = new NavigateCommand<GuestInfoRegisterViewModel>(
-                new NavigationService<GuestInfoRegisterViewModel>(_navigationStore, () => new GuestInfoRegisterViewModel()));
+            IsLoading = true;
+            Task.Run(() =>
+            {
+                NavigateLoginCmd = new NavigateCommand<GuestLoginViewModel>(
+                    new NavigationService<GuestLoginViewModel>(_navigationStore, () => new GuestLoginViewModel()));
+                NavigateRegisterCmd = new NavigateCommand<GuestInfoRegisterViewModel>(
+                    new NavigationService<GuestInfoRegisterViewModel>(_navigationStore, () => new GuestInfoRegisterViewModel()));
 
-            _navigationStore.CurrentViewModelChanged += _navigationStore_CurrentViewModelChanged;
-            _navigationStore.CurrentContentViewModelChanged += _navigationStore_CurrentContentViewModelChanged;
+                _navigationStore.CurrentViewModelChanged += _navigationStore_CurrentViewModelChanged;
+                _navigationStore.CurrentContentViewModelChanged += _navigationStore_CurrentContentViewModelChanged;
+            }).ContinueWith(task =>
+            {
+                IsLoading = false;
+            }, System.Threading.CancellationToken.None, TaskContinuationOptions.None, TaskScheduler.FromCurrentSynchronizationContext());
         }
     }
 }

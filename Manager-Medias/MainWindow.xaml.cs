@@ -21,22 +21,9 @@ namespace Manager_Medias
     /// </summary>
     public partial class MainWindow : Window
     {
-        //KHOA: hiển thị user control tương ứng từ control grid
-        //internal void SwitchScreen(object sender)
-        //{
-        //    var screen = ((UserControl)sender);
-        //    if (screen != null)
-        //    {
-        //        grid.Children.Clear();
-        //        grid.Children.Add(screen);
-        //    }
-        //}
-
         public MainWindow()
         {
             InitializeComponent();
-
-            //grid.Children.Add(new Home(this)); //KHOA: truyền this để gọi hàm SwitchScreen từ các user control
         }
     }
 }

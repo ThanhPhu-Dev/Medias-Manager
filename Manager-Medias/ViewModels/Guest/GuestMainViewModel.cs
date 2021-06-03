@@ -17,20 +17,13 @@ namespace Manager_Medias.ViewModels.Guest
 
         public GuestMainViewModel()
         {
-            IsLoading = true;
-            Task.Run(() =>
-            {
-                NavigateLoginCmd = new NavigateCommand<GuestLoginViewModel>(
-                    new NavigationService<GuestLoginViewModel>(_navigationStore, () => new GuestLoginViewModel()));
-                NavigateRegisterCmd = new NavigateCommand<GuestInfoRegisterViewModel>(
-                    new NavigationService<GuestInfoRegisterViewModel>(_navigationStore, () => new GuestInfoRegisterViewModel()));
+            NavigateLoginCmd = new NavigateCommand<GuestLoginViewModel>(
+                new NavigationService<GuestLoginViewModel>(_navigationStore, () => new GuestLoginViewModel()));
+            NavigateRegisterCmd = new NavigateCommand<GuestInfoRegisterViewModel>(
+                new NavigationService<GuestInfoRegisterViewModel>(_navigationStore, () => new GuestInfoRegisterViewModel()));
 
-                _navigationStore.CurrentViewModelChanged += _navigationStore_CurrentViewModelChanged;
-                _navigationStore.CurrentContentViewModelChanged += _navigationStore_CurrentContentViewModelChanged;
-            }).ContinueWith(task =>
-            {
-                IsLoading = false;
-            }, System.Threading.CancellationToken.None, TaskContinuationOptions.None, TaskScheduler.FromCurrentSynchronizationContext());
+            _navigationStore.CurrentViewModelChanged += _navigationStore_CurrentViewModelChanged;
+            _navigationStore.CurrentContentViewModelChanged += _navigationStore_CurrentContentViewModelChanged;
         }
     }
 }

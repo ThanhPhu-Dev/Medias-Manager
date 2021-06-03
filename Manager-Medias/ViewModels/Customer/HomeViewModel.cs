@@ -30,12 +30,24 @@ namespace Manager_Medias.ViewModels.Customer
 
         public HomeViewModel()
         {
-            using (var db = new MediasManangementEntities())
+            LoadData();
+        }
+
+        public async void LoadData()
+        {
+            IsLoading = true;
+
+            await Task.Run(() =>
             {
-                Albums = new ObservableCollection<Album_Detail>(db.Album_Details.ToList());
-                Audios = new ObservableCollection<Audio>(db.Audios.ToList());
-                Movies = new ObservableCollection<Movie>(db.Movies.ToList());
-            }
+                using (var db = new MediasManangementEntities())
+                {
+                    Albums = new ObservableCollection<Album_Detail>(db.Album_Details.ToList());
+                    Audios = new ObservableCollection<Audio>(db.Audios.ToList());
+                    Movies = new ObservableCollection<Movie>(db.Movies.ToList());
+                }
+            });
+
+            IsLoading = false;
         }
     }
 }

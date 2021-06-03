@@ -16,11 +16,11 @@ namespace Manager_Medias.ViewModels.Customer
     {
         #region Command
 
-        public ICommand NavigateMovieCmd { get; }
-        public ICommand NavigateAlbumCmd { get; }
-        public ICommand NavigateAudioCmd { get; }
-        public ICommand NavigateAccountCmd { get; }
-        public ICommand NavigateHomeCmd { get; }
+        public ICommand NavigateMovieCmd { get; set; }
+        public ICommand NavigateAlbumCmd { get; set; }
+        public ICommand NavigateAudioCmd { get; set; }
+        public ICommand NavigateAccountCmd { get; set; }
+        public ICommand NavigateHomeCmd { get; set; }
         public ICommand MovieCmd { get; set; }
         public ICommand AudioCmd { get; set; }
 

@@ -82,6 +82,5 @@
             </Grid.Resources>
             <ContentControl Content="{Binding ContentViewModel}" />
         </Grid>
-        <view:LoadingUC IsLoading="{Binding IsLoading}" />
     </Grid>
 </UserControl>

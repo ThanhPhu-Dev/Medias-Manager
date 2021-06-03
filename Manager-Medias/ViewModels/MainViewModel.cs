@@ -1,4 +1,5 @@
-﻿using Manager_Medias.Stores;
+﻿using Manager_Medias.Services;
+using Manager_Medias.Stores;
 using Manager_Medias.ViewModels.Customer;
 using Manager_Medias.ViewModels.Guest;
 using System;
@@ -11,8 +12,9 @@ namespace Manager_Medias.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
-        public MainViewModel(NavigationStore navigationStore)
+        public MainViewModel(NavigationStore navigationStore, LoadingServices ls)
         {
+            _loadingServices = ls;
             _navigationStore = navigationStore;
 
             _navigationStore.ContentViewModel = new GuestHomeViewModel();
@@ -20,6 +22,7 @@ namespace Manager_Medias.ViewModels
 
             _navigationStore.CurrentContentViewModelChanged += _navigationStore_CurrentViewModelChanged;
             _navigationStore.CurrentViewModelChanged += _navigationStore_CurrentContentViewModelChanged;
+            ls.LoadingChanged += MainViewModel_LoadingChanged;
         }
     }
 }

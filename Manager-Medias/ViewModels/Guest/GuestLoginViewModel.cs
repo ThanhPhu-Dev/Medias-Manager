@@ -7,6 +7,7 @@ using Manager_Medias.ViewModels.Customer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -62,7 +63,7 @@ namespace Manager_Medias.ViewModels.Guest
             this.ValidationRules.Add(nameof(this.Password), new List<ValidationRule>() { new ValidatePassword() });
         }
 
-        public void ActionLogin(object[] values)
+        public async void ActionLogin(object[] values)
         {
             //if (string.IsNullOrEmpty(values.ToString()) || string.IsNullOrEmpty(values[0].ToString()) ||
             //    string.IsNullOrEmpty(values[1].ToString()))
@@ -102,6 +103,20 @@ namespace Manager_Medias.ViewModels.Guest
             //    Error = "Tài khoản không tồn tại";
             //    return;
             //}
+            IsLoading = true;
+
+            //User user = await Task.Run(() =>
+            //{
+            //    using (var db = new MediasManangementEntities())
+            //    {
+            //        return db.Users.Single(u => u.Email == "nghiadx2001@gmail.c");
+            //    }
+            //}).ContinueWith((task) =>
+            //{
+            //    IsLoading = false;
+
+            //    return task.Result;
+            //}).ConfigureAwait(false);
 
             using (var db = new MediasManangementEntities())
             {
@@ -109,8 +124,9 @@ namespace Manager_Medias.ViewModels.Guest
                 _userStore = new UserStore(user);
                 _navigationStore.CurrentViewModel = new MainLayoutViewModel();
                 _navigationStore.ContentViewModel = new HomeViewModel();
-                //_navigationStore.ContentViewModel = new DetailAudioViewModel(1);
             }
+
+            //_navigationStore.ContentViewModel = new DetailAudioViewModel(1);
         }
     }
 }

@@ -24,10 +24,10 @@
         <Style TargetType="TextBox">
             <Style.Triggers>
                 <Trigger Property="Validation.HasError" Value="True">
-                    <Setter Property="Background" Value="Pink"/>
+                    <Setter Property="Background" Value="Pink" />
                     <Setter Property="ToolTip"
                         Value="{Binding RelativeSource={x:Static RelativeSource.Self},
-                        Path=(Validation.Errors)[0].ErrorContent}"/>
+                        Path=(Validation.Errors)[0].ErrorContent}" />
                 </Trigger>
             </Style.Triggers>
         </Style>
@@ -40,7 +40,7 @@
                 <ItemsControl ItemsSource="{Binding}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding ErrorContent}" Foreground="Red" FontSize="14"/>
+                            <TextBlock Text="{Binding ErrorContent}" Foreground="Red" FontSize="14" />
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
@@ -67,7 +67,7 @@
                            FontSize="32px"
                            FontWeight="Bold"
                            Margin="0 50 0 5" />
-                
+
                 <StackPanel Background="#fff"
                         Margin="0 8">
                     <TextBox
@@ -82,15 +82,15 @@
                         materialDesign:HintAssist.FloatingScale="0.55"
                         materialDesign:TextFieldAssist.TextBoxViewMargin="0 -3 0 0"
                         Height="60"
-                        FontSize="18" 
+                        FontSize="18"
                         Text="{Binding Email, ValidatesOnNotifyDataErrors=True,
                         UpdateSourceTrigger=PropertyChanged}"
-                        Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"/>
+                        Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}" />
                 </StackPanel>
                 <StackPanel Background="#fff"
                         Margin="0 12">
                     <component:PasswordBoxMaterialDesign x:Name="txtPassword" Password="{Binding Password, ValidatesOnNotifyDataErrors=True,
-                        UpdateSourceTrigger=PropertyChanged}" 
+                        UpdateSourceTrigger=PropertyChanged}"
                         Height="60"
                         FontSize="18"
                         VerticalAlignment="Top"
@@ -109,9 +109,9 @@
                     Content="Đăng nhập"
                     FontSize="23"
                     Margin="0 15  0 0 "
-                    Foreground="#222" >
+                    Foreground="#222">
                 </Button>
-                <TextBlock Text="{Binding Error}" Foreground="Red" FontSize="16"/>
+                <TextBlock Text="{Binding Error}" Foreground="Red" FontSize="16" />
                 <TextBlock Text="Quên mật khẩu?"
                            Foreground="White"
                            ForceCursor="True"
@@ -138,7 +138,6 @@
                          Đăng ký ngay.
                     </Span>
                 </TextBlock>
-                
             </StackPanel>
         </StackPanel>
     </Grid>

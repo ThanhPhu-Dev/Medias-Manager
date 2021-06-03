@@ -10,6 +10,7 @@
         xmlns:layout="clr-namespace:Manager_Medias.Views.Layouts"
         xmlns:vhome="clr-namespace:Manager_Medias.Views.Home"
         xmlns:vguest="clr-namespace:Manager_Medias.Views.Customer"
+        xmlns:view="clr-namespace:Manager_Medias.Views"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Title="MainWindow"
@@ -28,5 +29,6 @@
             </DataTemplate>
         </Grid.Resources>
         <ContentControl Content="{Binding CurrentViewModel}" />
+        <view:LoadingUC IsLoading="{Binding IsLoading}" />
     </Grid>
 </Window>

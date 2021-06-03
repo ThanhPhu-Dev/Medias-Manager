@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -63,7 +64,7 @@ namespace Manager_Medias.ViewModels.Guest
             this.ValidationRules.Add(nameof(this.Password), new List<ValidationRule>() { new ValidatePassword() });
         }
 
-        public void ActionLogin(object[] values)
+        public async void ActionLogin(object[] values)
         {
             //if (string.IsNullOrEmpty(values.ToString()) || string.IsNullOrEmpty(values[0].ToString()) ||
             //    string.IsNullOrEmpty(values[1].ToString()))
@@ -105,27 +106,25 @@ namespace Manager_Medias.ViewModels.Guest
             //}
             IsLoading = true;
 
-            //User user = await Task.Run(() =>
-            //{
-            //    using (var db = new MediasManangementEntities())
-            //    {
-            //        return db.Users.Single(u => u.Email == "nghiadx2001@gmail.c");
-            //    }
-            //}).ContinueWith((task) =>
-            //{
-            //    IsLoading = false;
-
-            //    return task.Result;
-            //}).ConfigureAwait(false);
-
-            using (var db = new MediasManangementEntities())
+            User user = await Task.Run(() =>
             {
-                User user = db.Users.Single(u => u.Email == "nghiadx2001@gmail.c");
+                using (var db = new MediasManangementEntities())
+                {
+                    return db.Users.Single(u => u.Email == "nghiadx2001@gmail.c");
+                }
+            }).ContinueWith((task) =>
+            {
+                IsLoading = false;
+
+                return task.Result;
+            }).ConfigureAwait(false);
+
+            Application.Current.Dispatcher.Invoke(() =>
+            {
                 _userStore = new UserStore(user);
                 _navigationStore.CurrentViewModel = new MainLayoutViewModel();
                 _navigationStore.ContentViewModel = new HomeViewModel();
-            }
-            IsLoading = false;
+            });
 
             //_navigationStore.ContentViewModel = new DetailAudioViewModel(1);
         }

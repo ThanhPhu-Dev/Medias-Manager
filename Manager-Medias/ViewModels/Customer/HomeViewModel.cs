@@ -26,13 +26,13 @@ namespace Manager_Medias.ViewModels.Customer
 
         public HomeViewModel()
         {
-            using (var db = new MediasManangementEntities())
-            {
-                Albums = new ObservableCollection<Album_Detail>(db.Album_Details.ToList());
-                Audios = new ObservableCollection<Audio>(db.Audios.ToList());
-                Movies = new ObservableCollection<Movie>(db.Movies.ToList());
-            }
-            //LoadData();
+            //using (var db = new MediasManangementEntities())
+            //{
+            //    Albums = new ObservableCollection<Album_Detail>(db.Album_Details.ToList());
+            //    Audios = new ObservableCollection<Audio>(db.Audios.ToList());
+            //    Movies = new ObservableCollection<Movie>(db.Movies.ToList());
+            //}
+            LoadData();
         }
 
         public async void LoadData()
@@ -41,15 +41,19 @@ namespace Manager_Medias.ViewModels.Customer
 
             await Task.Run(() =>
             {
-                using (var db = new MediasManangementEntities())
+                Application.Current.Dispatcher.Invoke(() =>
                 {
-                    Albums = new ObservableCollection<Album_Detail>(db.Album_Details.ToList());
-                    Audios = new ObservableCollection<Audio>(db.Audios.ToList());
-                    Movies = new ObservableCollection<Movie>(db.Movies.ToList());
-                }
+                    using (var db = new MediasManangementEntities())
+                    {
+                        Albums = new ObservableCollection<Album_Detail>(db.Album_Details.ToList());
+                        Audios = new ObservableCollection<Audio>(db.Audios.ToList());
+                        Movies = new ObservableCollection<Movie>(db.Movies.ToList());
+                    }
+                });
+            }).ContinueWith(task =>
+            {
+                IsLoading = false;
             });
-
-            IsLoading = false;
         }
     }
 }

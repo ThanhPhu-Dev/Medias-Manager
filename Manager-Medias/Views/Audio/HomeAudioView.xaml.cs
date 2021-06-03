@@ -47,6 +47,7 @@ namespace Manager_Medias.Views.Audio
 
             return null;
         }
+
         private void ItemControl_previewMouseWheel(object sender, MouseWheelEventArgs e)
         {
             if (sender is ItemsControl && !e.Handled)

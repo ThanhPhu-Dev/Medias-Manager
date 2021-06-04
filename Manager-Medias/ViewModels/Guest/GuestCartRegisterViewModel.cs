@@ -2,6 +2,7 @@
 using Manager_Medias.Models;
 using Manager_Medias.Stores;
 using Manager_Medias.Validates;
+using Manager_Medias.ViewModels.Customer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -110,12 +111,13 @@ namespace Manager_Medias.ViewModels.Guest
             {
                 Email = _userCurrent.Email,
                 Name = obj[0].ToString(),
+                Status = 1,
             };
 
             using (var db = new MediasManangementEntities())
             {
                 var user = db.Users.Where(u => u.Email == _userCurrent.Email).Single() as User;
-
+                
                 //update cart cho user
                 user.NumberCard = obj[1].ToString();
                 //db.SaveChanges();
@@ -125,6 +127,9 @@ namespace Manager_Medias.ViewModels.Guest
                 db.SaveChanges();
 
                 //chuyển trang dên trang chủ
+                _userStore = new UserStore(user);
+                _navigationStore.CurrentViewModel = new MainLayoutViewModel();
+                _navigationStore.ContentViewModel = new DetailPictureViewModel(8);
             }
         }
     }

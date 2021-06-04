@@ -392,6 +392,7 @@
                                             <Grid.Resources>
                                                 <Style TargetType="TextBlock">
                                                     <Setter Property="FontSize" Value="15"/>
+                                                    <Setter Property="Foreground" Value="#fff"/>
                                                 </Style>
                                             </Grid.Resources>
                                             <Grid.ColumnDefinitions>

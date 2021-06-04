@@ -25,10 +25,10 @@ namespace Manager_Medias.Views.Movie
     {
         private DispatcherTimer seeker;
         private bool isSeekingMedia = false;
+
         public DetailMovie()
         {
             InitializeComponent();
-            mea_video.Play();
         }
 
         private void timelineSlider_DragStarted(object sender, System.Windows.Controls.Primitives.DragStartedEventArgs e)
@@ -75,5 +75,10 @@ namespace Manager_Medias.Views.Movie
             mea_video.Play();
         }
 
+        private void play_Click(object sender, RoutedEventArgs e)
+        {
+            Container.ScrollToBottom();
+            mea_video.Play();
+        }
     }
 }

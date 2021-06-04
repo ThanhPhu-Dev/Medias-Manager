@@ -155,6 +155,7 @@
     <Compile Include="Converters\ChangeColorLevel_1Converter.cs" />
     <Compile Include="Converters\ChangeColorLevel_2Converter.cs" />
     <Compile Include="Converters\ChangeColorLevel_3Converter.cs" />
+    <Compile Include="Converters\CompareLevelConverter.cs" />
     <Compile Include="Converters\ConvertImage.cs" />
     <Compile Include="Converters\IsLoadingConverter.cs" />
     <Compile Include="Converters\MainLayoutModalWidthConverter.cs" />

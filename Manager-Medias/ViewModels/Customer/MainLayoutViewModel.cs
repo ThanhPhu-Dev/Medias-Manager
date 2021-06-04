@@ -25,6 +25,7 @@ namespace Manager_Medias.ViewModels.Customer
         public ICommand LogoutCmd { get; set; }
         public ICommand MovieCmd { get; set; }
         public ICommand AudioCmd { get; set; }
+        public ICommand PictureCmd { get; set; }
 
         #endregion Command
 
@@ -60,10 +61,16 @@ namespace Manager_Medias.ViewModels.Customer
             });
             MovieCmd = new RelayCommand<object>(MoviewShow);
             AudioCmd = new RelayCommand<object>(AudioShow);
+            PictureCmd = new RelayCommand<object>(PictureShow);
 
             _userStore.ProfileChanged += _userStore_ProfileChanged;
             _userStore.AvatarChanged += _userStore_AvatarChanged;
             _userStore.NameChanged += _userStore_NameChanged;
+        }
+
+        private void PictureShow(object obj)
+        {
+            _navigationStore.ContentViewModel = new HomePictureViewModel(8);
         }
 
         private void AudioShow(object obj)

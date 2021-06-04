@@ -18,6 +18,7 @@ namespace Manager_Medias.ViewModels.Customer
         //command like và lưu
         public ICommand CmdLike { get; set; }
         public ICommand CmdSave { get; set; }
+        public ICommand CmdSelectionChange { get; set; }
         public int _currentProfileID;
         public int _currentAlbumID;
 
@@ -58,21 +59,32 @@ namespace Manager_Medias.ViewModels.Customer
                 OnPropertyChanged();
             }
         }
+
+        public Album AlbumSelectedItem { get => _AlbumSelectedItem; set => _AlbumSelectedItem = value; }
+
+        private Album _AlbumSelectedItem;
         private string _message;
         private bool _checkLike;
         private bool _checkSave;
         public HomePictureViewModel(int idAlbum)
         {
-            _currentAlbumID = 1;
+            _currentAlbumID = idAlbum;
             _currentProfileID = _userStore.CurrentProfile.Id;
+            
             //gọi hàm load giao diện
             LoadMovie();
-
+            LoadLikeAndSave();
             //command
             CmdToDetailMovie = new RelayCommand<object>(ToDetailMovie);
 
             CmdLike = new RelayCommand<object>(Likemt);
             CmdSave = new RelayCommand<object>(Savemt);
+            CmdSelectionChange = new RelayCommand<object>(SelectionChangemt);
+        }
+
+        private void SelectionChangemt(object obj)
+        {
+            LoadLikeAndSave();
         }
 
         private void ToDetailMovie(object obj)
@@ -84,6 +96,7 @@ namespace Manager_Medias.ViewModels.Customer
         {
             using (var db = new MediasManangementEntities())
             {
+                AlbumSelectedItem = db.Albums.Where(a => a.Id == _currentAlbumID).Single() as Album;
                 //cập nhật danh sách bài hát liên quan (chung danh mục) cho UI
                 AlbumList = new ObservableCollection<Album>(db.Albums.Include("Album_Details").ToList());
             }
@@ -91,17 +104,18 @@ namespace Manager_Medias.ViewModels.Customer
 
         private void Likemt(object obj)
         {
+            int mediaId = (int)obj;
             Like li = new Like()
             {
                 IdProfile = _currentProfileID,
-                IdMedia = _currentAlbumID,
+                IdMedia = mediaId,
                 //date
             };
             using (var db = new MediasManangementEntities())
             {
                 if (CheckLike)
                 {
-                    var likeSelect = db.Likes.Where(l => l.IdMedia == _currentAlbumID).Single() as Like;
+                    var likeSelect = db.Likes.Where(l => l.IdMedia == mediaId).Single() as Like;
                     db.Likes.Remove(likeSelect);
                     CheckLike = false;
                     if (db.SaveChanges() > 0)
@@ -123,17 +137,18 @@ namespace Manager_Medias.ViewModels.Customer
 
         private void Savemt(object obj)
         {
+            int mediaId = (int)obj;
             My_List li = new My_List()
             {
                 IdProfile = _currentProfileID,
-                IdMedia = _currentAlbumID,
+                IdMedia = mediaId,
                 //date
             };
             using (var db = new MediasManangementEntities())
             {
                 if (CheckSave)
                 {
-                    var likeSelect = db.My_Lists.Where(l => l.IdMedia == _currentAlbumID).Single() as My_List;
+                    var likeSelect = db.My_Lists.Where(l => l.IdMedia == mediaId).Single() as My_List;
                     db.My_Lists.Remove(likeSelect);
                     CheckSave = false;
                     if (db.SaveChanges() > 0)
@@ -150,6 +165,19 @@ namespace Manager_Medias.ViewModels.Customer
                         Message = "Đã thêm vào danh sách cá nhân";
                     }
                 }
+            }
+        }
+        private void LoadLikeAndSave()
+        {
+            using (var db = new MediasManangementEntities())
+            {
+                //ktr xem đã like và lưu bài nhạc này chưa
+                //chưa có user id
+                var nLike = db.Likes.Where(l => l.IdMedia == AlbumSelectedItem.Id && l.IdProfile == _currentProfileID).Count();
+                var nSave = db.My_Lists.Where(l => l.IdMedia == AlbumSelectedItem.Id && l.IdProfile == _currentProfileID).Count();
+
+                CheckLike = true ? nLike > 0 : false;
+                CheckSave = true ? nSave > 0 : false;
             }
         }
     }

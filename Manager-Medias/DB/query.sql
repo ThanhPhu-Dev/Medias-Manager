@@ -196,6 +196,15 @@ update Levels set Price = 180000 where Id = 1
 update Levels set Price = 220000 where Id = 2
 update Levels set Price = 260000 where Id = 3
 
+update Medias set Lvl = 1 where Id between 1 and 5
+update Medias set Lvl = 2 where Id between 6 and 8
+update Medias set Lvl = 1 where Id between 9 and 13
+update Medias set Lvl = 3 where Id between 14 and 18
+update Medias set Lvl = 3 where Id between 19 and 22
+update Medias set Lvl = 1 where Id between 23 and 25
+update Medias set Lvl = 3 where Id between 26 and 30
+update Medias set Lvl = 1 where Id between 31 and 34
+update Medias set Lvl = 1 where Id between 35 and 37
 --Insert user 
 INSERT INTO Users VALUES ('nghiadx2001@gmail.c', '123', 1, 'CDCD', '362')
 INSERT INTO Users (Email, Password) VALUES ('1@gmail.c', '123')

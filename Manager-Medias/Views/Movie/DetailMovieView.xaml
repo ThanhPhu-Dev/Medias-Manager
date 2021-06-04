@@ -14,23 +14,20 @@
              TextElement.FontSize="13"
              TextOptions.TextFormattingMode="Ideal"
              TextOptions.TextRenderingMode="Auto"
+              xmlns:cvt="clr-namespace:Manager_Medias.Converters"
              Background="{DynamicResource MaterialDesignPaper}"
              FontFamily="{DynamicResource MaterialDesignFont}">
 
     <UserControl.Resources>
         <cc:ConvertImage x:Key="cvt"/>
-
+        <cvt:MillisecondToTimeLapseConverter x:Key="TimeLapseCvt" />
         <Style TargetType="TextBlock">
             <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
         <Style TargetType="MediaElement">
             <Setter Property="Height" Value="0"/>
         </Style>
-        <Storyboard SlipBehavior="Slip" x:Key="anm_PlayVideo">
-            <MediaTimeline Source="{Binding DetailMovies.Video, Converter={StaticResource cvt}}"
-                           Storyboard.TargetName="mea_video"
-                           BeginTime="0:0:0" Duration="{Binding DetailMovies.Time}"/>
-        </Storyboard>
+        
     </UserControl.Resources>
     <UserControl.Triggers>
         <EventTrigger RoutedEvent="Button.Click" SourceName="play">
@@ -39,7 +36,7 @@
                     <DoubleAnimation 
                            Storyboard.TargetName="mea_video" 
                            Storyboard.TargetProperty="Height" 
-                           Duration="0:0:0" From="0" To="530" />
+                           Duration="0:0:0" From="0" To="500" />
                     <DoubleAnimation 
                            Storyboard.TargetName="mediaContainer" 
                            Storyboard.TargetProperty="Height" 
@@ -48,27 +45,133 @@
                 </Storyboard>
 
             </BeginStoryboard>
-            <BeginStoryboard Name="BeginVideo" Storyboard="{StaticResource anm_PlayVideo}"/>
-        </EventTrigger>
-        <EventTrigger RoutedEvent="ToggleButton.Checked" SourceName="btn_playvideo">
-            <!--<BeginStoryboard Name="BeginVideo" Storyboard="{StaticResource anm_PlayVideo}"/>-->
-            <PauseStoryboard BeginStoryboardName="BeginVideo" />
-        </EventTrigger>
-        <EventTrigger RoutedEvent="ToggleButton.Unchecked" SourceName="btn_playvideo">
-            <ResumeStoryboard BeginStoryboardName="BeginVideo" />
-            <!--<PauseStoryboard BeginStoryboardName="BeginVideo" />-->
         </EventTrigger>
     </UserControl.Triggers>
     <ScrollViewer Background="Black" Width="1200">
         <StackPanel>
-            <StackPanel Name="mediaContainer" Height="0">
-                <MediaElement x:Name="mea_video"/>
-                <ToggleButton Width="55" Height="55" Padding="0" 
+            <!--trở về-->
+            <ToggleButton Width="40" Height="50" Padding="5" 
+                           Background="Transparent" 
+                           Foreground="#febb00"
+                           BorderThickness="0"
+                           HorizontalAlignment="Left"
+                           Cursor="Hand"
+                           Name="btn_back">
+                <ToggleButton.Style>
+                    <Style TargetType="{x:Type ToggleButton}">
+                        <Setter Property="Content" Value="{materialDesign:PackIcon ArrowLeft, Size=55}" />
+                        <Setter Property="Template" >
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ToggleButton">
+                                    <Border>
+                                        <ContentPresenter/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ToggleButton.Style>
+            </ToggleButton>
+            <Grid Name="mediaContainer" Height="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="8*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="8*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Grid.Triggers>
+                    <EventTrigger RoutedEvent="MouseEnter">
+                        <BeginStoryboard >
+                            <Storyboard Storyboard.TargetName="btn_playvideo" Storyboard.TargetProperty="Opacity">
+                                <DoubleAnimation Duration="0:0:1" From="0" To="1"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                        <BeginStoryboard >
+                            <Storyboard Storyboard.TargetName="timeChange" Storyboard.TargetProperty="Opacity">
+                                <DoubleAnimation Duration="0:0:1" From="0" To="1"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                        <BeginStoryboard >
+                            <Storyboard Storyboard.TargetName="timelineSlider" Storyboard.TargetProperty="Opacity">
+                                <DoubleAnimation Duration="0:0:1" From="0" To="1"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                        <BeginStoryboard >
+                            <Storyboard Storyboard.TargetName="timeend" Storyboard.TargetProperty="Opacity">
+                                <DoubleAnimation Duration="0:0:1" From="0" To="1"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                    <EventTrigger RoutedEvent="MouseLeave">
+                        <BeginStoryboard >
+                            <Storyboard Storyboard.TargetName="btn_playvideo" Storyboard.TargetProperty="Opacity">
+                                <DoubleAnimation Duration="0:0:1" From="1" To="0"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                        <BeginStoryboard >
+                            <Storyboard Storyboard.TargetName="timeChange" Storyboard.TargetProperty="Opacity">
+                                <DoubleAnimation Duration="0:0:1" From="1" To="0"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                        <BeginStoryboard >
+                            <Storyboard Storyboard.TargetName="timelineSlider" Storyboard.TargetProperty="Opacity">
+                                <DoubleAnimation Duration="0:0:1" From="1" To="0"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                        <BeginStoryboard >
+                            <Storyboard Storyboard.TargetName="timeend" Storyboard.TargetProperty="Opacity">
+                                <DoubleAnimation Duration="0:0:1" From="1" To="0"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Grid.Triggers>
+
+                <!--Media-->
+                <MediaElement x:Name="mea_video"
+                              MediaOpened="audio_MediaOpened"
+                              LoadedBehavior="Manual"
+                              Source="{Binding DetailMovies.Video, Converter={StaticResource cvt}}"
+                              Grid.ColumnSpan="3" Grid.Row="0"/>
+
+                <!--slider-->
+                <TextBlock Name="timeChange"
+                           Text="{Binding ElementName=timelineSlider, Path=Value, Converter={StaticResource TimeLapseCvt}}"
+                           FontSize="15"
+                           Foreground="#fff"
+                           Grid.Column="0" Grid.Row="1" Opacity="0" HorizontalAlignment="Center"/>
+                <Slider Grid.Column="1" Grid.Row="1"
+                                TickFrequency="5"
+                                Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                Value="0"
+                                Width="auto"
+                                Foreground="#febb00"
+                                Name="timelineSlider"
+                                Opacity="0"
+                                Thumb.DragStarted="timelineSlider_DragStarted"
+                                Thumb.DragCompleted="timelineSlider_DragCompleted"/>
+
+
+                <TextBlock Name="timeend"
+                           Text="{Binding ElementName=timelineSlider, Path=Maximum, Converter={StaticResource TimeLapseCvt}}"
+                           FontSize="15"
+                           Foreground="#fff"
+                           Grid.Column="2" Grid.Row="1" HorizontalAlignment="Center" Opacity="0"/>
+
+                <!--nut play pause-->
+                    <ToggleButton Width="55" Height="55" Padding="0" Name="btn_playvideo"
+                                  Grid.ColumnSpan="3" Grid.Row="2"
                                       Background="Transparent" 
                                       Foreground="#febb00"
                                       BorderThickness="0"
                                       Cursor="Hand"
-                                      Name="btn_playvideo">
+                                      Checked="btn_playvideo_Checked"
+                                      Unchecked="btn_playvideo_Unchecked"
+                                       >
                     <ToggleButton.Style>
                         <Style TargetType="{x:Type ToggleButton}">
                             <Setter Property="Content" Value="{materialDesign:PackIcon Pause, Size=55}" />
@@ -92,8 +195,8 @@
                         </Style>
                     </ToggleButton.Style>
                 </ToggleButton>
-            </StackPanel>
-            
+            </Grid>
+
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="79*"/>

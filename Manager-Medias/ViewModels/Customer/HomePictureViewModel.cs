@@ -68,7 +68,7 @@ namespace Manager_Medias.ViewModels.Customer
         private bool _checkSave;
         public HomePictureViewModel(int idAlbum)
         {
-            _currentAlbumID = 9;
+            _currentAlbumID = idAlbum;
             _currentProfileID = _userStore.CurrentProfile.Id;
             
             //gọi hàm load giao diện

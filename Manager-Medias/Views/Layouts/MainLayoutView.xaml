@@ -351,7 +351,8 @@
                             </Button>
                             <Button Margin="0 10 0 10"
                                     Padding="20 4"
-                                    Style="{StaticResource SidebarButton}">
+                                    Style="{StaticResource SidebarButton}"
+                                    Command="{Binding PictureCmd}">
                                 <StackPanel Orientation="Horizontal">
                                     <materialDesign:PackIcon Kind="ImageOutline"
                                                              Foreground="#febb00"

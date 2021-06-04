@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Manager_Medias.Views.Account"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+    <Grid Background="White">
             
     </Grid>
 </UserControl>

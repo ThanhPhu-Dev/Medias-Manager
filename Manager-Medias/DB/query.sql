@@ -36,7 +36,9 @@ CREATE TABLE Levels
 (
 	Id INT NOT NULL IDENTITY(1,1),
 	Name NVARCHAR(20),
-	Price NUMERIC(18,0)
+	Price NUMERIC(18,0),
+	Quality NVARCHAR(20),
+	Resolution NVARCHAR(20)
 
 	CONSTRAINT PK_Level PRIMARY KEY (Id)
 )
@@ -192,9 +194,9 @@ INSERT INTO Levels (Name, Price) values
 (N'Cơ bản', 180000),
 (N'Tiêu chuẩn', 220000),
 (N'Cao cấp', 260000)
-update Levels set Price = 180000 where Id = 1
-update Levels set Price = 220000 where Id = 2
-update Levels set Price = 260000 where Id = 3
+update Levels set Quality = N'Trung', Resolution= N'480p' where Id = 1
+update Levels set Quality = N'Tốt' , Resolution= N'1080p'where Id = 2
+update Levels set Quality = N'Cao Cấp', Resolution= N'4K+HDR' where Id = 3
 
 update Medias set Lvl = 1 where Id between 1 and 5
 update Medias set Lvl = 2 where Id between 6 and 8

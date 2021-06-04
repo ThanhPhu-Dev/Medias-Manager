@@ -90,9 +90,12 @@ CREATE TABLE Albums
 (
 	Id INT NOT NULL UNIQUE,
 	Name NVARCHAR(20),
+	Image VARCHAR(MAX)
 
 	CONSTRAINT PK_Albums PRIMARY KEY (Id)
 )
+
+
 
 CREATE TABLE Album_Details
 (

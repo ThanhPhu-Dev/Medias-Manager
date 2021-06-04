@@ -357,7 +357,7 @@
                                                 </Grid.ColumnDefinitions>
                                                 <StackPanel Grid.Column="0" Margin="10 0 20 0">
 
-                                                    <!--ten phim - ca si - thoi luong-->
+                                                    <!--bai hat - ca si - thoi luong-->
                                                     <StackPanel  Margin="0 10">
                                                         <TextBlock Text="{Binding ElementName=lb_carousel, Path=SelectedItem.Name}"
                                                                    FontSize="32"
@@ -402,10 +402,7 @@
                                                         Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                                                         ToolTip="Đóng"
                                                         HorizontalAlignment="Right"
-                                                        VerticalAlignment="Top"
-                                                        Command="{Binding DataContext.CmdCloseDetail,
-                                                                          RelativeSource={RelativeSource Mode=FindAncestor,
-                                                                          AncestorType={x:Type view:HomeAudioView}}}">
+                                                        VerticalAlignment="Top">
                                                     <materialDesign:PackIcon Kind="Close" Height="30" Width="30" Foreground="#fff" />
                                                 </Button>
                                             </Grid>

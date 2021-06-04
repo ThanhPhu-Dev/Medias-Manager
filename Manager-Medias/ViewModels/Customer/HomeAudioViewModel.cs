@@ -16,6 +16,7 @@ namespace Manager_Medias.ViewModels.Customer
     {
         public static readonly DependencyProperty CatAudioListProperty;
         public ICommand CmdToDetailAudio { get; set; }
+        public int Level => (int)_userStore.CurrentUser.Level;
 
         static HomeAudioViewModel()
         {
@@ -45,8 +46,13 @@ namespace Manager_Medias.ViewModels.Customer
         {
             using (var db = new MediasManangementEntities())
             {
-                CatAudioList = new ObservableCollection<Audio_Category>(db.Audio_Categories.Include("Audios").ToList());
+                CatAudioList = new ObservableCollection<Audio_Category>(
+                    db.Audio_Categories.Include("Audios")
+                                    .Include("Audios.Media")
+                                    .ToList());
             }
+
+            var a = CatAudioList[0].Audios.ElementAt(0).Media.Id;
         }
     }
 }

@@ -151,14 +151,14 @@
                                FontSize="16"
                                FontWeight="DemiBold" />
                     <StackPanel VerticalAlignment="Bottom">
-                        <Border BorderBrush="#bdbdbd" BorderThickness="0.5" CornerRadius="2"
+                        <!--<Border BorderBrush="#bdbdbd" BorderThickness="0.5" CornerRadius="2"
                                 HorizontalAlignment="Left"
                                 Margin="0 4 0 0">
                             <TextBlock Text="{Binding Time, StringFormat={}Thời Lượng: {0}}"
                                        Foreground="#fff"
                                        HorizontalAlignment="Left"
                                        FontSize="11" />
-                        </Border>
+                        </Border>-->
                         <TextBlock Text="{Binding Singer, StringFormat={}Ca sĩ: {0}}"
                                    Foreground="#fff"
                                    Margin="0 4 0 0"

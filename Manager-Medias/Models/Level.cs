@@ -23,6 +23,8 @@ namespace Manager_Medias.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public Nullable<decimal> Price { get; set; }
+        public string Quality { get; set; }
+        public string Resolution { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Media> Medias { get; set; }

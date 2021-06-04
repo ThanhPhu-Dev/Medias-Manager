@@ -293,6 +293,9 @@
     <Compile Include="Views\Account\PaymentHistoryView.xaml.cs">
       <DependentUpon>PaymentHistoryView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Account\PaymentView.xaml.cs">
+      <DependentUpon>PaymentView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Account\ProfileManager.xaml.cs">
       <DependentUpon>ProfileManager.xaml</DependentUpon>
     </Compile>
@@ -399,6 +402,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Account\PaymentHistoryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Account\PaymentView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

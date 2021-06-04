@@ -215,6 +215,7 @@
     <Compile Include="ViewModels\Customer\HomeAudioViewModel.cs" />
     <Compile Include="ViewModels\Customer\HistoryListViewModel.cs" />
     <Compile Include="ViewModels\Customer\HomeMovieViewModel.cs" />
+    <Compile Include="ViewModels\Customer\HomePictureViewModel.cs" />
     <Compile Include="ViewModels\Customer\HomeViewModel.cs" />
     <Compile Include="Models\Album.cs">
       <DependentUpon>MediasManagement.tt</DependentUpon>
@@ -357,6 +358,9 @@
     <Compile Include="Views\Picture\DetailPictrue.xaml.cs">
       <DependentUpon>DetailPictrue.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Picture\HomePictureView.xaml.cs">
+      <DependentUpon>HomePictureView.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -485,6 +489,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Picture\HomePictureView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -595,6 +603,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Images\Movie\Poster\movieposter_action_SD.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Images\Album\album_chientranh.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Images\Album\album_nature.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Content Include="Images\Audio\mp3\audiomp3_mp3_1.mp3">

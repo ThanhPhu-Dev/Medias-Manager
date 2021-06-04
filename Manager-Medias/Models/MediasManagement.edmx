@@ -19,6 +19,7 @@
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="20" />
+          <Property Name="Image" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="Audio_Categories">
           <Key>
@@ -425,6 +426,7 @@
           <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Album_Details" Relationship="Self.FK_AlbumDetails_Albums" FromRole="Albums" ToRole="Album_Details" />
           <NavigationProperty Name="Media" Relationship="Self.FK_Albums_Medias" FromRole="Albums" ToRole="Medias" />
+          <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Audio_Category">
           <Key>
@@ -855,6 +857,7 @@
           <EntitySetMapping Name="Albums">
             <EntityTypeMapping TypeName="MediasManangementModel.Album">
               <MappingFragment StoreEntitySet="Albums">
+                <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>

@@ -52,7 +52,16 @@ namespace Manager_Medias.ViewModels.Customer
                 OnPropertyChanged();
             }
         }
-
+        public string Message
+        {
+            get => _message;
+            set
+            {
+                _message = value;
+                OnPropertyChanged();
+            }
+        }
+        private string _message;
         private bool _checkLike;
         private bool _checkSave;
 
@@ -93,11 +102,7 @@ namespace Manager_Medias.ViewModels.Customer
                     CheckLike = false;
                     if (db.SaveChanges() > 0)
                     {
-                        MessageBox.Show("Đã xóa khỏi ds yêu thích");
-                    }
-                    else
-                    {
-                        MessageBox.Show("Đã thêm vào ds yêu thích");
+                        Message = "Đã xóa khỏi danh sách yêu thích";
                     }
                 }
                 else
@@ -106,11 +111,7 @@ namespace Manager_Medias.ViewModels.Customer
                     CheckLike = true;
                     if (db.SaveChanges() > 0)
                     {
-                        MessageBox.Show("Đã thêm vào ds yêu thích");
-                    }
-                    else
-                    {
-                        MessageBox.Show("Đã xóa khỏi ds yêu thích");
+                        Message = "Đã thêm vào danh sách yêu thích";
                     }
                 }
             }
@@ -133,11 +134,7 @@ namespace Manager_Medias.ViewModels.Customer
                     CheckSave = false;
                     if (db.SaveChanges() > 0)
                     {
-                        MessageBox.Show("Đã bỏ lưu");
-                    }
-                    else
-                    {
-                        MessageBox.Show("Đã lưu bài hát");
+                        Message = "Đã xóa khỏi danh sách cá nhân";
                     }
                 }
                 else
@@ -146,11 +143,7 @@ namespace Manager_Medias.ViewModels.Customer
                     CheckSave = true;
                     if (db.SaveChanges() > 0)
                     {
-                        MessageBox.Show("Đã lưu bài hát");
-                    }
-                    else
-                    {
-                        MessageBox.Show("Đã bỏ lưu");
+                        Message = "Đã thêm vào danh sách cá nhân";
                     }
                 }
             }

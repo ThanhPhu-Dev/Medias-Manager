@@ -90,9 +90,12 @@ CREATE TABLE Albums
 (
 	Id INT NOT NULL UNIQUE,
 	Name NVARCHAR(20),
+	Image VARCHAR(MAX)
 
 	CONSTRAINT PK_Albums PRIMARY KEY (Id)
 )
+
+
 
 CREATE TABLE Album_Details
 (
@@ -182,6 +185,7 @@ select * from Movies
 select * from Movie_Categories
 select * from levels
 select * from Album_Details
+select * from Albums
 
 --insert cấp độ
 INSERT INTO Levels (Name, Price) values
@@ -229,7 +233,8 @@ select * from Albums
 INSERT INTO Albums values 
 (8, N'Thiên nhiên'),
 (9, N'Chiến tranh')
-
+update albums set Image = 'album_nature.jpg' where Id = 8
+update albums set Image = 'album_chientranh.jpg' where Id = 9
 --INSERT ALBUM
 INSERT INTO Album_Details (IdAlbum, Image) VALUES
 (8, 'album_PT_TN_1.jpg'),

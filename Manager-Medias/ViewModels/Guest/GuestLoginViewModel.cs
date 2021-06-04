@@ -123,7 +123,7 @@ namespace Manager_Medias.ViewModels.Guest
             {
                 _userStore = new UserStore(user);
                 _navigationStore.CurrentViewModel = new MainLayoutViewModel();
-                _navigationStore.ContentViewModel = new HomeAudioViewModel();
+                _navigationStore.ContentViewModel = new HomePictureViewModel();
             });
 
             //_navigationStore.ContentViewModel = new DetailAudioViewModel(1);

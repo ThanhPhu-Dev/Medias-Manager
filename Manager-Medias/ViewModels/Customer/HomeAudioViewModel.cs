@@ -21,6 +21,7 @@ namespace Manager_Medias.ViewModels.Customer
         {
             CatAudioListProperty = DependencyProperty.Register("CatAudioList", typeof(ObservableCollection<Audio_Category>), typeof(HomeAudioViewModel));
         }
+
         public ObservableCollection<Audio_Category> CatAudioList
         {
             get => (ObservableCollection<Audio_Category>)GetValue(CatAudioListProperty);

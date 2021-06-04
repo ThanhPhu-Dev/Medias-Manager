@@ -130,12 +130,6 @@
                 <Image Width="230"
                     Panel.ZIndex="1"
                     Source="{Binding Image, Converter={StaticResource imageCvt}}" Stretch="Fill" />
-                <!--<TextBlock Text="Bài Hát" Name="tb_nameaudio"
-                                       Foreground="#fff"
-                                       FontSize="20"
-                                       FontWeight="DemiBold"
-                                      IsHitTestVisible="True"
-                                       Panel.ZIndex="0" />-->
             </Grid>
         </DataTemplate>
         <!--template khi đã hover-->

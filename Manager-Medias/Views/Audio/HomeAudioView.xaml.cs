@@ -60,5 +60,9 @@ namespace Manager_Medias.Views.Audio
                 parent.RaiseEvent(eventArg);
             }
         }
+
+        private void lb_carousel_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+        }
     }
 }

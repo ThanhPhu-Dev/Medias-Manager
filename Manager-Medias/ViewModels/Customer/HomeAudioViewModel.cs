@@ -14,22 +14,8 @@ namespace Manager_Medias.ViewModels.Customer
 {
     public class HomeAudioViewModel : BaseViewModel
     {
-        private bool _isOpenDetail = false;
-
-        public bool IsOpenDetail
-        {
-            get => _isOpenDetail;
-            set
-            {
-                _isOpenDetail = value;
-                OnPropertyChanged();
-            }
-        }
-
         public static readonly DependencyProperty CatAudioListProperty;
         public ICommand CmdToDetailAudio { get; set; }
-        public ICommand CmdOpenDetail { get; set; }
-        public ICommand CmdCloseDetail { get; set; }
 
         static HomeAudioViewModel()
         {
@@ -46,8 +32,6 @@ namespace Manager_Medias.ViewModels.Customer
         {
             LoadMovie();
             CmdToDetailAudio = new RelayCommand<object>(ToDetailAudio);
-            CmdOpenDetail = new RelayCommand<object>((object o) => IsOpenDetail = true);
-            CmdCloseDetail = new RelayCommand<object>((object o) => IsOpenDetail = false);
         }
 
         private void ToDetailAudio(object obj)

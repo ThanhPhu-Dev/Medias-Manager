@@ -179,13 +179,6 @@
                             Padding="2"
                             SnapsToDevicePixels="true">
                             <ContentPresenter />
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="MouseLeftButtonDown">
-                                    <i:InvokeCommandAction Command="{Binding DataContext.CmdOpenDetail,
-                                                                          RelativeSource={RelativeSource Mode=FindAncestor,
-                                                                          AncestorType={x:Type view:HomeAudioView}}}" />
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsSelected"
@@ -270,6 +263,24 @@
                                     <StackPanel VerticalAlignment="Center"
                                                 Grid.ColumnSpan="3"
                                                 HorizontalAlignment="Center" Margin="0">
+                                        <StackPanel.Triggers>
+                                            <EventTrigger RoutedEvent="ListBox.PreviewMouseDown" SourceName="lb_carousel">
+                                                <BeginStoryboard>
+                                                    <Storyboard Storyboard.Target="{Binding ElementName=detailAudio}"
+                                                                Storyboard.TargetProperty="Height">
+                                                        <DoubleAnimation Duration="0:0:0.2" From="0" To="300" />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </EventTrigger>
+                                            <EventTrigger RoutedEvent="Button.Click" SourceName="btn_closeDetailAudio">
+                                                <BeginStoryboard>
+                                                    <Storyboard Storyboard.Target="{Binding ElementName=detailAudio}"
+                                                                Storyboard.TargetProperty="Height">
+                                                        <DoubleAnimation Duration="0:0:0.2" From="300" To="0" />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </EventTrigger>
+                                        </StackPanel.Triggers>
                                         <!--binding audio tren carousel-->
                                         <ListBox Margin="0" x:Name="lb_carousel"
                                                  ItemsSource="{Binding Audios}"
@@ -331,7 +342,9 @@
                                         </ListBox>
 
                                         <!--chi tiet audio-->
-                                        <Border BorderBrush="#FFB3A89B" BorderThickness="1" Name="detailAudio">
+                                        <Border BorderBrush="#FFB3A89B" BorderThickness="1"
+                                                Name="detailAudio"
+                                                Height="0">
                                             <Grid Margin="0 10 0 0">
                                                 <Grid.Resources>
                                                     <Style TargetType="TextBlock">
@@ -396,36 +409,6 @@
                                                     <materialDesign:PackIcon Kind="Close" Height="30" Width="30" Foreground="#fff" />
                                                 </Button>
                                             </Grid>
-                                            <Border.Style>
-                                                <Style TargetType="{x:Type Border}">
-                                                    <Setter Property="Height" Value="0" />
-                                                    <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding DataContext.IsOpenDetail,
-                                                                RelativeSource={RelativeSource Mode=FindAncestor,
-                                                               AncestorType={x:Type ItemsControl}}}" Value="True">
-                                                            <DataTrigger.EnterActions>
-                                                                <BeginStoryboard>
-                                                                    <Storyboard Storyboard.TargetProperty="Height">
-                                                                        <DoubleAnimation Duration="0:0:0.2" From="0" To="300" />
-                                                                    </Storyboard>
-                                                                </BeginStoryboard>
-                                                            </DataTrigger.EnterActions>
-                                                            <DataTrigger.ExitActions>
-                                                                <BeginStoryboard>
-                                                                    <Storyboard Storyboard.TargetProperty="Height">
-                                                                        <DoubleAnimation Duration="0:0:0.2" From="300" To="0" />
-                                                                    </Storyboard>
-                                                                </BeginStoryboard>
-                                                            </DataTrigger.ExitActions>
-                                                            <!--<Setter Property="Height" Value="300" />-->
-                                                        </DataTrigger>
-                                                        <!--<DataTrigger Binding="{Binding DataContext.IsOpenDetail,
-                                                                RelativeSource={RelativeSource Mode=FindAncestor,
-                                                               AncestorType={x:Type ItemsControl}}}" Value="False">
-                                                        </DataTrigger>-->
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </Border.Style>
                                         </Border>
                                     </StackPanel>
                                 </Grid>

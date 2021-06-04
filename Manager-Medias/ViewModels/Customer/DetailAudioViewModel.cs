@@ -113,7 +113,7 @@ namespace Manager_Medias.ViewModels.Customer
                     CheckSave = false;
                     if (db.SaveChanges() > 0)
                     {
-                        Message = "Đã xóa khỏi danh sách cá nhận";
+                        Message = "Đã xóa khỏi danh sách cá nhân";
                     }
                 }
                 else

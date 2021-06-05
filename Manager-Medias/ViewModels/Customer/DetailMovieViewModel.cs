@@ -40,6 +40,17 @@ namespace Manager_Medias.ViewModels.Customer
             }
         }
 
+        private string _message;
+        public string Message
+        {
+            get => _message;
+            set
+            {
+                _message = value;
+                OnPropertyChanged();
+            }
+        }
+
         public DetailMovieCustomModel DetailMovies
         {
             get => (DetailMovieCustomModel)GetValue(MovieProperty);
@@ -121,16 +132,16 @@ namespace Manager_Medias.ViewModels.Customer
 
         public void loaded()
         {
-            using (var x = new MediasManangementEntities())
+            using (var db = new MediasManangementEntities())
             {
-                Movie Movie = x.Movies.Where(p => p.Id == id).FirstOrDefault() as Movie;
+                Movie Movie = db.Movies.Where(p => p.Id == id).FirstOrDefault() as Movie;
                 DetailMovies = new DetailMovieCustomModel()
                 {
                     Id = Movie.Id,
                     Name = Movie.Name,
                     Description = Movie.Description,
                     IMDB = Movie.IMDB.Value,
-                    Level = "Cấp Độ " + x.Levels.Where(p => p.Id == Movie.Media.Lvl).FirstOrDefault().Name,
+                    Level = "Cấp Độ " + db.Levels.Where(p => p.Id == Movie.Media.Lvl).FirstOrDefault().Name,
                     like = Movie.Likes.Value,
                     Category = Movie.Movie_Categories.Name,
                     Time = Movie.Time,
@@ -140,6 +151,7 @@ namespace Manager_Medias.ViewModels.Customer
                     Directors = Movie.Directors,
                     Nation = Movie.Nation,
                 };
+                CheckSave = db.My_Lists.Where(p => p.IdProfile == _userStore.CurrentProfile.Id && p.IdMedia == id).Any();
             }
         }
 
@@ -150,7 +162,7 @@ namespace Manager_Medias.ViewModels.Customer
             {
                 Date = DateTime.Now.Date,
                 IdMedia = id,
-                IdProfile = 1,
+                IdProfile = _userStore.CurrentProfile.Id,
             };
             using (var db = new MediasManangementEntities())
             {
@@ -159,11 +171,13 @@ namespace Manager_Medias.ViewModels.Customer
                 if (like == null)
                 {
                     mv.Likes++;
+                    Message = "Đã thêm danh sách yêu thích";
                     db.Likes.Add(lkenew);
                 }
                 else
                 {
                     mv.Likes--;
+                    Message = "Đã xóa khỏi danh sách yêu thích";
                     db.Likes.Remove(like);
                 };
                 db.SaveChanges();
@@ -195,10 +209,14 @@ namespace Manager_Medias.ViewModels.Customer
                 My_List mydelete = db.My_Lists.Where(p => p.IdMedia == my_List.IdMedia && p.IdProfile == my_List.IdProfile).FirstOrDefault() as My_List;
                 if (mydelete != null)
                 {
+                    CheckSave = false;
+                    Message = "Đã thêm danh sách myList";
                     db.My_Lists.Remove(mydelete);
                 }
                 else
                 {
+                    CheckSave = true;
+                    Message = "Đã xóa khỏi danh sách myList";
                     db.My_Lists.Add(my_List);
                 }
                 db.SaveChanges();

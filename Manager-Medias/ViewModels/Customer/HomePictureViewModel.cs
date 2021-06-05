@@ -16,12 +16,10 @@ namespace Manager_Medias.ViewModels.Customer
     {
         public static readonly DependencyProperty AlbumProperty =
             DependencyProperty.Register("AlbumList", typeof(ObservableCollection<Album>), typeof(HomePictureViewModel));
-
         public ICommand CmdToDetailMovie { get; set; }
 
         //command like và lưu
         public ICommand CmdLike { get; set; }
-
         public ICommand CmdSave { get; set; }
         public ICommand CmdSelectionChange { get; set; }
         public int _currentProfileID;
@@ -62,6 +60,15 @@ namespace Manager_Medias.ViewModels.Customer
                 OnPropertyChanged();
             }
         }
+        public bool ToggleButton
+        {
+            get => _toggleButton;
+            set
+            {
+                _toggleButton = value;
+                OnPropertyChanged();
+            }
+        }
 
         public int Level => (int)_userStore.CurrentUser.Level;
 
@@ -71,17 +78,23 @@ namespace Manager_Medias.ViewModels.Customer
         private string _message;
         private bool _checkLike;
         private bool _checkSave;
+        private bool _toggleButton;
 
         public HomePictureViewModel()
         {
             _currentProfileID = _userStore.CurrentProfile.Id;
 
             //gọi hàm load giao diện
-            LoadAlbum();
-            LoadLikeAndSave();
-            //command
-            CmdToDetailMovie = new RelayCommand<object>(ToDetailMovie);
+            using (var db = new MediasManangementEntities())
+            {
+                AlbumList = new ObservableCollection<Album>(db.Albums.Include("Album_Details")
+                                                                     .Include("Media").ToList());
+            }
 
+            //gán 2 nút like save Isnable
+            ToggleButton = false;
+
+            //command
             CmdLike = new RelayCommand<object>(Likemt);
             CmdSave = new RelayCommand<object>(Savemt);
             CmdSelectionChange = new RelayCommand<object>(SelectionChangemt);
@@ -95,10 +108,9 @@ namespace Manager_Medias.ViewModels.Customer
             //gọi hàm load giao diện
             LoadSelectedAlbum();
             LoadAlbum();
-            LoadLikeAndSave();
-            //command
-            CmdToDetailMovie = new RelayCommand<object>(ToDetailMovie);
+            LoadLikeAndSave(idAlbum);
 
+            //command
             CmdLike = new RelayCommand<object>(Likemt);
             CmdSave = new RelayCommand<object>(Savemt);
             CmdSelectionChange = new RelayCommand<object>(SelectionChangemt);
@@ -114,13 +126,20 @@ namespace Manager_Medias.ViewModels.Customer
                 if (Level < selected.Media.Lvl)
                 {
                     lb.SelectedIndex = -1;
+
+                    //gán 2 nút like save Isnable
+                    ToggleButton = false;
+                    //cho 2 nút trở lại như chưa check
+                    CheckLike = false;
+                    CheckSave = false;
+                }
+                else
+                {
+                    LoadLikeAndSave(selected.Id);
+                    ToggleButton = true;
+                    
                 }
             }
-            //LoadLikeAndSave();
-        }
-
-        private void ToDetailMovie(object obj)
-        {
         }
 
         private void LoadSelectedAlbum()
@@ -153,7 +172,7 @@ namespace Manager_Medias.ViewModels.Customer
             {
                 if (CheckLike)
                 {
-                    var likeSelect = db.Likes.Where(l => l.IdMedia == mediaId).Single() as Like;
+                    var likeSelect = db.Likes.Where(l => l.IdMedia == mediaId && l.IdProfile == li.IdProfile).Single() as Like;
                     db.Likes.Remove(likeSelect);
                     CheckLike = false;
                     if (db.SaveChanges() > 0)
@@ -175,18 +194,25 @@ namespace Manager_Medias.ViewModels.Customer
 
         private void Savemt(object obj)
         {
-            int mediaId = (int)obj;
+            var lb = (ListBox)obj;
+
+            var album = (Album)lb.SelectedItem;
+            if (lb.SelectedIndex < 0)
+            {
+                return;
+            }
+
             My_List li = new My_List()
             {
                 IdProfile = _currentProfileID,
-                IdMedia = mediaId,
+                IdMedia = album.Id,
                 //date
             };
             using (var db = new MediasManangementEntities())
             {
                 if (CheckSave)
                 {
-                    var likeSelect = db.My_Lists.Where(l => l.IdMedia == mediaId).Single() as My_List;
+                    var likeSelect = db.My_Lists.Where(l => l.IdMedia == album.Id && l.IdProfile == li.IdProfile).Single() as My_List;
                     db.My_Lists.Remove(likeSelect);
                     CheckSave = false;
                     if (db.SaveChanges() > 0)
@@ -206,14 +232,12 @@ namespace Manager_Medias.ViewModels.Customer
             }
         }
 
-        private void LoadLikeAndSave()
+        private void LoadLikeAndSave(int albumId)
         {
             using (var db = new MediasManangementEntities())
             {
-                //ktr xem đã like và lưu bài nhạc này chưa
-                //chưa có user id
-                var nLike = db.Likes.Where(l => l.IdMedia == AlbumSelectedItem.Id && l.IdProfile == _currentProfileID).Count();
-                var nSave = db.My_Lists.Where(l => l.IdMedia == AlbumSelectedItem.Id && l.IdProfile == _currentProfileID).Count();
+                var nLike = db.Likes.Where(l => l.IdMedia == albumId && l.IdProfile == _currentProfileID).Count();
+                var nSave = db.My_Lists.Where(l => l.IdMedia == albumId && l.IdProfile == _currentProfileID).Count();
 
                 CheckLike = true ? nLike > 0 : false;
                 CheckSave = true ? nSave > 0 : false;

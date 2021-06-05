@@ -531,7 +531,7 @@
                                                 CornerRadius="1" />
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" HorizontalAlignment="Right">
-                                <ToggleButton Padding="0"
+                                <ToggleButton Padding="0" IsEnabled="{Binding ToggleButton}"
                                           Background="Transparent"
                                           Foreground="#febb00"
                                           BorderThickness="0"
@@ -567,7 +567,7 @@
                                         </Style>
                                     </ToggleButton.Style>
                                 </ToggleButton>
-                                <ToggleButton  Padding="0"
+                                <ToggleButton  Padding="0" IsEnabled="{Binding ToggleButton}"
                                            Background="Transparent"
                                            Foreground="#febb00"
                                            BorderThickness="0"
@@ -578,7 +578,7 @@
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="Click">
                                             <i:InvokeCommandAction Command="{Binding CmdSave}"
-                                                               CommandParameter="{Binding ElementName=lb_carousel, Path=SelectedItem.Id}" />
+                                                               CommandParameter="{Binding ElementName=lb_carousel}" />
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>
                                     <ToggleButton.Style>
@@ -678,33 +678,35 @@
                         </ListBox>
                     </Grid>
                     <!--message-->
-                    <Canvas
-                        Grid.RowSpan="3"
-                        Grid.ColumnSpan="4"
-                        VerticalAlignment="Top"
-                        HorizontalAlignment="Right"
-                        Panel.ZIndex="10">
-                        <Border Background="#fff"
-                            Width="0"
-                            Height="100"
-                            Canvas.Right="0"
-                            CornerRadius="18"
-                            Padding="10 0"
-                            Margin="10"
-                            Name="bd_Message">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="55" />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
+                  
+                </Grid>
+            </StackPanel>
+            <Canvas
+                Grid.ColumnSpan="3"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Right"
+                Panel.ZIndex="10">
+                <Border Background="#fff"
+                        Width="0"
+                        Height="100"
+                        Canvas.Right="0"
+                        CornerRadius="18"
+                        Padding="10 0"
+                        Margin="10"
+                        Name="bd_Message">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="55" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
 
-                                <materialDesign:PackIcon Kind="CheckCircleOutline"
+                        <materialDesign:PackIcon Kind="CheckCircleOutline"
                                              Width="55"
                                              Height="55"
                                              Foreground="#ffbb00"
                                              VerticalAlignment="Center"
                                              HorizontalAlignment="Center" />
-                                <TextBlock Text="{Binding Message}"
+                        <TextBlock Text="{Binding Message}"
                                Grid.Column="1"
                                FontSize="20"
                                TextWrapping="Wrap"
@@ -714,7 +716,7 @@
                                Padding="10 0 0 0"
                                Foreground="#222" />
 
-                                <Button Name="btn_closeMessage"
+                        <Button Name="btn_closeMessage"
                             Grid.Column="1"
                             BorderThickness="0"
                             BorderBrush="Transparent"
@@ -725,15 +727,13 @@
                             VerticalAlignment="Top"
                             Height="24" Width="24"
                             Margin="0 7 0 0">
-                                    <materialDesign:PackIcon Kind="Close"
+                            <materialDesign:PackIcon Kind="Close"
                                                  Height="20" Width="20"
                                                  Foreground="#222" />
-                                </Button>
-                            </Grid>
-                        </Border>
-                    </Canvas>
-                </Grid>
-            </StackPanel>
+                        </Button>
+                    </Grid>
+                </Border>
+            </Canvas>
         </Grid>
     </ScrollViewer>
 </UserControl>

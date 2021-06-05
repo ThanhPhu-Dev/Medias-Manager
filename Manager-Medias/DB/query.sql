@@ -303,4 +303,8 @@ insert into Movies (Id, IdCategory, IMDB, Likes, Name, NumberOfViews, Poster, Ag
 
 insert into Movies (Id, IdCategory,IMDB,Likes,Name,NumberOfViews,Poster,Age,Description,Season,Time,Video)
 values (7,1,6.5,4,N'Super Hero', 23, 'movieposter_postermovieHuter.jpg', 18,N'Super hero hân hạnh tài trợ', 'kn92','00:12:30','movievideo_video.mp4')
-
+select * from movies
+update movies set Poster='movieposter_posterlunglinh.jpg', Name=N'Linh Lung Lang Tâm', 
+Description= N'Linh Lung Lang Tâm xoay quanh một cô gái hiện đại được tái sinh về thời cổ trang trong thân thể của một cô công chúa ẩn sống yên bình, lặng lẽ mang trong mình linh hồn của một con sói hai là con người. Tên phim Linh Lung Lang Tâm bắt nguồn từ vương quốc với những điều kỳ bí về những con mãnh thú với sự xuất hiện của chàng hoàng tử người khả ái, lạnh lùng và đầy bí ẩn khiến phim trở nên thú vị và bí mật về linh hồn con sói trong người vị công chúa này cũng dần được các vị hoàng tử tìm hiểu dần dần.', 
+ Nation = N'Trung Quốc', Directors=N'Cao Lâm Báo', Time='00:45:00' where Id = 7
+ update movies set Video='movievideo_video.mp4' where Id=18

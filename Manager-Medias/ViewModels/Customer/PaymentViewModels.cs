@@ -18,11 +18,26 @@ namespace Manager_Medias.ViewModels.Customer
         public static readonly DependencyProperty userProperty =
             DependencyProperty.Register("userinfo", typeof(User), typeof(PaymentViewModels));
         public ICommand OpenNewModal { get; set; }
+        public ICommand submit { get; set; }
+        public ICommand CloseEditModalCmd { get; set; }
 
         public ObservableCollection<Level> lstlvl
         {
             get => (ObservableCollection<Level>)GetValue(LevelListProperty);
             set => SetValue(LevelListProperty, value);
+        }
+
+        private int lvlIdUp;
+
+        private string _lvlIdCurrent;
+        public string LvlIdCurrent
+        {
+            get => _lvlIdCurrent;
+            set
+            {
+                _lvlIdCurrent = value;
+                OnPropertyChanged();
+            }
         }
 
         public User userinfo
@@ -31,13 +46,13 @@ namespace Manager_Medias.ViewModels.Customer
             set => SetValue(userProperty, value);
         }
 
-        private string lvl;
-        public string Level
+        private string _lvlNameCurrent;
+        public string LevelNameCurrent
         {
-            get => lvl;
+            get => _lvlNameCurrent;
             set
             {
-                lvl = value;
+                _lvlNameCurrent = value;
                 OnPropertyChanged();
             }
         }
@@ -52,11 +67,83 @@ namespace Manager_Medias.ViewModels.Customer
                 OnPropertyChanged();
             }
         }
+
+        private string _message;
+        public string Message
+        {
+            get => _message;
+            set
+            {
+                _message = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _levelNameUp;
+        public string LevelUpName
+        {
+            get => _levelNameUp;
+            set
+            {
+                _levelNameUp = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _priceLevelUp;
+        public string PriceLevelUp
+        {
+            get => _priceLevelUp;
+            set
+            {
+                _priceLevelUp = value;
+                OnPropertyChanged();
+            }
+        }
+
         public PaymentViewModels()
         {
             //gọi hàm load giao diện
             Loaded();
-            OpenNewModal = new RelayCommand<Object>((Object o) => IsModalOpen = true);
+            //OpenNewModal = new RelayCommand<Object>((Object o) => IsModalOpen = true);
+            OpenNewModal = new RelayCommand<Object>(openmodal);
+            CloseEditModalCmd = new RelayCommand<Object>((Object) => IsModalOpen = false);
+            submit = new RelayCommand<Object>(submitChange);
+        }
+
+        private void submitChange(object obj)
+        {
+            using (var db = new MediasManangementEntities())
+            {
+                User user = db.Users.Where(p => p.Email == _userStore.Email).FirstOrDefault() as User;
+                user.Level = lvlIdUp;
+                db.SaveChanges();
+            }
+            IsModalOpen = false;
+            LvlIdCurrent = _priceLevelUp;
+            Message = "Thanh toán thành công";
+        }
+
+        private void openmodal(object obj)
+        {
+            lvlIdUp = int.Parse(obj.ToString());
+            using (var db = new MediasManangementEntities())
+            {
+                Level lvlup = db.Levels.Where(p => p.Id == lvlIdUp).FirstOrDefault() as Level;
+                var user = db.Users.Where(p => p.Email == _userStore.Email).FirstOrDefault() as User;
+                if(lvlIdUp > user.Level)
+                {
+                    IsModalOpen = true;
+                    LevelUpName = lvlup.Name;
+                    PriceLevelUp = lvlup.Price.ToString();
+                    LevelNameCurrent = user.Lvl.Name;
+                }
+                else
+                {
+                    Message = "Vui lòng chọn gói có cấp độ cao hơn cấp độ hiện tại";
+                    IsModalOpen = false;
+                }
+            }
         }
 
         private void Loaded()
@@ -66,6 +153,7 @@ namespace Manager_Medias.ViewModels.Customer
                 //cập nhật danh sách bài hát liên quan (chung danh mục) cho UI
                 lstlvl = new ObservableCollection<Level>(db.Levels.ToList());
                 userinfo = db.Users.Where(p => p.Email == _userStore.Email).FirstOrDefault() as User;
+                LvlIdCurrent = userinfo.Level.ToString();
             }
         }
     }

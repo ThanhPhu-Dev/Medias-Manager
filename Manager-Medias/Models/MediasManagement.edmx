@@ -306,6 +306,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Users_Levels">
+          <End Role="Levels" Type="Self.Levels" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Levels">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="Level" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ViewHistory_Medias">
           <End Role="Medias" Type="Self.Medias" Multiplicity="0..1" />
           <End Role="View_History" Type="Self.View_History" Multiplicity="*" />
@@ -398,6 +410,10 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Profiles" EntitySet="Profiles" />
           </AssociationSet>
+          <AssociationSet Name="FK_Users_Levels" Association="Self.FK_Users_Levels">
+            <End Role="Levels" EntitySet="Levels" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
           <AssociationSet Name="FK_ViewHistory_Medias" Association="Self.FK_ViewHistory_Medias">
             <End Role="Medias" EntitySet="Medias" />
             <End Role="View_History" EntitySet="View_History" />
@@ -462,6 +478,7 @@
           <NavigationProperty Name="Medias" Relationship="Self.FK_Medias_Levels" FromRole="Levels" ToRole="Medias" />
           <Property Name="Quality" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Resolution" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="MediasManangementModel.FK_Users_Levels" FromRole="Level" ToRole="User" />
         </EntityType>
         <EntityType Name="Like">
           <Key>
@@ -573,6 +590,7 @@
           <NavigationProperty Name="Payment_History" Relationship="Self.FK_PaymentHistory_User" FromRole="Users" ToRole="Payment_History" />
           <NavigationProperty Name="Profiles" Relationship="Self.FK_Profile_User" FromRole="Users" ToRole="Profiles" />
           <Property Name="Exp" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Lvl" Relationship="MediasManangementModel.FK_Users_Levels" FromRole="User" ToRole="Level" />
         </EntityType>
         <EntityType Name="View_History">
           <Key>
@@ -842,7 +860,23 @@
             <End Role="Profiles" EntitySet="Profiles" />
             <End Role="View_History" EntitySet="View_History" />
           </AssociationSet>
+          <AssociationSet Name="FK_Users_Levels" Association="MediasManangementModel.FK_Users_Levels">
+            <End Role="Level" EntitySet="Levels" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="FK_Users_Levels">
+          <End Type="MediasManangementModel.Level" Role="Level" Multiplicity="0..1" />
+          <End Type="MediasManangementModel.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Level">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="Level" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->

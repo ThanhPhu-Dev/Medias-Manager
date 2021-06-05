@@ -32,5 +32,6 @@ namespace Manager_Medias.Models
         public virtual ICollection<Payment_History> Payment_History { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Profile> Profiles { get; set; }
+        public virtual Level Lvl { get; set; }
     }
 }

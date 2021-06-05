@@ -35,6 +35,7 @@
         <AssociationConnector Association="MediasManangementModel.FK_PaymentHistory_User" ManuallyRouted="false" />
         <AssociationConnector Association="MediasManangementModel.FK_Profile_User" ManuallyRouted="false" />
         <AssociationConnector Association="MediasManangementModel.FK_ViewHistory_Profiles" ManuallyRouted="false" />
+        <AssociationConnector Association="MediasManangementModel.FK_Users_Levels" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

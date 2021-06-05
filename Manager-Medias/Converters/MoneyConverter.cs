@@ -12,6 +12,10 @@ namespace Manager_Medias.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            if(value == null)
+            {
+                return null;
+            }
             var money = int.Parse(value.ToString());
             CultureInfo cul = CultureInfo.GetCultureInfo("vi-VN");
             string result = money.ToString("#,###", cul.NumberFormat) + " VND";

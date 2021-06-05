@@ -38,7 +38,6 @@ namespace Manager_Medias.Views.Movie
 
         private void timelineSlider_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
         {
-            isSeekingMedia = false;
             int SliderValue = (int)timelineSlider.Value;
 
             // Overloaded constructor takes the arguments days, hours, minutes, seconds, milliseconds.
@@ -50,22 +49,22 @@ namespace Manager_Medias.Views.Movie
 
         private void audio_MediaOpened(object sender, RoutedEventArgs e)
         {
-            InitPosition();
             timelineSlider.Maximum = mea_video.NaturalDuration.TimeSpan.TotalMilliseconds;
             seeker = new DispatcherTimer();
             seeker.Interval = TimeSpan.FromSeconds(1);
             seeker.Tick += Seeker_Tick;
             seeker.Start();
+            InitPosition();
         }
 
         private void InitPosition()
         {
+            isSeekingMedia = true;
             int SliderValue = (int)timelineSlider.Value;
 
-            // Overloaded constructor takes the arguments days, hours, minutes, seconds, milliseconds.
-            // Create a TimeSpan with miliseconds equal to the slider value.
             TimeSpan ts = new TimeSpan(0, 0, 0, 0, SliderValue);
             mea_video.Position = ts;
+            isSeekingMedia = false;
         }
 
         private void Seeker_Tick(object sender, EventArgs e)

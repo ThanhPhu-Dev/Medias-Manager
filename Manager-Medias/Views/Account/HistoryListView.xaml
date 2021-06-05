@@ -76,8 +76,8 @@
                         </Behaviors:Interaction.Triggers>
                         <Grid>
                             <materialDesign:Card
-                        UniformCornerRadius="3"
-                        Background="Transparent">
+                                UniformCornerRadius="3"
+                                Background="Transparent">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="{Binding ActualHeight, ElementName=Item}" />
@@ -87,44 +87,51 @@
                                     <Border Grid.Column="0" CornerRadius="3" ClipToBounds="True">
                                         <Image Source="{Binding Image, Converter={StaticResource imgCvt}}" />
                                     </Border>
-                                    <StackPanel Grid.Column="2">
-                                        <TextBlock Text="{Binding Name}"
-                                           TextWrapping="Wrap"
-                                           FontSize="18"
-                                           FontWeight="Medium"
-                                           Foreground="#fff"
-                                           Margin="0 12 0 0" />
-                                        <StackPanel Orientation="Horizontal"
+                                    <DockPanel LastChildFill="True"
+                                                Grid.Column="2"
+                                                Height="{Binding ElementName=Item, Path=ActualHeight}">
+                                        <StackPanel DockPanel.Dock="Top">
+                                            <TextBlock Text="{Binding Name}"
+                                                    TextWrapping="Wrap"
+                                                    FontSize="18"
+                                                    FontWeight="Medium"
+                                                    Foreground="#fff" />
+                                            <StackPanel Orientation="Horizontal"
                                                     Margin="0 12 0 0">
-                                            <TextBlock Text="{Binding MediaType}"
+                                                <TextBlock Text="{Binding MediaType}"
                                                     Foreground="#fff"
                                                     FontSize="14"
                                                     VerticalAlignment="Center" />
-                                            <TextBlock Text="{Binding Time, StringFormat='{}  -  Thời lượng: {0}' }"
+                                                <TextBlock Text="{Binding Time, StringFormat='{}  -  Thời lượng: {0}' }"
                                                     Foreground="#fff"
                                                     FontSize="14"
                                                     VerticalAlignment="Center">
-                                                <TextBlock.Style>
-                                                    <Style TargetType="TextBlock">
-                                                        <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding Time}" Value="{x:Null}">
-                                                                <Setter Property="Visibility" Value="Hidden" />
-                                                            </DataTrigger>
-                                                        </Style.Triggers>
-                                                    </Style>
-                                                </TextBlock.Style>
-                                            </TextBlock>
+                                                    <TextBlock.Style>
+                                                        <Style TargetType="TextBlock">
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding Time}" Value="{x:Null}">
+                                                                    <Setter Property="Visibility" Value="Hidden" />
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </TextBlock.Style>
+                                                </TextBlock>
+                                            </StackPanel>
                                         </StackPanel>
 
-                                        <DockPanel LastChildFill="True">
+                                        <DockPanel LastChildFill="True"
+                                                    DockPanel.Dock="Bottom"
+                                                    Margin="0 0 0 20">
                                             <TextBlock Text="{Binding Date, StringFormat='{}Đã xem ngày {0}', Converter={StaticResource dateCvt}}"
-                                                    Foreground="#FFB8B8B8"
-                                                    FontSize="13"
-                                                    VerticalAlignment="Bottom"
-                                                    DockPanel.Dock="Left"
-                                                       FontWeight="Light" />
+                                                Foreground="#FFB8B8B8"
+                                                FontSize="13"
+                                                VerticalAlignment="Bottom"
+                                                HorizontalAlignment="Left"
+                                                DockPanel.Dock="Bottom"
+                                                FontWeight="Light"
+                                                Margin="0 0 0 2" />
                                         </DockPanel>
-                                    </StackPanel>
+                                    </DockPanel>
                                 </Grid>
                             </materialDesign:Card>
                         </Grid>

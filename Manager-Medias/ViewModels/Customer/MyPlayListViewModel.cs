@@ -61,7 +61,8 @@ namespace Manager_Medias.ViewModels.Customer
 
             NavigateDetailMovie = new NavigateCommand<DetailMovieViewModel>(
                                    new NavigationService<DetailMovieViewModel>(_navigationStore, () =>
-                                   new DetailMovieViewModel((PlayList.CurrentItem as MediaCustomModel).MediaID)));
+                                   new DetailMovieViewModel((PlayList.CurrentItem as MediaCustomModel).MediaID,
+                                                            (PlayList.CurrentItem as MediaCustomModel).HistoryID)));
 
             RemoveCmd = new RelayCommand<Object>(ActionRemove);
 
@@ -97,9 +98,13 @@ namespace Manager_Medias.ViewModels.Customer
 
                             if (history.Any())
                             {
+                                var ht = history.Single(h => h.time ==
+                                        history.Select(s => s.time).Cast<int>().Max().ToString());
+
+                                media.HistoryID = ht.Id;
                                 media.IsWatched = true;
-                                media.WatchedDate = (DateTime)history.Single().Date;
-                                media.TimeWatched = double.Parse(history.Single().time);
+                                media.WatchedDate = (DateTime)ht.Date;
+                                media.TimeWatched = double.Parse(ht.time);
                                 var time = item.Media.Movy.Time;
                                 string[] t = time.Split(':');
                                 TimeSpan tsMax = new TimeSpan(int.Parse(t[0]), int.Parse(t[1]), int.Parse(t[2]));
@@ -125,7 +130,8 @@ namespace Manager_Medias.ViewModels.Customer
                             media.MediaType = "Hình ảnh";
                             if (history.Any())
                             {
-                                media.WatchedDate = (DateTime)history.Single().Date;
+                                var ht = history.OrderByDescending(h => h.Date).FirstOrDefault();
+                                media.WatchedDate = (DateTime)ht.Date;
                                 media.WatchedPercent = "100";
                             }
                             break;
@@ -140,7 +146,11 @@ namespace Manager_Medias.ViewModels.Customer
                             media.MediaType = "Âm nhạc";
                             if (history.Any())
                             {
-                                media.WatchedDate = (DateTime)history.Single().Date;
+                                var ht = history.Single(h => h.time ==
+                                                history.Select(s => s.time).Cast<int>().Max().ToString());
+
+                                media.HistoryID = ht.Id;
+                                media.WatchedDate = (DateTime)ht.Date;
                                 media.WatchedPercent = "100";
                             }
                             break;

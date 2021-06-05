@@ -27,6 +27,7 @@ namespace Manager_Medias.ViewModels.Customer
         public ICommand AudioCmd { get; set; }
         public ICommand PictureCmd { get; set; }
         public ICommand PaymentCmd { get; set; }
+
         #endregion Command
 
         #region Binding
@@ -39,6 +40,11 @@ namespace Manager_Medias.ViewModels.Customer
         public string ProfileName
         {
             get => _userStore.ProfileName;
+        }
+
+        public string LevelName
+        {
+            get => _userStore.LevelName;
         }
 
         #endregion Binding

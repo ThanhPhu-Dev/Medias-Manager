@@ -93,6 +93,17 @@ namespace Manager_Medias.Stores
             }
         }
 
+        public string LevelName
+        {
+            get
+            {
+                using (var db = new MediasManangementEntities())
+                {
+                    return db.Users.Single(u => u.Email == _email).Lvl.Name;
+                }
+            }
+        }
+
         public ObservableCollection<Profile> Profiles
         {
             get
@@ -117,6 +128,8 @@ namespace Manager_Medias.Stores
 
         public event Action ProfileChanged;
 
+        public event Action LevelChanged;
+
         public UserStore(User user)
         {
             Email = user.Email;
@@ -135,6 +148,11 @@ namespace Manager_Medias.Stores
         public void OnProfileChanged()
         {
             ProfileChanged?.Invoke();
+        }
+
+        public void OnLevelChanged()
+        {
+            LevelChanged?.Invoke();
         }
     }
 }

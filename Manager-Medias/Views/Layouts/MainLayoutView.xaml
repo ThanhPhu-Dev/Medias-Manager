@@ -1,21 +1,18 @@
 ﻿<UserControl x:Class="Manager_Medias.Views.Layouts.MainLayoutView"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:Manager_Medias.Views.Layouts"
-             xmlns:viewmodels="clr-namespace:Manager_Medias.ViewModels.Customer"
-             xmlns:vhome="clr-namespace:Manager_Medias.Views.Home"
-             xmlns:vprofile="clr-namespace:Manager_Medias.Views.Account"
-             xmlns:vaudio ="clr-namespace:Manager_Medias.Views.Audio"
-             xmlns:vmovie ="clr-namespace:Manager_Medias.Views.Movie"
-             xmlns:vpicture ="clr-namespace:Manager_Medias.Views.Picture"
-             xmlns:vlogin ="clr-namespace:Manager_Medias.Views.Customer"
              xmlns:cv="clr-namespace:Manager_Medias.Converters"
+             xmlns:viewmodels="clr-namespace:Manager_Medias.ViewModels.Customer"
              xmlns:view="clr-namespace:Manager_Medias.Views"
+             xmlns:vprofile="clr-namespace:Manager_Medias.Views.Account"
+             xmlns:vaudio="clr-namespace:Manager_Medias.Views.Audio"
+             xmlns:vhome="clr-namespace:Manager_Medias.Views.Home"
+             xmlns:vmovie="clr-namespace:Manager_Medias.Views.Movie"
+             xmlns:vpicture="clr-namespace:Manager_Medias.Views.Picture"
              mc:Ignorable="d"
-             xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
              d:DesignHeight="650" d:DesignWidth="1200">
     <UserControl.Resources>
         <!--CONVERTER-->
@@ -201,7 +198,7 @@
                                                 </Ellipse.Stroke>
                                             </Ellipse>
                                         </Border>
-                                        <TextBlock Text="{Binding ProfileName, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}"
+                                        <TextBlock Text="{Binding ProfileName, UpdateSourceTrigger=PropertyChanged,                             NotifyOnSourceUpdated=True}"
                                            VerticalAlignment="Center"
                                            Margin="12 0 8 0" />
                                         <materialDesign:PackIcon VerticalAlignment="Center"
@@ -210,7 +207,7 @@
                                                 <Style TargetType="materialDesign:PackIcon">
                                                     <Setter Property="Kind"  Value="MenuDown" />
                                                     <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding ElementName=TogglePopup, Path=IsChecked}" Value="True">
+                                                        <DataTrigger Binding="{Binding ElementName=TogglePopup,                                             Path=IsChecked}" Value="True">
                                                             <Setter Property="Kind" Value="MenuUp" />
                                                         </DataTrigger>
                                                     </Style.Triggers>
@@ -232,6 +229,10 @@
                                     BorderThickness="1" BorderBrush="#FF363636"
                                     materialDesign:ShadowAssist.ShadowDepth="Depth2">
                                 <StackPanel Width="160" Height="Auto">
+                                    <Button Content="{Binding LevelName, StringFormat='{}Cấp độ: {0}'}"
+                                            Style="{StaticResource PopupItemButton}" />
+                                    <Separator Height="1" Foreground="{DynamicResource SecondaryAccentBrush}"
+                                               Margin="4" />
                                     <Button Content="Tài khoản"
                                             Style="{StaticResource PopupItemButton}"
                                             Command="{Binding NavigateAccountCmd}">
@@ -239,8 +240,7 @@
                                             <EventTrigger RoutedEvent="Button.Click">
                                                 <BeginStoryboard>
                                                     <Storyboard>
-                                                        <BooleanAnimationUsingKeyFrames Storyboard.TargetProperty="IsChecked"
-                                                                                        Storyboard.TargetName="TogglePopup">
+                                                        <BooleanAnimationUsingKeyFrames Storyboard.TargetProperty="IsChecked" Storyboard.TargetName="TogglePopup">
                                                             <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="False" />
                                                         </BooleanAnimationUsingKeyFrames>
                                                     </Storyboard>

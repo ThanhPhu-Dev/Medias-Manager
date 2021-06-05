@@ -15,18 +15,29 @@ namespace Manager_Medias.ViewModels.Customer
     public class DetailMovieViewModel : BaseViewModel
     {
         private int id;
-        public static readonly DependencyProperty MovieProperty;
+        private int historyID { get; set; }
+
+        public static readonly DependencyProperty MovieProperty =
+            DependencyProperty.Register("DetailMovies", typeof(DetailMovieCustomModel), typeof(DetailMovieViewModel));
+
         public ICommand CmdLikesClick { get; set; }
         public ICommand CmdShareClick { get; set; }
         public ICommand CmdErrorClick { get; set; }
         public ICommand CmdLike { get; set; }
         public ICommand CmdAddMyListClick { get; set; }
+        public ICommand CmdPlay { get; set; }
+
         private bool _checkSave;
+        private double _sliderValue = 0;
 
-
-        static DetailMovieViewModel()
+        public double SliderValue
         {
-            MovieProperty = DependencyProperty.Register("DetailMovies", typeof(DetailMovieCustomModel), typeof(DetailMovieViewModel));
+            get => _sliderValue;
+            set
+            {
+                _sliderValue = value;
+                OnPropertyChanged();
+            }
         }
 
         public DetailMovieCustomModel DetailMovies
@@ -51,11 +62,60 @@ namespace Manager_Medias.ViewModels.Customer
             CmdShareClick = new RelayCommand<Object>(Share);
             CmdErrorClick = new RelayCommand<Object>(Error);
             CmdAddMyListClick = new RelayCommand<Object>(AddMyList);
+            CmdPlay = new RelayCommand<Object>(AddEventOnClosingViewModel);
             this.id = idMovie;
             loaded();
+            CreateHistory();
         }
 
-     
+        public DetailMovieViewModel(int idMovie, int idHistory)
+        {
+            CmdLikesClick = new RelayCommand<Object>(Likes);
+            CmdShareClick = new RelayCommand<Object>(Share);
+            CmdErrorClick = new RelayCommand<Object>(Error);
+            CmdAddMyListClick = new RelayCommand<Object>(AddMyList);
+            this.id = idMovie;
+
+            loaded();
+            CreateHistory();
+
+            GetTimeStartMedia(idHistory);
+        }
+
+        public void AddEventOnClosingViewModel(Object o)
+        {
+            _navigationStore.CurrentContentViewModelChanged += OnClosingViewModel;
+            Application.Current.MainWindow.Closed += MainWindow_Closed;
+        }
+
+        private void MainWindow_Closed(object sender, EventArgs e)
+        {
+            using (var db = new MediasManangementEntities())
+            {
+                int milisecond = (int)SliderValue;
+
+                var ht = db.View_History.Single(h => h.Id == this.historyID);
+                ht.time = milisecond.ToString();
+
+                db.SaveChanges();
+            }
+        }
+
+        private void OnClosingViewModel()
+        {
+            using (var db = new MediasManangementEntities())
+            {
+                int milisecond = (int)SliderValue;
+
+                var ht = db.View_History.Single(h => h.Id == this.historyID);
+                ht.time = milisecond.ToString();
+
+                db.SaveChanges();
+            }
+            // Remove event
+            _navigationStore.CurrentContentViewModelChanged -= OnClosingViewModel;
+            Application.Current.MainWindow.Closed -= MainWindow_Closed;
+        }
 
         public void loaded()
         {
@@ -140,6 +200,34 @@ namespace Manager_Medias.ViewModels.Customer
                     db.My_Lists.Add(my_List);
                 }
                 db.SaveChanges();
+            }
+        }
+
+        public void CreateHistory()
+        {
+            using (var db = new MediasManangementEntities())
+            {
+                View_History ht = new View_History
+                {
+                    Date = DateTime.Now,
+                    IdMedia = this.id,
+                    IdProfile = _userStore.CurrentProfile.Id,
+                    time = "0"
+                };
+
+                db.View_History.Add(ht);
+                db.SaveChanges();
+
+                this.historyID = ht.Id;
+            }
+        }
+
+        public void GetTimeStartMedia(int idHistory)
+        {
+            using (var db = new MediasManangementEntities())
+            {
+                var ht = db.View_History.Single(h => h.Id == idHistory);
+                SliderValue = double.Parse(ht.time);
             }
         }
     }

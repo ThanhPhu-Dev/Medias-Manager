@@ -103,7 +103,7 @@
         </Style>
     </UserControl.Resources>
     <ScrollViewer>
-        <Grid >
+        <Grid Margin="0 0 0 20 ">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition Width="1.3*"/>
@@ -202,7 +202,8 @@
                        FontWeight="Light"/>
                 <StackPanel Background="#fff"
                         Margin="0 15">
-                    <TextBox Name="tb_Email"
+                    <TextBox 
+                        Name="tb_Email"
                         Style="{StaticResource MaterialDesignFilledTextBox}"
                         VerticalAlignment="Top"
                         Foreground="#222"
@@ -217,21 +218,7 @@
                         UpdateSourceTrigger=PropertyChanged}"
                         Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"/>
                 </StackPanel>
-                <StackPanel Background="#fff">
-                    <!--<TextBox Name="tb_Password"
-                    Style="{StaticResource MaterialDesignFilledTextBox}"
-                    VerticalAlignment="Top"
-                    Foreground="#222"
-                    AcceptsReturn="True"
-                    TextWrapping="Wrap"
-                    materialDesign:HintAssist.Hint="Mật khẩu"
-                    materialDesign:HintAssist.FloatingScale="0.55"
-                    materialDesign:TextFieldAssist.TextBoxViewMargin="0 -3 0 0"
-                    Height="60"
-                    FontSize="20"
-                    Text="{Binding Password, ValidatesOnNotifyDataErrors=True,
-                    UpdateSourceTrigger=PropertyChanged}"
-                        Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"/>-->
+                <StackPanel Background="#fff" Margin="0 15">
                     <component:PasswordBoxMaterialDesign x:Name="txtPassword" Password="{Binding Password, ValidatesOnNotifyDataErrors=True,
                         UpdateSourceTrigger=PropertyChanged}" 
                         Height="60"

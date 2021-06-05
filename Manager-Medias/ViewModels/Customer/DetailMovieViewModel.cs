@@ -74,6 +74,8 @@ namespace Manager_Medias.ViewModels.Customer
             CmdShareClick = new RelayCommand<Object>(Share);
             CmdErrorClick = new RelayCommand<Object>(Error);
             CmdAddMyListClick = new RelayCommand<Object>(AddMyList);
+            CmdPlay = new RelayCommand<Object>(AddEventOnClosingViewModel);
+
             this.id = idMovie;
 
             loaded();

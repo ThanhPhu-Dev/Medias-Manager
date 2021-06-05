@@ -10,6 +10,7 @@ namespace Manager_Medias.CustomModels
     {
         public int ID { get; set; } // like / history
         public int MediaID { get; set; }
+        public int HistoryID { get; set; }
         public string MediaType { get; set; }
         public DateTime Date { get; set; }
         public DateTime WatchedDate { get; set; }

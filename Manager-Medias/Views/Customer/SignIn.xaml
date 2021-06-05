@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:Manager_Medias.Views.Customer"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:cv="clr-namespace:Manager_Medias.Converters"
+             xmlns:component="clr-namespace:Manager_Medias.Views"
              mc:Ignorable="d"
              d:DesignHeight="550" d:DesignWidth="1000">
     <UserControl.Resources>
@@ -23,10 +24,10 @@
         <Style TargetType="TextBox">
             <Style.Triggers>
                 <Trigger Property="Validation.HasError" Value="True">
-                    <Setter Property="Background" Value="Pink"/>
+                    <Setter Property="Background" Value="Pink" />
                     <Setter Property="ToolTip"
                         Value="{Binding RelativeSource={x:Static RelativeSource.Self},
-                        Path=(Validation.Errors)[0].ErrorContent}"/>
+                        Path=(Validation.Errors)[0].ErrorContent}" />
                 </Trigger>
             </Style.Triggers>
         </Style>
@@ -39,7 +40,7 @@
                 <ItemsControl ItemsSource="{Binding}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding ErrorContent}" Foreground="Red" FontSize="14"/>
+                            <TextBlock Text="{Binding ErrorContent}" Foreground="Red" FontSize="14" />
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
@@ -66,7 +67,7 @@
                            FontSize="32px"
                            FontWeight="Bold"
                            Margin="0 50 0 5" />
-                
+
                 <StackPanel Background="#fff"
                         Margin="0 8">
                     <TextBox
@@ -81,29 +82,21 @@
                         materialDesign:HintAssist.FloatingScale="0.55"
                         materialDesign:TextFieldAssist.TextBoxViewMargin="0 -3 0 0"
                         Height="60"
-                        FontSize="18" 
+                        FontSize="18"
                         Text="{Binding Email, ValidatesOnNotifyDataErrors=True,
-                        UpdateSourceTrigger=LostFocus}"
-                        Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"/>
+                        UpdateSourceTrigger=PropertyChanged}"
+                        Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}" />
                 </StackPanel>
                 <StackPanel Background="#fff"
                         Margin="0 12">
-                    <TextBox
-                        x:Name="txtPassword"
-                        ToolTip="Tối thiểu 8 ký tự và có ít nhất một số"
-                        Style="{StaticResource MaterialDesignFilledTextBox}"
-                        VerticalAlignment="Top"
-                        Foreground="#222"
-                        AcceptsReturn="True"
-                        TextWrapping="Wrap"
-                        materialDesign:HintAssist.Hint="Mật khẩu"
-                        materialDesign:HintAssist.FloatingScale="0.55"
-                        materialDesign:TextFieldAssist.TextBoxViewMargin="0 -3 0 0"
+                    <component:PasswordBoxMaterialDesign x:Name="txtPassword" Password="{Binding Password, ValidatesOnNotifyDataErrors=True,
+                        UpdateSourceTrigger=PropertyChanged}"
                         Height="60"
                         FontSize="18"
-                        Text="{Binding Password, ValidatesOnNotifyDataErrors=True,
-                        UpdateSourceTrigger=LostFocus}"
-                        Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"/>
+                        VerticalAlignment="Top"
+                        Foreground="#222"
+                        ToolTip="Tối thiểu 8 ký tự và có ít nhất một số"
+                        Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}" />
                 </StackPanel>
 
                 <Button
@@ -116,16 +109,9 @@
                     Content="Đăng nhập"
                     FontSize="23"
                     Margin="0 15  0 0 "
-                    Foreground="#222" >
-                    <Button.CommandParameter>
-                        <MultiBinding Converter="{StaticResource MultiParamCvt}">
-                            <Binding ElementName="txtEmail" Path="Text" />
-                            <Binding ElementName="txtPassword" Path="Text" />
-                        </MultiBinding>
-                    </Button.CommandParameter>
-                    
+                    Foreground="#222">
                 </Button>
-                <TextBlock Text="{Binding Error}" Foreground="Red" FontSize="16"/>
+                <TextBlock Text="{Binding Error}" Foreground="Red" FontSize="16" />
                 <TextBlock Text="Quên mật khẩu?"
                            Foreground="White"
                            ForceCursor="True"
@@ -152,7 +138,6 @@
                          Đăng ký ngay.
                     </Span>
                 </TextBlock>
-                
             </StackPanel>
         </StackPanel>
     </Grid>

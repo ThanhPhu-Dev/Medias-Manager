@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,37 +12,96 @@ namespace Manager_Medias.Stores
 {
     public class UserStore
     {
-        private User _currentUser;
+        #region Property
+
+        private string _email;
+
+        public string Email
+        {
+            get => _email;
+            set
+            {
+                _email = value;
+            }
+        }
 
         public User CurrentUser
         {
-            get => _currentUser;
-            set => _currentUser = value;
+            get
+            {
+                using (var db = new MediasManangementEntities())
+                {
+                    return db.Users.Single(u => u.Email == _email);
+                }
+            }
         }
-
-        private Profile _currentProfile;
 
         public Profile CurrentProfile
         {
-            get => _currentProfile;
+            get
+            {
+                using (var db = new MediasManangementEntities())
+                {
+                    return db.Users.Single(u => u.Email == _email)
+                    .Profiles.Single(p => p.Status == 1);
+                }
+            }
+            set
+            {
+                using (var db = new MediasManangementEntities())
+                {
+                    var user = db.Users.Single(u => u.Email == _email);
+                    var currentActiveProfile = user.Profiles.Single(p => p.Status == 1);
+
+                    var selectedProfile = user.Profiles.Single(p => p.Id == value.Id);
+                    currentActiveProfile.Status = 0;
+                    selectedProfile.Status = 1;
+
+                    db.SaveChanges();
+                }
+                OnProfileChanged();
+            }
         }
 
         public string PathAvatar
         {
-            get => _currentProfile.Avatar;
+            get => this.CurrentProfile.Avatar;
+            set
+            {
+                using (var db = new MediasManangementEntities())
+                {
+                    var profile = db.Users.Single(u => u.Email == _email).Profiles.Single(p => p.Status == 1);
+                    profile.Avatar = value;
+                    db.SaveChanges();
+                }
+                OnAvatarChanged();
+            }
         }
 
-        public string Email => _currentUser.Email;
+        public string ProfileName
+        {
+            get => this.CurrentProfile.Name;
+            set
+            {
+                using (var db = new MediasManangementEntities())
+                {
+                    var profile = db.Users.Single(u => u.Email == _email).Profiles.Single(p => p.Status == 1);
+                    profile.Name = value;
+                    db.SaveChanges();
+                }
+                OnProfileNameChanged();
+            }
+        }
 
         public ObservableCollection<Profile> Profiles
         {
             get
             {
-                if (_currentUser != null)
+                if (_email != null)
                 {
                     using (var db = new MediasManangementEntities())
                     {
-                        return new ObservableCollection<Profile>(db.Users.Where(u => u.Email == _currentUser.Email).Single().Profiles);
+                        return new ObservableCollection<Profile>(db.Users.Single(u => u.Email == _email).Profiles);
                     }
                 }
 
@@ -48,14 +109,32 @@ namespace Manager_Medias.Stores
             }
         }
 
+        #endregion Property
+
+        public event Action AvatarChanged;
+
+        public event Action NameChanged;
+
+        public event Action ProfileChanged;
+
         public UserStore(User user)
         {
-            using (var db = new MediasManangementEntities())
-            {
-                this._currentUser = user;
-                this._currentProfile = db.Users.Where(u => u.Email == user.Email).Single()
-                    .Profiles.Where(p => p.Status == 1).Single();
-            }
+            Email = user.Email;
+        }
+
+        public void OnAvatarChanged()
+        {
+            AvatarChanged?.Invoke();
+        }
+
+        public void OnProfileNameChanged()
+        {
+            NameChanged?.Invoke();
+        }
+
+        public void OnProfileChanged()
+        {
+            ProfileChanged?.Invoke();
         }
     }
 }

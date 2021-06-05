@@ -10,13 +10,55 @@
              xmlns:vprofile="clr-namespace:Manager_Medias.Views.Account"
              xmlns:vaudio ="clr-namespace:Manager_Medias.Views.Audio"
              xmlns:vmovie ="clr-namespace:Manager_Medias.Views.Movie"
-             xmlns:vlogin ="clr-namespace:Manager_Medias.Views.Customer"
              xmlns:vpicture ="clr-namespace:Manager_Medias.Views.Picture"
+             xmlns:vlogin ="clr-namespace:Manager_Medias.Views.Customer"
              xmlns:cv="clr-namespace:Manager_Medias.Converters"
+             xmlns:view="clr-namespace:Manager_Medias.Views"
              mc:Ignorable="d"
              xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
              d:DesignHeight="650" d:DesignWidth="1200">
     <UserControl.Resources>
+        <!--CONVERTER-->
+        <cv:ProfileImageConverter x:Key="imgCvt" />
+        <cv:MainLayoutModalWidthConverter x:Key="mdWidthCvt" />
+
+        <!--TRANSITION-->
+        <Storyboard x:Key="SidebarOpen">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)"
+                                           Storyboard.TargetName="Sidebar">
+                <EasingDoubleKeyFrame KeyTime="0:0:0"
+                                      Value="0" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3"
+                                      Value="260" />
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+
+        <Storyboard x:Key="ShowModal">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)"
+                                           Storyboard.TargetName="Modal">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3"
+                                      Value="{Binding ElementName=Container, Path=ActualWidth, Converter={StaticResource mdWidthCvt}}" />
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+
+        <Storyboard x:Key="SidebarClose">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)"
+                                           Storyboard.TargetName="Sidebar">
+                <EasingDoubleKeyFrame KeyTime="0:0:0"
+                                      Value="260" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3"
+                                      Value="0" />
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+
+        <Storyboard x:Key="CloseModal">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)"
+                                           Storyboard.TargetName="Modal">
+                <DiscreteDoubleKeyFrame KeyTime="0:0:0.05"
+                                      Value="0" />
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+
         <!--STYLES-->
         <Style TargetType="Button"
                x:Key="SidebarButton">
@@ -30,6 +72,17 @@
                     Value="Stretch" />
             <Setter Property="Width"
                     Value="250" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                                              Margin="16 14" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver"
                          Value="True">
@@ -69,48 +122,25 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-
-        <!--TRANSITION-->
-        <Storyboard x:Key="SidebarOpen">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)"
-                                           Storyboard.TargetName="Sidebar">
-                <EasingDoubleKeyFrame KeyTime="0:0:0"
-                                      Value="0" />
-                <EasingDoubleKeyFrame KeyTime="0:0:0.3"
-                                      Value="260" />
-            </DoubleAnimationUsingKeyFrames>
-        </Storyboard>
-
-        <Storyboard x:Key="SidebarClose">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)"
-                                           Storyboard.TargetName="Sidebar">
-                <EasingDoubleKeyFrame KeyTime="0:0:0"
-                                      Value="260" />
-                <EasingDoubleKeyFrame KeyTime="0:0:0.3"
-                                      Value="0" />
-            </DoubleAnimationUsingKeyFrames>
-        </Storyboard>
-
-        <!--CONVERTER-->
-        <cv:ProfileImageConverter x:Key="imgCvt" />
     </UserControl.Resources>
 
     <UserControl.Triggers>
         <EventTrigger RoutedEvent="ButtonBase.Click"
                       SourceName="btnOpenMenu">
             <BeginStoryboard Storyboard="{StaticResource SidebarOpen}" />
+            <BeginStoryboard Storyboard="{StaticResource ShowModal}" />
         </EventTrigger>
         <EventTrigger RoutedEvent="ButtonBase.Click"
                       SourceName="btnCloseMenu">
             <BeginStoryboard Storyboard="{StaticResource SidebarClose}" />
+            <BeginStoryboard Storyboard="{StaticResource CloseModal}" />
         </EventTrigger>
     </UserControl.Triggers>
-    <Grid>
+    <Grid x:Name="Container">
         <Grid.RowDefinitions>
             <RowDefinition Height="65" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-
         <Border Grid.Row="0"
                 Background="#000"
                 BorderThickness="0 0 0 0.5" BorderBrush="#fff">
@@ -162,7 +192,7 @@
                                                 Height="36">
                                             <Ellipse VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                                                 <Ellipse.Fill>
-                                                    <ImageBrush ImageSource="{Binding Avatar, Converter={StaticResource imgCvt}}"
+                                                    <ImageBrush ImageSource="{Binding Avatar, Converter={StaticResource imgCvt}, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}"
                                                                 Stretch="Fill"
                                                                 RenderOptions.BitmapScalingMode="Linear" />
                                                 </Ellipse.Fill>
@@ -171,7 +201,7 @@
                                                 </Ellipse.Stroke>
                                             </Ellipse>
                                         </Border>
-                                        <TextBlock Text="{Binding ProfileName}"
+                                        <TextBlock Text="{Binding ProfileName, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}"
                                            VerticalAlignment="Center"
                                            Margin="12 0 8 0" />
                                         <materialDesign:PackIcon VerticalAlignment="Center"
@@ -218,8 +248,24 @@
                                             </EventTrigger>
                                         </Button.Triggers>
                                     </Button>
-                                    <Button Content="Đăng xuất"
+                                    <Button Content="Gói dịch vụ"
                                             Style="{StaticResource PopupItemButton}">
+                                        <Button.Triggers>
+                                            <EventTrigger RoutedEvent="Button.Click">
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <BooleanAnimationUsingKeyFrames Storyboard.TargetProperty="IsChecked"
+                                                                                        Storyboard.TargetName="TogglePopup">
+                                                            <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="False" />
+                                                        </BooleanAnimationUsingKeyFrames>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </EventTrigger>
+                                        </Button.Triggers>
+                                    </Button>
+                                    <Button Content="Đăng xuất"
+                                            Style="{StaticResource PopupItemButton}"
+                                            Command="{Binding LogoutCmd}">
                                         <Button.Triggers>
                                             <EventTrigger RoutedEvent="Button.Click">
                                                 <BeginStoryboard>
@@ -258,9 +304,17 @@
                                     Padding="0"
                                     Background="{x:Null}"
                                     HorizontalContentAlignment="Left"
-                                    HorizontalAlignment="Left">
+                                    HorizontalAlignment="Left"
+                                    Cursor="Hand"
+                                    Command="{Binding NavigateHomeCmd}">
                                 <Image Source="/Images/logo.png"
                                            HorizontalAlignment="Left" />
+                                <Button.Triggers>
+                                    <EventTrigger RoutedEvent="Button.Click">
+                                        <BeginStoryboard Storyboard="{StaticResource SidebarClose}" />
+                                        <BeginStoryboard Storyboard="{StaticResource CloseModal}" />
+                                    </EventTrigger>
+                                </Button.Triggers>
                             </Button>
                             <Button HorizontalAlignment="Right"
                                     DockPanel.Dock="Right"
@@ -278,7 +332,7 @@
                         <StackPanel x:Name="SidebarList">
                             <Button Margin="0 10 0 10"
                                     Padding="20 4"
-                                    Style="{StaticResource SidebarButton}" 
+                                    Style="{StaticResource SidebarButton}"
                                     Command="{Binding MovieCmd}">
                                 <StackPanel Orientation="Horizontal">
                                     <materialDesign:PackIcon Kind="MovieOutline"
@@ -288,51 +342,17 @@
                                     <Label Content="Phim"
                                            Foreground="#fff" />
                                 </StackPanel>
+                                <Button.Triggers>
+                                    <EventTrigger RoutedEvent="Button.Click">
+                                        <BeginStoryboard Storyboard="{StaticResource SidebarClose}" />
+                                        <BeginStoryboard Storyboard="{StaticResource CloseModal}" />
+                                    </EventTrigger>
+                                </Button.Triggers>
                             </Button>
-                            <!--<Button Margin="0 10 0 10"
-                                    Padding="20 4"
-                                    Style="{StaticResource SidebarButton}">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    <StackPanel Grid.Column="0"
-                                                Orientation="Horizontal">
-                                        <materialDesign:PackIcon Kind="MovieOutline"
-                                                                 Foreground="#febb00"
-                                                                 HorizontalAlignment="Center"
-                                                                 VerticalAlignment="Center" />
-                                        <Label Content="Phim"
-                                               Foreground="#fff" />
-                                    </StackPanel>
-                                    <materialDesign:PackIcon Grid.Column="1"
-                                                             Kind="ChevronDown"
-                                                             Foreground="#fff"
-                                                             HorizontalAlignment="Right"
-                                                             VerticalAlignment="Center" />
-                                </Grid>
-                            </Button>-->
-                            <!--<StackPanel x:Name="SubSidebar"
-                                        Margin="44 4 20 6">
-                                <Button Content="Phim lẻ"
-                                        Foreground="#eaeaea"
-                                        Margin="0 6"
-                                        Background="#000"
-                                        BorderBrush="Transparent"
-                                        FontSize="14"
-                                        HorizontalAlignment="Left" />
-                                <Button Content="Phim bộ"
-                                        Foreground="#eaeaea"
-                                        Margin="0 6"
-                                        Background="#000"
-                                        BorderBrush="Transparent"
-                                        FontSize="14"
-                                        HorizontalAlignment="Left" />
-                            </StackPanel>-->
                             <Button Margin="0 10 0 10"
                                     Padding="20 4"
-                                    Style="{StaticResource SidebarButton}">
+                                    Style="{StaticResource SidebarButton}"
+                                    Command="{Binding PictureCmd}">
                                 <StackPanel Orientation="Horizontal">
                                     <materialDesign:PackIcon Kind="ImageOutline"
                                                              Foreground="#febb00"
@@ -341,10 +361,17 @@
                                     <Label Content="Hình ảnh"
                                            Foreground="#fff" />
                                 </StackPanel>
+                                <Button.Triggers>
+                                    <EventTrigger RoutedEvent="Button.Click">
+                                        <BeginStoryboard Storyboard="{StaticResource SidebarClose}" />
+                                        <BeginStoryboard Storyboard="{StaticResource CloseModal}" />
+                                    </EventTrigger>
+                                </Button.Triggers>
                             </Button>
                             <Button Margin="0 10 0 10"
                                     Padding="20 4"
-                                    Style="{StaticResource SidebarButton}">
+                                    Style="{StaticResource SidebarButton}"
+                                    Command="{Binding AudioCmd}">
                                 <StackPanel Orientation="Horizontal">
                                     <materialDesign:PackIcon Kind="PlaylistMusic"
                                                              Foreground="#febb00"
@@ -353,10 +380,28 @@
                                     <Label Content="Âm thanh"
                                            Foreground="#fff" />
                                 </StackPanel>
+                                <Button.Triggers>
+                                    <EventTrigger RoutedEvent="Button.Click">
+                                        <BeginStoryboard Storyboard="{StaticResource SidebarClose}" />
+                                        <BeginStoryboard Storyboard="{StaticResource CloseModal}" />
+                                    </EventTrigger>
+                                </Button.Triggers>
                             </Button>
                         </StackPanel>
                     </StackPanel>
                 </ScrollViewer>
+            </Grid>
+            <Grid x:Name="Modal"
+                  Canvas.Right="0"
+                  Canvas.Top="0"
+                  Background="#64000000"
+                  Height="{Binding ElementName=Container, Path=ActualHeight}">
+                <Grid.Triggers>
+                    <EventTrigger RoutedEvent="MouseLeftButtonDown">
+                        <BeginStoryboard Storyboard="{StaticResource SidebarClose}" />
+                        <BeginStoryboard Storyboard="{StaticResource CloseModal}" />
+                    </EventTrigger>
+                </Grid.Triggers>
             </Grid>
         </Canvas>
 
@@ -383,8 +428,12 @@
                 <DataTemplate DataType="{x:Type viewmodels:HomeAudioViewModel}">
                     <vaudio:HomeAudioView />
                 </DataTemplate>
+                <DataTemplate DataType="{x:Type viewmodels:HomePictureViewModel}">
+                    <vpicture:HomePicture />
+                </DataTemplate>
             </Grid.Resources>
             <ContentControl Content="{Binding ContentViewModel}" />
         </Grid>
+        <view:LoadingUC IsLoading="{Binding IsLoading}" />
     </Grid>
 </UserControl>

@@ -14,41 +14,45 @@ namespace Manager_Medias.ViewModels.Customer
 {
     public class HomeMovieViewModel : BaseViewModel
     {
-        public static readonly DependencyProperty MovieListProperty;
+        public static readonly DependencyProperty CatMovieListProperty =
+            DependencyProperty.Register("CatMovieList",
+                typeof(ObservableCollection<Movie_Category>), typeof(HomeMovieViewModel));
+
         public ICommand CmdToDetailMovie { get; set; }
-        private UserStore _user;
 
-        static HomeMovieViewModel()
+        public int Level => (int)_userStore.CurrentUser.Level;
+
+        public ObservableCollection<Movie_Category> CatMovieList
         {
-            MovieListProperty = DependencyProperty.Register("MovieList", typeof(ObservableCollection<Movie>), typeof(HomeMovieViewModel));
+            get => (ObservableCollection<Movie_Category>)GetValue(CatMovieListProperty);
+            set => SetValue(CatMovieListProperty, value);
         }
 
-        public ObservableCollection<Movie> MovieList
+        public HomeMovieViewModel()
         {
-            get => (ObservableCollection<Movie>)GetValue(MovieListProperty);
-            set => SetValue(MovieListProperty, value);
-        }
-
-        public HomeMovieViewModel(NavigationStore navigationStore, UserStore userStore)
-        {
-            //user hiện tại
-            _user = userStore;
-
-            //gán biến chuyển trang
-            _navigationStore = navigationStore;
-
             //gọi hàm load giao diện
             LoadMovie();
 
             //command
-            CmdToDetailMovie = new RelayCommand<object>(ToDetailMovie);
+            CmdToDetailMovie = new RelayCommand<object>(ToDetailMovie, (object o) =>
+            {
+                Movie movie = o as Movie;
+                if (movie != null && Level >= movie.Media.Lvl)
+                {
+                    return true;
+                }
+                return false;
+            });
         }
 
         private void ToDetailMovie(object obj)
         {
-            var id = (int)obj;
-            //chuyển trang
-            _navigationStore.ContentViewModel = new DetailMovieViewModel(id);
+            Movie movie = obj as Movie;
+            if (movie != null)
+            {
+                //chuyển trang
+                _navigationStore.ContentViewModel = new DetailMovieViewModel(movie.Id);
+            }
         }
 
         private void LoadMovie()
@@ -56,7 +60,10 @@ namespace Manager_Medias.ViewModels.Customer
             using (var db = new MediasManangementEntities())
             {
                 //cập nhật danh sách bài hát liên quan (chung danh mục) cho UI
-                MovieList = new ObservableCollection<Movie>(db.Movies.ToList());
+                CatMovieList = new ObservableCollection<Movie_Category>(
+                    db.Movie_Categories.Include("Movies")
+                                        .Include("Movies.Media")
+                                        .ToList());
             }
         }
     }

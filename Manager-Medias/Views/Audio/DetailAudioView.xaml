@@ -4,15 +4,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Manager_Medias.Views.Audio"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              xmlns:model="clr-namespace:Manager_Medias.Models"
-             xmlns:imgConverter="clr-namespace:Manager_Medias.Converters"
+             xmlns:cvt="clr-namespace:Manager_Medias.Converters"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              d:DesignHeight="585" d:DesignWidth="1200"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             >
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
     <UserControl.Resources>
-        <imgConverter:ConvertImage x:Key="imgCvt"/>
+        <cvt:ConvertImage x:Key="imgCvt" />
+        <cvt:MillisecondToTimeLapseConverter x:Key="TimeLapseCvt" />
         <Style TargetType="materialDesign:PackIcon" x:Key="iconPlay">
             <Setter Property="Foreground" Value="#fff" />
             <Setter Property="VerticalAlignment" Value="Center" />
@@ -36,11 +36,11 @@
                            FontSize="17"
                            Foreground="#fff"
                            Grid.Column="1" />
-                <TextBlock Text="{Binding Id}"
+                <!--<TextBlock Text="{Binding Id}"
                            HorizontalAlignment="Right"
                            FontSize="17"
                            Foreground="#fff"
-                           Grid.Column="2" />
+                           Grid.Column="2" />-->
             </Grid>
         </DataTemplate>
         <DataTemplate x:Key="SelectedItemTemplate" DataType="{x:Type model:Audio}">
@@ -60,13 +60,13 @@
                            FontSize="17"
                            Foreground="#fff"
                            Grid.Column="1"
-                           VerticalAlignment="Center"/>
-                <TextBlock Text="{Binding Id}"
+                           VerticalAlignment="Center" />
+                <!--<TextBlock Text="{Binding Id}"
                            HorizontalAlignment="Right"
                            FontSize="17"
                            Foreground="#fff"
                            Grid.Column="2"
-                           VerticalAlignment="Center"/>
+                           VerticalAlignment="Center" />-->
             </Grid>
         </DataTemplate>
         <Style x:Key="_ListBoxItemStyle" TargetType="ListBoxItem">
@@ -100,26 +100,62 @@
             <DoubleAnimation
                         Storyboard.TargetName="lt_avartar"
                         Storyboard.TargetProperty="(RotateTransform.Angle)"
-                        From="0.0" To="360" 
+                        From="0.0" To="360"
                         Duration="0:0:7"
-                        RepeatBehavior="Forever"/>
+                        RepeatBehavior="Forever" />
         </Storyboard>-->
+        <Storyboard SlipBehavior="Slip" x:Key="audioStart">
+            <MediaTimeline Source="{Binding ElementName=lb_Audio, Path=SelectedItem.Mp3, Converter={StaticResource imgCvt}}"
+                                       Storyboard.TargetName="audio"
+                                       BeginTime="0:0:0" />
+        </Storyboard>
+
+        <Storyboard x:Key="CloseMessage" >
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="bd_Message"
+                                                   Storyboard.TargetProperty="Width">
+                <EasingDoubleKeyFrame KeyTime="0:0:0"
+                                      Value="300" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.15"
+                                      Value="0" />
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="OpenMessage" >
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="bd_Message"
+                                                   Storyboard.TargetProperty="Width">
+                <EasingDoubleKeyFrame KeyTime="0:0:0"
+                                      Value="0" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.25"
+                                      Value="300" />
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
     </UserControl.Resources>
 
     <UserControl.Triggers>
-        <EventTrigger RoutedEvent="ListBox.SelectionChanged" SourceName="lb_Audio">
-            <!--<BeginStoryboard Name="anm_rotate" Storyboard="{StaticResource Star_rotate}" />-->
-            <!--<SoundPlayerAction Source="F:\2021 - 2022\UDQL2\Project\Medias-Manager\Manager-Medias\bin\Debug\Images\1.mp3" />-->
-        </EventTrigger>
         <!--khi nhấn play-->
+        <!--
         <EventTrigger RoutedEvent="ToggleButton.Checked" SourceName="btn_playvideo">
-            <!--<PauseStoryboard BeginStoryboardName="anm_rotate" x:Name="pause_anm"/>-->
+            -->
+        <!--<PauseStoryboard BeginStoryboardName="anm_rotate" x:Name="pause_anm" />-->
+        <!--
         </EventTrigger>
 
+        -->
         <!--khi nhấn pause-->
+        <!--
         <EventTrigger RoutedEvent="ToggleButton.Unchecked" SourceName="btn_playvideo">
-            <!--<ResumeStoryboard BeginStoryboardName="anm_rotate"/>-->
+            -->
+        <!--<ResumeStoryboard BeginStoryboardName="anm_rotate" />-->
+        <!--
+        </EventTrigger>-->
+        <EventTrigger RoutedEvent="ToggleButton.Click" SourceName="btn_likeAudio">
+            <BeginStoryboard Storyboard="{StaticResource OpenMessage}"/>
         </EventTrigger>
+        <EventTrigger RoutedEvent="ToggleButton.Click" SourceName="btn_bookmarkAudio">
+            <BeginStoryboard Storyboard="{StaticResource OpenMessage}"/>
+        </EventTrigger>
+        <!--<EventTrigger RoutedEvent="Button.Click" SourceName="btn_closeMessage">
+            <BeginStoryboard Storyboard="{StaticResource CloseMessage}"/>
+        </EventTrigger>-->
     </UserControl.Triggers>
     <Grid Background="Black">
         <Grid.ColumnDefinitions>
@@ -129,29 +165,29 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.6*"/>
-            <RowDefinition Height="5*"/>
+            <RowDefinition Height="0.6*" />
+            <RowDefinition Height="5*" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Button Grid.Row="0" Grid.Column="3" 
+        <Button Grid.Row="0" Grid.Column="3"
                 Background="#FF876400"
                 Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                 ToolTip="Thoát">
             <materialDesign:PackIcon Kind="Close" Height="25" Width="25" />
         </Button>
         <Border Grid.Row="1" Grid.Column="1"
-                Background="#FF070707" 
+                Background="#FF070707"
                 CornerRadius="8">
-            <Grid >
+            <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="0.45*"/>
-                    <RowDefinition Height="4*"/>
-                    <RowDefinition Height="1.5*"/>
+                    <RowDefinition Height="0.45*" />
+                    <RowDefinition Height="4*" />
+                    <RowDefinition Height="1.5*" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition Width="6.3*"/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="6.3*" />
+                    <ColumnDefinition />
                 </Grid.ColumnDefinitions>
                 <Ellipse Grid.Row="1"
                          Grid.Column="1"
@@ -171,50 +207,78 @@
                          RenderTransformOrigin="0.5, 0.5"
                          Name="lt_avartar">
                     <Ellipse.RenderTransform>
-                        <RotateTransform x:Name="rotate_avatar" Angle="0"/>
+                        <RotateTransform x:Name="rotate_avatar" Angle="0" />
                     </Ellipse.RenderTransform>
                     <Ellipse.Fill>
-                        <ImageBrush ImageSource="{Binding ElementName=lb_Audio, Path=SelectedItem.Image, Converter={StaticResource imgCvt}}"/>
+                        <ImageBrush ImageSource="{Binding ElementName=lb_Audio, Path=SelectedItem.Image, Converter={StaticResource imgCvt}}" />
                     </Ellipse.Fill>
                 </Ellipse>
+                <MediaElement Name="audio"
+                              Grid.Row="1"
+                              Grid.Column="1"
+                              Width="0"
+                              Visibility="Hidden"
+                              MediaOpened="audio_MediaOpened"
+                              LoadedBehavior="Manual"
+                              Source="{Binding ElementName=lb_Audio, Path=SelectedItem.Mp3, Converter={StaticResource imgCvt}}" />
                 <StackPanel Grid.ColumnSpan="3"
                             Grid.Row="2"
                             Margin="10"
                             VerticalAlignment="Center">
-                    <Slider
-                        TickFrequency="5"
-                        Orientation="Horizontal"
-                        Value="25"
-                        Width="auto"
-                        Foreground="#febb00" />
-
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="60" />
+                            <ColumnDefinition Width="12" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="12" />
+                            <ColumnDefinition Width="60" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Name="timeChange"
+                                   Text="{Binding ElementName=timelineSlider, Path=Value, Converter={StaticResource TimeLapseCvt}}"
+                                   FontSize="15"
+                                   Foreground="#fff" />
+                        <TextBlock Name="timeEnd"
+                                   Text="{Binding ElementName=timelineSlider, Path=Maximum, Converter={StaticResource TimeLapseCvt}}"
+                                   Grid.Column="4"
+                                   FontSize="15"
+                                   Foreground="#fff" />
+                        <Slider Grid.Column="2"
+                                TickFrequency="5"
+                                Orientation="Horizontal"
+                                Value="0"
+                                Width="auto"
+                                Foreground="#febb00"
+                                Name="timelineSlider"
+                                Thumb.DragStarted="timelineSlider_DragStarted"
+                                Thumb.DragCompleted="timelineSlider_DragCompleted" />
+                    </Grid>
                     <StackPanel Orientation="Horizontal"
                                 HorizontalAlignment="Center">
-                        
-                        <ToggleButton Width="35" Height="35" Padding="0" 
-                                      Background="Transparent" 
+
+                        <ToggleButton Width="35" Height="35" Padding="0"
+                                      Background="Transparent"
                                       Foreground="#febb00"
                                       BorderThickness="0"
                                       Cursor="Hand"
                                       Name="btn_likeAudio"
-                                      IsChecked="{Binding CheckLike, Mode=OneWay}">
+                                      IsChecked="{Binding CheckLike, Mode=OneWay}"
+                                      Click="btn_likeAudio_Click">
 
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Click">
                                     <i:InvokeCommandAction Command="{Binding CmdLike}"
-                                                           CommandParameter="{Binding ElementName=lb_Audio, Path=SelectedItem.Id}"/>
+                                                           CommandParameter="{Binding ElementName=lb_Audio, Path=SelectedItem.Id}" />
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                             <ToggleButton.Style>
                                 <Style TargetType="{x:Type ToggleButton}">
                                     <Setter Property="Content" Value="{materialDesign:PackIcon Heart, Size=35}" />
-                                    <Setter Property="Template" >
+                                    <Setter Property="Template">
                                         <Setter.Value>
                                             <ControlTemplate TargetType="ToggleButton">
                                                 <Border>
-                                                    <ContentPresenter/>
+                                                    <ContentPresenter />
                                                 </Border>
-
                                             </ControlTemplate>
                                         </Setter.Value>
                                     </Setter>
@@ -224,42 +288,30 @@
                                             <Setter Property="Background" Value="Transparent" />
                                         </Trigger>
                                     </Style.Triggers>
-
                                 </Style>
                             </ToggleButton.Style>
                         </ToggleButton>
-                        <!--<materialDesign:PackIcon Kind="Heart" 
-                                                 Style="{StaticResource iconPlay}"/>-->
-                        <!--<materialDesign:PackIcon Kind="HeartOutline" 
-                                                 Style="{StaticResource iconPlay}"/>-->
-                        <materialDesign:PackIcon Kind="SkipPrevious" 
-                                                 Style="{StaticResource iconPlay}"/>
 
-                        <ToggleButton Width="55" Height="55" Padding="0" 
-                                      Background="Transparent" 
+                        <materialDesign:PackIcon Kind="SkipPrevious"
+                                                 Style="{StaticResource iconPlay}" />
+
+                        <ToggleButton Width="55" Height="55" Padding="0"
+                                      Background="Transparent"
                                       Foreground="#febb00"
                                       BorderThickness="0"
                                       Cursor="Hand"
-                                      Name="btn_playvideo">
-
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="Checked">
-                                    <i:InvokeCommandAction Command="{Binding CmdPauseAudio}"/>
-                                </i:EventTrigger>
-                                <i:EventTrigger EventName="Unchecked">
-                                    <i:InvokeCommandAction Command="{Binding CmdPlayAudio}"/>
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
+                                      Name="btn_playvideo"
+                                      Checked="btn_playvideo_Checked"
+                                      Unchecked="btn_playvideo_Unchecked">
                             <ToggleButton.Style>
                                 <Style TargetType="{x:Type ToggleButton}">
                                     <Setter Property="Content" Value="{materialDesign:PackIcon Pause, Size=55}" />
-                                    <Setter Property="Template" >
+                                    <Setter Property="Template">
                                         <Setter.Value>
                                             <ControlTemplate TargetType="ToggleButton">
                                                 <Border>
-                                                    <ContentPresenter/>
+                                                    <ContentPresenter />
                                                 </Border>
-
                                             </ControlTemplate>
                                         </Setter.Value>
                                     </Setter>
@@ -269,38 +321,37 @@
                                             <Setter Property="Background" Value="Transparent" />
                                         </Trigger>
                                     </Style.Triggers>
-
                                 </Style>
                             </ToggleButton.Style>
                         </ToggleButton>
                         <!--<materialDesign:PackIcon Kind="Equal" />-->
                         <materialDesign:PackIcon Kind="SkipNext" 
-                                                 Style="{StaticResource iconPlay}"/>
+                                                 Style="{StaticResource iconPlay}" />
 
-                        <ToggleButton Width="35" Height="35" Padding="0" 
-                                      Background="Transparent" 
+                        <ToggleButton Width="35" Height="35" Padding="0"
+                                      Background="Transparent"
                                       Foreground="#febb00"
                                       BorderThickness="0"
                                       Cursor="Hand"
                                       Name="btn_bookmarkAudio"
-                                      IsChecked="{Binding CheckSave, Mode=OneWay}">
+                                      IsChecked="{Binding CheckSave, Mode=OneWay}"
+                                      Click="btn_likeAudio_Click">
 
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Click">
                                     <i:InvokeCommandAction Command="{Binding CmdSave}"
-                                                           CommandParameter="{Binding ElementName=lb_Audio, Path=SelectedItem.Id}"/>
+                                                           CommandParameter="{Binding ElementName=lb_Audio, Path=SelectedItem.Id}" />
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                             <ToggleButton.Style>
                                 <Style TargetType="{x:Type ToggleButton}">
                                     <Setter Property="Content" Value="{materialDesign:PackIcon BookmarkPlus, Size=35}" />
-                                    <Setter Property="Template" >
+                                    <Setter Property="Template">
                                         <Setter.Value>
                                             <ControlTemplate TargetType="ToggleButton">
                                                 <Border>
-                                                    <ContentPresenter/>
+                                                    <ContentPresenter />
                                                 </Border>
-
                                             </ControlTemplate>
                                         </Setter.Value>
                                     </Setter>
@@ -310,7 +361,6 @@
                                             <Setter Property="Background" Value="Transparent" />
                                         </Trigger>
                                     </Style.Triggers>
-
                                 </Style>
                             </ToggleButton.Style>
                         </ToggleButton>
@@ -330,18 +380,18 @@
                        FontWeight="DemiBold"
                        Margin="60 0 0 0" />
             <ListBox Grid.Row="1" Name="lb_Audio"
-                 VerticalContentAlignment="Stretch"
+                     VerticalContentAlignment="Stretch"
                      VerticalAlignment="Stretch"
                      HorizontalContentAlignment="Stretch"
                      ScrollViewer.VerticalScrollBarVisibility ="Auto"
-                 ItemsSource="{Binding AudioList}"
-                 SelectedItem="{Binding SelectedAudio}"
-                 Margin="30 0 15 0"
-                 ItemContainerStyle="{DynamicResource _ListBoxItemStyle}">
+                     ItemsSource="{Binding AudioList}"
+                     SelectedItem="{Binding SelectedAudio}"
+                     Margin="30 0 15 0"
+                     ItemContainerStyle="{DynamicResource _ListBoxItemStyle}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
-                        <i:InvokeCommandAction Command="{Binding CmdSelectionChange}"  
-                                                CommandParameter="{Binding ElementName=lb_Audio, Path=SelectedItem.Mp3}"/>
+                        <i:InvokeCommandAction 
+                               Command="{Binding CmdSelectionChange}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
                 <ListBox.Resources>
@@ -350,16 +400,16 @@
                             <Setter.Value>
                                 <ControlTemplate>
                                     <Grid x:Name="Grid">
-                                        <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" 
-                                           Height="Auto" Fill="Transparent"/>
-                                        <Border x:Name="Rectangle1" CornerRadius="4" HorizontalAlignment="Stretch" 
-                                        VerticalAlignment="Stretch" Width="Auto" Height="Auto" 
-                                        Background="{TemplateBinding Background}"/>
+                                        <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto"
+                                           Height="Auto" Fill="Transparent" />
+                                        <Border x:Name="Rectangle1" CornerRadius="4" HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch" Width="Auto" Height="Auto"
+                                        Background="{TemplateBinding Background}" />
                                     </Grid>
                                     <ControlTemplate.Triggers>
                                         <Trigger Property="Tag" Value="Horizontal">
-                                            <Setter TargetName="Rectangle1" Property="Width" Value="Auto"/>
-                                            <Setter TargetName="Rectangle1" Property="Height" Value="7"/>
+                                            <Setter TargetName="Rectangle1" Property="Width" Value="Auto" />
+                                            <Setter TargetName="Rectangle1" Property="Height" Value="7" />
                                         </Trigger>
                                     </ControlTemplate.Triggers>
                                 </ControlTemplate>
@@ -367,21 +417,21 @@
                         </Setter>
                     </Style>
                     <Style TargetType="ScrollBar">
-                        <!--<Setter Property="Background" Value="#FF876400"/>-->
+                        <!--<Setter Property="Background" Value="#FF876400" />-->
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="ScrollBar">
                                     <Grid x:Name="GridRoot" Width="6" Background="{x:Null}">
                                         <Track x:Name="PART_Track" Grid.Row="0" IsDirectionReversed="true" Focusable="False">
                                             <Track.Thumb>
-                                                <Thumb x:Name="Thumb" Background="#FF876400" 
-                                               Style="{DynamicResource ScrollThumbs}"/>
+                                                <Thumb x:Name="Thumb" Background="#FF876400"
+                                               Style="{DynamicResource ScrollThumbs}" />
                                             </Track.Thumb>
                                             <Track.IncreaseRepeatButton>
-                                                <RepeatButton x:Name="PageUp" Command="ScrollBar.PageDownCommand" Opacity="0" Focusable="False"/>
+                                                <RepeatButton x:Name="PageUp" Command="ScrollBar.PageDownCommand" Opacity="0" Focusable="False" />
                                             </Track.IncreaseRepeatButton>
                                             <Track.DecreaseRepeatButton>
-                                                <RepeatButton x:Name="PageDown" Command="ScrollBar.PageUpCommand" Opacity="0" Focusable="False"/>
+                                                <RepeatButton x:Name="PageDown" Command="ScrollBar.PageUpCommand" Opacity="0" Focusable="False" />
                                             </Track.DecreaseRepeatButton>
                                         </Track>
                                     </Grid>
@@ -391,10 +441,64 @@
                     </Style>
                 </ListBox.Resources>
             </ListBox>
-
         </Grid>
 
-        <!--<TextBlock Text="{Binding TimeAudio}"
-                   Foreground="#fff"/>-->
+        <!--message-->
+        <Canvas
+            Grid.RowSpan="3"
+            Grid.ColumnSpan="4"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Right"
+            Panel.ZIndex="10"
+            >
+            <Border Background="#fff"
+                    Width="0"
+                    Height="100" 
+                    Canvas.Right="0"
+                    CornerRadius="18"
+                    Padding="10 0" 
+                    Margin="10"
+                    Name="bd_Message">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="55"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    
+                    <materialDesign:PackIcon Kind="CheckCircleOutline" 
+                                             Width="55"
+                                             Height="55"
+                                             Foreground="#ffbb00"
+                                             VerticalAlignment="Center"
+                                             HorizontalAlignment="Center"
+                                             />
+                    <TextBlock Text="{Binding Message}"
+                               Grid.Column="1"
+                               FontSize="20"
+                               TextWrapping="Wrap"
+                               FontWeight="Heavy" Width="225"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               Padding="10 0 0 0"
+                               Foreground="#222"/>
+                    
+                    <Button Name="btn_closeMessage"
+                            Grid.Column="1" 
+                            BorderThickness="0"
+                            BorderBrush="Transparent"
+                            Background="Transparent"
+                            Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                            ToolTip="Đóng"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Top" 
+                            Height="24" Width="24"
+                            Margin="0 7 0 0">
+                        <materialDesign:PackIcon Kind="Close" 
+                                                 Height="20" Width="20" 
+                                                 Foreground="#222"/>
+                    </Button>
+                </Grid>
+            </Border>
+        </Canvas>
     </Grid>
 </UserControl>

@@ -65,12 +65,21 @@ namespace Manager_Medias.ViewModels.Customer
         }
 
         public string Test { get => test; set => test = value; }
+        public string Message { 
+            get => _message; 
+            set
+            {
+                _message = value;
+                OnPropertyChanged();
+            }
+        }
 
         private Audio _selectedAudio;
         private string _timeAudio;
         private bool _checkLike;
         private bool _checkSave;
         private string test;
+        private string _message;
 
         public DetailAudioViewModel(int audioid)
         {
@@ -83,7 +92,7 @@ namespace Manager_Medias.ViewModels.Customer
             CmdLike = new RelayCommand<object>(Likemt);
             CmdSave = new RelayCommand<object>(Savemt);
 
-            loadaudio(SelectedAudio.Mp3);
+            //loadaudio(SelectedAudio.Mp3);
         }
 
         private void Savemt(object obj)
@@ -104,11 +113,7 @@ namespace Manager_Medias.ViewModels.Customer
                     CheckSave = false;
                     if (db.SaveChanges() > 0)
                     {
-                        MessageBox.Show("Đã bỏ lưu");
-                    }
-                    else
-                    {
-                        MessageBox.Show("Đã lưu bài hát");
+                        Message = "Đã xóa khỏi danh sách cá nhân";
                     }
                 }
                 else
@@ -117,11 +122,7 @@ namespace Manager_Medias.ViewModels.Customer
                     CheckSave = true;
                     if (db.SaveChanges() > 0)
                     {
-                        MessageBox.Show("Đã lưu bài hát");
-                    }
-                    else
-                    {
-                        MessageBox.Show("Đã bỏ lưu");
+                        Message = "Đã thêm vào danh sách cá nhân";
                     }
                 }
             }
@@ -145,11 +146,7 @@ namespace Manager_Medias.ViewModels.Customer
                     CheckLike = false;
                     if (db.SaveChanges() > 0)
                     {
-                        MessageBox.Show("Đã xóa khỏi ds yêu thích");
-                    }
-                    else
-                    {
-                        MessageBox.Show("Đã thêm vào ds yêu thích");
+                        Message = "Đã xóa khỏi danh sách yêu thích";
                     }
                 }
                 else
@@ -158,11 +155,7 @@ namespace Manager_Medias.ViewModels.Customer
                     CheckLike = true;
                     if (db.SaveChanges() > 0)
                     {
-                        MessageBox.Show("Đã thêm vào ds yêu thích");
-                    }
-                    else
-                    {
-                        MessageBox.Show("Đã xóa khỏi ds yêu thích");
+                        Message = "Đã thêm vào danh sách yêu thích";
                     }
                 }
             }
@@ -180,25 +173,8 @@ namespace Manager_Medias.ViewModels.Customer
 
         private void SelectionChange(object obj)
         {
-            //check lại like và save của bài hát này
+            //check lại like và save của bài hát đang chọn
             LoadLikeAndSave();
-            string audioName = (string)obj;
-            //sp.Play();
-            player.Stop();
-            player = null;
-            loadaudio(audioName);
-        }
-
-        public void loadaudio(string audioMame)
-        {
-            if (player == null)
-            {
-                player = new MediaPlayer();
-                var currentfolder = AppDomain.CurrentDomain.BaseDirectory;
-                string url = currentfolder + "Images\\Audio\\mp3\\" + audioMame;
-                player.Open(new Uri(url));
-                player.Play();
-            }
         }
 
         public void Loaded(int audioid)

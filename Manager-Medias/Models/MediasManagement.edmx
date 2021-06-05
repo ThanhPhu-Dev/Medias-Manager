@@ -19,6 +19,7 @@
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="20" />
+          <Property Name="Image" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="Audio_Categories">
           <Key>
@@ -46,6 +47,8 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="20" />
           <Property Name="Price" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Quality" Type="nvarchar" MaxLength="20" />
+          <Property Name="Resolution" Type="nvarchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="Likes">
           <Key>
@@ -135,6 +138,7 @@
           <Property Name="Level" Type="int" />
           <Property Name="Code" Type="varchar(max)" />
           <Property Name="NumberCard" Type="varchar" MaxLength="16" />
+          <Property Name="Exp" Type="varchar" MaxLength="8" />
         </EntityType>
         <EntityType Name="View_History">
           <Key>
@@ -424,6 +428,7 @@
           <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Album_Details" Relationship="Self.FK_AlbumDetails_Albums" FromRole="Albums" ToRole="Album_Details" />
           <NavigationProperty Name="Media" Relationship="Self.FK_Albums_Medias" FromRole="Albums" ToRole="Medias" />
+          <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Audio_Category">
           <Key>
@@ -455,6 +460,8 @@
           <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Price" Type="Decimal" Precision="18" Scale="0" />
           <NavigationProperty Name="Medias" Relationship="Self.FK_Medias_Levels" FromRole="Levels" ToRole="Medias" />
+          <Property Name="Quality" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Resolution" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Like">
           <Key>
@@ -565,6 +572,7 @@
           <Property Name="NumberCard" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Payment_History" Relationship="Self.FK_PaymentHistory_User" FromRole="Users" ToRole="Payment_History" />
           <NavigationProperty Name="Profiles" Relationship="Self.FK_Profile_User" FromRole="Users" ToRole="Profiles" />
+          <Property Name="Exp" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="View_History">
           <Key>
@@ -853,6 +861,7 @@
           <EntitySetMapping Name="Albums">
             <EntityTypeMapping TypeName="MediasManangementModel.Album">
               <MappingFragment StoreEntitySet="Albums">
+                <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>
@@ -882,6 +891,8 @@
           <EntitySetMapping Name="Levels">
             <EntityTypeMapping TypeName="MediasManangementModel.Level">
               <MappingFragment StoreEntitySet="Levels">
+                <ScalarProperty Name="Resolution" ColumnName="Resolution" />
+                <ScalarProperty Name="Quality" ColumnName="Quality" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
@@ -978,6 +989,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="MediasManangementModel.User">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Exp" ColumnName="Exp" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Level" ColumnName="Level" />

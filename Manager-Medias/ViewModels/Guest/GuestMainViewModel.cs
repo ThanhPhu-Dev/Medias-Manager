@@ -12,8 +12,8 @@ namespace Manager_Medias.ViewModels.Guest
 {
     public class GuestMainViewModel : BaseViewModel
     {
-        public ICommand NavigateLoginCmd { get; }
-        public ICommand NavigateRegisterCmd { get; }
+        public ICommand NavigateLoginCmd { get; set; }
+        public ICommand NavigateRegisterCmd { get; set; }
 
         public GuestMainViewModel()
         {

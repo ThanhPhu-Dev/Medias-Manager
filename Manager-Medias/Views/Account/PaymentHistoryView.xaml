@@ -23,7 +23,36 @@
         <Style TargetType="ListViewItem">
             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
         </Style>
-       
+        <Style TargetType="GridViewColumnHeader" x:Key="headers">
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type GridViewColumnHeader}">
+                                <Border BorderBrush="#333" Background="#333">
+                                    <TextBlock Text="{TemplateBinding Content}" Foreground="White" TextAlignment="Center" />
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="ListViewItem" x:Key="cells">
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type GridViewColumnHeader}">
+                                <Border BorderBrush="#333" Background="#333">
+                                    <TextBlock Text="{TemplateBinding Content}" Foreground="White" TextAlignment="Center" />
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </UserControl.Resources>
     <Border Background="#000" Margin="20 30" CornerRadius="3">
         <Grid>
@@ -50,7 +79,7 @@
             </StackPanel>
             <ListView Name="lvUsers" ItemsSource="{Binding InfoPM}" Grid.Row="3" HorizontalAlignment="Center" HorizontalContentAlignment="Center">
                 <ListView.View>
-                    <GridView>
+                    <GridView ColumnHeaderContainerStyle="{StaticResource headers}">
                         <GridViewColumn Header="STT" Width="50" DisplayMemberBinding="{Binding Path=STT}">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>

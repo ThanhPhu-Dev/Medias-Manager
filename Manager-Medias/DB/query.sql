@@ -5,11 +5,10 @@
 	Level int,
 	Code varchar(MAX),
 	NumberCard varchar(16),
+	Exp varchar(8)
 
 	CONSTRAINT PK_Users PRIMARY KEY (Email)
 )
-
-
 
 CREATE TABLE Profiles
 (
@@ -37,7 +36,9 @@ CREATE TABLE Levels
 (
 	Id INT NOT NULL IDENTITY(1,1),
 	Name NVARCHAR(20),
-	Price NUMERIC(18,0)
+	Price NUMERIC(18,0),
+	Quality NVARCHAR(20),
+	Resolution NVARCHAR(20)
 
 	CONSTRAINT PK_Level PRIMARY KEY (Id)
 )
@@ -91,9 +92,12 @@ CREATE TABLE Albums
 (
 	Id INT NOT NULL UNIQUE,
 	Name NVARCHAR(20),
+	Image VARCHAR(MAX)
 
 	CONSTRAINT PK_Albums PRIMARY KEY (Id)
 )
+
+
 
 CREATE TABLE Album_Details
 (
@@ -176,22 +180,33 @@ ALTER TABLE View_History ADD CONSTRAINT FK_ViewHistory_Profiles FOREIGN KEY (IdP
 select * from Audios
 select * from Audio_Categories
 select * from Medias 
+select * from Media_Categories 
 select * from Likes 
 select * from My_Lists
 select * from Movies
 select * from Movie_Categories
 select * from levels
 select * from Album_Details
+select * from Albums
 
 --insert cấp độ
 INSERT INTO Levels (Name, Price) values
 (N'Cơ bản', 180000),
 (N'Tiêu chuẩn', 220000),
 (N'Cao cấp', 260000)
-update Levels set Price = 180000 where Id = 1
-update Levels set Price = 220000 where Id = 2
-update Levels set Price = 260000 where Id = 3
+update Levels set Quality = N'Trung', Resolution= N'480p' where Id = 1
+update Levels set Quality = N'Tốt' , Resolution= N'1080p'where Id = 2
+update Levels set Quality = N'Cao Cấp', Resolution= N'4K+HDR' where Id = 3
 
+update Medias set Lvl = 1 where Id between 1 and 5
+update Medias set Lvl = 2 where Id between 6 and 8
+update Medias set Lvl = 1 where Id between 9 and 13
+update Medias set Lvl = 3 where Id between 14 and 18
+update Medias set Lvl = 3 where Id between 19 and 22
+update Medias set Lvl = 1 where Id between 23 and 25
+update Medias set Lvl = 3 where Id between 26 and 30
+update Medias set Lvl = 1 where Id between 31 and 34
+update Medias set Lvl = 1 where Id between 35 and 37
 --Insert user 
 INSERT INTO Users VALUES ('nghiadx2001@gmail.c', '123', 1, 'CDCD', '362')
 INSERT INTO Users (Email, Password) VALUES ('1@gmail.c', '123')
@@ -206,6 +221,7 @@ INSERT INTO Media_Categories (Name) VALUES (N'Hinh Ảnh'), (N'Phim'), (N'Âm Nh
 
 --MEDIA
 INSERT INTO Medias (IdCategory) values (1), (1), (1), (1), (1), (1), (1), (1), (1), (1)
+update Medias set IdCategory = 2 where Id between 28 and 37 
 
 --INSERT AUDIO_Cat
 INSERT INTO Audio_Categories(Name) values (N'Ballad'), (N'Sôi động'), (N'Trữ tình')
@@ -228,7 +244,8 @@ select * from Albums
 INSERT INTO Albums values 
 (8, N'Thiên nhiên'),
 (9, N'Chiến tranh')
-
+update albums set Image = 'album_nature.jpg' where Id = 8
+update albums set Image = 'album_chientranh.jpg' where Id = 9
 --INSERT ALBUM
 INSERT INTO Album_Details (IdAlbum, Image) VALUES
 (8, 'album_PT_TN_1.jpg'),
@@ -248,10 +265,17 @@ insert into My_Lists(IdProfile, IdMedia, Date) values
 (1, 7, '01-03-2021')
 
 --insert payment history
-insert into payment_history(Email,DateOfPayment,Note,Price) values ('user@gmail.com', '2021-05-29', '',180000)
-insert into payment_history(Email,DateOfPayment,Note,Price) values ('user@gmail.com', '2021-05-28', '',170000)
-insert into payment_history(Email,DateOfPayment,Note,Price) values ('user@gmail.com', '2021-05-30', '',200000)
+insert into payment_history(Email,DateOfPayment,Note,Price) values ('nghiadx2001@gmail.c', '2021-05-29', '',180000)
+insert into payment_history(Email,DateOfPayment,Note,Price) values ('nghiadx2001@gmail.c', '2021-05-28', '',170000)
+insert into payment_history(Email,DateOfPayment,Note,Price) values ('nghiadx2001@gmail.c', '2021-05-30', '',200000)
 
+select * from users
+select * from Movie_Categories
+insert into Movie_Categories (Name) values 
+--(N'Tình cảm'), 
+(N'Phiêu lưu'), 
+(N'Viễn tưởng'), 
+(N'Kinh dị')
 --insert phim 
 insert into Movies (Id, IdCategory, IMDB, Likes, Name, NumberOfViews, Poster, Age)
 			values (18, 1, 6.5, 4, N'Iron Man 1', 23, 'movieposter_action_ironman_1.jpg', 18),
@@ -259,6 +283,23 @@ insert into Movies (Id, IdCategory, IMDB, Likes, Name, NumberOfViews, Poster, Ag
 				   (20, 1, 6, 0, N'Nhiệm Vụ Bất KT', 103, 'movieposter_action_NVBKT_5.jpg', 18),
 				   (21, 1, 7, 0, N'Người Nhện ', 23, 'movieposter_action_SD.jpg', 18),
 				   (22, 1, 4, 0, N'Quá Nhanh Quá NH', 1000, 'movieposter_action_ff_9.jpg', 18)
+insert into Movies (Id, IdCategory, IMDB, Likes, Name, NumberOfViews, Poster, Age)
+			values (23, 2, 6.5, 4, N'Your Name', 23, 'movieposter_action_ironman_1.jpg', 18),
+				   (24, 2, 5, 0, N'Chúng ta', 23, 'movieposter_action_ironman_2.jpg', 18),
+				   (25, 2, 6, 0, N'Người thầy y đức', 103, 'movieposter_action_NVBKT_5.jpg', 14),
+				   (26, 2, 7, 0, N'Cửa hàng tiện lợi', 23, 'movieposter_action_SD.jpg', 15),
+				   (27, 2, 4, 0, N'Hình dáng thanh âm', 1000, 'movieposter_action_ff_9.jpg', 10)
+insert into Movies (Id, IdCategory, IMDB, Likes, Name, NumberOfViews, Poster, Age)
+			values (28, 3, 6.5, 4, N'Điểm mù 2', 23, 'movieposter_action_ironman_1.jpg', 18),
+				   (29, 3, 5, 0, N'Gozzila', 23, 'movieposter_action_ironman_2.jpg', 18),
+				   (30, 3, 6, 0, N'Edens Zero', 103, 'movieposter_action_NVBKT_5.jpg', 14),
+				   (31, 4, 6, 0, N'Đồi tuyết máu', 103, 'movieposter_action_NVBKT_5.jpg', 14),
+				   (32, 4, 6.5, 4, N'Bạn trai tôi', 23, 'movieposter_action_ironman_1.jpg', 18),
+				   (33, 4, 5, 0, N'Doctor Animal', 23, 'movieposter_action_ironman_2.jpg', 18),
+				   (34, 4, 6, 0, N'Thảm họa toàn cầu', 103, 'movieposter_action_NVBKT_5.jpg', 14),
+				   (35, 5, 6.5, 4, N'Lời ru tử thần', 23, 'movieposter_action_SD.jpg', 18),
+				   (36, 5, 5, 0, N'Nuốt chửng', 23, 'movieposter_action_ironman_2.jpg', 18),
+				   (37, 5, 6, 0, N'Bùa chú', 103, 'movieposter_action_ff_9.jpg', 14)
 
 insert into Movies (Id, IdCategory,IMDB,Likes,Name,NumberOfViews,Poster,Age,Description,Season,Time,Video)
 values (7,1,6.5,4,N'Super Hero', 23, 'movieposter_postermovieHuter.jpg', 18,N'Super hero hân hạnh tài trợ', 'kn92','00:12:30','movievideo_video.mp4')

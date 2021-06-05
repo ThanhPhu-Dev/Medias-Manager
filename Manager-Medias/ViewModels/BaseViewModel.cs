@@ -1,4 +1,5 @@
-﻿using Manager_Medias.Stores;
+﻿using Manager_Medias.Services;
+using Manager_Medias.Stores;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,6 +16,7 @@ namespace Manager_Medias.ViewModels
     public class BaseViewModel : DependencyObject, INotifyPropertyChanged, INotifyDataErrorInfo
     {
         protected static UserStore _userStore;
+        protected static LoadingServices _loadingServices;
 
         #region Navigate
 
@@ -22,6 +24,15 @@ namespace Manager_Medias.ViewModels
 
         public BaseViewModel ContentViewModel => _navigationStore.ContentViewModel;
         public BaseViewModel CurrentViewModel => _navigationStore.CurrentViewModel;
+
+        public bool IsLoading
+        {
+            get => _loadingServices.IsLoading;
+            set
+            {
+                _loadingServices.IsLoading = value;
+            }
+        }
 
         #endregion Navigate
 
@@ -48,6 +59,11 @@ namespace Manager_Medias.ViewModels
         protected void _navigationStore_CurrentContentViewModelChanged()
         {
             OnPropertyChanged(nameof(ContentViewModel));
+        }
+
+        protected void MainViewModel_LoadingChanged()
+        {
+            OnPropertyChanged(nameof(IsLoading));
         }
 
         #endregion InvokeViewChanged

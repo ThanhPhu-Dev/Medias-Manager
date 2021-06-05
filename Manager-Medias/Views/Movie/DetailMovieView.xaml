@@ -1,12 +1,12 @@
 ﻿<UserControl x:Class="Manager_Medias.Views.Movie.DetailMovie"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Manager_Medias.Views.Movie"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-             xmlns:cc="clr-namespace:Manager_Medias.Converters"
-             mc:Ignorable="d" 
+             xmlns:cvt="clr-namespace:Manager_Medias.Converters"
+             mc:Ignorable="d"
              d:DesignHeight="650" d:DesignWidth="1200"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -18,89 +18,172 @@
              FontFamily="{DynamicResource MaterialDesignFont}">
 
     <UserControl.Resources>
-        <cc:ConvertImage x:Key="cvt"/>
+        <cvt:ConvertImage x:Key="cvt" />
+        <cvt:RatioVideoConverter x:Key="RatioCvt" />
+        <cvt:MillisecondToTimeLapseConverter x:Key="TimeLapseCvt" />
+        <cvt:CanvasCenterWidthConverter x:Key="CanvasCvt" />
 
         <Style TargetType="TextBlock">
-            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center" />
         </Style>
         <Style TargetType="MediaElement">
-            <Setter Property="Height" Value="0"/>
+            <Setter Property="Height" Value="0" />
         </Style>
-        <Storyboard SlipBehavior="Slip" x:Key="anm_PlayVideo">
-            <MediaTimeline Source="{Binding DetailMovies.Video, Converter={StaticResource cvt}}"
-                           Storyboard.TargetName="mea_video"
-                           BeginTime="0:0:0" Duration="{Binding DetailMovies.Time}"/>
-        </Storyboard>
+
+        <!--SCROLL STYLE-->
+        <Style x:Key="{x:Type ScrollBar}" TargetType="{x:Type ScrollBar}">
+            <Setter Property="Stylus.IsFlicksEnabled" Value="false" />
+            <Setter Property="Foreground" Value="#FF666666" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Width" Value="8" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ScrollBar}">
+                        <Grid
+                            x:Name="GridRoot"
+                            Width="10"
+                            Background="{TemplateBinding Background}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="0.00001*" />
+                            </Grid.RowDefinitions>
+
+                            <Track
+                                x:Name="PART_Track"
+                                Grid.Row="0"
+                                Focusable="false"
+                                IsDirectionReversed="true">
+                                <Track.Thumb>
+                                    <Thumb
+                                        x:Name="Thumb"
+                                        Background="{TemplateBinding Foreground}"
+                                        Style="{DynamicResource ScrollThumbs}" />
+                                </Track.Thumb>
+                                <Track.IncreaseRepeatButton>
+                                    <RepeatButton
+                                        x:Name="PageUp"
+                                        Command="ScrollBar.PageDownCommand"
+                                        Focusable="false"
+                                        Opacity="0" />
+                                </Track.IncreaseRepeatButton>
+                                <Track.DecreaseRepeatButton>
+                                    <RepeatButton
+                                        x:Name="PageDown"
+                                        Command="ScrollBar.PageUpCommand"
+                                        Focusable="false"
+                                        Opacity="0" />
+                                </Track.DecreaseRepeatButton>
+                            </Track>
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger SourceName="Thumb" Property="IsMouseOver" Value="true">
+                                <Setter TargetName="Thumb" Property="Background" Value="{DynamicResource ButtonSelectBrush}" />
+                            </Trigger>
+                            <Trigger SourceName="Thumb" Property="IsDragging" Value="true">
+                                <Setter TargetName="Thumb" Property="Background" Value="{DynamicResource DarkBrush}" />
+                            </Trigger>
+
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter TargetName="Thumb" Property="Visibility" Value="Collapsed" />
+                            </Trigger>
+                            <Trigger Property="Orientation" Value="Horizontal">
+                                <Setter TargetName="GridRoot" Property="LayoutTransform">
+                                    <Setter.Value>
+                                        <RotateTransform Angle="-90" />
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="PART_Track" Property="LayoutTransform">
+                                    <Setter.Value>
+                                        <RotateTransform Angle="-90" />
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Width" Value="Auto" />
+                                <Setter Property="Height" Value="12" />
+                                <Setter TargetName="Thumb" Property="Tag" Value="Horizontal" />
+                                <Setter TargetName="PageDown" Property="Command" Value="ScrollBar.PageLeftCommand" />
+                                <Setter TargetName="PageUp" Property="Command" Value="ScrollBar.PageRightCommand" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ScrollThumbs" TargetType="{x:Type Thumb}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Thumb}">
+                        <Grid x:Name="Grid">
+                            <Rectangle
+                                Width="Auto"
+                                Height="Auto"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                Fill="Transparent" />
+                            <Border
+                                x:Name="Rectangle1"
+                                Width="Auto"
+                                Height="Auto"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="8" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Tag" Value="Horizontal">
+                                <Setter TargetName="Rectangle1" Property="Width" Value="Auto" />
+                                <Setter TargetName="Rectangle1" Property="Height" Value="7" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </UserControl.Resources>
     <UserControl.Triggers>
         <EventTrigger RoutedEvent="Button.Click" SourceName="play">
             <BeginStoryboard Name="MyBeginStoryboard">
                 <Storyboard>
-                    <DoubleAnimation 
-                           Storyboard.TargetName="mea_video" 
-                           Storyboard.TargetProperty="Height" 
-                           Duration="0:0:0" From="0" To="530" />
-                    <DoubleAnimation 
-                           Storyboard.TargetName="mediaContainer" 
-                           Storyboard.TargetProperty="Height" 
-                           Duration="0:0:0" From="0" To="570" />
-
+                    <DoubleAnimation
+                           Storyboard.TargetName="mea_video"
+                           Storyboard.TargetProperty="Height"
+                           Duration="0:0:0" From="0" To="{Binding ElementName=mediaContainer, Path=ActualWidth, Converter={StaticResource RatioCvt}}" />
                 </Storyboard>
-
             </BeginStoryboard>
-            <BeginStoryboard Name="BeginVideo" Storyboard="{StaticResource anm_PlayVideo}"/>
-        </EventTrigger>
-        <EventTrigger RoutedEvent="ToggleButton.Checked" SourceName="btn_playvideo">
-            <!--<BeginStoryboard Name="BeginVideo" Storyboard="{StaticResource anm_PlayVideo}"/>-->
-            <PauseStoryboard BeginStoryboardName="BeginVideo" />
-        </EventTrigger>
-        <EventTrigger RoutedEvent="ToggleButton.Unchecked" SourceName="btn_playvideo">
-            <ResumeStoryboard BeginStoryboardName="BeginVideo" />
-            <!--<PauseStoryboard BeginStoryboardName="BeginVideo" />-->
         </EventTrigger>
     </UserControl.Triggers>
-    <ScrollViewer Background="Black" Width="1200">
-        <StackPanel>
-            <StackPanel Name="mediaContainer" Height="0">
-                <MediaElement x:Name="mea_video"/>
-                <ToggleButton Width="55" Height="55" Padding="0" 
-                                      Background="Transparent" 
-                                      Foreground="#febb00"
-                                      BorderThickness="0"
-                                      Cursor="Hand"
-                                      Name="btn_playvideo">
-                    <ToggleButton.Style>
-                        <Style TargetType="{x:Type ToggleButton}">
-                            <Setter Property="Content" Value="{materialDesign:PackIcon Pause, Size=55}" />
-                            <Setter Property="Template" >
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="ToggleButton">
-                                        <Border>
-                                            <ContentPresenter/>
-                                        </Border>
-
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                            <Style.Triggers>
-                                <Trigger Property="IsChecked" Value="true">
-                                    <Setter Property="Content" Value="{materialDesign:PackIcon PlayCircleOutline, Size=55}" />
-                                    <Setter Property="Background" Value="Transparent" />
-                                </Trigger>
-                            </Style.Triggers>
-
-                        </Style>
-                    </ToggleButton.Style>
-                </ToggleButton>
-            </StackPanel>
-            
+    <ScrollViewer Background="#FF151515"
+                  Name="Container">
+        <StackPanel Margin="20 0">
+            <!--trở về-->
+            <!--<ToggleButton Width="40" Height="50" Padding="5"
+                           Background="Transparent"
+                           Foreground="#febb00"
+                           BorderThickness="0"
+                           HorizontalAlignment="Left"
+                           Cursor="Hand"
+                           Name="btn_back">
+                <ToggleButton.Style>
+                    <Style TargetType="{x:Type ToggleButton}">
+                        <Setter Property="Content" Value="{materialDesign:PackIcon ArrowLeft, Size=55}" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ToggleButton">
+                                    <Border>
+                                        <ContentPresenter />
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ToggleButton.Style>
+            </ToggleButton>-->
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="79*"/>
-                    <ColumnDefinition Width="121*"/>
+                    <ColumnDefinition Width="79*" />
+                    <ColumnDefinition Width="121*" />
                 </Grid.ColumnDefinitions>
-                <Image Grid.Column="0" Source="{Binding DetailMovies.Image, Converter={StaticResource cvt}}"/>
-                <Grid Grid.Column="1" >
+                <Image Grid.Column="0" Source="{Binding DetailMovies.Image, Converter={StaticResource cvt}}" />
+                <Grid Grid.Column="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="50*" />
                         <RowDefinition Height="70*" />
@@ -110,36 +193,37 @@
                         <RowDefinition Height="250*" />
                     </Grid.RowDefinitions>
                     <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Bottom" Margin="5 0 0 0">
-                        <materialDesign:PackIcon Kind="CurrencyUsd" Foreground="#fb0" Height="21"  Width="20"/>
+                        <materialDesign:PackIcon Kind="CurrencyUsd" Foreground="#fb0" Height="21"  Width="20" />
                         <TextBlock Text="{Binding DetailMovies.Level}" Foreground="#fb0" FontSize="13px" />
                         <TextBlock Text="Phim Lẻ." Foreground="#8c8c8c" Margin="10 0 0 0" />
                         <TextBlock Text="2020" Margin="10 0 0 0" Foreground="#8c8c8c" />
                     </StackPanel>
-                    <TextBlock Grid.Row="1" Text="{Binding DetailMovies.Name}" Foreground="#ff8040" 
-                           Margin="10 0 0 0" FontSize="28px"/>
+                    <TextBlock Grid.Row="1" Text="{Binding DetailMovies.Name}" Foreground="#ff8040"
+                           Margin="10 0 0 0" FontSize="28px" />
                     <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="10 0 0 0">
-                        <Button ForceCursor="True" Cursor="Hand" Command="{Binding CmdLikesClick}" CommandParameter="{Binding DetailMovies.Id}">
-                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" >
-                                <materialDesign:PackIcon Kind="ThumbUp"  Foreground="#fb0" Height="21"  Width="38"/>
-                                <TextBlock Text="{Binding DetailMovies.like}" Foreground="#8c8c8c"/>
-                            </StackPanel>
-                        </Button>
-                        <Button>
+                        <Button ForceCursor="True" Cursor="Hand" Command="{Binding CmdLikesClick}" CommandParameter="{Binding DetailMovies.Id}"
+                                Margin="4 0">
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                <materialDesign:PackIcon Kind="EyeSettings" Foreground="#fb0" Height="21"  Width="38"/>
-                                <TextBlock Text="{Binding DetailMovies.view}"  Foreground="#8c8c8c"/>
+                                <materialDesign:PackIcon Kind="ThumbUp"  Foreground="#fb0" Height="21"  Width="38" />
+                                <TextBlock Text="{Binding DetailMovies.like}" Foreground="#8c8c8c" />
                             </StackPanel>
                         </Button>
-                        <Button Command="{Binding CmdShareClick}">
+                        <Button Margin="4 0">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <materialDesign:PackIcon Kind="EyeSettings" Foreground="#fb0" Height="21"  Width="38" />
+                                <TextBlock Text="{Binding DetailMovies.view}"  Foreground="#8c8c8c" />
+                            </StackPanel>
+                        </Button>
+                        <Button Command="{Binding CmdShareClick}" Margin="4 0">
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                 <materialDesign:PackIcon Kind="ShareVariant" Foreground="#fb0" Height="21"  Width="38" />
-                                <TextBlock Text="Chia sẻ" Foreground="#8c8c8c"/>
+                                <TextBlock Text="Chia sẻ" Foreground="#8c8c8c" />
                             </StackPanel>
                         </Button>
-                        <Button Command="{Binding CmdErrorClick}">
+                        <Button Command="{Binding CmdErrorClick}" Margin="4 0">
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                 <materialDesign:PackIcon Kind="AlertCircle" Foreground="#fb0" Height="21"  Width="38" />
-                                <TextBlock Text="Báo Lổi" Foreground="#8c8c8c"/>
+                                <TextBlock Text="Báo Lổi" Foreground="#8c8c8c" />
                             </StackPanel>
                         </Button>
                     </StackPanel>
@@ -151,10 +235,11 @@
                             Background="Black"
                             BorderBrush="#fb0"
                             BorderThickness="2"
-                            HorizontalAlignment="Left" Margin="10 0 0 0">
-                            <StackPanel Orientation="Horizontal" >
-                                <materialDesign:PackIcon Kind="PlayCircle" Foreground="#fb0"/>
-                                <TextBlock Text="Play" Foreground="#fb0" Margin="5 0 0 0"/>
+                            HorizontalAlignment="Left" Margin="10 0 0 0"
+                            Click="play_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="PlayCircle" Foreground="#fb0" />
+                                <TextBlock Text="Play" Foreground="#fb0" Margin="5 0 0 0" />
                             </StackPanel>
                         </Button>
                         <!--<Button Command="{Binding CmdAddMyListClick}" CommandParameter="{Binding DetailMovies.Id}"
@@ -164,13 +249,13 @@
                             BorderBrush="#fb0"
                             BorderThickness="2"
                             HorizontalAlignment="Left" Margin="10 0 0 0">
-                            <StackPanel Orientation="Horizontal" >
+                            <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="BookmarkPlus" Foreground="#fb0">
                                 </materialDesign:PackIcon>
-                                <TextBlock Text="My List" Foreground="#fb0" Margin="5 0 0 0"/>
+                                <TextBlock Text="My List" Foreground="#fb0" Margin="5 0 0 0" />
                             </StackPanel>
                         </Button>-->
-                        <ToggleButton 
+                        <ToggleButton
                             Width="100"
                             Height="30"
                             Foreground="#ffbb00"
@@ -180,7 +265,7 @@
                             Margin="10 0 0 0"
                             Cursor="Hand"
                             IsChecked="{Binding CheckSave, Mode=OneWay}"
-                            Command="{Binding CmdAddMyListClick}" 
+                            Command="{Binding CmdAddMyListClick}"
                             CommandParameter="{Binding DetailMovies.Id}">
                             <ToggleButton.Style>
                                 <Style TargetType="{x:Type ToggleButton}">
@@ -189,13 +274,13 @@
                                         <Setter.Value>
                                             <ControlTemplate TargetType="ToggleButton">
                                                 <Border BorderThickness="2"
-                                                        BorderBrush="#fb0" 
+                                                        BorderBrush="#fb0"
                                                         CornerRadius="2">
                                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                                        <ContentPresenter VerticalAlignment="Center"/>
+                                                        <ContentPresenter VerticalAlignment="Center" />
                                                         <TextBlock Text="My List" Margin="5 0 0 0"
                                                                    VerticalAlignment="Center"
-                                                                   FontWeight="DemiBold"/>
+                                                                   FontWeight="DemiBold" />
                                                     </StackPanel>
                                                 </Border>
                                             </ControlTemplate>
@@ -207,37 +292,151 @@
                                             <Setter Property="Background" Value="Transparent" />
                                         </Trigger>
                                     </Style.Triggers>
-
                                 </Style>
                             </ToggleButton.Style>
                         </ToggleButton>
                     </StackPanel>
-                    <TextBlock Text="{Binding DetailMovies.Description}" 
+                    <TextBlock Text="{Binding DetailMovies.Description}"
                            Grid.Row="4" Foreground="White"
-                           TextWrapping="Wrap" Margin="10 0" FontSize="14px"/>
+                           TextWrapping="Wrap" Margin="10 0" FontSize="14px" />
                     <StackPanel Grid.Row="5" Margin="10 0" VerticalAlignment="Center">
                         <StackPanel Orientation="Horizontal">
-                            <Label Content="Thời lượng: " Foreground="#8c8c8c" FontSize="14px"/>
-                            <TextBlock Text="{Binding DetailMovies.Time}" Foreground="White" FontSize="14px"/>
+                            <Label Content="Thời lượng: " Foreground="#8c8c8c" FontSize="14px" />
+                            <TextBlock Text="{Binding DetailMovies.Time}" Foreground="White" FontSize="14px" />
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <Label Content="Đạo Diễn: " Foreground="#8c8c8c" FontSize="14px"/>
-                            <TextBlock Text="{Binding DetailMovies.Directors}" Foreground="White" FontSize="14px"/>
+                            <Label Content="Đạo Diễn: " Foreground="#8c8c8c" FontSize="14px" />
+                            <TextBlock Text="{Binding DetailMovies.Directors}" Foreground="White" FontSize="14px" />
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <Label Content="Quốc gia: " Foreground="#8c8c8c" FontSize="14px"/>
-                            <TextBlock Text="{Binding DetailMovies.Nation}" Foreground="White" FontSize="14px"/>
+                            <Label Content="Quốc gia: " Foreground="#8c8c8c" FontSize="14px" />
+                            <TextBlock Text="{Binding DetailMovies.Nation}" Foreground="White" FontSize="14px" />
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <Label Content="Thể loại: " Foreground="#8c8c8c" FontSize="14px"/>
+                            <Label Content="Thể loại: " Foreground="#8c8c8c" FontSize="14px" />
                             <TextBlock Text="{Binding DetailMovies.Category}" Foreground="White" FontSize="14px" />
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <Label Content="IMDB: " Foreground="#8c8c8c"/>
-                            <TextBlock Text="{Binding DetailMovies.IMDB}" Foreground="White" FontSize="14px"/>
+                            <Label Content="IMDB: " Foreground="#8c8c8c" />
+                            <TextBlock Text="{Binding DetailMovies.IMDB}" Foreground="White" FontSize="14px" />
                         </StackPanel>
                     </StackPanel>
                 </Grid>
+            </Grid>
+            <Grid Name="mediaContainer"
+                  Background="{x:Null}"
+                  Margin="20 30"
+                  Visibility="Visible">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="8*" />
+                    <RowDefinition Height="2*" />
+                </Grid.RowDefinitions>
+
+                <!--Media-->
+                <MediaElement x:Name="mea_video"
+                              MediaOpened="audio_MediaOpened"
+                              LoadedBehavior="Manual"
+                              Stretch="Uniform"
+                              StretchDirection="UpOnly"
+                              Source="{Binding DetailMovies.Video, Converter={StaticResource cvt}}"
+                              Grid.Row="0">
+                </MediaElement>
+                <Canvas Grid.Row="1"
+                        HorizontalAlignment="Stretch"
+                        Name="ControlCanvas"
+                        Opacity="0">
+                    <StackPanel Width="{Binding ElementName=mea_video, Path=ActualWidth}"
+                                Canvas.Top="-60"
+                                Background="#1E6E6E6E"
+                                Height="60"
+                                Name="StackControl">
+                        <Canvas.Left>
+                            <MultiBinding Converter="{StaticResource CanvasCvt}">
+                                <Binding ElementName="ControlCanvas" Path="ActualWidth" />
+                                <Binding ElementName="mea_video" Path="ActualWidth" />
+                            </MultiBinding>
+                        </Canvas.Left>
+                        <Grid HorizontalAlignment="Stretch"
+                              VerticalAlignment="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="12" />
+                                <ColumnDefinition Width="90" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="90" />
+                                <ColumnDefinition Width="12" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Name="timeChange"
+                                   Text="{Binding ElementName=timelineSlider, Path=Value, Converter={StaticResource TimeLapseCvt}}"
+                                   FontSize="15"
+                                   Foreground="#fff"
+                                   Grid.Column="1" HorizontalAlignment="Left" />
+                            <Slider Grid.Column="2"
+                                TickFrequency="5"
+                                Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                Value="0"
+                                Width="auto"
+                                Foreground="{DynamicResource SecondaryAccentBrush}"
+                                Name="timelineSlider"
+                                Thumb.DragStarted="timelineSlider_DragStarted"
+                                Thumb.DragCompleted="timelineSlider_DragCompleted">
+                            </Slider>
+                            <TextBlock Name="timeend"
+                                Text="{Binding ElementName=timelineSlider, Path=Maximum, Converter={StaticResource TimeLapseCvt}}"
+                                FontSize="15"
+                                Foreground="#fff"
+                                Grid.Column="3" HorizontalAlignment="Right" />
+                        </Grid>
+
+                        <!--nut play pause-->
+                        <ToggleButton Width="40" Height="40" Padding="0" Name="btn_playvideo"
+                                      Background="Transparent"
+                                      Foreground="#fff"
+                                      BorderThickness="0"
+                                      Cursor="Hand"
+                                      Checked="btn_playvideo_Checked"
+                                      Unchecked="btn_playvideo_Unchecked">
+                            <ToggleButton.Style>
+                                <Style TargetType="{x:Type ToggleButton}">
+                                    <Setter Property="Content" Value="{materialDesign:PackIcon Pause, Size=40}" />
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="ToggleButton">
+                                                <Border>
+                                                    <ContentPresenter />
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsChecked" Value="true">
+                                            <Setter Property="Content" Value="{materialDesign:PackIcon PlayCircleOutline, Size=40}" />
+                                            <Setter Property="Background" Value="Transparent" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ToggleButton.Style>
+                        </ToggleButton>
+                    </StackPanel>
+                </Canvas>
+                <Grid.Triggers>
+                    <EventTrigger RoutedEvent="MouseEnter">
+                        <BeginStoryboard>
+                            <Storyboard Storyboard.TargetProperty="Opacity"
+                                            Storyboard.TargetName="ControlCanvas">
+                                <DoubleAnimation Duration="0:0:0.15" To="1" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                    <EventTrigger RoutedEvent="MouseLeave">
+                        <BeginStoryboard>
+                            <Storyboard Storyboard.TargetProperty="Opacity"
+                                            Storyboard.TargetName="ControlCanvas">
+                                <DoubleAnimation Duration="0:0:0.15" To="0" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Grid.Triggers>
             </Grid>
         </StackPanel>
     </ScrollViewer>

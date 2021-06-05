@@ -125,7 +125,6 @@
                         <TextBlock Text="Bạn đã sẵn sàng xem chưa? Nhập email để tạo hoặc kích hoạt lại tư cách thành viên của bạn."
                                    Foreground="#fff"
                                    HorizontalAlignment="Center" />
-
                         <Grid Margin="0 5 0 0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="2*" />

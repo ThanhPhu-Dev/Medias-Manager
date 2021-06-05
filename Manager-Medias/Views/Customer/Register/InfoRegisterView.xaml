@@ -7,6 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="558" d:DesignWidth="1200"
              xmlns:cv="clr-namespace:Manager_Medias.Converters"
+             xmlns:component="clr-namespace:Manager_Medias.Views"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              >
     <UserControl.Resources>
@@ -217,7 +218,7 @@
                         Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"/>
                 </StackPanel>
                 <StackPanel Background="#fff">
-                    <TextBox Name="tb_Password"
+                    <!--<TextBox Name="tb_Password"
                     Style="{StaticResource MaterialDesignFilledTextBox}"
                     VerticalAlignment="Top"
                     Foreground="#222"
@@ -230,7 +231,15 @@
                     FontSize="20"
                     Text="{Binding Password, ValidatesOnNotifyDataErrors=True,
                     UpdateSourceTrigger=PropertyChanged}"
-                        Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"/>
+                        Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}"/>-->
+                    <component:PasswordBoxMaterialDesign x:Name="txtPassword" Password="{Binding Password, ValidatesOnNotifyDataErrors=True,
+                        UpdateSourceTrigger=PropertyChanged}" 
+                        Height="60"
+                        FontSize="20"
+                        VerticalAlignment="Top"
+                        Foreground="#222"
+                        ToolTip="Tối thiểu 8 ký tự và có ít nhất một số"
+                        Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}" />
                 </StackPanel>
 
                 <StackPanel Margin="0 13">
@@ -256,12 +265,6 @@
                     Content="Tiếp tục" 
                     FontSize="23"
                     Command="{Binding CmdContinue}">
-                    <Button.CommandParameter>
-                        <MultiBinding Converter="{StaticResource MultiParamCvt}">
-                            <Binding ElementName="tb_Email" Path="Text" />
-                            <Binding ElementName="tb_Password" Path="Text" />
-                        </MultiBinding>
-                    </Button.CommandParameter>
                 </Button>
             </StackPanel>
         </Grid>

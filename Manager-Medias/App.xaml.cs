@@ -1,4 +1,5 @@
 ﻿using Manager_Medias.Models;
+using Manager_Medias.Services;
 using Manager_Medias.Stores;
 using Manager_Medias.ViewModels;
 using Manager_Medias.ViewModels.Customer;
@@ -23,10 +24,11 @@ namespace Manager_Medias
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("NDUwNjgwQDMxMzkyZTMxMmUzMEFCRUZSUzU4RGNhTGo0eHkvMW9YYVJkMUd5UXhxbTdaNTdtSFFJSS84dlU9");
             // Init location
             NavigationStore navigationStore = new NavigationStore();
+            LoadingServices ls = new LoadingServices();
 
             MainWindow = new MainWindow()
             {
-                DataContext = new MainViewModel(navigationStore)
+                DataContext = new MainViewModel(navigationStore, ls)
             };
 
             MainWindow.Show();

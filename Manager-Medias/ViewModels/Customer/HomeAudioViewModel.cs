@@ -1,4 +1,6 @@
-﻿using Manager_Medias.Models;
+﻿using Manager_Medias.Commands;
+using Manager_Medias.Models;
+using Manager_Medias.Stores;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -6,37 +8,51 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 
 namespace Manager_Medias.ViewModels.Customer
 {
     public class HomeAudioViewModel : BaseViewModel
     {
-        public static readonly DependencyProperty AudioListProperty;
+        public static readonly DependencyProperty CatAudioListProperty;
+        public ICommand CmdToDetailAudio { get; set; }
+        public int Level => (int)_userStore.CurrentUser.Level;
+
         static HomeAudioViewModel()
         {
-            AudioListProperty = DependencyProperty.Register("AudioList", typeof(ObservableCollection<List<Audio>>), typeof(HomeAudioViewModel));
+            CatAudioListProperty = DependencyProperty.Register("CatAudioList", typeof(ObservableCollection<Audio_Category>), typeof(HomeAudioViewModel));
         }
-        public ObservableCollection<List<Audio>> AudioList
+
+        public ObservableCollection<Audio_Category> CatAudioList
         {
-            get => (ObservableCollection<List<Audio>>)GetValue(AudioListProperty);
-            set => SetValue(AudioListProperty, value);
+            get => (ObservableCollection<Audio_Category>)GetValue(CatAudioListProperty);
+            set => SetValue(CatAudioListProperty, value);
         }
 
         public HomeAudioViewModel()
         {
             LoadMovie();
+            CmdToDetailAudio = new RelayCommand<object>(ToDetailAudio);
+        }
+
+        private void ToDetailAudio(object obj)
+        {
+            var id = (int)obj;
+            //chuyển trang
+            _navigationStore.ContentViewModel = new DetailAudioViewModel(id);
         }
 
         private void LoadMovie()
         {
             using (var db = new MediasManangementEntities())
             {
-                AudioList = new ObservableCollection<List<Audio>>();
-                foreach(var id in db.Audio_Categories.ToList())
-                {
-                    AudioList.Add(new List<Audio>(db.Audios.Where(p => p.IdCategory == id.Id).ToList()));
-                }
+                CatAudioList = new ObservableCollection<Audio_Category>(
+                    db.Audio_Categories.Include("Audios")
+                                    .Include("Audios.Media")
+                                    .ToList());
             }
+
+            var a = CatAudioList[0].Audios.ElementAt(0).Media.Id;
         }
     }
 }

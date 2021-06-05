@@ -123,7 +123,7 @@
       <HintPath>..\packages\Syncfusion.Tools.WPF.19.1.0.64\lib\net46\Syncfusion.Tools.WPF.dll</HintPath>
     </Reference>
     <Reference Include="System">
-      <HintPath>..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.dll</HintPath>
     </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
@@ -152,14 +152,22 @@
     <Compile Include="Commands\CommandBase.cs" />
     <Compile Include="Commands\NavigateCommand.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="Converters\CanvasCenterWidthConverter.cs" />
     <Compile Include="Converters\ChangeColorLevel_1Converter.cs" />
     <Compile Include="Converters\ChangeColorLevel_2Converter.cs" />
     <Compile Include="Converters\ChangeColorLevel_3Converter.cs" />
+    <Compile Include="Converters\CompareLevelConverter.cs" />
     <Compile Include="Converters\ConvertImage.cs" />
+    <Compile Include="Converters\IsLoadingConverter.cs" />
+    <Compile Include="Converters\LineCategoryConverter.cs" />
+    <Compile Include="Converters\MainLayoutModalWidthConverter.cs" />
+    <Compile Include="Converters\MillisecondToTimeLapseConverter.cs" />
     <Compile Include="Converters\MoneyConverter.cs" />
     <Compile Include="Converters\MultiParameterConverter.cs" />
+    <Compile Include="Converters\PercentWidthItemConverter.cs" />
     <Compile Include="Converters\ProfileImageConverter.cs" />
     <Compile Include="Converters\ProfileLoginEnableConverter.cs" />
+    <Compile Include="Converters\RatioVideoConverter.cs" />
     <Compile Include="Converters\TextToPasswordCharConverter.cs" />
     <Compile Include="Converters\ToShortDateConverter.cs" />
     <Compile Include="CustomModels\DetailMovieCustomModel.cs" />
@@ -185,6 +193,7 @@
     <Compile Include="Models\My_List.cs">
       <DependentUpon>MediasManagement.tt</DependentUpon>
     </Compile>
+    <Compile Include="Services\LoadingServices.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Stores\NavigationStore.cs" />
     <Compile Include="Stores\UserStore.cs" />
@@ -209,6 +218,7 @@
     <Compile Include="ViewModels\Customer\HomeAudioViewModel.cs" />
     <Compile Include="ViewModels\Customer\HistoryListViewModel.cs" />
     <Compile Include="ViewModels\Customer\HomeMovieViewModel.cs" />
+    <Compile Include="ViewModels\Customer\HomePictureViewModel.cs" />
     <Compile Include="ViewModels\Customer\HomeViewModel.cs" />
     <Compile Include="Models\Album.cs">
       <DependentUpon>MediasManagement.tt</DependentUpon>
@@ -254,6 +264,7 @@
     </Compile>
     <Compile Include="ViewModels\Customer\MainAccountViewModel.cs" />
     <Compile Include="ViewModels\Customer\MainLayoutViewModel.cs" />
+    <Compile Include="ViewModels\Customer\MyPlayListViewModel.cs" />
     <Compile Include="ViewModels\Customer\PaymentHistoryViewModel.cs" />
     <Compile Include="ViewModels\Customer\ProfileManagerViewModel.cs" />
     <Compile Include="ViewModels\Guest\GuestCartRegisterViewModel.cs" />
@@ -278,11 +289,14 @@
     <Compile Include="Views\Account\MainAccountView.xaml.cs">
       <DependentUpon>MainAccountView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Account\MyPlayListView.xaml.cs">
+      <DependentUpon>MyPlayListView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Account\PaymentHistoryView.xaml.cs">
       <DependentUpon>PaymentHistoryView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Account\PlayListView.xaml.cs">
-      <DependentUpon>PlayListView.xaml</DependentUpon>
+    <Compile Include="Views\Account\PaymentView.xaml.cs">
+      <DependentUpon>PaymentView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Account\ProfileManager.xaml.cs">
       <DependentUpon>ProfileManager.xaml</DependentUpon>
@@ -332,17 +346,26 @@
     <Compile Include="Views\Layouts\MainLayoutView.xaml.cs">
       <DependentUpon>MainLayoutView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\LoadingUC.xaml.cs">
+      <DependentUpon>LoadingUC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Movie\DetailMovieView.xaml.cs">
       <DependentUpon>DetailMovieView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Movie\HomeMovieView.xaml.cs">
       <DependentUpon>HomeMovieView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\PasswordBoxMaterialDesign.xaml.cs">
+      <DependentUpon>PasswordBoxMaterialDesign.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\PasswordBoxUC.xaml.cs">
       <DependentUpon>PasswordBoxUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Picture\DetailPictrue.xaml.cs">
       <DependentUpon>DetailPictrue.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Picture\HomePictureView.xaml.cs">
+      <DependentUpon>HomePictureView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -376,11 +399,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Account\MyPlayListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Account\PaymentHistoryView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Account\PlayListView.xaml">
+    <Page Include="Views\Account\PaymentView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -448,6 +475,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\LoadingUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Movie\DetailMovieView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -456,11 +487,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\PasswordBoxMaterialDesign.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\PasswordBoxUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Picture\DetailPictrue.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Picture\HomePictureView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -574,6 +613,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Images\Movie\Poster\movieposter_action_SD.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Images\Album\album_chientranh.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Images\Album\album_nature.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Content Include="Images\Audio\mp3\audiomp3_mp3_1.mp3">

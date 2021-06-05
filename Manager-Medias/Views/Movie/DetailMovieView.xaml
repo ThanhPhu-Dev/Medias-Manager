@@ -236,7 +236,8 @@
                             BorderBrush="#fb0"
                             BorderThickness="2"
                             HorizontalAlignment="Left" Margin="10 0 0 0"
-                            Click="play_Click">
+                            Click="play_Click"
+                            Command="{Binding CmdPlay}">
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="PlayCircle" Foreground="#fb0" />
                                 <TextBlock Text="Play" Foreground="#fb0" Margin="5 0 0 0" />
@@ -274,10 +275,11 @@
                                         <Setter.Value>
                                             <ControlTemplate TargetType="ToggleButton">
                                                 <Border BorderThickness="2"
-                                                        BorderBrush="#fb0"
-                                                        CornerRadius="2">
+                                                        BorderBrush="{DynamicResource SecondaryAccentBrush}"
+                                                        CornerRadius="2"
+                                                        Background="#000">
                                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                                        <ContentPresenter VerticalAlignment="Center" />
+                                                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Stretch" />
                                                         <TextBlock Text="My List" Margin="5 0 0 0"
                                                                    VerticalAlignment="Center"
                                                                    FontWeight="DemiBold" />
@@ -374,7 +376,7 @@
                                 TickFrequency="5"
                                 Orientation="Horizontal"
                                 VerticalAlignment="Center"
-                                Value="0"
+                                Value="{Binding SliderValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Width="auto"
                                 Foreground="{DynamicResource SecondaryAccentBrush}"
                                 Name="timelineSlider"

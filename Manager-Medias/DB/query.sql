@@ -188,7 +188,7 @@ select * from Movie_Categories
 select * from levels
 select * from Album_Details
 select * from Albums
-
+select * from Users where Email = 'nghiadx2001@gmail.c'
 --insert cấp độ
 INSERT INTO Levels (Name, Price) values
 (N'Cơ bản', 180000),

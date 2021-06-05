@@ -249,6 +249,7 @@
                                         </Button.Triggers>
                                     </Button>
                                     <Button Content="Gói dịch vụ"
+                                            Command="{Binding PaymentCmd}"
                                             Style="{StaticResource PopupItemButton}">
                                         <Button.Triggers>
                                             <EventTrigger RoutedEvent="Button.Click">
@@ -430,6 +431,9 @@
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type viewmodels:HomePictureViewModel}">
                     <vpicture:HomePicture />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type viewmodels:PaymentViewModels}">
+                    <vprofile:PaymentView />
                 </DataTemplate>
             </Grid.Resources>
             <ContentControl Content="{Binding ContentViewModel}" />

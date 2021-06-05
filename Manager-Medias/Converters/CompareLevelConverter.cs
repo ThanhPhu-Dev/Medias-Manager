@@ -18,7 +18,7 @@ namespace Manager_Medias.Converters
             var userLevel = values[0];
             var mediaLevel = values[1];
 
-            if (userLevel != DependencyProperty.UnsetValue && !string.IsNullOrEmpty(mediaLevel.ToString()))
+            if (userLevel != DependencyProperty.UnsetValue && mediaLevel != DependencyProperty.UnsetValue)
             {
                 return (int)userLevel >= (int)mediaLevel ? true : false;
             }

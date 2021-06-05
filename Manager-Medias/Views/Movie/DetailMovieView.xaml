@@ -177,20 +177,16 @@
                     </Style>
                 </ToggleButton.Style>
             </ToggleButton>-->
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="79*" />
-                    <ColumnDefinition Width="121*" />
-                </Grid.ColumnDefinitions>
-                <Image Grid.Column="0" Source="{Binding DetailMovies.Image, Converter={StaticResource cvt}}" />
-                <Grid Grid.Column="1">
+            <StackPanel Orientation="Horizontal">
+                <Image VerticalAlignment="Center" Width="500" Margin="0" Height="480" Source="{Binding DetailMovies.Image, Converter={StaticResource cvt}}" />
+                <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="50*" />
                         <RowDefinition Height="70*" />
                         <RowDefinition Height="41*" />
                         <RowDefinition Height="59*" />
-                        <RowDefinition Height="100*" />
-                        <RowDefinition Height="250*" />
+                        <RowDefinition Height="160*" />
+                        <RowDefinition Height="160*" />
                     </Grid.RowDefinitions>
                     <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Bottom" Margin="5 0 0 0">
                         <materialDesign:PackIcon Kind="CurrencyUsd" Foreground="#fb0" Height="21"  Width="20" />
@@ -299,6 +295,7 @@
                         </ToggleButton>
                     </StackPanel>
                     <TextBlock Text="{Binding DetailMovies.Description}"
+                               Width="600"
                            Grid.Row="4" Foreground="White"
                            TextWrapping="Wrap" Margin="10 0" FontSize="14px" />
                     <StackPanel Grid.Row="5" Margin="10 0" VerticalAlignment="Center">
@@ -324,7 +321,7 @@
                         </StackPanel>
                     </StackPanel>
                 </Grid>
-            </Grid>
+            </StackPanel>
             <Grid Name="mediaContainer"
                   Background="{x:Null}"
                   Margin="20 30"

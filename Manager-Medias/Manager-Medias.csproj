@@ -172,6 +172,7 @@
     <Compile Include="Converters\ToShortDateConverter.cs" />
     <Compile Include="CustomModels\DetailMovieCustomModel.cs" />
     <Compile Include="CustomModels\InfoPaymentHistoryCustomModelcs.cs" />
+    <Compile Include="CustomModels\InfoUserPayment.cs" />
     <Compile Include="CustomModels\MediaCustomModel.cs" />
     <Compile Include="Functions\HashPassword.cs" />
     <Compile Include="Models\Album_Detail.cs">
@@ -266,6 +267,7 @@
     <Compile Include="ViewModels\Customer\MainAccountViewModel.cs" />
     <Compile Include="ViewModels\Customer\MainLayoutViewModel.cs" />
     <Compile Include="ViewModels\Customer\MyPlayListViewModel.cs" />
+    <Compile Include="ViewModels\Customer\PaymentViewModels.cs" />
     <Compile Include="ViewModels\Customer\PaymentHistoryViewModel.cs" />
     <Compile Include="ViewModels\Customer\ProfileManagerViewModel.cs" />
     <Compile Include="ViewModels\Guest\GuestCartRegisterViewModel.cs" />
@@ -660,6 +662,9 @@
     <Resource Include="Images\Profile\pr4.jpg" />
     <Resource Include="Images\Profile\pr5.jpg" />
     <None Include="Images\Profile\default_avatar.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Images\Movie\Poster\movieposter_posterlunglinh.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Content Include="Images\Movie\Video\movievideo_video.mp4">

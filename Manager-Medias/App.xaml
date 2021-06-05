@@ -1,7 +1,8 @@
 ﻿<Application x:Class="Manager_Medias.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:Manager_Medias">
+             xmlns:local="clr-namespace:Manager_Medias"
+             StartupUri="/Views/Admin/DashboardAdmin.xaml">
     <!--Customer/MainCustomerView.xaml-->
     <Application.Resources>
         <ResourceDictionary>

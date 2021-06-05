@@ -26,7 +26,7 @@ namespace Manager_Medias.ViewModels.Customer
         public ICommand MovieCmd { get; set; }
         public ICommand AudioCmd { get; set; }
         public ICommand PictureCmd { get; set; }
-
+        public ICommand PaymentCmd { get; set; }
         #endregion Command
 
         #region Binding
@@ -50,6 +50,9 @@ namespace Manager_Medias.ViewModels.Customer
 
             NavigateHomeCmd = new NavigateCommand<HomeViewModel>(
                 new NavigationService<HomeViewModel>(_navigationStore, () => new HomeViewModel()));
+
+            PaymentCmd = new NavigateCommand<PaymentViewModels>(
+                new NavigationService<PaymentViewModels>(_navigationStore, () => new PaymentViewModels()));
 
             _navigationStore.CurrentContentViewModelChanged += _navigationStore_CurrentContentViewModelChanged;
 

@@ -1,0 +1,104 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using System.Windows.Controls;
+
+namespace Manager_Medias.Validates
+{
+    public class AccountManagementRules : ValidationRule
+    {
+        public string property { get; set; }
+
+
+        private string _patternEmail = @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z";
+        private Regex rgPassword = new Regex(@"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$");
+        public override ValidationResult Validate(object value, CultureInfo cultureInfo)
+        {
+            if (property == "Email")
+            {
+                string email = value.ToString();
+                if(email.Length == 0)
+                {
+                    return new ValidationResult(false, "Hãy nhập địa chỉ mail!");
+                }
+                if (!Regex.IsMatch(email, _patternEmail))
+                {
+                    return new ValidationResult(false, "Email không hợp lệ!");
+                }
+            }
+            if (property == "Code")
+            {
+                if (((string)value).Length < 4)
+                {
+                    return new ValidationResult(false, "Code phải có 5 ký tự trở lên!");
+                }
+            }
+
+            if (property == "Level")
+            {
+                int level = 0;
+                try
+                {
+                    if (((string)value).Length > 0)
+                    {
+                        level = Int32.Parse((String)value);
+                    }    
+                    else
+                    {
+                        return new ValidationResult(false, "Hãy nhập cấp độ tài khoản!");
+                    }
+
+                    if(level > 3)
+                    {
+                        return new ValidationResult(false, "Level phải nằm trong khoảng 0 - 3!");
+                    }
+                }
+                catch (Exception e)
+                {
+                    return new ValidationResult(false, "Không được nhập ký tự ngoài chữ số! - " + e.Message);
+                }
+            }
+
+            if(property == "Password")
+            {
+                if (!rgPassword.IsMatch(value.ToString()))
+                {
+                    return new ValidationResult(false, "Password có tối thiểu 8 ký tự gồm ít nhất 1 số");
+                }
+            }
+
+            if (property == "NumberCard")
+            {
+                double cardNum = 0;
+                try
+                {
+                    if (((string)value).Length > 0)
+                    {
+                        cardNum = double.Parse(value.ToString());
+                    }
+                    else
+                    {
+                        return new ValidationResult(false, "Hãy nhập số thẻ!");
+                    }
+                        
+
+                    if (cardNum.ToString().Length < 16)
+                    {
+                        return new ValidationResult(false, "Số thẻ phải có 16 ký tự!");
+                    }
+                }
+                catch (Exception e)
+                {
+                    return new ValidationResult(false, "Không được nhập ký tự ngoài chữ số! - " + e.Message);
+                }
+            }
+
+            return new ValidationResult(true, null);
+
+        }
+    }
+}

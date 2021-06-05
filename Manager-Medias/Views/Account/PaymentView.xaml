@@ -4,9 +4,176 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Manager_Medias.Views.Account"
+             xmlns:model="clr-namespace:Manager_Medias.Models"
+             xmlns:cvt="clr-namespace:Manager_Medias.Converters"
+             xmlns:view="clr-namespace:Manager_Medias.Views.Account"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="White">
-            
+             d:DesignHeight="585" d:DesignWidth="1200"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
+
+    <UserControl.Resources>
+        <cvt:MoneyConverter x:Key="cvtMoney"/>
+    </UserControl.Resources>
+    <Grid Background="Black">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="2.9*"/>
+            <RowDefinition Height="7*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Visibility="Hidden" Text="{Binding userinfo.Level}" Name="level"/>
+        <TextBlock Text="Chọn gói dịch vụ muốn nâng cấp"
+                   Grid.Row="1" FontSize="46"
+                   HorizontalAlignment="Center"
+                   Foreground="#febb00"
+                   VerticalAlignment="Center"/>
+        <!--gói dịch vụ-->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
+            <ItemsControl ItemsSource="{Binding lstlvl}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="3"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type model:Level}">
+                        <Border BorderThickness="1"
+                                BorderBrush="{DynamicResource SecondaryAccentBrush}" Width="350" 
+                                CornerRadius="30"
+                                Margin="10 0">
+                            <Grid Margin="10 20">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="1*"/>
+                                    <RowDefinition Height="2*"/>
+                                    <RowDefinition Height="2*"/>
+                                    <RowDefinition Height="5*"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Text="{Binding Name}" x:Name="lv" Foreground="{DynamicResource SecondaryAccentBrush}"
+                                       VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="30"
+                                       Padding="0 10"
+                                       Grid.Row="0"/>
+                                <TextBlock Text="{Binding Price, Converter={StaticResource cvtMoney}}" Foreground="White"
+                                           VerticalAlignment="Center"
+                                           x:Name="price"
+                                               HorizontalAlignment="Center"
+                                               FontSize="32"
+                                           Grid.Row="1"/>
+                                <Grid Grid.Row="2" Width="250">
+                                    <Button
+                                    Tag="{Binding Id}"
+                                    Name="btn_Payment"
+                                    Command="{Binding DataContext.OpenNewModal,
+                                    RelativeSource={RelativeSource Mode=FindAncestor,
+                                                               AncestorType={x:Type view:PaymentView}}}"
+                                   Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                                   Height="50"
+                                   Background="{DynamicResource SecondaryAccentBrush}"
+                                   materialDesign:ButtonAssist.CornerRadius="25">
+                                        <TextBlock Text="Nâng Cấp" Foreground="Black" FontSize="20"/>
+                                    </Button>
+                                </Grid>
+                                <StackPanel Grid.Row="3" VerticalAlignment="Center" Margin="5 0">
+                                    <StackPanel  Orientation="Horizontal" VerticalAlignment="Center">
+                                        <materialDesign:PackIcon Kind="Check" Width="40" Height="40" Foreground="White"/>
+                                        <TextBlock Text="{Binding Quality, StringFormat={}Chất Lượng: {0}}" 
+                                                   Foreground="White"
+                                       VerticalAlignment="Center" FontSize="23"
+                                       Grid.Row="1"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                        <materialDesign:PackIcon Kind="Check" Width="40" Height="40" Foreground="White"/>
+                                        <TextBlock Text="{Binding Resolution, StringFormat={}Độ Phân Giải: {0}}" Foreground="White"
+                                       VerticalAlignment="Center" FontSize="23"
+                                       Grid.Row="1"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+        <Canvas Panel.ZIndex="2000">
+            <Border 
+                        Width="550" Height="340"
+                        CornerRadius="3" ClipToBounds="True"
+                        Background="#FF303030"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Canvas.Left="300">
+                <StackPanel>
+                    <StackPanel>
+                        <StackPanel.Resources>
+                            <Style TargetType="StackPanel" x:Key="info">
+                                <Setter Property="Orientation" Value="Horizontal"/>
+                            </Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="FontSize" Value="20"/>
+                                <Setter Property="Margin" Value="20"/>
+                            </Style>
+                        </StackPanel.Resources>
+                        <StackPanel Style="{StaticResource info}">
+                            <TextBlock Text="Số Thẻ:"/>
+                            <TextBlock Text="{Binding userinfo.NumberCard}"/>
+                        </StackPanel>
+                        <StackPanel Style="{StaticResource info}">
+                            <TextBlock Text="Ngày Hết Hạn:"/>
+                            <TextBlock Text="{Binding userinfo.Exp}"/>
+                        </StackPanel>
+                        <StackPanel Style="{StaticResource info}">
+                            <TextBlock Text="Muốn nâng cấp độ lên:"/>
+                        </StackPanel>
+                        <StackPanel Style="{StaticResource info}">
+                            <TextBlock Text="Số Tiền trừ vào tài khoản:"/>
+                        </StackPanel>
+                    </StackPanel>
+                    
+                    <Grid Margin="0 10 0 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0"
+                                        Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                                        HorizontalAlignment="Right"
+                                        Margin="0 0 20 0"
+                                        Background="#febb00"
+                                        Foreground="#000"
+                                        materialDesign:ButtonAssist.CornerRadius="3"
+                                        Width="100"
+                                        Height="32"
+                                        ToolTip="Xác nhận thanh toán"
+                                        Content="Xác nhãn"
+                                         />
+                        <Button Grid.Column="1"
+                                        Name="btnCloseEditModal"
+                                        Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                                        HorizontalAlignment="Left"
+                                        Margin="20 0 0 0"
+                                        Background="#707070"
+                                        Foreground="#fff"
+                                        materialDesign:ButtonAssist.CornerRadius="3"
+                                        Width="100"
+                                        Height="32"
+                                        ToolTip="Huỷ"
+                                        Content="Huỷ"
+                                         />
+                    </Grid>
+                </StackPanel>
+                <Border.Style>
+                    <Style>
+                        <Setter Property="Canvas.Bottom" Value="-800" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsModalOpen}" Value="false">
+                                <Setter Property="Canvas.Bottom" Value="-1000" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsModalOpen}" Value="true">
+                                <Setter Property="Canvas.Bottom" Value="-420" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+            </Border>
+        </Canvas>
     </Grid>
 </UserControl>

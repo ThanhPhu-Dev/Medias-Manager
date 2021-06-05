@@ -25,10 +25,10 @@ namespace Manager_Medias.Views.Movie
     {
         private DispatcherTimer seeker;
         private bool isSeekingMedia = false;
+
         public DetailMovie()
         {
             InitializeComponent();
-            mea_video.Play();
         }
 
         private void timelineSlider_DragStarted(object sender, System.Windows.Controls.Primitives.DragStartedEventArgs e)
@@ -50,11 +50,22 @@ namespace Manager_Medias.Views.Movie
 
         private void audio_MediaOpened(object sender, RoutedEventArgs e)
         {
+            InitPosition();
             timelineSlider.Maximum = mea_video.NaturalDuration.TimeSpan.TotalMilliseconds;
             seeker = new DispatcherTimer();
             seeker.Interval = TimeSpan.FromSeconds(1);
             seeker.Tick += Seeker_Tick;
             seeker.Start();
+        }
+
+        private void InitPosition()
+        {
+            int SliderValue = (int)timelineSlider.Value;
+
+            // Overloaded constructor takes the arguments days, hours, minutes, seconds, milliseconds.
+            // Create a TimeSpan with miliseconds equal to the slider value.
+            TimeSpan ts = new TimeSpan(0, 0, 0, 0, SliderValue);
+            mea_video.Position = ts;
         }
 
         private void Seeker_Tick(object sender, EventArgs e)
@@ -75,5 +86,10 @@ namespace Manager_Medias.Views.Movie
             mea_video.Play();
         }
 
+        private void play_Click(object sender, RoutedEventArgs e)
+        {
+            Container.ScrollToBottom();
+            mea_video.Play();
+        }
     }
 }

@@ -9,8 +9,70 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
+    
     <UserControl.Resources>
         <localConvert:ProfileImageConverter x:Key="ProfileImageConverter"/>
+        
+        <SolidColorBrush x:Key="TextBox.Static.Border" Color="#FFABAdB3"/>
+            <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#FF7EB4EA"/>
+            <SolidColorBrush x:Key="TextBox.Focus.Border" Color="#FF569DE5"/>
+        <Style x:Key="TxtStyleValidation" TargetType="{x:Type TextBox}">
+            <Setter Property="BorderBrush" Value="{StaticResource TextBox.Static.Border}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Margin" Value="0 5 0 0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Background="{TemplateBinding Background}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1">
+                                    <Grid x:Name="grdHeader">
+                                        <Label x:Name="lbHeader" Content="{TemplateBinding Tag}" 
+                                           FontWeight="Bold" MinWidth="74"
+                                           VerticalContentAlignment="Center" Padding="5,0,5,0"
+                                           Foreground="Black" ></Label>
+                                    </Grid>
+                                </Border>
+                                
+                                <ScrollViewer x:Name="PART_ContentHost" Focusable="false" Width="200"
+                                              HorizontalScrollBarVisibility="Hidden" 
+                                              VerticalScrollBarVisibility="Hidden" Grid.Column="1" 
+                                              VerticalContentAlignment="Center" Padding="5,5,2,1"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            
+                            <Trigger Property="IsKeyboardFocused" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.Focus.Border}"/>
+                            </Trigger>
+                            <Trigger Property="Validation.HasError" Value="true">
+                                <Setter Property="ToolTip"
+                                    Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+                                    Path=(Validation.Errors)[0].ErrorContent}"/>
+                                
+                                <Setter Property="Background" TargetName="lbHeader" Value="Red"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsInactiveSelectionHighlightEnabled" Value="true"/>
+                        <Condition Property="IsSelectionActive" Value="false"/>
+                    </MultiTrigger.Conditions>
+                    <Setter Property="SelectionBrush" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"/>
+                </MultiTrigger>
+            </Style.Triggers>
+        </Style>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -39,8 +101,9 @@
                 <Grid Height="110" Margin="15 5 15 0">
                     <StackPanel>
                         <Button Margin="10,5,10,0" Background="CadetBlue"
-                                    Height="26"
-                                    BorderBrush="CadetBlue">
+                                Height="26"
+                                Name="btAddUser"
+                                BorderBrush="CadetBlue">
                             <Grid Width="220">
 
                                 <StackPanel Orientation="Horizontal">
@@ -202,7 +265,7 @@
                                                      Foreground="#3200bd" Height="30" Width="54"/>
                         <TextBox x:Name="searchEmailTb" Padding="10 5 0 0" 
                                      FontSize="16" 
-                                     Width="247" Margin="0,0,0,-0.4"/>
+                                     Width="247"/>
                         <ComboBox Margin="10,0,0,0" Width="81" SelectedIndex="0">
                             <ComboBoxItem>
                                 <StackPanel Orientation="Horizontal">
@@ -220,6 +283,8 @@
                     </StackPanel>
                     <DataGrid Name="UsersDg" IsReadOnly="True"
                               SelectionMode="Single" Width="560" Height="500"
+                              MouseLeftButtonDown="UsersDg_MouseLeftButtonDown"
+                              SelectedCellsChanged="UsersDg_SelectedCellsChanged"
                               ItemsSource="{Binding UserList}" Margin="15 15 15 15"
                               ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                               AutoGenerateColumns="False" Grid.ColumnSpan="2">
@@ -233,9 +298,7 @@
                                         <Setter Property="Foreground" Value="Black"/>
                                     </Trigger>
 
-                                    <Trigger Property="ItemsControl.AlternationIndex" Value="0">
-                                        <Setter Property="Background" Value="#9579ad"/>
-                                    </Trigger>
+                                    
                                 </Style.Triggers>
                             </Style>
                         </DataGrid.Resources>
@@ -249,14 +312,10 @@
                             <DataTemplate>
                                 <DockPanel Background="GhostWhite">
                                     <materialDesign:PackIcon DockPanel.Dock="Left" 
+                                                             VerticalAlignment="Center"
                                                              Foreground="DodgerBlue"
-                                                             Kind="Account" Height="64" Width="60" Margin="10" />
+                                                             Kind="Account" Height="84" Width="60" Margin="10" />
                                     <Grid Margin="0,10">
-                                        <Grid.Resources>
-                                            <Style TargetType="TextBlock">
-                                                <Setter Property="Margin" Value="0 4 0 0"/>
-                                            </Style>
-                                        </Grid.Resources>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto" />
                                             <ColumnDefinition Width="*" />
@@ -266,14 +325,38 @@
                                             <RowDefinition Height="Auto" />
                                             <RowDefinition Height="Auto" />
                                             <RowDefinition Height="Auto" />
-
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
                                         </Grid.RowDefinitions>
-                                        <TextBlock Text="Cấp độ: " FontWeight="Bold" Grid.Row="2" />
-                                        <TextBox Text="{Binding Level}" Grid.Column="1" Grid.Row="2" />
-                                        <TextBlock Text="Code: " FontWeight="Bold" Grid.Row="1" />
-                                        <TextBox Text="{Binding Code}" Grid.Column="1" Grid.Row="1" />
-                                        <TextBlock Text="Số thẻ: " FontWeight="Bold" Grid.Row="3" />
-                                        <TextBox Text="{Binding NumberCard}" Grid.Column="1" Grid.Row="3" />
+
+                                        <TextBox Text="{Binding Level, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
+                                                 Tag="Cấp độ: "
+                                                 Style="{DynamicResource TxtStyleValidation}" 
+                                                 Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" />
+                                        <TextBox Text="{Binding Email, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" 
+                                                 Tag="Email: "
+                                                 Style="{DynamicResource TxtStyleValidation}" 
+                                                 Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" />
+                                        <TextBox Text="{Binding NumberCard, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" 
+                                                 Tag="Số thẻ: "
+                                                 Style="{DynamicResource TxtStyleValidation}" 
+                                                 Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" />
+                                        <TextBox Text="{Binding Code, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" 
+                                                 Tag="Code: "
+                                                 Style="{DynamicResource TxtStyleValidation}" 
+                                                 Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="4" />
+                                        
+                                        <TextBox Tag="Mật khẩu:" x:Name="txtbPassword"
+                                                 Text="{Binding Password, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" 
+                                                 Style="{DynamicResource TxtStyleValidation}"
+                                                 Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="5" />
+                                        <materialDesign:PackIcon Grid.Column="0" Kind="Update"
+                                                                 Foreground="Green" Height="18" Width="30"
+                                                                 HorizontalAlignment="Right" Margin="2 8 2 2"
+                                                                 Grid.ColumnSpan="2" Grid.Row="5"/>
+
+
+
                                     </Grid>
                                     <StackPanel>
                                         <Button Content="Xóa người dùng" 
@@ -305,7 +388,9 @@
                         </StackPanel.Resources>
                         <TextBlock Text="Danh sách profile: " />
                         <ComboBox ItemsSource="{Binding ProfileList}"
-                                  Padding="20 0 0 0" Margin="5 5 50 0">
+                                  SelectionChanged="cbProfile_SelectionChanged"
+                                  Name="cbProfile"
+                                  Padding="20 5 0 5" Margin="15 5 40 0">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
@@ -320,25 +405,24 @@
                                 Padding="5"
                                 Height="140" Width="150"  BorderThickness="2"
                                 Margin="0 10 0 0">
-                            <Image Source="{Binding Profile.Avatar, Converter={StaticResource ProfileImageConverter}}" />
+                            <Image Name="imgAvater" Source="{Binding Profile.Avatar, Converter={StaticResource ProfileImageConverter}}" />
                         </Border>
                         
-                        
                         <TextBlock Text="Email"/>
-                        <TextBox Name="emailTbx" Margin="5 0 15 0"
+                        <TextBox Name="txtbEmail" Margin="5 0 15 0"
                                  IsReadOnly="True" Style="{StaticResource MaterialDesignTextBox}"
                                  Text="{Binding ElementName=UsersDg, Path=SelectedValue.Email}"/>
 
                         <TextBlock Text="Họ tên"  />
-                        <TextBox Name="cardNumTbx" Margin="5 0 15 0"
-                             Text="{Binding Profile.Name}"
-                             IsReadOnly="True"/>
+                        <TextBox Name="txtbName" Margin="5 0 15 0"
+                                 Text="{Binding Profile.Name}"
+                                 IsReadOnly="True"/>
                         <TextBlock Text="Tình trạng" />
-                        <TextBox Name="AccumulatedTbx" Margin="5 0 15 0"
-                             Text="{Binding Profile.Status}"
-                             IsReadOnly="True"/>
+                        <TextBox Name="txtbStatus" Margin="5 0 15 0"                                 
+                                 Text="{Binding Profile.Status}"
+                                 IsReadOnly="True"/>
                         <TextBlock Text="Ngày tạo"/>
-                        <DatePicker Name="createDateTbx" Margin="5 0 15 0"
+                        <DatePicker Name="dpCreateDate" Margin="5 0 15 0"
                                     IsEnabled="False"
                                     SelectedDate="{Binding ElementName=UsersDg, Path=SelectedItem.CreateAt, Mode=OneWay}"/>
                         <Button Content="Lưu" Name="saveUserBt" Background="Gray" Margin="35 25 35 0"/>

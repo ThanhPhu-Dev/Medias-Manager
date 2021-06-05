@@ -74,23 +74,35 @@ namespace Manager_Medias.ViewModels.Guest
 
         private void Continue(object[] obj)
         {
-            //hash password
-            string pwHash = HashPassword.Hash(Password);
-
-            //tạo user
-            User user = new User()
-            {
-                Email = Email,
-                Password = pwHash,
-            };
             using (var db = new MediasManangementEntities())
             {
-                db.Users.Add(user);
-                if (db.SaveChanges() > 0)
+                //check mail da ton tai chua
+                var n_user = db.Users.Where(u => u.Email == Email).Count();
+
+                if (n_user > 0)
                 {
-                    //chuyển trang
-                    _navigationStore.ContentViewModel = new GuestLevelRegisterViewModel(user);
+                    AddError(nameof(Email), "Email đã được sử dụng");
                 }
+                else
+                {
+                    //hash password
+                    string pwHash = HashPassword.Hash(Password);
+
+                    //tạo user
+                    User user = new User()
+                    {
+                        Email = Email,
+                        Password = pwHash,
+                    };
+
+                    db.Users.Add(user);
+                    if (db.SaveChanges() > 0)
+                    {
+                        //chuyển trang
+                        _navigationStore.ContentViewModel = new GuestLevelRegisterViewModel(user);
+                    }
+                }
+                
             }
         }
     }

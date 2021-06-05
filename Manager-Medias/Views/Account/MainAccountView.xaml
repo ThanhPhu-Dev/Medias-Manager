@@ -154,7 +154,7 @@
             </Setter>
         </Style>
     </UserControl.Resources>
-    <Grid Background="#FF303030">
+    <Grid Background="#FF151515">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="260" />
             <ColumnDefinition Width="*" />

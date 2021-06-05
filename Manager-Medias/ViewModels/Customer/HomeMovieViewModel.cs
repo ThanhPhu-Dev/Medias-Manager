@@ -14,13 +14,14 @@ namespace Manager_Medias.ViewModels.Customer
 {
     public class HomeMovieViewModel : BaseViewModel
     {
-        public static readonly DependencyProperty CatMovieListProperty;
+        public static readonly DependencyProperty CatMovieListProperty =
+            DependencyProperty.Register("CatMovieList",
+                typeof(ObservableCollection<Movie_Category>), typeof(HomeMovieViewModel));
+
         public ICommand CmdToDetailMovie { get; set; }
 
-        static HomeMovieViewModel()
-        {
-            CatMovieListProperty = DependencyProperty.Register("CatMovieList", typeof(ObservableCollection<Movie_Category>), typeof(HomeMovieViewModel));
-        }
+        public int Level => (int)_userStore.CurrentUser.Level;
+
         public ObservableCollection<Movie_Category> CatMovieList
         {
             get => (ObservableCollection<Movie_Category>)GetValue(CatMovieListProperty);
@@ -33,14 +34,25 @@ namespace Manager_Medias.ViewModels.Customer
             LoadMovie();
 
             //command
-            CmdToDetailMovie = new RelayCommand<object>(ToDetailMovie);
+            CmdToDetailMovie = new RelayCommand<object>(ToDetailMovie, (object o) =>
+            {
+                Movie movie = o as Movie;
+                if (movie != null && Level >= movie.Media.Lvl)
+                {
+                    return true;
+                }
+                return false;
+            });
         }
 
         private void ToDetailMovie(object obj)
         {
-            var id = (int)obj;
-            //chuyển trang
-            _navigationStore.ContentViewModel = new DetailMovieViewModel(id);
+            Movie movie = obj as Movie;
+            if (movie != null)
+            {
+                //chuyển trang
+                _navigationStore.ContentViewModel = new DetailMovieViewModel(movie.Id);
+            }
         }
 
         private void LoadMovie()
@@ -48,7 +60,10 @@ namespace Manager_Medias.ViewModels.Customer
             using (var db = new MediasManangementEntities())
             {
                 //cập nhật danh sách bài hát liên quan (chung danh mục) cho UI
-                CatMovieList = new ObservableCollection<Movie_Category>(db.Movie_Categories.Include("Movies").ToList());
+                CatMovieList = new ObservableCollection<Movie_Category>(
+                    db.Movie_Categories.Include("Movies")
+                                        .Include("Movies.Media")
+                                        .ToList());
             }
         }
     }

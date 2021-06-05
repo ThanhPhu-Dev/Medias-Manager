@@ -1,4 +1,5 @@
-﻿using Manager_Medias.ViewModels.Admin;
+﻿using Manager_Medias.Models;
+using Manager_Medias.ViewModels.Admin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +30,10 @@ namespace Manager_Medias.Views.Admin
 
             vm = new AdminViewVM();
             DataContext = vm;
+
+            
+
+
         }
 
         private void filterOpenImg_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -43,5 +48,34 @@ namespace Manager_Medias.Views.Admin
                 filterPanel.Collapse();
             }
         }
+
+        int select;
+        private void UsersDg_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        {
+            cbProfile.SelectedIndex = -1;
+            txtbName.Text = "";
+            txtbStatus.Text = "";
+            imgAvater.Visibility = Visibility.Hidden;
+        }
+
+        private void UsersDg_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (select == UsersDg.SelectedIndex)
+            {
+                UsersDg.SelectedIndex = -1;
+            }
+            select = UsersDg.SelectedIndex;
+        }
+
+        private void cbProfile_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(cbProfile.SelectedIndex >= 0)
+            {
+                imgAvater.Visibility = Visibility.Visible;
+            }
+           
+        }
+
+
     }
 }

@@ -7,12 +7,15 @@
              mc:Ignorable="d" 
              xmlns:model="clr-namespace:Manager_Medias.Models"
              xmlns:cvt="clr-namespace:Manager_Medias.Converters"
+             xmlns:view="clr-namespace:Manager_Medias.Views.Picture"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              d:DesignHeight="585" d:DesignWidth="1200"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
     <UserControl.Resources>
         <cvt:ConvertImage x:Key="imageCvt" />
-
+        <cvt:CompareLevelConverter x:Key="levelCvt" />
+        <cvt:LineCategoryConverter x:Key="lineCvt" />
+        
         <!--SCROLL STYLE-->
         <Style x:Key="{x:Type ScrollBar}" TargetType="{x:Type ScrollBar}">
             <Setter Property="Stylus.IsFlicksEnabled" Value="false" />
@@ -174,27 +177,76 @@
                 <Border Background="Black" Opacity=".5" Panel.ZIndex="2" />
 
                 <StackPanel Panel.ZIndex="3" VerticalAlignment="Bottom" Margin="5">
-                    <materialDesign:PackIcon Kind="PlayCircleOutline" Width="45" Height="45"
-                                             Foreground="#ffbb00" />
                     <TextBlock Text="{Binding Name}"
                                Name="tb_namemovie"
                                Foreground="#fff"
                                FontSize="16"
                                FontWeight="DemiBold" />
-                    <!--<StackPanel Orientation="Horizontal" VerticalAlignment="Bottom">
-                        <Border BorderBrush="#bdbdbd" BorderThickness="0.5" CornerRadius="2">
-                            <TextBlock Text="{Binding Age, StringFormat={}{0}+}"
-                                       Foreground="#fff"
-                                       Padding="7 1" />
-                        </Border>
-                        <TextBlock Text="{Binding NumberOfViews, StringFormat={}{0} Lượt xem}"
-                                       Foreground="#fff"
-                                       Padding="7 1" />
-                    </StackPanel>-->
                 </StackPanel>
+                <Grid.RenderTransformOrigin>
+                    <Point X="0.5" Y="0.5" />
+                </Grid.RenderTransformOrigin>
+                <Grid.LayoutTransform>
+                    <ScaleTransform x:Name="HoverScaleTransform" ScaleX="1" ScaleY="1" />
+                </Grid.LayoutTransform>
+                <Grid.Triggers>
+                    <EventTrigger RoutedEvent="MouseEnter">
+                        <BeginStoryboard>
+                            <Storyboard Storyboard.TargetProperty="(ScaleTransform.ScaleX)"
+                                        Storyboard.TargetName="HoverScaleTransform">
+                                <DoubleAnimation Duration="0:0:0.2" To="1.2" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                        <BeginStoryboard>
+                            <Storyboard Storyboard.TargetProperty="(ScaleTransform.ScaleY)"
+                                        Storyboard.TargetName="HoverScaleTransform">
+                                <DoubleAnimation Duration="0:0:0.2" To="1.2" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                    <EventTrigger RoutedEvent="MouseLeave">
+                        <BeginStoryboard>
+                            <Storyboard Storyboard.TargetProperty="(ScaleTransform.ScaleX)">
+                                <DoubleAnimation Duration="0:0:0.2" To="1" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                        <BeginStoryboard>
+                            <Storyboard Storyboard.TargetProperty="(ScaleTransform.ScaleY)">
+                                <DoubleAnimation Duration="0:0:0.2" To="1" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Grid.Triggers>
             </Grid>
         </DataTemplate>
 
+        <!--LEVEL TEMPLATE-->
+        <DataTemplate DataType="{x:Type model:Album}" x:Key="carouselItemNotEnoughLv">
+            <Grid Margin="3 1" Height="117">
+                <Image Width="230"
+                        Panel.ZIndex="1"
+                    Source="{Binding Image, Converter={StaticResource imageCvt}}" Stretch="Fill" />
+
+                <Border Background="Black" Opacity=".6" Panel.ZIndex="2" />
+                <StackPanel Panel.ZIndex="3" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <materialDesign:PackIcon Kind="Alert"
+                                             Foreground="{DynamicResource SecondaryAccentBrush}"
+                                             Width="26"
+                                             Height="26"
+                                             HorizontalAlignment="Center"
+                                             Margin="0 12 0 0" />
+                    <TextBlock Text="Vui lòng nâng cấp tài khoản để xem"
+                               Foreground="#fff"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               TextWrapping="Wrap"
+                               Width="160"
+                               FontSize="17"
+                               Margin="0 12 0 0" />
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+        
         <!--style cho itemcontroll carousel-->
         <Style TargetType="ListBoxItem" x:Key="carouselMovieStyle">
             <Setter Property="Cursor" Value="Hand" />
@@ -233,6 +285,16 @@
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="ContentTemplate" Value="{StaticResource carouselItemMouse}" />
                 </Trigger>
+                <DataTrigger Value="False">
+                    <DataTrigger.Binding>
+                        <MultiBinding Converter="{StaticResource levelCvt}">
+                            <Binding Path="DataContext.Level"
+                                     RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type view:HomePicture}}" />
+                            <Binding Path="Medias.Lvl" />
+                        </MultiBinding>
+                    </DataTrigger.Binding>
+                    <Setter Property="ContentTemplate" Value="{StaticResource carouselItemNotEnoughLv}" />
+                </DataTrigger>
             </Style.Triggers>
         </Style>
 
@@ -369,7 +431,7 @@
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="SelectionChanged">
                                         <i:InvokeCommandAction 
-                               Command="{Binding CmdSelectionChange}"/>
+                                            Command="{Binding CmdSelectionChange}"/>
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                                 <ListBox.ItemsPanel>
@@ -457,11 +519,21 @@
                                     VerticalAlignment="Center"
                                     Panel.ZIndex="0"
                                     Name="panel_icon">
-                            <TextBlock Text="{Binding ElementName=lb_carousel, Path=SelectedItem.Name}"
-                                       FontSize="20"
+                            <StackPanel HorizontalAlignment="Stretch" Background="Black">
+                                <TextBlock Text="{Binding ElementName=lb_carousel, Path=SelectedItem.Name}"
+                                       FontSize="25"
                                        FontWeight="DemiBold"
                                        VerticalAlignment="Center"
-                                       DockPanel.Dock="Left"/>
+                                       DockPanel.Dock="Left"
+                                       Foreground="{DynamicResource SecondaryAccentBrush}"
+                                       Name="tb_AlbumName"/>
+                                <Border Background="{DynamicResource SecondaryAccentBrush}"
+                                                Margin="4 0 0 0"
+                                                Width="{Binding ElementName=tb_AlbumName, Path=ActualWidth, Converter={StaticResource lineCvt}}"
+                                                HorizontalAlignment="Left"
+                                                Height="2"
+                                                CornerRadius="1" />
+                            </StackPanel>
                             <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" HorizontalAlignment="Right">
                                 <ToggleButton Padding="0" 
                                           Background="Transparent" 

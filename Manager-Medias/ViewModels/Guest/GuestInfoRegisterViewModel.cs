@@ -81,25 +81,28 @@ namespace Manager_Medias.ViewModels.Guest
 
                 if (n_user > 0)
                 {
-                    
+                    AddError(nameof(Email), "Email đã được sử dụng");
                 }
-
-                //hash password
-                string pwHash = HashPassword.Hash(Password);
-
-                //tạo user
-                User user = new User()
+                else
                 {
-                    Email = Email,
-                    Password = pwHash,
-                };
+                    //hash password
+                    string pwHash = HashPassword.Hash(Password);
 
-                db.Users.Add(user);
-                if (db.SaveChanges() > 0)
-                {
-                    //chuyển trang
-                    _navigationStore.ContentViewModel = new GuestLevelRegisterViewModel(user);
+                    //tạo user
+                    User user = new User()
+                    {
+                        Email = Email,
+                        Password = pwHash,
+                    };
+
+                    db.Users.Add(user);
+                    if (db.SaveChanges() > 0)
+                    {
+                        //chuyển trang
+                        _navigationStore.ContentViewModel = new GuestLevelRegisterViewModel(user);
+                    }
                 }
+                
             }
         }
     }

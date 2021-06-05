@@ -7,30 +7,32 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace Manager_Medias.ViewModels.Customer
 {
     public class HomePictureViewModel : BaseViewModel
     {
-        public static readonly DependencyProperty AlbumProperty;
+        public static readonly DependencyProperty AlbumProperty =
+            DependencyProperty.Register("AlbumList", typeof(ObservableCollection<Album>), typeof(HomePictureViewModel));
+
         public ICommand CmdToDetailMovie { get; set; }
+
         //command like và lưu
         public ICommand CmdLike { get; set; }
+
         public ICommand CmdSave { get; set; }
         public ICommand CmdSelectionChange { get; set; }
         public int _currentProfileID;
         public int _currentAlbumID;
 
-        static HomePictureViewModel()
-        {
-            AlbumProperty = DependencyProperty.Register("AlbumList", typeof(ObservableCollection<Album>), typeof(HomePictureViewModel));
-        }
         public ObservableCollection<Album> AlbumList
         {
             get => (ObservableCollection<Album>)GetValue(AlbumProperty);
             set => SetValue(AlbumProperty, value);
         }
+
         public bool CheckLike
         {
             get => _checkLike;
@@ -50,6 +52,7 @@ namespace Manager_Medias.ViewModels.Customer
                 OnPropertyChanged();
             }
         }
+
         public string Message
         {
             get => _message;
@@ -60,19 +63,38 @@ namespace Manager_Medias.ViewModels.Customer
             }
         }
 
+        public int Level => (int)_userStore.CurrentUser.Level;
+
         public Album AlbumSelectedItem { get => _AlbumSelectedItem; set => _AlbumSelectedItem = value; }
 
         private Album _AlbumSelectedItem;
         private string _message;
         private bool _checkLike;
         private bool _checkSave;
+
+        public HomePictureViewModel()
+        {
+            _currentProfileID = _userStore.CurrentProfile.Id;
+
+            //gọi hàm load giao diện
+            LoadAlbum();
+            LoadLikeAndSave();
+            //command
+            CmdToDetailMovie = new RelayCommand<object>(ToDetailMovie);
+
+            CmdLike = new RelayCommand<object>(Likemt);
+            CmdSave = new RelayCommand<object>(Savemt);
+            CmdSelectionChange = new RelayCommand<object>(SelectionChangemt);
+        }
+
         public HomePictureViewModel(int idAlbum)
         {
             _currentAlbumID = idAlbum;
             _currentProfileID = _userStore.CurrentProfile.Id;
-            
+
             //gọi hàm load giao diện
-            LoadMovie();
+            LoadSelectedAlbum();
+            LoadAlbum();
             LoadLikeAndSave();
             //command
             CmdToDetailMovie = new RelayCommand<object>(ToDetailMovie);
@@ -84,21 +106,37 @@ namespace Manager_Medias.ViewModels.Customer
 
         private void SelectionChangemt(object obj)
         {
-            LoadLikeAndSave();
+            var lb = (ListBox)obj;
+            if (lb.SelectedItem != null)
+            {
+                var selected = (Album)lb.SelectedItem;
+
+                if (Level < selected.Media.Lvl)
+                {
+                    lb.SelectedIndex = -1;
+                }
+            }
+            //LoadLikeAndSave();
         }
 
         private void ToDetailMovie(object obj)
         {
-
         }
 
-        private void LoadMovie()
+        private void LoadSelectedAlbum()
         {
             using (var db = new MediasManangementEntities())
             {
                 AlbumSelectedItem = db.Albums.Where(a => a.Id == _currentAlbumID).Single() as Album;
-                //cập nhật danh sách bài hát liên quan (chung danh mục) cho UI
-                AlbumList = new ObservableCollection<Album>(db.Albums.Include("Album_Details").ToList());
+            }
+        }
+
+        private void LoadAlbum()
+        {
+            using (var db = new MediasManangementEntities())
+            {
+                AlbumList = new ObservableCollection<Album>(db.Albums.Include("Album_Details")
+                                                                     .Include("Media").ToList());
             }
         }
 
@@ -167,6 +205,7 @@ namespace Manager_Medias.ViewModels.Customer
                 }
             }
         }
+
         private void LoadLikeAndSave()
         {
             using (var db = new MediasManangementEntities())

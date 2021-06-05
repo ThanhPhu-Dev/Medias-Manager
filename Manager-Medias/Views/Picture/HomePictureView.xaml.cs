@@ -26,6 +26,7 @@ namespace Manager_Medias.Views.Picture
         {
             InitializeComponent();
         }
+
         public static childItem FindVisualChild<childItem>(DependencyObject obj)
                 where childItem : DependencyObject
         {
@@ -47,6 +48,7 @@ namespace Manager_Medias.Views.Picture
 
             return null;
         }
+
         private void ItemsControl_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
             if (sender is ItemsControl && !e.Handled)
@@ -59,14 +61,17 @@ namespace Manager_Medias.Views.Picture
                 parent.RaiseEvent(eventArg);
             }
         }
+
         private DispatcherTimer _timer;
         private int count;
+
         private void btn_likeAudio_Click(object sender, RoutedEventArgs e)
         {
             _timer = null;
             count = 0;
             StartTimer();
         }
+
         public void StartTimer()
         {
             if (_timer == null)
@@ -79,7 +84,7 @@ namespace Manager_Medias.Views.Picture
             _timer.Start();
         }
 
-        void _timer_Tick(object sender, EventArgs e)
+        private void _timer_Tick(object sender, EventArgs e)
         {
             count++;
             if (count == 3)
@@ -88,6 +93,19 @@ namespace Manager_Medias.Views.Picture
                 Storyboard sb = this.FindResource("CloseMessage") as Storyboard;
                 Storyboard.SetTarget(sb, this.bd_Message);
                 sb.Begin();
+            }
+        }
+
+        private void lv_picture_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            if (sender is ListBox && !e.Handled)
+            {
+                e.Handled = true;
+                var eventArg = new MouseWheelEventArgs(e.MouseDevice, e.Timestamp, e.Delta);
+                eventArg.RoutedEvent = UIElement.MouseWheelEvent;
+                eventArg.Source = sender;
+                var parent = ((Control)sender).Parent as UIElement;
+                parent.RaiseEvent(eventArg);
             }
         }
     }

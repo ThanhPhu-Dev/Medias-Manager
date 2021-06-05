@@ -74,17 +74,26 @@ namespace Manager_Medias.ViewModels.Guest
 
         private void Continue(object[] obj)
         {
-            //hash password
-            string pwHash = HashPassword.Hash(Password);
-
-            //tạo user
-            User user = new User()
-            {
-                Email = Email,
-                Password = pwHash,
-            };
             using (var db = new MediasManangementEntities())
             {
+                //check mail da ton tai chua
+                var n_user = db.Users.Where(u => u.Email == Email).Count();
+
+                if (n_user > 0)
+                {
+                    
+                }
+
+                //hash password
+                string pwHash = HashPassword.Hash(Password);
+
+                //tạo user
+                User user = new User()
+                {
+                    Email = Email,
+                    Password = pwHash,
+                };
+
                 db.Users.Add(user);
                 if (db.SaveChanges() > 0)
                 {

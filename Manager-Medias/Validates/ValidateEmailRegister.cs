@@ -29,16 +29,6 @@ namespace Manager_Medias.Validates
             {
                 return new ValidationResult(false, "Đinh dạng mail không đúng");
             }
-            using (var db = new MediasManangementEntities())
-            {
-                //check mail da ton tai chua
-                var n_user = db.Users.Where(u => u.Email == Name).Count();
-
-                if (n_user > 0)
-                {
-                    return new ValidationResult(false, "Email đã được sửa dụng");
-                }
-            };
 
             return ValidationResult.ValidResult;
         }

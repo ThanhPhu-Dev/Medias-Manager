@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -49,8 +50,13 @@ namespace Manager_Medias.Views.Account
             {
                 _timer.Stop();
                 Storyboard sb = this.FindResource("CloseMessage") as Storyboard;
-                //Storyboard.SetTarget(sb, this.bd_Message);
-                sb.Begin();
+                try
+                {
+                    sb.Begin();
+                }catch(Exception m)
+                {
+                    return;
+                }
             }
         }
 

@@ -204,7 +204,7 @@
                 </ToggleButton.Style>
             </ToggleButton>-->
                 <StackPanel Orientation="Horizontal">
-                    <Image VerticalAlignment="Center" Width="500" Margin="0" Height="480" Source="{Binding DetailMovies.Image, Converter={StaticResource cvt}}" />
+                    <Image VerticalAlignment="Center" Width="500" Margin="0 0 0 0" Height="480" Source="{Binding DetailMovies.Image, Converter={StaticResource cvt}}" />
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="50*" />

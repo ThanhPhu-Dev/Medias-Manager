@@ -309,7 +309,7 @@
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="ContentTemplate" Value="{StaticResource carouselItemMouse}" />
                 </Trigger>
-                <DataTrigger Value="False">
+                <DataTrigger Value="True">
                     <DataTrigger.Binding>
                         <MultiBinding Converter="{StaticResource levelCvt}">
                             <Binding Path="DataContext.Level"

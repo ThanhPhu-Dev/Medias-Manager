@@ -228,7 +228,7 @@
                                 Name="btn_Like">
                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                     <materialDesign:PackIcon Kind="ThumbUp"  Foreground="#fb0" Height="21"  Width="38" />
-                                    <TextBlock Text="{Binding DetailMovies.like}" Foreground="#8c8c8c"
+                                    <TextBlock Text="{Binding DetailMovies.like}" Foreground="#8c8c8c"
  />
                                 </StackPanel>
                             </Button>
@@ -315,7 +315,7 @@
                                             </Setter.Value>
                                         </Setter>
                                         <Style.Triggers>
-                                            <Trigger Property="IsChecked" Value="False">
+                                            <Trigger Property="IsChecked" Value="True">
                                                 <Setter Property="Content" Value="{materialDesign:PackIcon CheckBold, Size=23}" />
                                                 <Setter Property="Background" Value="Transparent" />
                                             </Trigger>

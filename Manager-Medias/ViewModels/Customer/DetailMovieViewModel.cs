@@ -211,13 +211,13 @@ namespace Manager_Medias.ViewModels.Customer
                 if (mydelete != null)
                 {
                     CheckSave = false;
-                    Message = "Đã thêm danh sách myList";
+                    Message = "Đã xóa khỏi danh sách myList";
                     db.My_Lists.Remove(mydelete);
                 }
                 else
                 {
-                    CheckSave = true;
-                    Message = "Đã xóa khỏi danh sách myList";
+                    CheckSave =true;
+                    Message = "Đã thêm danh sách myList";
                     db.My_Lists.Add(my_List);
                 }
                 db.SaveChanges();

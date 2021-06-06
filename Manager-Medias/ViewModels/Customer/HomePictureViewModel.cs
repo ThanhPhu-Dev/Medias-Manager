@@ -166,7 +166,7 @@ namespace Manager_Medias.ViewModels.Customer
             {
                 IdProfile = _currentProfileID,
                 IdMedia = mediaId,
-                //date
+                Date = DateTime.Now,
             };
             using (var db = new MediasManangementEntities())
             {
@@ -206,7 +206,7 @@ namespace Manager_Medias.ViewModels.Customer
             {
                 IdProfile = _currentProfileID,
                 IdMedia = album.Id,
-                //date
+                Date = DateTime.Now,
             };
             using (var db = new MediasManangementEntities())
             {

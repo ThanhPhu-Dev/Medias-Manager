@@ -182,13 +182,13 @@ ALTER TABLE View_History ADD CONSTRAINT FK_ViewHistory_Profiles FOREIGN KEY (IdP
 select * from Media_categories
 select * from Audios
 select * from Audio_Categories
-select * from Medias 
 select * from Media_Categories 
 select * from Likes 
 select * from My_Lists
+select * from levels
+select * from Medias 
 select * from Movies
 select * from Movie_Categories
-select * from levels
 select * from Album_Details
 select * from Albums
 select * from Users where Email = 'nghiadx2001@gmail.c'
@@ -215,6 +215,26 @@ update Medias set Lvl = 1 where Id between 31 and 34
 update Medias set Lvl = 1 where Id between 35 and 37
 
 update Medias set IdCategory = 3 where Id between 1 and 5
+
+--update lv movie
+--category 2
+update Medias set Lvl = 1 where Id = 7
+update Medias set Lvl = 1 where Id = 29
+update Medias set Lvl = 2 where Id = 18
+update Medias set Lvl = 2 where Id = 20
+update Medias set Lvl = 3 where Id = 19
+--category 1
+update Medias set Lvl = 1 where Id = 21
+update Medias set Lvl = 1 where Id = 24
+update Medias set Lvl = 1 where Id = 30
+update Medias set Lvl = 2 where Id = 23
+update Medias set Lvl = 3 where Id = 22
+--category 3
+update Medias set Lvl = 1 where Id = 27
+update Medias set Lvl = 1 where Id = 26
+update Medias set Lvl = 2 where Id = 25
+update Medias set Lvl = 2 where Id = 31
+update Medias set Lvl = 3 where Id = 28
 --Insert user 
 INSERT INTO Users VALUES ('nghiadx2001@gmail.c', '123', 1, 'CDCD', '362')
 INSERT INTO Users (Email, Password) VALUES ('1@gmail.c', '123')
@@ -378,4 +398,5 @@ update Movies set IdCategory=3, Name=N'Phù Thủy Tối Thượng',
 				  Age=16, NumberOfViews=986, Video='movievideo_PhuThuyToiThuong.mp4',
 				  Season='cmncfvx', Time='00:02:23', Directors= N'Scott Derrickson',
 				  Nation = N'Mỹ' Where Id = 31
+
 -- Phim viễn Tưởng ( Bắt đầu Id = 32 -> 37 là dùng update vì có data test trong db r)

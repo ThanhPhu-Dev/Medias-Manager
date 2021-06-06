@@ -34,8 +34,8 @@ namespace Manager_Medias.ViewModels.Customer
             LoadMovie();
             CmdToDetailAudio = new RelayCommand<object>(ToDetailAudio, (object o) =>
             {
-                Audio auido = o as Audio;
-                if (auido != null && Level >= auido.Media.Lvl)
+                Audio audio = o as Audio;
+                if (audio != null && Level >= audio.Media.Lvl)
                 {
                     return true;
                 }
@@ -45,9 +45,9 @@ namespace Manager_Medias.ViewModels.Customer
 
         private void ToDetailAudio(object obj)
         {
-            var id = (int)obj;
+            Audio audio = obj as Audio;
             //chuyển trang
-            _navigationStore.ContentViewModel = new DetailAudioViewModel(id);
+            _navigationStore.ContentViewModel = new DetailAudioViewModel(audio.Id);
         }
 
         private void LoadMovie()

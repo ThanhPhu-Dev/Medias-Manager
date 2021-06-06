@@ -25,6 +25,7 @@ namespace Manager_Medias.Views.Movie
     public partial class DetailMovie : UserControl
     {
         private DispatcherTimer seeker;
+        private TimeSpan TotalTime;
         private bool isSeekingMedia = false;
 
         public DetailMovie()
@@ -50,17 +51,21 @@ namespace Manager_Medias.Views.Movie
 
         private void audio_MediaOpened(object sender, RoutedEventArgs e)
         {
+            mea_video.Stop();
             timelineSlider.Maximum = mea_video.NaturalDuration.TimeSpan.TotalMilliseconds;
+            TotalTime = mea_video.NaturalDuration.TimeSpan;
             seeker = new DispatcherTimer();
             seeker.Interval = TimeSpan.FromSeconds(1);
             seeker.Tick += Seeker_Tick;
             seeker.Start();
             InitPosition();
+            mea_video.Play();
         }
 
         private void InitPosition()
         {
             isSeekingMedia = true;
+
             int SliderValue = (int)timelineSlider.Value;
 
             TimeSpan ts = new TimeSpan(0, 0, 0, 0, SliderValue);
@@ -70,9 +75,12 @@ namespace Manager_Medias.Views.Movie
 
         private void Seeker_Tick(object sender, EventArgs e)
         {
-            if (!isSeekingMedia)
+            if (!isSeekingMedia && mea_video.NaturalDuration.TimeSpan.TotalSeconds > 0)
             {
-                timelineSlider.Value = mea_video.Position.TotalMilliseconds;
+                if (TotalTime.TotalSeconds > 0)
+                {
+                    timelineSlider.Value = mea_video.Position.TotalMilliseconds;
+                }
             }
         }
 
@@ -92,9 +100,11 @@ namespace Manager_Medias.Views.Movie
             mea_video.Play();
         }
 
-        //Message 
+        //Message
         private DispatcherTimer _timer;
+
         private int count;
+
         public void StartTimer()
         {
             if (_timer == null)
@@ -107,7 +117,7 @@ namespace Manager_Medias.Views.Movie
             _timer.Start();
         }
 
-        void _timer_Tick(object sender, EventArgs e)
+        private void _timer_Tick(object sender, EventArgs e)
         {
             count++;
             if (count == 4)
@@ -125,6 +135,5 @@ namespace Manager_Medias.Views.Movie
             count = 0;
             StartTimer();
         }
-
     }
 }

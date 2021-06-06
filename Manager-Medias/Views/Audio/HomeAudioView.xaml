@@ -448,7 +448,7 @@
                                                             Foreground="White"
                                                             FontWeight="DemiBold"
                                                             TextWrapping="Wrap"
-                                                            HorizontalAlignment="Center"/>
+                                                            HorizontalAlignment="Center" />
                                                     <StackPanel Orientation="Vertical" HorizontalAlignment="Center"
                                                                     VerticalAlignment="Bottom"
                                                                     Margin="0 12 0 0">
@@ -457,12 +457,12 @@
                                                                     Path=SelectedItem.Time, StringFormat={}Thời Lượng: {0}}"
                                                                     Margin="0" Padding="0" Foreground="White"
                                                                    FontSize="12"
-                                                                   HorizontalAlignment="Center"/>
+                                                                   HorizontalAlignment="Center" />
 
                                                         <TextBlock Text="{Binding ElementName=lb_carousel,
                                                                     Path=SelectedItem.Singer, StringFormat={}Ca Sĩ: {0}}"
                                                                     Margin="0 4 0 0" Padding="0" Foreground="White" FontSize="12"
-                                                                   HorizontalAlignment="Center"/>
+                                                                   HorizontalAlignment="Center" />
                                                     </StackPanel>
                                                 </StackPanel>
 
@@ -479,7 +479,7 @@
                                                         Command="{Binding DataContext.CmdToDetailAudio,
                                                                           RelativeSource={RelativeSource Mode=FindAncestor,
                                                                           AncestorType={x:Type ItemsControl}}}"
-                                                       CommandParameter="{Binding ElementName=lb_carousel, Path=SelectedItem.Id}" />
+                                                       CommandParameter="{Binding ElementName=lb_carousel, Path=SelectedItem}" />
                                             </StackPanel>
                                             <Image Source="{Binding ElementName=lb_carousel, Path=SelectedItem.Image,
                                                     Converter={StaticResource imageCvt}}"

@@ -139,7 +139,7 @@
             </Setter>
         </Style>
 
-        <Storyboard x:Key="CloseMessage" >
+        <Storyboard x:Key="CloseMessage">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetName="bd_Message"
                                                    Storyboard.TargetProperty="Width">
                 <EasingDoubleKeyFrame KeyTime="0:0:0"
@@ -148,7 +148,7 @@
                                       Value="0" />
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
-        <Storyboard x:Key="OpenMessage" >
+        <Storyboard x:Key="OpenMessage">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetName="bd_Message"
                                                    Storyboard.TargetProperty="Width">
                 <EasingDoubleKeyFrame KeyTime="0:0:0"
@@ -160,10 +160,10 @@
     </UserControl.Resources>
     <UserControl.Triggers>
         <EventTrigger RoutedEvent="Button.Click" SourceName="btn_Like">
-            <BeginStoryboard Storyboard="{StaticResource OpenMessage}"/>
+            <BeginStoryboard Storyboard="{StaticResource OpenMessage}" />
         </EventTrigger>
         <EventTrigger RoutedEvent="ToggleButton.Click" SourceName="btn_save">
-            <BeginStoryboard Storyboard="{StaticResource OpenMessage}"/>
+            <BeginStoryboard Storyboard="{StaticResource OpenMessage}" />
         </EventTrigger>
         <EventTrigger RoutedEvent="Button.Click" SourceName="play">
             <BeginStoryboard Name="MyBeginStoryboard">
@@ -179,7 +179,7 @@
     <ScrollViewer Background="#FF151515"
                   Name="Container">
         <Grid>
-            <StackPanel Margin="20 0" >
+            <StackPanel Margin="20 0">
                 <!--trở về-->
                 <!--<ToggleButton Width="40" Height="50" Padding="5"
                            Background="Transparent"
@@ -228,8 +228,8 @@
                                 Name="btn_Like">
                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                     <materialDesign:PackIcon Kind="ThumbUp"  Foreground="#fb0" Height="21"  Width="38" />
-                                    <TextBlock Text="{Binding DetailMovies.like}" Foreground="#8c8c8c" 
-/>
+                                    <TextBlock Text="{Binding DetailMovies.like}" Foreground="#8c8c8c"
+ />
                                 </StackPanel>
                             </Button>
                             <Button Margin="4 0">
@@ -400,10 +400,13 @@
                                    Foreground="#fff"
                                    Grid.Column="1" HorizontalAlignment="Left" />
                                 <Slider Grid.Column="2"
-                                TickFrequency="5"
-                                Orientation="Horizontal"
-                                VerticalAlignment="Center"
-                                Value="{Binding SliderValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        Minimum="0"
+                                        SmallChange="1"
+                                        TickFrequency="1"
+                                        IsSnapToTickEnabled="True"
+                                        Orientation="Horizontal"
+                                        VerticalAlignment="Center"
+                                        Value="{Binding SliderValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Width="auto"
                                 Foreground="{DynamicResource SecondaryAccentBrush}"
                                 Name="timelineSlider"
@@ -468,7 +471,6 @@
                     </Grid.Triggers>
                 </Grid>
                 <!--message-->
-               
             </StackPanel>
             <Canvas
             VerticalAlignment="Top"
@@ -477,25 +479,24 @@
                Name="bd_message">
                 <Border Background="#fff"
                     Width="0"
-                    Height="100" 
+                    Height="100"
                     Canvas.Right="0"
                     CornerRadius="18"
-                    Padding="10 0" 
+                    Padding="10 0"
                     Margin="10"
                     Name="bd_Message">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="55"/>
+                            <ColumnDefinition Width="55" />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
 
-                        <materialDesign:PackIcon Kind="CheckCircleOutline" 
+                        <materialDesign:PackIcon Kind="CheckCircleOutline"
                                              Width="55"
                                              Height="55"
                                              Foreground="#ffbb00"
                                              VerticalAlignment="Center"
-                                             HorizontalAlignment="Center"
-                                             />
+                                             HorizontalAlignment="Center" />
                         <TextBlock Text="{Binding Message}"
                                Grid.Column="1"
                                FontSize="20"
@@ -504,27 +505,26 @@
                                VerticalAlignment="Center"
                                HorizontalAlignment="Center"
                                Padding="10 0 0 0"
-                               Foreground="#222"/>
+                               Foreground="#222" />
 
                         <Button Name="btn_closeMessage"
-                            Grid.Column="1" 
+                            Grid.Column="1"
                             BorderThickness="0"
                             BorderBrush="Transparent"
                             Background="Transparent"
                             Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                             ToolTip="Đóng"
                             HorizontalAlignment="Right"
-                            VerticalAlignment="Top" 
+                            VerticalAlignment="Top"
                             Height="24" Width="24"
                             Margin="0 7 0 0">
-                            <materialDesign:PackIcon Kind="Close" 
-                                                 Height="20" Width="20" 
-                                                 Foreground="#222"/>
+                            <materialDesign:PackIcon Kind="Close"
+                                                 Height="20" Width="20"
+                                                 Foreground="#222" />
                         </Button>
                     </Grid>
                 </Border>
             </Canvas>
         </Grid>
-       
     </ScrollViewer>
 </UserControl>

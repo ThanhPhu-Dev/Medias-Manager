@@ -41,6 +41,7 @@ namespace Manager_Medias.ViewModels.Customer
         }
 
         private string _message;
+
         public string Message
         {
             get => _message;

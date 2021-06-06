@@ -178,6 +178,7 @@ ALTER TABLE View_History ADD CONSTRAINT FK_ViewHistory_Medias FOREIGN KEY (IdMed
 ALTER TABLE View_History ADD CONSTRAINT FK_ViewHistory_Profiles FOREIGN KEY (IdProfile) REFERENCES Profiles(Id)
 
 --SELECT
+select * from Media_categories
 select * from Audios
 select * from Audio_Categories
 select * from Medias 
@@ -190,6 +191,8 @@ select * from levels
 select * from Album_Details
 select * from Albums
 select * from Users where Email = 'nghiadx2001@gmail.c'
+update Albums set Id = 2 where Name=N'Thiên nhiên'
+update Album_Details set IdAlbum = 2
 --insert cấp độ
 INSERT INTO Levels (Name, Price) values
 (N'Cơ bản', 180000),

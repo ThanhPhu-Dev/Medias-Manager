@@ -309,7 +309,7 @@
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="ContentTemplate" Value="{StaticResource carouselItemMouse}" />
                 </Trigger>
-                <DataTrigger Value="True">
+                <DataTrigger Value="False">
                     <DataTrigger.Binding>
                         <MultiBinding Converter="{StaticResource levelCvt}">
                             <Binding Path="DataContext.Level"
@@ -523,7 +523,8 @@
                                                             Foreground="#FFC9C9C9"
                                                            Padding="6 0 0 0"
                                                            FontSize="14"
-                                                           HorizontalAlignment="Center" />
+                                                           HorizontalAlignment="Center" 
+                                                           TextWrapping="Wrap"/>
 
                                                 <Button
                                                     VerticalAlignment="Bottom"

@@ -122,6 +122,7 @@ namespace Manager_Medias.ViewModels.Customer
                                 image = item.Media.Album.Album_Details.FirstOrDefault().Image;
                             }
 
+                            media.ID = item.Id;
                             media.MediaID = item.Media.Id;
                             media.Name = item.Media.Album.Name;
                             media.Image = image;

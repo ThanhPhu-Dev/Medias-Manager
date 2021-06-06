@@ -72,7 +72,7 @@ CREATE TABLE Movies
 (
 	Id INT NOT NULL UNIQUE,
 	IdCategory INT,
-	Name NVARCHAR(20),
+	Name NVARCHAR(255),
 	Description NTEXT,
 	IMDB Float,
 	Poster VARCHAR(MAX),
@@ -82,11 +82,12 @@ CREATE TABLE Movies
 	Video VARCHAR(MAX),
 	Season VARCHAR(10), --generate
 	Time varchar(8),
-	Directors NVARCHAR(20),
+	Directors NVARCHAR(100),
 	Nation NVARCHAR(20),
 
 	CONSTRAINT PK_Movie PRIMARY KEY (Id)
 )
+
 
 CREATE TABLE Albums
 (
@@ -284,33 +285,52 @@ insert into Movie_Categories (Name) values
 (N'Viễn tưởng'), 
 (N'Kinh dị')
 --insert phim 
-insert into Movies (Id, IdCategory, IMDB, Likes, Name, NumberOfViews, Poster, Age)
-			values (18, 1, 6.5, 4, N'Iron Man 1', 23, 'movieposter_action_ironman_1.jpg', 18),
-				   (19, 1, 5, 0, N'Iron Man 1', 23, 'movieposter_action_ironman_2.jpg', 18),
-				   (20, 1, 6, 0, N'Nhiệm Vụ Bất KT', 103, 'movieposter_action_NVBKT_5.jpg', 18),
-				   (21, 1, 7, 0, N'Người Nhện ', 23, 'movieposter_action_SD.jpg', 18),
-				   (22, 1, 4, 0, N'Quá Nhanh Quá NH', 1000, 'movieposter_action_ff_9.jpg', 18)
-insert into Movies (Id, IdCategory, IMDB, Likes, Name, NumberOfViews, Poster, Age)
-			values (23, 2, 6.5, 4, N'Your Name', 23, 'movieposter_action_ironman_1.jpg', 18),
-				   (24, 2, 5, 0, N'Chúng ta', 23, 'movieposter_action_ironman_2.jpg', 18),
-				   (25, 2, 6, 0, N'Người thầy y đức', 103, 'movieposter_action_NVBKT_5.jpg', 14),
-				   (26, 2, 7, 0, N'Cửa hàng tiện lợi', 23, 'movieposter_action_SD.jpg', 15),
-				   (27, 2, 4, 0, N'Hình dáng thanh âm', 1000, 'movieposter_action_ff_9.jpg', 10)
-insert into Movies (Id, IdCategory, IMDB, Likes, Name, NumberOfViews, Poster, Age)
-			values (28, 3, 6.5, 4, N'Điểm mù 2', 23, 'movieposter_action_ironman_1.jpg', 18),
-				   (29, 3, 5, 0, N'Gozzila', 23, 'movieposter_action_ironman_2.jpg', 18),
-				   (30, 3, 6, 0, N'Edens Zero', 103, 'movieposter_action_NVBKT_5.jpg', 14),
-				   (31, 4, 6, 0, N'Đồi tuyết máu', 103, 'movieposter_action_NVBKT_5.jpg', 14),
-				   (32, 4, 6.5, 4, N'Bạn trai tôi', 23, 'movieposter_action_ironman_1.jpg', 18),
-				   (33, 4, 5, 0, N'Doctor Animal', 23, 'movieposter_action_ironman_2.jpg', 18),
-				   (34, 4, 6, 0, N'Thảm họa toàn cầu', 103, 'movieposter_action_NVBKT_5.jpg', 14),
-				   (35, 5, 6.5, 4, N'Lời ru tử thần', 23, 'movieposter_action_SD.jpg', 18),
-				   (36, 5, 5, 0, N'Nuốt chửng', 23, 'movieposter_action_ironman_2.jpg', 18),
-				   (37, 5, 6, 0, N'Bùa chú', 103, 'movieposter_action_ff_9.jpg', 14)
-
-insert into Movies (Id, IdCategory,IMDB,Likes,Name,NumberOfViews,Poster,Age,Description,Season,Time,Video)
-values (7,1,6.5,4,N'Super Hero', 23, 'movieposter_postermovieHuter.jpg', 18,N'Super hero hân hạnh tài trợ', 'kn92','00:12:30','movievideo_video.mp4')
 select * from Movies
 select * from Movie_Categories
+update Movie_Categories set Name=N'Cổ Trang' where Id=2
 update movies set Age=16, Video='movievideo_LinhLungLangTam.mp4', Time='00:01:19' where Id = 7
- update movies set Video='movievideo_video.mp4' where Id=18
+update movies set IdCategory=2 where Id = 7
+--phim cổ trang
+update Movies set IdCategory=2, Name=N'Nhạn Quy Tây Song Nguyệt',
+				  Description=N'Nhạn Quy Tây Song Nguyệt kể về mối tình "ghét trước yêu sau" vô cùng thú vị của quận vương Triệu Hiếu Khiêm và cô nàng Tạ Tiểu Mãn. Trong một lần dạo chơi, Tạ Tiểu Mãn vô tình đắc tội với quận vương bá đạo Triệu Hiếu Khiêm. Hơn nữa, cô còn bị người khác hãm hại tính kế bắt cô ký khế ước hôn nhân với Triệu Hiếu Khiêm. Oan gia ngõ hẹp, 2 con người luôn đối đầu nhau nay bị ràng buộc bởi một tờ khế ước, họ dần dần hiểu nhau và dành tình cảm cho nhau. Cứ thế Triệu Hiếu Khiêm và Tạ Tiểu Mãn dắt tay nhau qua bao thăng trầm, sóng gió của cuộc sống ...',
+				  IMDB = 8, Poster='movieposter_NhatQuyTaySongNguyet.jpg', Likes = 16,
+				  Age=16, NumberOfViews=106, Video='movievideo_NhanQuyTaySongNguyen.mp4',
+				  Season='asce', Time='00:01:58', Directors= N'Tôn Khải Khải',
+				  Nation = N'Trung Quốc' Where Id = 18
+update Movies set IdCategory=2, Name=N'Đại Đường Nữ Nhi Hành',
+				  Description=N'Đại Đường Nữ Nhi Hành lấy bối cảnh thời kỳ nhà Đường, giai đoạn mà hoàng đế Lý Thế Dân đang trị vì. Câu chuyện sẽ kể về mối tình khắc cốt ghi tâm của nữ quan Phó Nhu (Lý Nhất Đồng) và vị tướng quân Trình Xử Mặc (Hứa Khải). Phó Nhu là một tiểu thư khuê các, am hiểu cầm kỳ thi họa, thêu thùa rất giỏi; khi tiến cung nàng đã gặp gỡ và kết duyên với vị tướng quân anh dũng Trình Xử Mặc.',
+				  IMDB = 9, Poster='movieposter_DaiDuongNuNhiHanh.jpg', Likes = 50,
+				  Age=16, NumberOfViews=656, Video='movievideo_DaiDuongNuNhiHanh.mp4',
+				  Season='asce', Time='00:03:23', Directors= N'Lý Tuệ Châu',
+				  Nation = N'Trung Quốc' Where Id = 19
+update Movies set IdCategory=2, Name=N'Nhà Ảo Thuật Thời Joseon',
+				  Description=N'Công chúa Cheong Myung (do Go Ah Ra thủ vai) của Joseon Dynasty trên đường đi tới Qing Dynasty để kết hôn với người được lựa chọn phải kết hôn với mình. Vô tình, trên đường đi, nàng đã gặp một pháp sư trẻ tuổi Hwan Hee (do Yoo Seung Ho thủ vai) và rồi phải lòng chàng trai này.',
+				  IMDB = 7, Poster='movieposter_NhaAoThuatThoiJoseon.jpg', Likes = 20,
+				  Age=16, NumberOfViews=356, Video='movievideo_NhaAoThuatThoiJoseon.mp4',
+				  Season='asdxv', Time='00:00:42', Directors= N'Dae-seung Kim',
+				  Nation = N'Hàn Quốc' Where Id = 20
+--phim Hành Động.
+update Movies set IdCategory=1, Name=N'Vùng Chiến Sự Hiểm Nguy',
+				  Description=N'Trong tương lai gần, một phi công máy bay không người lái được cử đến một vùng chiến sự thấy mình được ghép nối với một sĩ quan Android tối mật trong nhiệm vụ ngăn chặn một cuộc tấn công hạt nhân.',
+				  IMDB = 6, Poster='movieposter_VungChienSuHiemNguy.jpg', Likes = 50,
+				  Age=18, NumberOfViews=556, Video='movievideo_VungChienSuHiemNguy.mp4',
+				  Season='abasxv', Time='00:01:05', Directors= N'Mikael Håfström',
+				  Nation = N'Mỹ' Where Id = 21
+update Movies set IdCategory=1, Name=N'Thẩm Mỹ Viện Chết Chóc',
+				  Description=N'Micheal và Alison là một cặp đôi cùng với mẹ của Alison đi tới bệnh viện phẫu thuật thẩm mĩ để giúp cho cô phẫu thuật giảm kích cỡ ngực của mình. Không ngờ rằng nơi đây lại là lũ xác sống trỗi dậy và sự việc bắt đầu nảy nở khiến cho họ phải đấu tranh cho sự sống của mình.',
+				  IMDB = 8.5, Poster='movieposter_ThamMyVienChetChoc.jpg', Likes = 200,
+				  Age=18, NumberOfViews=556, Video='movievideo_ThamMyVienChetChoc.mp4',
+				  Season='abasxv', Time='00:02:28', Directors= N'Lars Damoiseaux',
+				  Nation = N'Đang Cập Nhật' Where Id = 22
+update Movies set IdCategory=1, Name=N'Đêm Sống Còn',
+				  Description=N'Survive the Night (2020): Những tên cướp đang bị thương và chạy trốn khỏi sự săn lùng của cảnh sát. Để tránh bị bắt, chúng không vào bệnh viện mà chọn cách theo chân một bác sĩ về nhà riêng để ép buộc bác sĩ đó chữa trị cho chúng. Sau khi đột nhập vào nhà, chúng đã bắt trói và uy hiếp cả gia đình.',
+				  IMDB = 7.5, Poster='movieposter_DemSongCon.jpg', Likes = 127,
+				  Age=18, NumberOfViews=856, Video='movievideo_DemSongCon.mp4',
+				  Season='abagfv', Time='00:02:09', Directors= N'Matt Eskandari',
+				  Nation = N'Đang Cập Nhật' Where Id = 23
+update Movies set IdCategory=1, Name=N'Underworld (2003)',
+				  Description=N'Là bộ phim hành động kinh dị về bí mật giữa 2 dòng họ Vampires (ma cà rồng) và Lycans (người sói). Câu chuyện chủ yếu xoay quanh Selene (Kate Beckinsale), một Vampire được gọi là "Death Dealer", hay gọi là thợ săn Lycans. Cô ấy bị quyến rũ bởi Michael Corvin (Scott Speedman) - người bị bọn Lycans săn đuổi. Micheal bị Lycans cắn và anh sẽ biến trở thành Lycan, Selence không cho điều đó xảy ra.',
+				  IMDB = 5.5, Poster='movieposter_Underworld2003.jpg', Likes = 67,
+				  Age=18, NumberOfViews=256, Video='movievideo_Underworld2003.mp4',
+				  Season='cagfv', Time='00:02:18', Directors= N'Len Wiseman',
+				  Nation = N'Mỹ' Where Id = 24

@@ -668,9 +668,9 @@
     <None Include="Images\Movie\Poster\movieposter_posterlunglinh.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <Content Include="Images\Movie\Video\movievideo_video.mp4">
+    <None Include="Images\Movie\Video\movievideo_LinhLungLangTam.mp4">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    </None>
     <Resource Include="Images\transitton-2.jpg" />
     <Content Include="Models\MediasManagement.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

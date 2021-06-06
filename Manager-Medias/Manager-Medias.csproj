@@ -159,6 +159,7 @@
     <Compile Include="Converters\CompareLevelConverter.cs" />
     <Compile Include="Converters\ConvertImage.cs" />
     <Compile Include="Converters\IsLoadingConverter.cs" />
+    <Compile Include="Converters\LimitLittleConverter.cs" />
     <Compile Include="Converters\LineCategoryConverter.cs" />
     <Compile Include="Converters\MainLayoutModalWidthConverter.cs" />
     <Compile Include="Converters\MillisecondToTimeLapseConverter.cs" />

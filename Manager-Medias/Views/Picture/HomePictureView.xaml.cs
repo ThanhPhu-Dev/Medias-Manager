@@ -67,6 +67,10 @@ namespace Manager_Medias.Views.Picture
 
         private void btn_likeAudio_Click(object sender, RoutedEventArgs e)
         {
+            Storyboard sb = this.FindResource("OpenMessage") as Storyboard;
+            Storyboard.SetTarget(sb, this.bd_Message);
+            sb.Begin();
+
             _timer = null;
             count = 0;
             StartTimer();

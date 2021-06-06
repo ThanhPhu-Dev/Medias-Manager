@@ -532,6 +532,7 @@
                                                 CornerRadius="1" />
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" HorizontalAlignment="Right">
+                                            
                                             <ToggleButton Padding="0" IsEnabled="{Binding DataContext.ToggleButton,
                                                 RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type view:HomePicture}}}"
                                                       Background="Transparent"
@@ -542,11 +543,7 @@
                                                       IsChecked="{Binding DataContext.CheckLike, RelativeSource={RelativeSource Mode=FindAncestor,
                                                                     AncestorType={x:Type view:HomePicture}}, Mode=OneWay}"
                                                       Click="btn_likeAudio_Click">
-                                                <ToggleButton.Triggers>
-                                                    <EventTrigger RoutedEvent="ToggleButton.Click">
-                                                        <BeginStoryboard Storyboard="{StaticResource OpenMessage}" />
-                                                    </EventTrigger>
-                                                </ToggleButton.Triggers>
+                                               
                                                 <i:Interaction.Triggers>
                                                     <i:EventTrigger EventName="Click">
                                                         <i:InvokeCommandAction Command="{Binding DataContext.CmdLike,
@@ -586,9 +583,9 @@
                                                     AncestorType={x:Type view:HomePicture}}, Mode=OneWay}"
                                                    Click="btn_likeAudio_Click">
                                                 <ToggleButton.Triggers>
-                                                    <EventTrigger RoutedEvent="ToggleButton.Click">
+                                                    <!--<EventTrigger RoutedEvent="ToggleButton.Click">
                                                         <BeginStoryboard Storyboard="{StaticResource OpenMessage}" />
-                                                    </EventTrigger>
+                                                    </EventTrigger>-->
                                                 </ToggleButton.Triggers>
                                                 <i:Interaction.Triggers>
                                                     <i:EventTrigger EventName="Click">

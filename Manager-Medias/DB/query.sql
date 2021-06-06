@@ -310,6 +310,12 @@ update Movies set IdCategory=2, Name=N'Nhà Ảo Thuật Thời Joseon',
 				  Age=16, NumberOfViews=356, Video='movievideo_NhaAoThuatThoiJoseon.mp4',
 				  Season='asdxv', Time='00:00:42', Directors= N'Dae-seung Kim',
 				  Nation = N'Hàn Quốc' Where Id = 20
+update Movies set IdCategory=2, Name=N'Thanh Kiếm Vô Danh',
+				  Description=N'Bước vào tuổi con gái đẹp tựa hương hoa, nàng Min Ja Young (Soo Ae) khi đó vẫn chưa trở thành hoàng hậu Myeong Seong nổi tiếng có công lao lãnh đạo nhân dân Triều Tiên chống lại Nhật Bản, cuộc gặp gỡ tình cờ đã đưa nàng và chàng kiếm khách tên Vô Danh (Jo Seung Woo) cùng cảm mến nhau ngay từ cái nhìn đầu tiên. Nhưng rồi sự khác biệt về thân phận trở thành rào cản mà cả hai người không thể vượt qua được, Ja Young kiên định bước theo con đường mà số phận đã an bài, trở thành Hoàng hậu Myeong Seong. Vì muốn được gặp Ja Young và bảo vệ nàng, Vô Danh tình nguyện từ bỏ cuộc sống tiêu dao tự tại của chàng kiếm sĩ giang hồ để gia nhập hoàng cung, trở thành một thị vệ chốn cung cấm. Để giúp cho Ja Young có thể sống cuộc sống an toàn trong thâm cung loạn lạc, Vô Danh cứ thế âm thầm ở bên cạnh bảo vệ và che chở nàng, dù có phải hy sinh tính mạng mình.',
+				  IMDB = 5.5, Poster='movieposter_ThanhKiemVoDanh.jpg', Likes = 80,
+				  Age=16, NumberOfViews=356, Video='movievideo_ThanhKiemVoDanh.mp4',
+				  Season='asdbvv', Time='00:03:15', Directors= N'Yong-gyun Kim',
+				  Nation = N'Hàn Quốc' Where Id = 29
 --phim Hành Động.
 update Movies set IdCategory=1, Name=N'Vùng Chiến Sự Hiểm Nguy',
 				  Description=N'Trong tương lai gần, một phi công máy bay không người lái được cử đến một vùng chiến sự thấy mình được ghép nối với một sĩ quan Android tối mật trong nhiệm vụ ngăn chặn một cuộc tấn công hạt nhân.',
@@ -334,6 +340,12 @@ update Movies set IdCategory=1, Name=N'Underworld (2003)',
 				  IMDB = 5.5, Poster='movieposter_Underworld2003.jpg', Likes = 67,
 				  Age=18, NumberOfViews=256, Video='movievideo_Underworld2003.mp4',
 				  Season='cagfv', Time='00:02:18', Directors= N'Len Wiseman',
+				  Nation = N'Mỹ' Where Id = 30
+update Movies set IdCategory=1, Name=N'Kẻ Vô Danh',
+				  Description=N'Đôi khi người đàn ông mà bạn không để ý lại là người nguy hiểm nhất. Hutch Mansell, một người cha và người chồng bị đánh giá thấp và bị coi thường, luôn coi thường sự phẫn nộ của cuộc đời và không bao giờ lùi bước. Một kẻ vô danh.',
+				  IMDB = 8.5, Poster='movieposter_KeVoDanh.jpg', Likes = 427,
+				  Age=18, NumberOfViews=856, Video='movievideo_KeVoDanh.mp4',
+				  Season='caaxgfv', Time='00:02:52', Directors= N'Ilya Naishuller',
 				  Nation = N'Mỹ' Where Id = 24
 --Phim Sieu anh hung.
 update Movies set IdCategory=3, Name=N'Liên Minh Công Lý (bản của Zack Snyder)',
@@ -360,3 +372,10 @@ update Movies set IdCategory=3, Name=N'Đại Úy Mỹ: Siêu Anh Hùng Đầu T
 				  Age=16, NumberOfViews=986, Video='movievideo_DaiuyMy-SieuAnhHungDauTien.mp4',
 				  Season='cmncfv', Time='00:02:21', Directors= N'Joe Johnston',
 				  Nation = N'Mỹ' Where Id = 28
+update Movies set IdCategory=3, Name=N'Phù Thủy Tối Thượng',
+				  Description=N'Doctor Strange kể về Stephen Strange - một trong những bác sĩ phẫu thuật tài năng nhất trên thế giới. Tuy nhiên, một tai nạn ô tô xảy ra khiến đôi tay của Strange vỡ nát và trở nên vô dụng. Dồn hết tài năng và kinh nghiệm của mình để hàn gắn cơ thể nhưng không thành công, vị bác sĩ tài ba trở nên thất vọng và chán nản. Anh nghĩ anh đã mất tất cả cho đến khi được một thiền sư bí ẩn truyền niềm tin & chữa lành vết thương cho anh ở Tibet. Nhưng trước khi lành vết thương, Strange phải dùng những khả năng đặc biệt mới để cứu lấy cả cõi giới, và học cách chấp nhận những điều tưởng chừng không thể chấp nhận được...',
+				  IMDB = 8.5, Poster='movieposter_PhuThuyToiThuong.jpg', Likes = 547,
+				  Age=16, NumberOfViews=986, Video='movievideo_PhuThuyToiThuong.mp4',
+				  Season='cmncfvx', Time='00:02:23', Directors= N'Scott Derrickson',
+				  Nation = N'Mỹ' Where Id = 31
+-- Phim viễn Tưởng ( Bắt đầu Id = 32 -> 37 là dùng update vì có data test trong db r)

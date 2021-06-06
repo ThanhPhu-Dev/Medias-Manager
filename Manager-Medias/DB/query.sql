@@ -288,6 +288,7 @@ insert into Movie_Categories (Name) values
 select * from Movies
 select * from Movie_Categories
 update Movie_Categories set Name=N'Cổ Trang' where Id=2
+update Movie_Categories set Name=N'Siêu Anh Hùng' where Id=3
 update movies set Age=16, Video='movievideo_LinhLungLangTam.mp4', Time='00:01:19' where Id = 7
 update movies set IdCategory=2 where Id = 7
 --phim cổ trang
@@ -334,3 +335,29 @@ update Movies set IdCategory=1, Name=N'Underworld (2003)',
 				  Age=18, NumberOfViews=256, Video='movievideo_Underworld2003.mp4',
 				  Season='cagfv', Time='00:02:18', Directors= N'Len Wiseman',
 				  Nation = N'Mỹ' Where Id = 24
+--Phim Sieu anh hung.
+update Movies set IdCategory=3, Name=N'Liên Minh Công Lý (bản của Zack Snyder)',
+				  Description=N'Để cái chết của Siêu Nhân không phí hoài, Người Dơi cùng Nữ thần Chiến binh lên kế hoạch chiêu mộ một nhóm người cường hóa để bảo vệ thế giới khỏi mối đe dọa khủng khiếp sắp tới.',
+				  IMDB = 8.5, Poster='movieposter_LienMinhCongLy.jpg', Likes = 147,
+				  Age=16, NumberOfViews=856, Video='movievideo_LienMinhCongLy.mp4',
+				  Season='cagacfv', Time='00:02:34', Directors= N'Zack Snyder',
+				  Nation = N'Mỹ' Where Id = 25
+update Movies set IdCategory=3, Name=N'Siêu Anh Hùng Shazam',
+				  Description=N'Chỉ nhờ câu thần chú "SHAZAM!", cậu bé 14 tuổi - Billy Batson, có thể hóa thân thành siêu anh hùng cao lớn với sức mạnh vĩ đại của một vị thần nhưng tập hợp quyền năng tối thượng của 6 vị thần bao gồm trí tuệ của vua Solomon, sức mạnh của anh hùng Hercules, sức bền của người khổng lồ Atlas, phép thuật của thần Zeus, lòng can đảm của anh hùng Achilles và tốc độ của thần Mercury, và bản thân cái tên Shazam cũng là tập hợp chữ cái đầu tiên của tên 6 huyền thoại đó.',
+				  IMDB = 6.5, Poster='movieposter_SieuAnhHungShazam.jpg', Likes = 147,
+				  Age=16, NumberOfViews=686, Video='movievideo_SieuAnhHungShazam.mp4',
+				  Season='cmncfv', Time='00:02:04', Directors= N'David F. Sandberg',
+				  Nation = N'Mỹ' Where Id = 26
+update Movies set IdCategory=3, Name=N'Cái Chết Của Siêu Nhân',
+				  Description=N'Cái Chết Của Siêu NhânMột sinh vật to lớn, hung dữ tên Doomsday đến Trái đất, đe dọa phá hủy thế giới. Đội Liên Minh Công Lý đến ngăn chặn nhưng các siêu anh hùng như Wonder Woman, Green Lantern, Batman... đều bị đánh bại. Chỉ có Superman (Jerry O Connell lồng tiếng) đủ khỏe để chống trả con quái vật hùng mạnh. Anh và Doomsday vừa chiến đấu vừa di chuyển khắp nước Mỹ.',
+				  IMDB = 6.5, Poster='movieposter_CaiChetCuaSieuNhan.jpg', Likes = 247,
+				  Age=16, NumberOfViews=986, Video='movievideo_CaiChetCuaSieuNhan.mp4',
+				  Season='cmncfv', Time='00:01:40', Directors= N'Jake Castorena, Sam Liu',
+				  Nation = N'Mỹ' Where Id = 27
+update Movies set IdCategory=3, Name=N'Đại Úy Mỹ: Siêu Anh Hùng Đầu Tiên',
+				  Description=N'Năm 1942, Steve Rogers (Chris Evans) bị cho là không đủ sức khỏe để gia nhập quân đội Mỹ và chiến đấu chống lại Đức Quốc Xã trong Thế chiến II. Anh tình nguyện tham gia vào một dự án mang tên “Tái sinh”, một hoạt động quân sự bí mật. Anh được tiêm vào người một chất để biến đổi anh thành một siêu chiến binh gọi là Captain America.
+								Ban đầu, Captain America - Siêu Anh Hùng Đầu Tiên của hãng Marvel được tính quay ở Los Angeles, nhưng sau đó nhà sản xuất đã chuyển đến London, nơi là một phần trong bối cảnh của truyện. Điều đó khiến nhà sản xuất có lợi về kinh tế vì ở đó có chính sách khuyến khích thuế. Nhưng quyết định đó đồng thời cũng là một đòn giáng mạnh vào cộng đồng nghèo khó của Los Angeles bởi họ đã tin tưởng dự án này sẽ thuê hàng trăm nhân viên đoàn phim tại thời điểm khi chỉ có rất ít phim kinh phí lớn quay tại địa phương, do cạnh tranh tăng cao với các bang và các nước khác.',
+				  IMDB = 9.5, Poster='movieposter_DaiuyMy-SieuAnhHungDauTien.jpg', Likes = 547,
+				  Age=16, NumberOfViews=986, Video='movievideo_DaiuyMy-SieuAnhHungDauTien.mp4',
+				  Season='cmncfv', Time='00:02:21', Directors= N'Joe Johnston',
+				  Nation = N'Mỹ' Where Id = 28

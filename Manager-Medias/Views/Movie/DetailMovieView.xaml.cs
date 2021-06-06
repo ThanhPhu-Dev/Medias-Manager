@@ -60,6 +60,12 @@ namespace Manager_Medias.Views.Movie
             seeker.Start();
             InitPosition();
             mea_video.Play();
+            mea_video.MediaEnded += Mea_video_MediaEnded;
+        }
+
+        private void Mea_video_MediaEnded(object sender, RoutedEventArgs e)
+        {
+            seeker.Stop();
         }
 
         private void InitPosition()
@@ -75,7 +81,8 @@ namespace Manager_Medias.Views.Movie
 
         private void Seeker_Tick(object sender, EventArgs e)
         {
-            if (!isSeekingMedia && mea_video.NaturalDuration.TimeSpan.TotalSeconds > 0)
+            if (!isSeekingMedia && mea_video.NaturalDuration.HasTimeSpan &&
+                mea_video.NaturalDuration.TimeSpan.TotalSeconds > 0)
             {
                 if (TotalTime.TotalSeconds > 0)
                 {

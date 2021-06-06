@@ -168,10 +168,12 @@
         <EventTrigger RoutedEvent="Button.Click" SourceName="play">
             <BeginStoryboard Name="MyBeginStoryboard">
                 <Storyboard>
-                    <DoubleAnimation
-                           Storyboard.TargetName="mea_video"
-                           Storyboard.TargetProperty="Height"
-                           Duration="0:0:0" From="0" To="{Binding ElementName=mediaContainer, Path=ActualWidth, Converter={StaticResource RatioCvt}}" />
+                    <ObjectAnimationUsingKeyFrames
+                           Storyboard.TargetName="mediaContainer"
+                           Storyboard.TargetProperty="(UIElement.Visibility)"
+                           BeginTime="0:0:0">
+                        <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{x:Static Visibility.Visible}" />
+                    </ObjectAnimationUsingKeyFrames>
                 </Storyboard>
             </BeginStoryboard>
         </EventTrigger>
@@ -355,34 +357,40 @@
                 <Grid Name="mediaContainer"
                   Background="{x:Null}"
                   Margin="20 30"
-                  Visibility="Visible">
+                  Visibility="Collapsed">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="8*" />
                         <RowDefinition Height="2*" />
                     </Grid.RowDefinitions>
-
-                    <!--Media-->
-                    <MediaElement x:Name="mea_video"
+                    <Viewbox Stretch="Uniform" Grid.Row="0"
+                              MaxWidth="{Binding ElementName=mediaContainer, Path=ActualWidth}"
+                             Name="ViewBoxMedia"
+                             Height="{Binding ElementName=mediaContainer, Path=ActualWidth, Converter={StaticResource RatioCvt}}">
+                        <!--Media-->
+                        <MediaElement x:Name="mea_video"
                               MediaOpened="audio_MediaOpened"
                               LoadedBehavior="Manual"
                               Stretch="Uniform"
-                              StretchDirection="UpOnly"
+                              StretchDirection="Both"
                               Source="{Binding DetailMovies.Video, Converter={StaticResource cvt}}"
-                              Grid.Row="0">
-                    </MediaElement>
+                            Height="{Binding ElementName=mediaContainer, Path=ActualWidth, Converter={StaticResource RatioCvt}}">
+                        </MediaElement>
+                    </Viewbox>
+
                     <Canvas Grid.Row="1"
                         HorizontalAlignment="Stretch"
                         Name="ControlCanvas"
                         Opacity="0">
-                        <StackPanel Width="{Binding ElementName=mea_video, Path=ActualWidth}"
+                        <StackPanel Width="{Binding ElementName=ViewBoxMedia, Path=ActualWidth}"
                                 Canvas.Top="-60"
                                 Background="#1E6E6E6E"
                                 Height="60"
-                                Name="StackControl">
+                                Name="StackControl"
+                                HorizontalAlignment="Stretch">
                             <Canvas.Left>
                                 <MultiBinding Converter="{StaticResource CanvasCvt}">
                                     <Binding ElementName="ControlCanvas" Path="ActualWidth" />
-                                    <Binding ElementName="mea_video" Path="ActualWidth" />
+                                    <Binding ElementName="ViewBoxMedia" Path="ActualWidth" />
                                 </MultiBinding>
                             </Canvas.Left>
                             <Grid HorizontalAlignment="Stretch"

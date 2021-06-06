@@ -12,9 +12,10 @@ namespace Manager_Medias.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            if (value == null) return "";
             var des = (string)value;
-            if (des.Length < 300) return des;
-            return des.Substring(0, 300);
+            if (des.Length < 230) return des;
+            return des.Substring(0, 230);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

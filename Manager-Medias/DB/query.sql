@@ -202,7 +202,8 @@ update Levels set Quality = N'Trung', Resolution= N'480p' where Id = 1
 update Levels set Quality = N'Tốt' , Resolution= N'1080p'where Id = 2
 update Levels set Quality = N'Cao Cấp', Resolution= N'4K+HDR' where Id = 3
 
-update Medias set Lvl = 1 where Id between 1 and 5
+update Medias set Lvl = 2 where Id between 1 and 2
+update Medias set Lvl = 1 where Id between 3 and 5
 update Medias set Lvl = 2 where Id between 6 and 8
 update Medias set Lvl = 1 where Id between 9 and 13
 update Medias set Lvl = 3 where Id between 14 and 18

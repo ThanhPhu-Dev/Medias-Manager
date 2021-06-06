@@ -7,12 +7,15 @@
              mc:Ignorable="d"
              xmlns:model="clr-namespace:Manager_Medias.Models"
              xmlns:cvt="clr-namespace:Manager_Medias.Converters"
+             xmlns:view="clr-namespace:Manager_Medias.Views.Audio"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              d:DesignHeight="585" d:DesignWidth="1200"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
     <UserControl.Resources>
         <cvt:ConvertImage x:Key="imgCvt" />
+        <cvt:CompareLevelConverter x:Key="levelCvt" />
         <cvt:MillisecondToTimeLapseConverter x:Key="TimeLapseCvt" />
+        
         <Style TargetType="materialDesign:PackIcon" x:Key="iconPlay">
             <Setter Property="Foreground" Value="#fff" />
             <Setter Property="VerticalAlignment" Value="Center" />
@@ -27,20 +30,10 @@
                     <ColumnDefinition />
                     <ColumnDefinition Width="80" />
                 </Grid.ColumnDefinitions>
-                <!--<TextBlock Text="{Binding Id}"
-                           FontSize="17"
-                           Foreground="#fff"
-                           Grid.Column="0"
-                           HorizontalAlignment="Center" />-->
                 <TextBlock Text="{Binding Name}"
                            FontSize="17"
                            Foreground="#fff"
                            Grid.Column="1" />
-                <!--<TextBlock Text="{Binding Id}"
-                           HorizontalAlignment="Right"
-                           FontSize="17"
-                           Foreground="#fff"
-                           Grid.Column="2" />-->
             </Grid>
         </DataTemplate>
         <DataTemplate x:Key="SelectedItemTemplate" DataType="{x:Type model:Audio}">
@@ -61,15 +54,22 @@
                            Foreground="#fff"
                            Grid.Column="1"
                            VerticalAlignment="Center" />
-                <!--<TextBlock Text="{Binding Id}"
-                           HorizontalAlignment="Right"
-                           FontSize="17"
-                           Foreground="#fff"
-                           Grid.Column="2"
-                           VerticalAlignment="Center" />-->
             </Grid>
+
         </DataTemplate>
         <Style x:Key="_ListBoxItemStyle" TargetType="ListBoxItem">
+            <Style.Triggers>
+                <DataTrigger Value="False">
+                    <DataTrigger.Binding >
+                        <MultiBinding Converter="{StaticResource levelCvt}">
+                            <Binding Path="DataContext.Level"
+                                     RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type view:DetailAudioView}}" />
+                            <Binding Path="Media.Lvl" />
+                        </MultiBinding>
+                    </DataTrigger.Binding>
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </DataTrigger>
+            </Style.Triggers>
             <Setter Property="ContentTemplate" Value="{StaticResource ItemTemplate}" />
             <Setter Property="Template">
                 <Setter.Value>
@@ -374,7 +374,7 @@
                 <RowDefinition />
                 <RowDefinition Height="9*" />
             </Grid.RowDefinitions>
-            <TextBlock Text="Bài hát liên quan"
+            <TextBlock Text="Bài hát tiếp theo"
                        Foreground="#fff"
                        FontSize="23"
                        FontWeight="DemiBold"
@@ -464,7 +464,7 @@
                         <ColumnDefinition Width="55"/>
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    
+
                     <materialDesign:PackIcon Kind="CheckCircleOutline" 
                                              Width="55"
                                              Height="55"
@@ -481,7 +481,7 @@
                                HorizontalAlignment="Center"
                                Padding="10 0 0 0"
                                Foreground="#222"/>
-                    
+
                     <Button Name="btn_closeMessage"
                             Grid.Column="1" 
                             BorderThickness="0"

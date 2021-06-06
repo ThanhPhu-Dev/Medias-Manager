@@ -15,6 +15,7 @@
         <cvt:ConvertImage x:Key="imageCvt" />
         <cvt:CompareLevelConverter x:Key="levelCvt" />
         <cvt:LineCategoryConverter x:Key="lineCvt" />
+        <cvt:LimitLittleConverter x:Key="littleCvt" />
 
         <!--SCROLL STYLE-->
         <Style x:Key="{x:Type ScrollBar}" TargetType="{x:Type ScrollBar}">
@@ -519,11 +520,14 @@
                                                            HorizontalAlignment="Center" />
 
                                                 <!--Mô tả phim-->
-                                                <TextBlock Text="{Binding ElementName=lb_carousel, Path=SelectedItem.Description}"
+                                                <TextBlock 
+                                                    Text="{Binding ElementName=lb_carousel, Path=SelectedItem.Description,
+                                                            Converter={StaticResource littleCvt}, StringFormat={}{0}...}"
                                                             Foreground="#FFC9C9C9"
                                                            Padding="6 0 0 0"
                                                            FontSize="14"
-                                                           HorizontalAlignment="Center" />
+                                                           HorizontalAlignment="Center" 
+                                                           TextWrapping="Wrap"/>
 
                                                 <Button
                                                     VerticalAlignment="Bottom"

@@ -24,11 +24,11 @@ namespace Manager_Medias.ViewModels.Customer
 
         //command like và lưu
         public ICommand CmdLike { get; set; }
-
         public ICommand CmdSave { get; set; }
 
         private MediaPlayer player = null;
         public DispatcherTimer _timer;
+        public int Level => (int)_userStore.CurrentUser.Level;
 
         static DetailAudioViewModel()
         {
@@ -185,8 +185,8 @@ namespace Manager_Medias.ViewModels.Customer
                 SelectedAudio = db.Audios.Where(a => a.Id == audioid).Single() as Audio;
 
                 //cập nhật danh sách bài hát liên quan (chung danh mục) cho UI
-                AudioList = new ObservableCollection<Audio>(db.Audios.Where(au => au.IdCategory == SelectedAudio.IdCategory).ToList());
-
+                //AudioList = new ObservableCollection<Audio>(db.Audios.Where(au => au.IdCategory == SelectedAudio.IdCategory).ToList());
+                AudioList = new ObservableCollection<Audio>(db.Audios.Include("Media").Include("Audio_Categories").ToList());
                 LoadLikeAndSave();
             }
         }

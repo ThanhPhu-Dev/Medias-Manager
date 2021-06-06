@@ -11,12 +11,14 @@ using System.Windows.Input;
 
 namespace Manager_Medias.ViewModels.Customer
 {
-    public class PaymentViewModels :BaseViewModel
+    public class PaymentViewModels : BaseViewModel
     {
         public static readonly DependencyProperty LevelListProperty =
             DependencyProperty.Register("lstlvl", typeof(ObservableCollection<Level>), typeof(PaymentViewModels));
+
         public static readonly DependencyProperty userProperty =
             DependencyProperty.Register("userinfo", typeof(User), typeof(PaymentViewModels));
+
         public ICommand OpenNewModal { get; set; }
         public ICommand submit { get; set; }
         public ICommand CloseEditModalCmd { get; set; }
@@ -30,6 +32,7 @@ namespace Manager_Medias.ViewModels.Customer
         private int lvlIdUp;
 
         private string _lvlIdCurrent;
+
         public string LvlIdCurrent
         {
             get => _lvlIdCurrent;
@@ -47,6 +50,7 @@ namespace Manager_Medias.ViewModels.Customer
         }
 
         private string _lvlNameCurrent;
+
         public string LevelNameCurrent
         {
             get => _lvlNameCurrent;
@@ -58,6 +62,7 @@ namespace Manager_Medias.ViewModels.Customer
         }
 
         private bool _isModalOpen = false;
+
         public bool IsModalOpen
         {
             get => _isModalOpen;
@@ -69,6 +74,7 @@ namespace Manager_Medias.ViewModels.Customer
         }
 
         private string _message;
+
         public string Message
         {
             get => _message;
@@ -80,6 +86,7 @@ namespace Manager_Medias.ViewModels.Customer
         }
 
         private string _levelNameUp;
+
         public string LevelUpName
         {
             get => _levelNameUp;
@@ -91,6 +98,7 @@ namespace Manager_Medias.ViewModels.Customer
         }
 
         private string _priceLevelUp;
+
         public string PriceLevelUp
         {
             get => _priceLevelUp;
@@ -119,6 +127,7 @@ namespace Manager_Medias.ViewModels.Customer
                 user.Level = lvlIdUp;
                 db.SaveChanges();
             }
+            _userStore.OnLevelChanged();
             IsModalOpen = false;
             LvlIdCurrent = _priceLevelUp;
             Message = "Thanh toán thành công";
@@ -131,7 +140,7 @@ namespace Manager_Medias.ViewModels.Customer
             {
                 Level lvlup = db.Levels.Where(p => p.Id == lvlIdUp).FirstOrDefault() as Level;
                 var user = db.Users.Where(p => p.Email == _userStore.Email).FirstOrDefault() as User;
-                if(lvlIdUp > user.Level)
+                if (lvlIdUp > user.Level)
                 {
                     IsModalOpen = true;
                     LevelUpName = lvlup.Name;

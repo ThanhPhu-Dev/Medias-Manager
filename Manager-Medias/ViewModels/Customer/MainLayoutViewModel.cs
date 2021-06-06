@@ -75,11 +75,17 @@ namespace Manager_Medias.ViewModels.Customer
             _userStore.ProfileChanged += _userStore_ProfileChanged;
             _userStore.AvatarChanged += _userStore_AvatarChanged;
             _userStore.NameChanged += _userStore_NameChanged;
+            _userStore.LevelChanged += _userStore_LevelChanged;
+        }
+
+        private void _userStore_LevelChanged()
+        {
+            OnPropertyChanged(nameof(LevelName));
         }
 
         private void PictureShow(object obj)
         {
-            _navigationStore.ContentViewModel = new HomePictureViewModel(8);
+            _navigationStore.ContentViewModel = new HomePictureViewModel();
         }
 
         private void AudioShow(object obj)

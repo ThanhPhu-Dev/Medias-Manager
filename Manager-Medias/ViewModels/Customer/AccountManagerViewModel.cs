@@ -66,7 +66,7 @@ namespace Manager_Medias.ViewModels.Customer
 
             // Create a Dictionary of validation rules for fast lookup.
             // Each property name of a validated property maps to one or more ValidationRule.
-            //this.ValidationRules.Add(nameof(this.CardNumber), new List<ValidationRule>() { new () });
+            this.ValidationRules.Add(nameof(this.CardNumber), new List<ValidationRule>() { new EmptyStringValidationRule() });
             this.ValidationRules.Add(nameof(this.Expires), new List<ValidationRule>() { new DateExpirationValidationRule() });
             InitValidate();
             GetCurrentData();
@@ -86,6 +86,7 @@ namespace Manager_Medias.ViewModels.Customer
             {
                 var account = db.Users.Single(u => u.Email == _userStore.Email);
                 CardNumber = account.NumberCard;
+                Expires = account.Exp;
             }
         }
 

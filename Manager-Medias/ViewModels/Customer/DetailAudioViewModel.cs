@@ -43,7 +43,17 @@ namespace Manager_Medias.ViewModels.Customer
 
         public Audio SelectedAudio { get => _selectedAudio; set => _selectedAudio = value; }
         public string TimeAudio { get => _timeAudio; set => _timeAudio = value; }
+        private double _sliderValue = 0;
 
+        public double SliderValue
+        {
+            get => _sliderValue;
+            set
+            {
+                _sliderValue = value;
+                OnPropertyChanged();
+            }
+        }
         public bool CheckLike
         {
             get => _checkLike;
@@ -80,10 +90,13 @@ namespace Manager_Medias.ViewModels.Customer
         private bool _checkSave;
         private string test;
         private string _message;
+        private int historyID { get; set; }
+        private int id;
 
         public DetailAudioViewModel(int audioid)
         {
             currentProfile = _userStore.CurrentProfile.Id;
+            this.id = audioid;
 
             Loaded(audioid);
             CmdSelectionChange = new RelayCommand<object>(SelectionChange);
@@ -92,9 +105,50 @@ namespace Manager_Medias.ViewModels.Customer
             CmdLike = new RelayCommand<object>(Likemt);
             CmdSave = new RelayCommand<object>(Savemt);
 
-            //loadaudio(SelectedAudio.Mp3);
+            CreateHistory();
         }
+        public DetailAudioViewModel(int audioid, int idHistory)
+        {
+            currentProfile = _userStore.CurrentProfile.Id;
+            this.id = audioid;
 
+            Loaded(audioid);
+            CmdSelectionChange = new RelayCommand<object>(SelectionChange);
+            CmdPlayAudio = new RelayCommand<object>(PlayAudio);
+            CmdPauseAudio = new RelayCommand<object>(PauseAudio);
+            CmdLike = new RelayCommand<object>(Likemt);
+            CmdSave = new RelayCommand<object>(Savemt);
+
+            CreateHistory();
+
+            GetTimeStartMedia(idHistory);
+        }
+        public void GetTimeStartMedia(int idHistory)
+        {
+            using (var db = new MediasManangementEntities())
+            {
+                var ht = db.View_History.Single(h => h.Id == idHistory);
+                SliderValue = double.Parse(ht.time);
+            }
+        }
+        public void CreateHistory()
+        {
+            using (var db = new MediasManangementEntities())
+            {
+                View_History ht = new View_History
+                {
+                    Date = DateTime.Now,
+                    IdMedia = this.id,
+                    IdProfile = _userStore.CurrentProfile.Id,
+                    time = "0",
+                };
+
+                db.View_History.Add(ht);
+                db.SaveChanges();
+
+                this.historyID = ht.Id;
+            }
+        }
         private void Savemt(object obj)
         {
             int mediaId = (int)obj;
@@ -102,13 +156,13 @@ namespace Manager_Medias.ViewModels.Customer
             {
                 IdProfile = currentProfile,
                 IdMedia = mediaId,
-                //date
+                Date = DateTime.Now,
             };
             using (var db = new MediasManangementEntities())
             {
                 if (CheckSave)
                 {
-                    var likeSelect = db.My_Lists.Where(l => l.IdMedia == mediaId).Single() as My_List;
+                    var likeSelect = db.My_Lists.Where(l => l.IdMedia == mediaId && l.IdProfile == li.IdProfile).Single() as My_List;
                     db.My_Lists.Remove(likeSelect);
                     CheckSave = false;
                     if (db.SaveChanges() > 0)
@@ -135,13 +189,13 @@ namespace Manager_Medias.ViewModels.Customer
             {
                 IdProfile = currentProfile,
                 IdMedia = mediaId,
-                //date
+                Date = DateTime.Now,
             };
             using (var db = new MediasManangementEntities())
             {
                 if (CheckLike)
                 {
-                    var likeSelect = db.Likes.Where(l => l.IdMedia == mediaId).Single() as Like;
+                    var likeSelect = db.Likes.Where(l => l.IdMedia == mediaId && l.IdProfile == li.IdProfile).Single() as Like;
                     db.Likes.Remove(likeSelect);
                     CheckLike = false;
                     if (db.SaveChanges() > 0)
@@ -175,8 +229,38 @@ namespace Manager_Medias.ViewModels.Customer
         {
             //check lại like và save của bài hát đang chọn
             LoadLikeAndSave();
+
+            _navigationStore.CurrentContentViewModelChanged += OnClosingViewModel;
+            Application.Current.MainWindow.Closed += MainWindow_Closed;
+        }
+        private void MainWindow_Closed(object sender, EventArgs e)
+        {
+            using (var db = new MediasManangementEntities())
+            {
+                int milisecond = (int)SliderValue;
+
+                var ht = db.View_History.Single(h => h.Id == this.historyID);
+                ht.time = milisecond.ToString();
+
+                db.SaveChanges();
+            }
         }
 
+        private void OnClosingViewModel()
+        {
+            using (var db = new MediasManangementEntities())
+            {
+                int milisecond = (int)SliderValue;
+
+                var ht = db.View_History.Single(h => h.Id == this.historyID);
+                ht.time = milisecond.ToString();
+
+                db.SaveChanges();
+            }
+            // Remove event
+            _navigationStore.CurrentContentViewModelChanged -= OnClosingViewModel;
+            Application.Current.MainWindow.Closed -= MainWindow_Closed;
+        }
         public void Loaded(int audioid)
         {
             using (var db = new MediasManangementEntities())
@@ -185,7 +269,6 @@ namespace Manager_Medias.ViewModels.Customer
                 SelectedAudio = db.Audios.Where(a => a.Id == audioid).Single() as Audio;
 
                 //cập nhật danh sách bài hát liên quan (chung danh mục) cho UI
-                //AudioList = new ObservableCollection<Audio>(db.Audios.Where(au => au.IdCategory == SelectedAudio.IdCategory).ToList());
                 AudioList = new ObservableCollection<Audio>(db.Audios.Include("Media").Include("Audio_Categories").ToList());
                 LoadLikeAndSave();
             }

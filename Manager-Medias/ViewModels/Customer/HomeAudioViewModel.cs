@@ -32,7 +32,15 @@ namespace Manager_Medias.ViewModels.Customer
         public HomeAudioViewModel()
         {
             LoadMovie();
-            CmdToDetailAudio = new RelayCommand<object>(ToDetailAudio);
+            CmdToDetailAudio = new RelayCommand<object>(ToDetailAudio, (object o) =>
+            {
+                Audio auido = o as Audio;
+                if (auido != null && Level >= auido.Media.Lvl)
+                {
+                    return true;
+                }
+                return false;
+            });
         }
 
         private void ToDetailAudio(object obj)

@@ -80,7 +80,7 @@ namespace Manager_Medias.ViewModels.Customer
             CreateHistory();
         }
 
-        public DetailMovieViewModel(int idMovie, int idHistory)
+        public DetailMovieViewModel(int idMovie, double time)
         {
             CmdLikesClick = new RelayCommand<Object>(Likes);
             CmdShareClick = new RelayCommand<Object>(Share);
@@ -93,7 +93,7 @@ namespace Manager_Medias.ViewModels.Customer
             loaded();
             CreateHistory();
 
-            GetTimeStartMedia(idHistory);
+            GetTimeStartMedia(time);
         }
 
         public void AddEventOnClosingViewModel(Object o)
@@ -216,7 +216,7 @@ namespace Manager_Medias.ViewModels.Customer
                 }
                 else
                 {
-                    CheckSave =true;
+                    CheckSave = true;
                     Message = "Đã thêm danh sách myList";
                     db.My_Lists.Add(my_List);
                 }
@@ -243,13 +243,9 @@ namespace Manager_Medias.ViewModels.Customer
             }
         }
 
-        public void GetTimeStartMedia(int idHistory)
+        public void GetTimeStartMedia(double time)
         {
-            using (var db = new MediasManangementEntities())
-            {
-                var ht = db.View_History.Single(h => h.Id == idHistory);
-                SliderValue = double.Parse(ht.time);
-            }
+            SliderValue = time;
         }
     }
 }

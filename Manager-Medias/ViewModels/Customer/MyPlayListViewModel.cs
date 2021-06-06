@@ -57,12 +57,13 @@ namespace Manager_Medias.ViewModels.Customer
 
             NavigateDetailAudio = new NavigateCommand<DetailAudioViewModel>(
                                    new NavigationService<DetailAudioViewModel>(_navigationStore, () =>
-                                   new DetailAudioViewModel((PlayList.CurrentItem as MediaCustomModel).MediaID)));
+                                   new DetailAudioViewModel((PlayList.CurrentItem as MediaCustomModel).MediaID,
+                                                            (PlayList.CurrentItem as MediaCustomModel).TimeWatched)));
 
             NavigateDetailMovie = new NavigateCommand<DetailMovieViewModel>(
                                    new NavigationService<DetailMovieViewModel>(_navigationStore, () =>
                                    new DetailMovieViewModel((PlayList.CurrentItem as MediaCustomModel).MediaID,
-                                                            (PlayList.CurrentItem as MediaCustomModel).HistoryID)));
+                                                            (PlayList.CurrentItem as MediaCustomModel).TimeWatched)));
 
             RemoveCmd = new RelayCommand<Object>(ActionRemove);
 

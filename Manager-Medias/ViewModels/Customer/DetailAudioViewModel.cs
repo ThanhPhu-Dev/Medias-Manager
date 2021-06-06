@@ -24,6 +24,7 @@ namespace Manager_Medias.ViewModels.Customer
 
         //command like và lưu
         public ICommand CmdLike { get; set; }
+
         public ICommand CmdSave { get; set; }
 
         private MediaPlayer player = null;
@@ -54,6 +55,7 @@ namespace Manager_Medias.ViewModels.Customer
                 OnPropertyChanged();
             }
         }
+
         public bool CheckLike
         {
             get => _checkLike;
@@ -75,8 +77,10 @@ namespace Manager_Medias.ViewModels.Customer
         }
 
         public string Test { get => test; set => test = value; }
-        public string Message { 
-            get => _message; 
+
+        public string Message
+        {
+            get => _message;
             set
             {
                 _message = value;
@@ -107,7 +111,8 @@ namespace Manager_Medias.ViewModels.Customer
 
             CreateHistory();
         }
-        public DetailAudioViewModel(int audioid, int idHistory)
+
+        public DetailAudioViewModel(int audioid, double time)
         {
             currentProfile = _userStore.CurrentProfile.Id;
             this.id = audioid;
@@ -121,16 +126,14 @@ namespace Manager_Medias.ViewModels.Customer
 
             CreateHistory();
 
-            GetTimeStartMedia(idHistory);
+            GetTimeStartMedia(time);
         }
-        public void GetTimeStartMedia(int idHistory)
+
+        public void GetTimeStartMedia(double time)
         {
-            using (var db = new MediasManangementEntities())
-            {
-                var ht = db.View_History.Single(h => h.Id == idHistory);
-                SliderValue = double.Parse(ht.time);
-            }
+            SliderValue = time;
         }
+
         public void CreateHistory()
         {
             using (var db = new MediasManangementEntities())
@@ -149,6 +152,7 @@ namespace Manager_Medias.ViewModels.Customer
                 this.historyID = ht.Id;
             }
         }
+
         private void Savemt(object obj)
         {
             int mediaId = (int)obj;
@@ -233,6 +237,7 @@ namespace Manager_Medias.ViewModels.Customer
             _navigationStore.CurrentContentViewModelChanged += OnClosingViewModel;
             Application.Current.MainWindow.Closed += MainWindow_Closed;
         }
+
         private void MainWindow_Closed(object sender, EventArgs e)
         {
             using (var db = new MediasManangementEntities())
@@ -261,6 +266,7 @@ namespace Manager_Medias.ViewModels.Customer
             _navigationStore.CurrentContentViewModelChanged -= OnClosingViewModel;
             Application.Current.MainWindow.Closed -= MainWindow_Closed;
         }
+
         public void Loaded(int audioid)
         {
             using (var db = new MediasManangementEntities())

@@ -14,8 +14,8 @@ namespace Manager_Medias.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value == null || (double)value == 0) return 0;
-            double width = (double)value - ((65 + 90) * 16 / 9); // Trừ height của header, height của control
-            return width * 9 / 16;
+            double width = (double)value;
+            return (width * 9 / 16) - 65 - 30;  // Trừ height của header, trừ thêm khoảng 30 cho thoáng
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

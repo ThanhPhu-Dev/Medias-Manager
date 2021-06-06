@@ -245,12 +245,12 @@
                         <Slider Grid.Column="2"
                                 TickFrequency="5"
                                 Orientation="Horizontal"
-                                Value="0"
                                 Width="auto"
                                 Foreground="#febb00"
                                 Name="timelineSlider"
                                 Thumb.DragStarted="timelineSlider_DragStarted"
-                                Thumb.DragCompleted="timelineSlider_DragCompleted" />
+                                Thumb.DragCompleted="timelineSlider_DragCompleted" 
+                                Value="{Binding SliderValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                     </Grid>
                     <StackPanel Orientation="Horizontal"
                                 HorizontalAlignment="Center">

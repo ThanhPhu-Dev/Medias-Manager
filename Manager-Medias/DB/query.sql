@@ -212,6 +212,8 @@ update Medias set Lvl = 1 where Id between 23 and 25
 update Medias set Lvl = 3 where Id between 26 and 30
 update Medias set Lvl = 1 where Id between 31 and 34
 update Medias set Lvl = 1 where Id between 35 and 37
+
+update Medias set IdCategory = 3 where Id between 1 and 5
 --Insert user 
 INSERT INTO Users VALUES ('nghiadx2001@gmail.c', '123', 1, 'CDCD', '362')
 INSERT INTO Users (Email, Password) VALUES ('1@gmail.c', '123')

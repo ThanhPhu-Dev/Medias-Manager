@@ -21,6 +21,7 @@ namespace Manager_Medias.ViewModels.Customer
         public ICommand CmdSelectionChange { get; set; }
         public ICommand CmdPlayAudio { get; set; }
         public ICommand CmdPauseAudio { get; set; }
+        public ICommand CmdWindowLoaded { get; set; }
 
         //command like và lưu
         public ICommand CmdLike { get; set; }
@@ -103,28 +104,33 @@ namespace Manager_Medias.ViewModels.Customer
             this.id = audioid;
 
             Loaded(audioid);
-            CmdSelectionChange = new RelayCommand<object>(SelectionChange);
-            CmdLike = new RelayCommand<object>(Likemt);
-            CmdSave = new RelayCommand<object>(Savemt);
+            LoadCommand();
 
             CreateHistory();
-            _navigationStore.CurrentContentViewModelChanged += OnClosingViewModel;
-            Application.Current.MainWindow.Closed += MainWindow_Closed;
         }
 
         public DetailAudioViewModel(int audioid, double time)
         {
             currentProfile = _userStore.CurrentProfile.Id;
             this.id = audioid;
-
+            LoadCommand();
             Loaded(audioid);
-            CmdSelectionChange = new RelayCommand<object>(SelectionChange);
-            CmdLike = new RelayCommand<object>(Likemt);
-            CmdSave = new RelayCommand<object>(Savemt);
 
             CreateHistory();
 
             GetTimeStartMedia(time);
+        }
+
+        public void LoadCommand()
+        {
+            CmdWindowLoaded = new RelayCommand<object>(WindowLoaded);
+            CmdSelectionChange = new RelayCommand<object>(SelectionChange);
+            CmdLike = new RelayCommand<object>(Likemt);
+            CmdSave = new RelayCommand<object>(Savemt);
+        }
+
+        public void WindowLoaded(object o)
+        {
             _navigationStore.CurrentContentViewModelChanged += OnClosingViewModel;
             Application.Current.MainWindow.Closed += MainWindow_Closed;
         }
@@ -219,12 +225,27 @@ namespace Manager_Medias.ViewModels.Customer
             }
         }
 
+        private void SaveHistoryTime()
+        {
+            using (var db = new MediasManangementEntities())
+            {
+                int milisecond = (int)SliderValue;
+
+                var ht = db.View_History.Single(h => h.Id == this.historyID);
+                ht.time = milisecond.ToString();
+
+                db.SaveChanges();
+            }
+        }
+
         private void SelectionChange(object obj)
         {
             if (obj != null)
             {
                 this.id = (int)obj;
-                //tạo lịch sử đã xem 
+                SaveHistoryTime();
+                SliderValue = 0;
+                //tạo lịch sử đã xem
                 CreateHistory();
                 //check lại like và save của bài hát đang chọn
                 LoadLikeAndSave();
@@ -233,28 +254,12 @@ namespace Manager_Medias.ViewModels.Customer
 
         private void MainWindow_Closed(object sender, EventArgs e)
         {
-            using (var db = new MediasManangementEntities())
-            {
-                int milisecond = (int)SliderValue;
-
-                var ht = db.View_History.Single(h => h.Id == this.historyID);
-                ht.time = milisecond.ToString();
-
-                db.SaveChanges();
-            }
+            SaveHistoryTime();
         }
 
         private void OnClosingViewModel()
         {
-            using (var db = new MediasManangementEntities())
-            {
-                int milisecond = (int)SliderValue;
-
-                var ht = db.View_History.Single(h => h.Id == this.historyID);
-                ht.time = milisecond.ToString();
-
-                db.SaveChanges();
-            }
+            SaveHistoryTime();
             // Remove event
             _navigationStore.CurrentContentViewModelChanged -= OnClosingViewModel;
             Application.Current.MainWindow.Closed -= MainWindow_Closed;

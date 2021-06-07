@@ -373,6 +373,7 @@
                               Stretch="Uniform"
                               ScrubbingEnabled="True"
                               StretchDirection="Both"
+                              Unloaded="mea_video_Unloaded"
                               Source="{Binding DetailMovies.Video, Converter={StaticResource cvt}}"
                               Height="{Binding ElementName=mediaContainer, Path=ActualWidth, Converter={StaticResource RatioCvt}}">
                         </MediaElement>

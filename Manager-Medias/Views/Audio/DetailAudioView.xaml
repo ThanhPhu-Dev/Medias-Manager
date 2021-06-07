@@ -391,7 +391,8 @@
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
                         <i:InvokeCommandAction 
-                               Command="{Binding CmdSelectionChange}"/>
+                               Command="{Binding CmdSelectionChange}"
+                            CommandParameter="{Binding ElementName=lb_Audio, Path=SelectedItem.Id}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
                 <ListBox.Resources>

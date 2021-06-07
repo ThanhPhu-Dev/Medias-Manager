@@ -25,11 +25,14 @@ namespace Manager_Medias.Views.Audio
     {
         private DispatcherTimer seeker;
         private bool isSeekingMedia = false;
-
+        Storyboard sb_rotate = null;
         public DetailAudioView()
         {
             InitializeComponent();
             audio.Play();
+
+            sb_rotate = this.FindResource("anm_rotate") as Storyboard;
+            sb_rotate.Begin();
         }
 
         private void MediaTimeline_CurrentTimeInvalidated(object sender, EventArgs e)
@@ -77,12 +80,14 @@ namespace Manager_Medias.Views.Audio
         {
             audio.Pause();
             seeker.Stop();
+            sb_rotate.Pause();
         }
 
         private void btn_playvideo_Unchecked(object sender, RoutedEventArgs e)
         {
             audio.Play();
             seeker.Start();
+            sb_rotate.Resume();
         }
 
         //Message
@@ -129,6 +134,23 @@ namespace Manager_Medias.Views.Audio
         private void lb_Audio_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             btn_playvideo.IsChecked = false;
+            //reset animation rotate
+            sb_rotate.Stop();
+            try
+            {
+                sb_rotate.Begin();
+            }
+            catch
+            {
+                return;
+            }
+        }
+
+        private void audio_MediaEnded(object sender, RoutedEventArgs e)
+        {
+            btn_playvideo.IsChecked = true;
+            seeker.Stop();
+            audio.Pause();
         }
     }
 }

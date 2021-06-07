@@ -2,6 +2,7 @@
 using Manager_Medias.ViewModels.Customer;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,12 +40,13 @@ namespace Manager_Medias.Views.Movie
 
         private void timelineSlider_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
         {
-            isSeekingMedia = true;
             int SliderValue = (int)timelineSlider.Value;
 
             // Overloaded constructor takes the arguments days, hours, minutes, seconds, milliseconds.
             // Create a TimeSpan with miliseconds equal to the slider value.
-            mea_video.Position = new TimeSpan(0, 0, 0, 0, SliderValue);
+            TimeSpan ts = new TimeSpan(0, 0, 0, 0, SliderValue);
+            mea_video.Position = ts;
+
             isSeekingMedia = false;
         }
 
@@ -61,7 +63,19 @@ namespace Manager_Medias.Views.Movie
             seeker.Interval = TimeSpan.FromSeconds(1);
             seeker.Tick += Seeker_Tick;
             seeker.Start();
-            //mea_video.MediaEnded += Mea_video_MediaEnded;
+
+            mea_video.MediaEnded += Mea_video_MediaEnded;
+            mea_video.MediaFailed += Mea_video_MediaFailed;
+        }
+
+        private void Mea_video_MediaFailed(object sender, ExceptionRoutedEventArgs e)
+        {
+            Trace.WriteLine("seek failed");
+        }
+
+        private void Mea_video_MediaEnded(object sender, RoutedEventArgs e)
+        {
+            seeker.Stop();
         }
 
         private void Seeker_Tick(object sender, EventArgs e)
@@ -75,11 +89,13 @@ namespace Manager_Medias.Views.Movie
         private void btn_playvideo_Checked(object sender, RoutedEventArgs e)
         {
             mea_video.Pause();
+            seeker.Stop();
         }
 
         private void btn_playvideo_Unchecked(object sender, RoutedEventArgs e)
         {
             mea_video.Play();
+            seeker.Start();
         }
 
         private void play_Click(object sender, RoutedEventArgs e)

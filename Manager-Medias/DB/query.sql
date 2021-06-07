@@ -195,6 +195,7 @@ select * from Movies
 select * from Movie_Categories
 select * from Album_Details
 select * from Albums
+select * from Payment_History
 select * from Users where Email = 'nghiadx2001@gmail.c'
 update Albums set Id = 2 where Name=N'Thiên nhiên'
 update Album_Details set IdAlbum = 2

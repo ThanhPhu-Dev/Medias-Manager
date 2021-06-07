@@ -1,11 +1,14 @@
-﻿using Manager_Medias.Models;
+﻿using Manager_Medias.Commands;
+using Manager_Medias.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
+using System.Windows.Input;
 
 namespace Manager_Medias.ViewModels.Admin
 {
@@ -17,6 +20,8 @@ namespace Manager_Medias.ViewModels.Admin
         public static readonly DependencyProperty ProfileListProperty;
         public static readonly DependencyProperty ProfileProperty;
 
+
+        public ICommand CmdAddUser { get; }
         static AdminViewVM()
         {
             UserListProperty = DependencyProperty.Register("UserList",
@@ -58,6 +63,8 @@ namespace Manager_Medias.ViewModels.Admin
 
         public AdminViewVM()
         {
+            CmdAddUser = new RelayCommand<object>(AddUser);
+
             using (var db = new MediasManangementEntities())
             {
                 UserList = new ListCollectionView(db.Users.ToList());
@@ -72,7 +79,7 @@ namespace Manager_Medias.ViewModels.Admin
                 User = new User
                 {
                     Email = UserCurrent.Email,
-                    Password = UserCurrent.Password,
+                    Password = "",
                     Level = UserCurrent.Level,
                     Code = UserCurrent.Code,
                     NumberCard = UserCurrent.NumberCard,
@@ -98,6 +105,69 @@ namespace Manager_Medias.ViewModels.Admin
                 };
 
             };
+        }
+
+
+        private void AddUser(object obj)
+        {
+            using (var db = new MediasManangementEntities())
+            {
+                var NewUser = new User
+                {
+                    Email = User.Email,
+                    Code = User.Code,
+                    NumberCard = User.NumberCard,
+                    Level = User.Level,
+                    Exp = "0/20",
+                    Password = User.Password,
+                };
+
+                db.Users.Add(NewUser);
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (DbEntityValidationException e)
+                {
+                    foreach (var eve in e.EntityValidationErrors)
+                    {
+                        Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                            eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                        foreach (var ve in eve.ValidationErrors)
+                        {
+                            Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                                ve.PropertyName, ve.ErrorMessage);
+                        }
+                    }
+                    throw;
+                }
+
+                UserList.AddNewItem(NewUser);
+
+                var rd = new Random();
+                int newID;
+                do
+                {
+                    newID = rd.Next(1, 1000);
+                } while (db.Profiles.SingleOrDefault(p => p.Id == newID) != null);
+
+                var NewProfile = new Profile
+                {
+                    Name = Profile.Name,
+                    Email = User.Email,
+                    Id = newID,
+                    Avatar = Profile.Avatar,
+                    Status = 1,
+                };
+
+                db.Profiles.Add(NewProfile);
+                
+                db.SaveChanges();
+
+                ProfileList.AddNewItem(NewProfile);
+
+
+            }
         }
     } 
 }

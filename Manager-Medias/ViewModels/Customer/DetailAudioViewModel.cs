@@ -108,6 +108,8 @@ namespace Manager_Medias.ViewModels.Customer
             CmdSave = new RelayCommand<object>(Savemt);
 
             CreateHistory();
+            _navigationStore.CurrentContentViewModelChanged += OnClosingViewModel;
+            Application.Current.MainWindow.Closed += MainWindow_Closed;
         }
 
         public DetailAudioViewModel(int audioid, double time)
@@ -123,6 +125,8 @@ namespace Manager_Medias.ViewModels.Customer
             CreateHistory();
 
             GetTimeStartMedia(time);
+            _navigationStore.CurrentContentViewModelChanged += OnClosingViewModel;
+            Application.Current.MainWindow.Closed += MainWindow_Closed;
         }
 
         public void GetTimeStartMedia(double time)
@@ -225,9 +229,6 @@ namespace Manager_Medias.ViewModels.Customer
                 //check lại like và save của bài hát đang chọn
                 LoadLikeAndSave();
             }
-
-            _navigationStore.CurrentContentViewModelChanged += OnClosingViewModel;
-            Application.Current.MainWindow.Closed += MainWindow_Closed;
         }
 
         private void MainWindow_Closed(object sender, EventArgs e)

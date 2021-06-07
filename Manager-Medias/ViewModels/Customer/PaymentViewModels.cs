@@ -121,10 +121,19 @@ namespace Manager_Medias.ViewModels.Customer
 
         private void submitChange(object obj)
         {
+            Payment_History history = new Payment_History()
+            {
+                DateOfPayment = DateTime.Now,
+                Email = _userStore.Email,
+                Note = "Thanh toán lên cấp độ " + LevelUpName,
+                Price = decimal.Parse(PriceLevelUp),
+                
+            };
             using (var db = new MediasManangementEntities())
             {
                 User user = db.Users.Where(p => p.Email == _userStore.Email).FirstOrDefault() as User;
                 user.Level = lvlIdUp;
+                db.Payment_History.Add(history);
                 db.SaveChanges();
             }
             _userStore.OnLevelChanged();

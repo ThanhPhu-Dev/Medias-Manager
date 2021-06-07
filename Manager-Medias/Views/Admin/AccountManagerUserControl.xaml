@@ -10,13 +10,13 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
-    
+
     <UserControl.Resources>
         <localConvert:ProfileImageConverter x:Key="ProfileImageConverter"/>
-        
+
         <SolidColorBrush x:Key="TextBox.Static.Border" Color="#FFABAdB3"/>
-            <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#FF7EB4EA"/>
-            <SolidColorBrush x:Key="TextBox.Focus.Border" Color="#FF569DE5"/>
+        <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#FF7EB4EA"/>
+        <SolidColorBrush x:Key="TextBox.Focus.Border" Color="#FF569DE5"/>
         <Style x:Key="TxtStyleValidation" TargetType="{x:Type TextBox}">
             <Setter Property="BorderBrush" Value="{StaticResource TextBox.Static.Border}"/>
             <Setter Property="BorderThickness" Value="1"/>
@@ -41,7 +41,7 @@
                                            Foreground="Black" ></Label>
                                     </Grid>
                                 </Border>
-                                
+
                                 <ScrollViewer x:Name="PART_ContentHost" Focusable="false" Width="200"
                                               HorizontalScrollBarVisibility="Hidden" 
                                               VerticalScrollBarVisibility="Hidden" Grid.Column="1" 
@@ -49,7 +49,7 @@
                             </Grid>
                         </Border>
                         <ControlTemplate.Triggers>
-                            
+
                             <Trigger Property="IsKeyboardFocused" Value="true">
                                 <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.Focus.Border}"/>
                             </Trigger>
@@ -57,7 +57,7 @@
                                 <Setter Property="ToolTip"
                                     Value="{Binding RelativeSource={x:Static RelativeSource.Self},
                                     Path=(Validation.Errors)[0].ErrorContent}"/>
-                                
+
                                 <Setter Property="Background" TargetName="lbHeader" Value="Red"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
@@ -72,6 +72,24 @@
                     </MultiTrigger.Conditions>
                     <Setter Property="SelectionBrush" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"/>
                 </MultiTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="Button" x:Key="buttonValidationFailStyle"
+               BasedOn="{StaticResource MaterialDesignFlatAccentBgButton}">
+            <Setter Property="IsEnabled" Value="False"/>
+            
+            <Style.Triggers>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=txtbEmailAdd}" Value="False"/>
+                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=txtbNumCardAdd}" Value="False"/>
+                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=txtbLevelAdd}" Value="False"/>
+                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=txtbPasswordAdd}" Value="False"/>
+                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=txtbNameAdd}" Value="False"/>
+                    </MultiDataTrigger.Conditions>
+                    <Setter Property="IsEnabled" Value="True"/>
+                </MultiDataTrigger>
             </Style.Triggers>
         </Style>
     </UserControl.Resources>
@@ -101,21 +119,7 @@
                 </Rectangle>
                 <Grid Height="110" Margin="15 5 15 0">
                     <StackPanel>
-                        <Button Margin="10,5,10,0" Background="CadetBlue"
-                                Height="26"
-                                Name="btAddUser"
-                                BorderBrush="CadetBlue">
-                            <Grid Width="220">
-
-                                <StackPanel Orientation="Horizontal">
-                                    <materialDesign:PackIcon Kind="AddBold"/>
-                                    <TextBlock  FontSize="13" Margin="8 0 0 0"
-                                                    Text="Thêm người dùng mới" FontFamily="Champagne &amp; Limousines" />
-                                </StackPanel>
-
-                            </Grid>
-                        </Button>
-                        <Button Margin="10,8,10,0" Background="#1c944e"
+                        <Button Margin="10,5,10,0" Background="#1c944e"
                                     Height="26"
                                     BorderBrush="CadetBlue">
                             <Grid Width="220">
@@ -123,21 +127,37 @@
                                 <StackPanel Orientation="Horizontal">
                                     <materialDesign:PackIcon Kind="Update"/>
                                     <TextBlock  FontSize="13" Margin="8 0 0 0"
-                                                    Text="Cập nhật thông tin người dùng" FontFamily="Champagne &amp; Limousines" />
+                                                Text="Về giao diện chính" FontFamily="Champagne &amp; Limousines" />
                                 </StackPanel>
 
                             </Grid>
                         </Button>
+                        <Button Margin="10,8,10,0" Background="CadetBlue"
+                                Height="26"
+                                Name="btAddUser" Click="btAddUser_Click"
+                                BorderBrush="CadetBlue">
+                            <Grid Width="220">
+
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="AddBold"/>
+                                    <TextBlock  FontSize="13" Margin="8 0 0 0"
+                                                
+                                                Text="Thêm người dùng mới" FontFamily="Champagne &amp; Limousines" />
+                                </StackPanel>
+
+                            </Grid>
+                        </Button>
+                        
 
                         <Button Margin="10,8,10,0" Background="#c7462c"
-                                    Height="26"
-                                    BorderBrush="CadetBlue">
+                                Height="26" Click="btAdvancedSearch_Click" Name="btAdvancedSearch"
+                                BorderBrush="CadetBlue">
                             <Grid Width="220">
 
                                 <StackPanel Orientation="Horizontal">
                                     <materialDesign:PackIcon Kind="Delete"/>
                                     <TextBlock  FontSize="13" Margin="8 0 0 0"
-                                                    Text="Xóa người dùng" FontFamily="Champagne &amp; Limousines" />
+                                                Text="Tìm kiếm nâng cao" FontFamily="Champagne &amp; Limousines" />
                                 </StackPanel>
 
                             </Grid>
@@ -248,7 +268,136 @@
 
         <Grid Grid.Row="2">
             <StackPanel Orientation="Horizontal">
-                <Grid Width="299" Name="filterPanel" Margin="0,0,0,0.4">
+                <Grid x:Name="addUserPanel">
+                    <DockPanel Background="GhostWhite" Margin="10 20 10 20" LastChildFill="True">
+                        <TextBlock Text="Thêm mới người dùng" DockPanel.Dock="Top"
+                               FontWeight="Bold" Margin="0 10 0 0"
+                               HorizontalAlignment="Center"
+                               Foreground="Black" FontSize="17"/>
+                        <Grid Margin="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <TextBox Tag="Cấp độ: " Name="txtbLevelAdd"
+                                 Style="{DynamicResource TxtStyleValidation}" 
+                                 Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3">
+                                <TextBox.Text>
+                                    <Binding Path="User.Level" UpdateSourceTrigger="PropertyChanged" >
+                                        <Binding.ValidationRules>
+                                            <rules:AccountManagementRules property="Level"/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                            <TextBox Tag="Email: " Name="txtbEmailAdd"
+                                 Style="{DynamicResource TxtStyleValidation}" 
+                                 Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1">
+                                <TextBox.Text>
+                                    <Binding Path="User.Email" UpdateSourceTrigger="PropertyChanged" >
+                                        <Binding.ValidationRules>
+                                            <rules:AccountManagementRules property="Email"/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                            <TextBox Tag="Số thẻ: " Name="txtbNumCardAdd"
+                                 Style="{DynamicResource TxtStyleValidation}" 
+                                 Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2">
+                                <TextBox.Text>
+                                    <Binding Path="User.NumberCard" UpdateSourceTrigger="PropertyChanged" >
+                                        <Binding.ValidationRules>
+                                            <rules:AccountManagementRules property="NumberCard"/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                            <TextBox Tag="Code: " Name="txtbCodeAdd"
+                                 Style="{DynamicResource TxtStyleValidation}" 
+                                 Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="4">
+                                <TextBox.Text>
+                                    <Binding Path="User.Code" UpdateSourceTrigger="PropertyChanged" >
+                                        <Binding.ValidationRules>
+                                            <rules:AccountManagementRules property="Code"/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+
+                            <TextBox Tag="Mật khẩu:" x:Name="txtbPasswordAdd"
+                                 Style="{DynamicResource TxtStyleValidation}"
+                                 Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="5">
+                                <TextBox.Text>
+                                    <Binding Path="User.Password" UpdateSourceTrigger="PropertyChanged" >
+                                        <Binding.ValidationRules>
+                                            <rules:AccountManagementRules property="Password"/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+
+                            <Grid Grid.Row="6" Grid.ColumnSpan="2">
+                                <StackPanel>
+                                    <TextBlock Text="Thêm profile ban đầu" DockPanel.Dock="Top"
+                                           FontWeight="Bold" Margin="20 15 0 0"
+                                           Foreground="Black" FontSize="14"/>
+
+
+                                    <Border BorderBrush="Gray"
+                                        Padding="5"
+                                        Height="140" Width="150" BorderThickness="2"
+                                        Margin="0 10 0 5">
+                                        <Image Name="imgAvatarAdd" 
+                                               Source="{Binding Profile.Avatar, Converter={StaticResource ProfileImageConverter}}" />
+                                    </Border>
+
+                                    <TextBox Tag="Họ tên: " Name="txtavatar" Visibility="Collapsed"
+                                         Style="{DynamicResource TxtStyleValidation}" 
+                                         Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1">
+                                        <TextBox.Text>
+                                            <Binding Path="Profile.Avatar" UpdateSourceTrigger="PropertyChanged" >
+                                                <Binding.ValidationRules>
+
+                                                </Binding.ValidationRules>
+                                            </Binding>
+                                        </TextBox.Text>
+                                    </TextBox>
+
+                                    <Button HorizontalAlignment="Center" Margin="0 0 0 10"
+                                            Name="btChooseImgAdd" Click="btChooseImgAdd_Click"
+                                            FontSize="10" Height="25">Chọn ảnh</Button>
+                                    <TextBox Tag="Họ tên: " Name="txtbNameAdd"
+                                         Style="{DynamicResource TxtStyleValidation}" >
+                                        <TextBox.Text>
+                                            <Binding Path="Profile.Name" UpdateSourceTrigger="PropertyChanged" >
+                                                <Binding.ValidationRules>
+               
+                                                </Binding.ValidationRules>
+                                            </Binding>
+                                        </TextBox.Text>
+                                    </TextBox>
+
+                                    <Button Margin="10 20 10 10" Style="{DynamicResource buttonValidationFailStyle}"
+                                            Command="{Binding CmdAddUser}" HorizontalAlignment="Center">Thêm người dùng</Button>
+
+                                </StackPanel>
+                            </Grid>
+
+                        </Grid>
+                    </DockPanel>
+                </Grid>
+
+                <Grid Width="308" Name="filterPanel">
 
                     <StackPanel Visibility="Visible"
                                     Margin="20" Background="#964ac2">
@@ -261,13 +410,14 @@
 
                 <StackPanel>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <materialDesign:PackIcon Kind="SearchAdd" Name="filterOpenImg" Cursor="Hand"
-                                                     MouseLeftButtonDown="filterOpenImg_MouseLeftButtonDown"
-                                                     Foreground="#3200bd" Height="30" Width="54"/>
+                        <materialDesign:PackIcon Kind="SearchAdd" Name="filterOpenImg" 
+                                                 Margin="0 3 0 0" Cursor="Hand"
+                                                 MouseLeftButtonDown="filterOpenImg_MouseLeftButtonDown"
+                                                 Foreground="#3200bd" Height="30" Width="54"/>
                         <TextBox x:Name="searchEmailTb" Padding="10 5 0 0" 
                                      FontSize="16" 
                                      Width="247"/>
-                        <ComboBox Margin="10,0,0,0" Width="81" SelectedIndex="0">
+                        <ComboBox Margin="10,3,0,0" Width="81" SelectedIndex="0">
                             <ComboBoxItem>
                                 <StackPanel Orientation="Horizontal">
                                     <materialDesign:PackIcon Foreground="PaleVioletRed" Kind="Email" />
@@ -299,7 +449,7 @@
                                         <Setter Property="Foreground" Value="Black"/>
                                     </Trigger>
 
-                                    
+
                                 </Style.Triggers>
                             </Style>
                         </DataGrid.Resources>
@@ -410,7 +560,7 @@
                 </StackPanel>
 
                 <Border BorderBrush="Beige"
-                         Margin="0 45 0 20"  BorderThickness="2"
+                         Margin="0 45 0 10"  BorderThickness="2"
                         CornerRadius="4">
                     <StackPanel Width="290"                         
                             Background="Wheat">
@@ -440,31 +590,66 @@
                         <Border BorderBrush="Gray"
                                 Padding="5"
                                 Height="140" Width="150"  BorderThickness="2"
-                                Margin="0 10 0 0">
-                            <Image Name="imgAvater" Source="{Binding Profile.Avatar, Converter={StaticResource ProfileImageConverter}}" />
+                                Margin="0 20 0 0">
+                            <Image Name="imgAvatar" Source="{Binding Profile.Avatar, Converter={StaticResource ProfileImageConverter}}" />
                         </Border>
-                        
-                        <TextBlock Text="Email"/>
-                        <TextBox Name="txtbEmail" Margin="5 0 15 0"
-                                 IsReadOnly="True" Style="{StaticResource MaterialDesignTextBox}"
-                                 Text="{Binding ElementName=UsersDg, Path=SelectedValue.Email}"/>
+                        <Button HorizontalAlignment="Center" Margin="0 0 0 10"
+                                FontSize="10"
+                                Click="btChooseAvatar_Click" Name="btChooseAvatar"
+                                Height="25">Chọn ảnh</Button>
 
-                        <TextBlock Text="Họ tên"  />
-                        <TextBox Name="txtbName" Margin="5 0 15 0"
-                                 Text="{Binding Profile.Name}"
-                                 IsReadOnly="True"/>
-                        <TextBlock Text="Tình trạng" />
-                        <TextBox Name="txtbStatus" Margin="5 0 15 0"                                 
-                                 Text="{Binding Profile.Status}"
-                                 IsReadOnly="True"/>
-                        <TextBlock Text="Ngày tạo"/>
-                        <DatePicker Name="dpCreateDate" Margin="5 0 15 0"
-                                    IsEnabled="False"
-                                    SelectedDate="{Binding ElementName=UsersDg, Path=SelectedItem.CreateAt, Mode=OneWay}"/>
-                        <Button Content="Lưu" Name="saveUserBt" Background="Gray" Margin="35 25 35 0"/>
+                        <StackPanel Margin="10">
+                            <TextBox Tag="Email: " Name="txtbEmail"
+                                 Style="{DynamicResource TxtStyleValidation}" >
+                                <TextBox.Text>
+                                    <Binding ElementName="UsersDg" Path="SelectedValue.Email" UpdateSourceTrigger="PropertyChanged" >
+                                        <Binding.ValidationRules>
+                                            <rules:AccountManagementRules property="Level"/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+
+                            <TextBox Tag="Họ tên: " Name="txtbName"
+                                 Style="{DynamicResource TxtStyleValidation}" >
+                                <TextBox.Text>
+                                    <Binding Path="Profile.Name" UpdateSourceTrigger="PropertyChanged" >
+                                        <Binding.ValidationRules>
+                                            <rules:AccountManagementRules property="Level"/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+
+
+
+                            <TextBox Tag="Status: " Name="txtbStatus"
+                                 Style="{DynamicResource TxtStyleValidation}" >
+                                <TextBox.Text>
+                                    <Binding Path="Profile.Status" UpdateSourceTrigger="PropertyChanged" >
+                                        <Binding.ValidationRules>
+                                            <rules:AccountManagementRules property="Level"/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                        </StackPanel>
+                        
+                       
+                        <StackPanel Orientation="Horizontal" Margin="0 30 10 10" HorizontalAlignment="Right">
+                            <Button Content="Thêm" Name="addProfileBt" 
+                                    Background="Gray"/>
+                            <Button Content="Xóa" 
+                                    Margin="15 0 0 0"
+                                    Name="deleteProfileBt" Background="Gray"/>
+                        </StackPanel>
+
+                        <Button Content="Cập nhật" Margin="0,10,10,0"
+                                HorizontalAlignment="Right"
+                                Name="updateProfileBt" Background="Gray" Width="140"/>
                     </StackPanel>
                 </Border>
-                
+
             </StackPanel>
         </Grid>
     </Grid>

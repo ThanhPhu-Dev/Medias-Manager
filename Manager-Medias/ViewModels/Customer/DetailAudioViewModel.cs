@@ -104,8 +104,6 @@ namespace Manager_Medias.ViewModels.Customer
 
             Loaded(audioid);
             CmdSelectionChange = new RelayCommand<object>(SelectionChange);
-            CmdPlayAudio = new RelayCommand<object>(PlayAudio);
-            CmdPauseAudio = new RelayCommand<object>(PauseAudio);
             CmdLike = new RelayCommand<object>(Likemt);
             CmdSave = new RelayCommand<object>(Savemt);
 
@@ -119,8 +117,6 @@ namespace Manager_Medias.ViewModels.Customer
 
             Loaded(audioid);
             CmdSelectionChange = new RelayCommand<object>(SelectionChange);
-            CmdPlayAudio = new RelayCommand<object>(PlayAudio);
-            CmdPauseAudio = new RelayCommand<object>(PauseAudio);
             CmdLike = new RelayCommand<object>(Likemt);
             CmdSave = new RelayCommand<object>(Savemt);
 
@@ -219,20 +215,16 @@ namespace Manager_Medias.ViewModels.Customer
             }
         }
 
-        private void PauseAudio(object obj)
-        {
-            player.Pause();
-        }
-
-        private void PlayAudio(object obj)
-        {
-            player.Play();
-        }
-
         private void SelectionChange(object obj)
         {
-            //check lại like và save của bài hát đang chọn
-            LoadLikeAndSave();
+            if (obj != null)
+            {
+                this.id = (int)obj;
+                //tạo lịch sử đã xem 
+                CreateHistory();
+                //check lại like và save của bài hát đang chọn
+                LoadLikeAndSave();
+            }
 
             _navigationStore.CurrentContentViewModelChanged += OnClosingViewModel;
             Application.Current.MainWindow.Closed += MainWindow_Closed;

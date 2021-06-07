@@ -663,9 +663,6 @@
     <Resource Include="Images\Profile\pr3.jpg" />
     <Resource Include="Images\Profile\pr4.jpg" />
     <Resource Include="Images\Profile\pr5.jpg" />
-    <None Include="Images\Profile\default_avatar.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="Images\Movie\Poster\movieposter_posterlunglinh.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -796,6 +793,9 @@
     <Content Include="Images\Audio\mp3\audiomp3_mp3_Trap.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Images\Profile\default_avatar.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="Models\MediasManagement.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>MediasManagement.edmx</DependentUpon>

@@ -229,7 +229,8 @@
                                     BorderThickness="1" BorderBrush="#FF363636"
                                     materialDesign:ShadowAssist.ShadowDepth="Depth2">
                                 <StackPanel Width="160" Height="Auto">
-                                    <Button Content="{Binding LevelName, StringFormat='{}Cấp độ: {0}'}"
+                                    <Button Content="{Binding LevelName}"
+                                            ContentStringFormat="{}Cấp độ: {0}"
                                             Style="{StaticResource PopupItemButton}" />
                                     <Separator Height="1" Foreground="{DynamicResource SecondaryAccentBrush}"
                                                Margin="4" />

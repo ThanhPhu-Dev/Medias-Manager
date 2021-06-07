@@ -1,6 +1,6 @@
 ﻿CREATE TABLE Users
 (
-	Email varchar(20) NOT NULL UNIQUE,
+	Email varchar(200) NOT NULL UNIQUE,
 	Password varchar(MAX) NOT NULL,
 	Level int,
 	Code varchar(MAX),
@@ -13,7 +13,7 @@
 CREATE TABLE Profiles
 (
 	Id int NOT NULL IDENTITY(1,1),
-	Email varchar(20),
+	Email varchar(200),
 	Name NVARCHAR(20),
 	Avatar varchar(200),
 	Status int,
@@ -24,14 +24,13 @@ CREATE TABLE Profiles
 CREATE TABLE Payment_History
 (
 	Id INT IDENTITY(1,1),
-	Email varchar(20),
+	Email varchar(200),
 	DateOfPayment Date,
-	Note Text,
+	Note Nvarchar(MAX),
 	Price numeric(18,0)
 
 	CONSTRAINT PK_PaymentHistory PRIMARY KEY (Id)
 )
-
 CREATE TABLE Levels
 (
 	Id INT NOT NULL IDENTITY(1,1),

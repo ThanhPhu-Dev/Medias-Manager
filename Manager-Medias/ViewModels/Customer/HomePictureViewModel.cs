@@ -23,7 +23,7 @@ namespace Manager_Medias.ViewModels.Customer
         public ICommand CmdSave { get; set; }
         public ICommand CmdSelectionChange { get; set; }
         public int _currentProfileID;
-        public int _currentAlbumID;
+        //public int _currentAlbumID;
 
         public ObservableCollection<Album> AlbumList
         {
@@ -79,11 +79,13 @@ namespace Manager_Medias.ViewModels.Customer
         private bool _checkLike;
         private bool _checkSave;
         private bool _toggleButton;
+        private int id;
+        private int historyID { get; set; }
 
         public HomePictureViewModel()
         {
             _currentProfileID = _userStore.CurrentProfile.Id;
-
+            
             //gọi hàm load giao diện
             using (var db = new MediasManangementEntities())
             {
@@ -102,20 +104,38 @@ namespace Manager_Medias.ViewModels.Customer
 
         public HomePictureViewModel(int idAlbum)
         {
-            _currentAlbumID = idAlbum;
+            id = idAlbum;
             _currentProfileID = _userStore.CurrentProfile.Id;
 
             //gọi hàm load giao diện
             LoadSelectedAlbum();
             LoadAlbum();
             LoadLikeAndSave(idAlbum);
+            CreateHistory();
 
             //command
             CmdLike = new RelayCommand<object>(Likemt);
             CmdSave = new RelayCommand<object>(Savemt);
             CmdSelectionChange = new RelayCommand<object>(SelectionChangemt);
         }
+        public void CreateHistory()
+        {
+            using (var db = new MediasManangementEntities())
+            {
+                View_History ht = new View_History
+                {
+                    Date = DateTime.Now,
+                    IdMedia = id,
+                    IdProfile = _userStore.CurrentProfile.Id,
+                    time = "0",
+                };
 
+                db.View_History.Add(ht);
+                db.SaveChanges();
+
+                this.historyID = ht.Id;
+            }
+        }
         private void SelectionChangemt(object obj)
         {
             var lb = (ListBox)obj;
@@ -137,16 +157,17 @@ namespace Manager_Medias.ViewModels.Customer
                 {
                     LoadLikeAndSave(selected.Id);
                     ToggleButton = true;
-                    
                 }
+                this.id = selected.Id;
+                //tạo lịch sử đã xem 
+                CreateHistory();
             }
         }
-
         private void LoadSelectedAlbum()
         {
             using (var db = new MediasManangementEntities())
             {
-                AlbumSelectedItem = db.Albums.Where(a => a.Id == _currentAlbumID).Single() as Album;
+                AlbumSelectedItem = db.Albums.Where(a => a.Id == id).Single() as Album;
             }
         }
 

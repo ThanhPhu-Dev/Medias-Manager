@@ -195,6 +195,9 @@
     <Compile Include="Models\My_List.cs">
       <DependentUpon>MediasManagement.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Role.cs">
+      <DependentUpon>MediasManagement.tt</DependentUpon>
+    </Compile>
     <Compile Include="Services\LoadingServices.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Stores\NavigationStore.cs" />

@@ -416,7 +416,7 @@
                                                             <Border Background="Black" Opacity=".6" Panel.ZIndex="0"
                                                                     BorderThickness="0" Margin="0" Padding="0" />
                                                             <RepeatButton
-                                                                Command="{x:Static ScrollBar.LineLeftCommand}"
+                                                                Command="{x:Static ScrollBar.LineRightCommand}"
                                                                 CommandTarget="{Binding ElementName=sv_carousel}">
                                                                 <materialDesign:PackIcon Kind="ChevronRight" Width="55" Height="55" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                                             </RepeatButton>

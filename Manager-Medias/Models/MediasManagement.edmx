@@ -18,7 +18,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="20" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" />
           <Property Name="Image" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="Audio_Categories">
@@ -26,7 +26,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="20" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="Audios">
           <Key>
@@ -34,11 +34,11 @@
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="IdCategory" Type="int" />
-          <Property Name="Name" Type="nvarchar" MaxLength="20" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" />
           <Property Name="Image" Type="varchar(max)" />
           <Property Name="Mp3" Type="varchar(max)" />
           <Property Name="Time" Type="varchar" MaxLength="8" />
-          <Property Name="Singer" Type="nvarchar" MaxLength="20" />
+          <Property Name="Singer" Type="nvarchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="Levels">
           <Key>
@@ -87,7 +87,7 @@
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="IdCategory" Type="int" />
-          <Property Name="Name" Type="nvarchar" MaxLength="20" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" />
           <Property Name="Description" Type="ntext" />
           <Property Name="IMDB" Type="float" />
           <Property Name="Poster" Type="varchar(max)" />
@@ -97,7 +97,7 @@
           <Property Name="Video" Type="varchar(max)" />
           <Property Name="Season" Type="varchar" MaxLength="10" />
           <Property Name="Time" Type="varchar" MaxLength="8" />
-          <Property Name="Directors" Type="nvarchar" MaxLength="20" />
+          <Property Name="Directors" Type="nvarchar" MaxLength="100" />
           <Property Name="Nation" Type="nvarchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="My_Lists">
@@ -441,7 +441,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Album_Details" Relationship="Self.FK_AlbumDetails_Albums" FromRole="Albums" ToRole="Album_Details" />
           <NavigationProperty Name="Media" Relationship="Self.FK_Albums_Medias" FromRole="Albums" ToRole="Medias" />
           <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
@@ -451,7 +451,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Audios" Relationship="Self.FK_Audios_AudioCategories" FromRole="Audio_Categories" ToRole="Audios" />
         </EntityType>
         <EntityType Name="Audio">
@@ -460,13 +460,13 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="IdCategory" Type="Int32" />
-          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Mp3" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Audio_Categories" Relationship="Self.FK_Audios_AudioCategories" FromRole="Audios" ToRole="Audio_Categories" />
           <NavigationProperty Name="Media" Relationship="Self.FK_Audios_Medias" FromRole="Audios" ToRole="Medias" />
           <Property Name="Time" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
-          <Property Name="Singer" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Singer" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Level">
           <Key>
@@ -529,7 +529,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="IdCategory" Type="Int32" />
-          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="IMDB" Type="Double" />
           <Property Name="Poster" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
@@ -541,7 +541,7 @@
           <Property Name="Time" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Media" Relationship="Self.FK_Movies_Medias" FromRole="Movies" ToRole="Medias" />
           <NavigationProperty Name="Movie_Categories" Relationship="Self.FK_Movies_MovieCategories" FromRole="Movies" ToRole="Movie_Categories" />
-          <Property Name="Directors" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Directors" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Nation" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="My_List">

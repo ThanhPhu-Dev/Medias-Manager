@@ -92,12 +92,11 @@ CREATE TABLE Movies
 CREATE TABLE Albums
 (
 	Id INT NOT NULL UNIQUE,
-	Name NVARCHAR(20),
+	Name NVARCHAR(200),
 	Image VARCHAR(MAX)
 
 	CONSTRAINT PK_Albums PRIMARY KEY (Id)
 )
-
 
 
 CREATE TABLE Album_Details
@@ -112,22 +111,27 @@ CREATE TABLE Album_Details
 CREATE TABLE Audio_Categories
 (
 	Id INT IDENTITY(1,1),
-	Name NVARCHAR(20),
+	Name NVARCHAR(200),
 
 	CONSTRAINT PK_AudioCategory PRIMARY KEY (Id)
 )
+
+
+
 
 CREATE TABLE Audios
 (
 	Id INT UNIQUE NOT NULL,
 	IdCategory INT,
-	Name NVARCHAR(20),
+	Name NVARCHAR(200),
 	Image VARCHAR(MAX),
 	Mp3 VARCHAR(MAX),
-	Singer NVARCHAR(20),
+	Singer NVARCHAR(200),
 
 	CONSTRAINT PK_Audios PRIMARY KEY (Id)
 )
+
+
 
 CREATE TABLE My_Lists
 (

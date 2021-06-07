@@ -129,6 +129,13 @@
           <Property Name="Avatar" Type="varchar" MaxLength="200" />
           <Property Name="Status" Type="int" />
         </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="20" />
+        </EntityType>
         <EntityType Name="Users">
           <Key>
             <PropertyRef Name="Email" />
@@ -139,6 +146,7 @@
           <Property Name="Code" Type="varchar(max)" />
           <Property Name="NumberCard" Type="varchar" MaxLength="16" />
           <Property Name="Exp" Type="varchar" MaxLength="8" />
+          <Property Name="roleId" Type="int" />
         </EntityType>
         <EntityType Name="View_History">
           <Key>
@@ -318,6 +326,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Users_Roles">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="roleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ViewHistory_Medias">
           <End Role="Medias" Type="Self.Medias" Multiplicity="0..1" />
           <End Role="View_History" Type="Self.View_History" Multiplicity="*" />
@@ -356,6 +376,7 @@
           <EntitySet Name="My_Lists" EntityType="Self.My_Lists" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Payment_History" EntityType="Self.Payment_History" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Profiles" EntityType="Self.Profiles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="View_History" EntityType="Self.View_History" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_AlbumDetails_Albums" Association="Self.FK_AlbumDetails_Albums">
@@ -412,6 +433,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_Users_Levels" Association="Self.FK_Users_Levels">
             <End Role="Levels" EntitySet="Levels" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Roles" Association="Self.FK_Users_Roles">
+            <End Role="Roles" EntitySet="Roles" />
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
           <AssociationSet Name="FK_ViewHistory_Medias" Association="Self.FK_ViewHistory_Medias">
@@ -591,6 +616,8 @@
           <NavigationProperty Name="Profiles" Relationship="Self.FK_Profile_User" FromRole="Users" ToRole="Profiles" />
           <Property Name="Exp" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Lvl" Relationship="MediasManangementModel.FK_Users_Levels" FromRole="User" ToRole="Level" />
+          <Property Name="roleId" Type="Int32" />
+          <NavigationProperty Name="Role" Relationship="MediasManangementModel.FK_Users_Roles" FromRole="User" ToRole="Role" />
         </EntityType>
         <EntityType Name="View_History">
           <Key>
@@ -864,6 +891,11 @@
             <End Role="Level" EntitySet="Levels" />
             <End Role="User" EntitySet="Users" />
           </AssociationSet>
+          <EntitySet Name="Roles" EntityType="MediasManangementModel.Role" />
+          <AssociationSet Name="FK_Users_Roles" Association="MediasManangementModel.FK_Users_Roles">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
         </EntityContainer>
         <Association Name="FK_Users_Levels">
           <End Type="MediasManangementModel.Level" Role="Level" Multiplicity="0..1" />
@@ -874,6 +906,26 @@
             </Principal>
             <Dependent Role="User">
               <PropertyRef Name="Level" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="MediasManangementModel.FK_Users_Roles" FromRole="Role" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_Users_Roles">
+          <End Type="MediasManangementModel.Role" Role="Role" Multiplicity="0..1" />
+          <End Type="MediasManangementModel.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="roleId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1023,6 +1075,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="MediasManangementModel.User">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="roleId" ColumnName="roleId" />
                 <ScalarProperty Name="Exp" ColumnName="Exp" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
@@ -1039,6 +1092,14 @@
                 <ScalarProperty Name="IdMedia" ColumnName="IdMedia" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="time" ColumnName="time" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="MediasManangementModel.Role">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

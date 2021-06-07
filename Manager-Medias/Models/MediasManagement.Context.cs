@@ -40,5 +40,6 @@ namespace Manager_Medias.Models
         public virtual DbSet<Profile> Profiles { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<View_History> View_History { get; set; }
+        public virtual DbSet<Role> Roles { get; set; }
     }
 }

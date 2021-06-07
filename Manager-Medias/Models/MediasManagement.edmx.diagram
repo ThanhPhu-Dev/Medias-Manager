@@ -36,6 +36,8 @@
         <AssociationConnector Association="MediasManangementModel.FK_Profile_User" ManuallyRouted="false" />
         <AssociationConnector Association="MediasManangementModel.FK_ViewHistory_Profiles" ManuallyRouted="false" />
         <AssociationConnector Association="MediasManangementModel.FK_Users_Levels" />
+        <EntityTypeShape EntityType="MediasManangementModel.Role" Width="1.5" PointX="12.375" PointY="15.75" />
+        <AssociationConnector Association="MediasManangementModel.FK_Users_Roles" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

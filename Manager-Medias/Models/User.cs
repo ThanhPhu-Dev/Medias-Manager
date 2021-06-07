@@ -27,11 +27,13 @@ namespace Manager_Medias.Models
         public string Code { get; set; }
         public string NumberCard { get; set; }
         public string Exp { get; set; }
+        public Nullable<int> roleId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Payment_History> Payment_History { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Profile> Profiles { get; set; }
         public virtual Level Lvl { get; set; }
+        public virtual Role Role { get; set; }
     }
 }

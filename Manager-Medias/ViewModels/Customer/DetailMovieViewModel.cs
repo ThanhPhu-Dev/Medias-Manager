@@ -76,6 +76,7 @@ namespace Manager_Medias.ViewModels.Customer
             CmdAddMyListClick = new RelayCommand<Object>(AddMyList);
             CmdPlay = new RelayCommand<Object>(AddEventOnClosingViewModel);
             this.id = idMovie;
+            IncreaseViews();
             loaded();
             CreateHistory();
         }
@@ -89,11 +90,20 @@ namespace Manager_Medias.ViewModels.Customer
             CmdPlay = new RelayCommand<Object>(AddEventOnClosingViewModel);
 
             this.id = idMovie;
-
+            IncreaseViews();
             loaded();
             CreateHistory();
-
             GetTimeStartMedia(time);
+        }
+
+        public void IncreaseViews()
+        {
+            using (var db = new MediasManangementEntities())
+            {
+                Movie m = db.Movies.Where(p => p.Id == this.id).FirstOrDefault() as Movie;
+                m.NumberOfViews++;
+                db.SaveChanges();
+            }
         }
 
         public void AddEventOnClosingViewModel(Object o)

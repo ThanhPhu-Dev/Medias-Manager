@@ -404,3 +404,65 @@ update Movies set IdCategory=3, Name=N'Phù Thủy Tối Thượng',
 				  Nation = N'Mỹ' Where Id = 31
 
 -- Phim viễn Tưởng ( Bắt đầu Id = 32 -> 37 là dùng update vì có data test trong db r)
+
+--BAI HÁT
+select * from Media_categories
+select * from Medias 
+select * from Audios
+select * from Audio_Categories
+--update level
+update Medias set Lvl = 3 where id = 38 and id = 47 and id = 44
+update Medias set Lvl = 1 where id between 39 and 43
+update Medias set Lvl = 2 where id between 45 and 46
+update Audio_Categories set Name = 'KPOP' where Id = 3
+update Medias set IdCategory = 3 where Id between 38 and 47
+-- 1. BALLAD
+update Audios set
+	Name = N'Chiều thu họa bóng nàng',
+	Image = 'audioposter_avatar_CTHBN.jpg',
+	Mp3 = 'audiomp3_mp3_CTHBN.mp3' 
+	where Id = 1
+update Audios set
+	Name = N'Họ đã yêu ai mất rồi',
+	Image = 'audioposter_avatar_HDYAMR.jpg',
+	Mp3 = 'audiomp3_mp3_HDYAMR.mp3' 
+	where Id = 2
+update Audios set
+	Name = N'Hẹn yêu',
+	Image = 'audioposter_avatar_HY.jpg',
+	Mp3 = 'audiomp3_mp3_HY.mp3',
+	IdCategory = 1, 
+	Time = '00:00:36',
+	Singer = N'Duy Zuno'
+	where Id = 3
+update Audios set
+	Name = N'Chỉ là không cùng nhau',
+	Image = 'audioposter_avatar_CLKCN.jpg',
+	Mp3 = 'audiomp3_mp3_CLKCN.mp3',
+	IdCategory = 1, 
+	Time = '00:00:33',
+	Singer = N'TĂNG PHÚC ft TRƯƠNG THẢO NHI'
+	where Id = 4
+update Audios set
+	Name = N'Đêm lao xao',
+	Image = 'audioposter_avatar_DLX.jpg',
+	Mp3 = 'audiomp3_mp3_DLX.mp3',
+	IdCategory = 1, 
+	Time = '00:00:33',
+	Singer = N'Hòa Minzy x Anh Tú'
+	where Id = 5
+
+-- 2. SÔI ĐỘNG (mediaId 38 - 42)
+insert into Audios values
+			(38, 2, N'Sóng gió', 'audioposter_avatar_SG.jpg', 'audiomp3_mp3_SG.mp3', '00:00:43', 'JACK x K-ICM'),
+			(39, 2, N'Bạc phận', 'audioposter_avatar_BP.jpg', 'audiomp3_mp3_BP.mp3', '00:00:32', 'JACK x K-ICM'),
+			(40, 2, N'Muộn rồi mà sao còn', 'audioposter_avatar_MRMSC.jpg', 'audiomp3_mp3_MRMSC.mp3', '00:00:30', N'Sơn Tùng M-TP'),
+			(41, 2, N'LayLaLay', 'audioposter_avatar_LLL.jpg', 'audiomp3_mp3_LLL.mp3', '00:00:45', N'JACK'),
+			(42, 2, N'Dân chơi xóm', 'audioposter_avatar_DCX.jpg', 'audiomp3_mp3_DCX.mp3', '00:00:29', N'RPT MCK, JustaTee'),
+-- 3. KPOP (mediaID 43 - 47)
+			(43, 3, N'DDU-DU DDU-DU', 'audioposter_avatar_DUDUDU.jpg', 'audiomp3_mp3_DUDUDU.mp3', '00:00:15', N'BLACKPINK'),
+			(44, 3, N'Trap', 'audioposter_avatar_Trap.jpg', 'audiomp3_mp3_Trap.mp3', '00:00:34', N'Henry Lau'),
+			(45, 3, N'ToNight', 'audioposter_avatar_ToNight.jpg', 'audiomp3_mp3_ToNight.mp3', '00:00:44', N'BTS'),
+			(46, 3, N'Bang Bang Bang', 'audioposter_avatar_BBB.jpg', 'audiomp3_mp3_BBB.mp3', '00:00:34', N'BIG BANG'),
+			(47, 3, N'Fire', 'audioposter_avatar_Fire.jpg', 'audiomp3_mp3_Fire.mp3', '00:00:49', N'BTS')
+

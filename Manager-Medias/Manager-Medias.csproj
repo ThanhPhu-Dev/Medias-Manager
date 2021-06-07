@@ -584,19 +584,16 @@
       <DependentUpon>MediasManangement.mdf</DependentUpon>
     </Content>
     <Content Include="DB\query.sql" />
-    <None Include="Images\Audio\Poster\audioposter_avatar_1.jpg">
+    <None Include="Images\Audio\Poster\audioposter_avatar_CTHBN.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Images\Audio\Poster\audioposter_avatar_2.jpg">
+    <None Include="Images\Audio\Poster\audioposter_avatar_HDYAMR.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Images\Audio\Poster\audioposter_avatar_3.jpg">
+    <None Include="Images\Audio\Poster\audioposter_avatar_SG.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Images\Audio\Poster\audioposter_avatar_4.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Images\Audio\Poster\audioposter_avatar_5.jpg">
+    <None Include="Images\Audio\Poster\audioposter_avatar_BP.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Images\Album\album_chientranh.jpg">
@@ -605,19 +602,43 @@
     <None Include="Images\Album\album_nature.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <Content Include="Images\Audio\mp3\audiomp3_mp3_1.mp3">
+    <Content Include="Images\Audio\mp3\audiomp3_mp3_BBB.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\Audio\mp3\audiomp3_mp3_2.mp3">
+    <Content Include="Images\Audio\mp3\audiomp3_mp3_CLKCN.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\Audio\mp3\audiomp3_mp3_3.mp3">
+    <Content Include="Images\Audio\mp3\audiomp3_mp3_CTHBN.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\Audio\mp3\audiomp3_mp3_4.mp3">
+    <Content Include="Images\Audio\mp3\audiomp3_mp3_DCX.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\Audio\mp3\audiomp3_mp3_5.mp3">
+    <Content Include="Images\Audio\mp3\audiomp3_mp3_DLX.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Audio\mp3\audiomp3_mp3_DUDUDU.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Audio\mp3\audiomp3_mp3_Fire.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Audio\mp3\audiomp3_mp3_HDYAMR.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Audio\mp3\audiomp3_mp3_HY.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Audio\mp3\audiomp3_mp3_LLL.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Audio\mp3\audiomp3_mp3_MRMSC.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Audio\mp3\audiomp3_mp3_SG.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Audio\mp3\audiomp3_mp3_BP.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Images\Album\album_PT_TN_1.jpg">
@@ -736,6 +757,45 @@
     <None Include="Images\Movie\Video\movievideo_PhuThuyToiThuong.mp4">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Images\Audio\Poster\audioposter_avatar_BBB.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Images\Audio\Poster\audioposter_avatar_CLKCN.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Images\Audio\Poster\audioposter_avatar_DCX.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Images\Audio\Poster\audioposter_avatar_DLX.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Images\Audio\Poster\audioposter_avatar_DUDUDU.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Images\Audio\Poster\audioposter_avatar_Fire.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Images\Audio\Poster\audioposter_avatar_HY.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Images\Audio\Poster\audioposter_avatar_LLL.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Images\Audio\Poster\audioposter_avatar_MRMSC.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Images\Audio\Poster\audioposter_avatar_ToNight.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Images\Audio\Poster\audioposter_avatar_Trap.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="Images\Audio\mp3\audiomp3_mp3_ToNight.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Audio\mp3\audiomp3_mp3_Trap.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Models\MediasManagement.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>MediasManagement.edmx</DependentUpon>

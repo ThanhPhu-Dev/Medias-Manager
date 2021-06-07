@@ -399,7 +399,7 @@
                                                     <Storyboard>
                                                         <DoubleAnimation  Storyboard.TargetName="detailMovie"
                                                                           Storyboard.TargetProperty="Height" From="0"
-                                                                          To="300"
+                                                                          To="400"
                                                                           Duration="0:0:.2" />
                                                     </Storyboard>
                                                 </BeginStoryboard>
@@ -410,7 +410,7 @@
                                                     <Storyboard>
                                                         <DoubleAnimation  Storyboard.TargetName="detailMovie"
                                                                           Storyboard.TargetProperty="Height"
-                                                                          From="300"
+                                                                          From="400"
                                                                           To="0"
                                                                           Duration="0:0:.2" />
                                                     </Storyboard>
@@ -483,9 +483,9 @@
                                                 <ColumnDefinition Width="4*" />
                                                 <ColumnDefinition Width="6*" />
                                             </Grid.ColumnDefinitions>
-                                            <StackPanel>
+                                            <DockPanel LastChildFill="True">
                                                 <!--tên phim + lượt xem + độ tuổi-->
-                                                <StackPanel HorizontalAlignment="Center" Margin="0 10">
+                                                <StackPanel DockPanel.Dock="Top" HorizontalAlignment="Center" Margin="0 10">
                                                     <TextBlock Text="{Binding ElementName=lb_carousel, Path=SelectedItem.Name}"
                                                            FontSize="30"
                                                            Foreground="#fff"
@@ -520,19 +520,19 @@
                                                            Padding="6 0 0 0"
                                                            Foreground="#fff"
                                                            FontSize="14"
-                                                           HorizontalAlignment="Center" />
+                                                           HorizontalAlignment="Center" DockPanel.Dock="Top"/>
 
                                                 <!--Mô tả phim-->
-                                                <TextBlock 
+                                                <TextBlock DockPanel.Dock="Top"
                                                     Text="{Binding ElementName=lb_carousel, Path=SelectedItem.Description,
                                                             Converter={StaticResource littleCvt}, StringFormat={}{0}...}"
                                                             Foreground="#FFC9C9C9"
-                                                           Padding="6 0 0 0"
+                                                           Padding="8 15"
                                                            FontSize="14"
                                                            HorizontalAlignment="Center" 
                                                            TextWrapping="Wrap"/>
-
-                                                <Button
+ 
+                                                <Button DockPanel.Dock="Bottom"
                                                     VerticalAlignment="Bottom"
                                                     Margin="6 16"
                                                     Style="{StaticResource MaterialDesignRaisedAccentButton}"
@@ -546,7 +546,7 @@
                                                                       RelativeSource={RelativeSource Mode=FindAncestor,
                                                                       AncestorType={x:Type ItemsControl}}}"
                                                    CommandParameter="{Binding ElementName=lb_carousel, Path=SelectedItem}" />
-                                            </StackPanel>
+                                            </DockPanel>
                                             <Image Source="{Binding ElementName=lb_carousel, Path=SelectedItem.Poster,
                                                                     Converter={StaticResource imageCvt}}"
                                                    Grid.Column="1"

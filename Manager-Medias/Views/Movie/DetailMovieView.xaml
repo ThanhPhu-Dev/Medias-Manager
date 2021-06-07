@@ -373,7 +373,7 @@
                               Stretch="Uniform"
                               StretchDirection="Both"
                               Source="{Binding DetailMovies.Video, Converter={StaticResource cvt}}"
-                            Height="{Binding ElementName=mediaContainer, Path=ActualWidth, Converter={StaticResource RatioCvt}}">
+                              Height="{Binding ElementName=mediaContainer, Path=ActualWidth, Converter={StaticResource RatioCvt}}">
                         </MediaElement>
                     </Viewbox>
 
@@ -408,18 +408,15 @@
                                    Foreground="#fff"
                                    Grid.Column="1" HorizontalAlignment="Left" />
                                 <Slider Grid.Column="2"
-                                        Minimum="0"
-                                        SmallChange="1"
                                         TickFrequency="1"
-                                        IsSnapToTickEnabled="True"
                                         Orientation="Horizontal"
                                         VerticalAlignment="Center"
                                         Value="{Binding SliderValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                Width="auto"
-                                Foreground="{DynamicResource SecondaryAccentBrush}"
-                                Name="timelineSlider"
-                                Thumb.DragStarted="timelineSlider_DragStarted"
-                                Thumb.DragCompleted="timelineSlider_DragCompleted">
+                                        Width="auto"
+                                        Foreground="{DynamicResource SecondaryAccentBrush}"
+                                        Name="timelineSlider"
+                                        Thumb.DragStarted="timelineSlider_DragStarted"
+                                        Thumb.DragCompleted="timelineSlider_DragCompleted">
                                 </Slider>
                                 <TextBlock Name="timeend"
                                 Text="{Binding ElementName=timelineSlider, Path=Maximum, Converter={StaticResource TimeLapseCvt}}"

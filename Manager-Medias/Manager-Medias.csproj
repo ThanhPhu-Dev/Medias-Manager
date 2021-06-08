@@ -280,6 +280,7 @@
     <Compile Include="ViewModels\Guest\GuestLevelRegisterViewModel.cs" />
     <Compile Include="ViewModels\Guest\GuestLoginViewModel.cs" />
     <Compile Include="ViewModels\Guest\GuestMainViewModel.cs" />
+    <Compile Include="ViewModels\Guest\GuestSetNewPasswordViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Views\Account\AccountManagerView.xaml.cs">
       <DependentUpon>AccountManagerView.xaml</DependentUpon>
@@ -343,6 +344,9 @@
     </Compile>
     <Compile Include="Views\Customer\Register\LevelRegisterView.xaml.cs">
       <DependentUpon>LevelRegisterView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Customer\SetNewPasswordView.xaml.cs">
+      <DependentUpon>SetNewPasswordView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Customer\SignIn.xaml.cs">
       <DependentUpon>SignIn.xaml</DependentUpon>
@@ -463,6 +467,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Customer\Register\LevelRegisterView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Customer\SetNewPasswordView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

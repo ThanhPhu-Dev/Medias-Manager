@@ -220,7 +220,6 @@
     <Compile Include="ViewModels\Customer\DetailMovieViewModel.cs" />
     <Compile Include="ViewModels\Customer\DetailPictureViewModel.cs" />
     <Compile Include="ViewModels\Customer\FavoriteListViewModel.cs" />
-    <Compile Include="ViewModels\Customer\ForgetPassword.cs" />
     <Compile Include="ViewModels\Customer\HomeAudioViewModel.cs" />
     <Compile Include="ViewModels\Customer\HistoryListViewModel.cs" />
     <Compile Include="ViewModels\Customer\HomeMovieViewModel.cs" />
@@ -274,6 +273,7 @@
     <Compile Include="ViewModels\Customer\PaymentViewModels.cs" />
     <Compile Include="ViewModels\Customer\PaymentHistoryViewModel.cs" />
     <Compile Include="ViewModels\Customer\ProfileManagerViewModel.cs" />
+    <Compile Include="ViewModels\Guest\ForgetPasswordViewModel.cs" />
     <Compile Include="ViewModels\Guest\GuestCartRegisterViewModel.cs" />
     <Compile Include="ViewModels\Guest\GuestHomeViewModel.cs" />
     <Compile Include="ViewModels\Guest\GuestInfoRegisterViewModel.cs" />
@@ -327,8 +327,8 @@
     <Compile Include="Views\Audio\HomeAudioView.xaml.cs">
       <DependentUpon>HomeAudioView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Customer\ForgetPassword.xaml.cs">
-      <DependentUpon>ForgetPassword.xaml</DependentUpon>
+    <Compile Include="Views\Customer\ForgetPasswordView.xaml.cs">
+      <DependentUpon>ForgetPasswordView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Customer\HomeCustomerView.xaml.cs">
       <DependentUpon>HomeCustomerView.xaml</DependentUpon>
@@ -450,7 +450,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Customer\ForgetPassword.xaml">
+    <Page Include="Views\Customer\ForgetPasswordView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

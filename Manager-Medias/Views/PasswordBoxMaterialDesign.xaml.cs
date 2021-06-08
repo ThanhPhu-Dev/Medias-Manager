@@ -25,15 +25,15 @@ namespace Manager_Medias.Views
     {
         private bool _isPasswordChanging;
 
-
         public string Hint
         {
             get { return (string)GetValue(HintProperty); }
             set { SetValue(HintProperty, value); }
         }
+
         public static readonly DependencyProperty HintProperty =
             DependencyProperty.Register("Hint", typeof(string), typeof(PasswordBoxMaterialDesign),
-                new FrameworkPropertyMetadata("Asad", FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
+                new FrameworkPropertyMetadata("hint", FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
                     HintPropertyChanged, null, false, UpdateSourceTrigger.PropertyChanged));
 
         public string Password
@@ -41,7 +41,7 @@ namespace Manager_Medias.Views
             get { return (string)GetValue(PasswordProperty); }
             set { SetValue(PasswordProperty, value); }
         }
-         
+
         // Using a DependencyProperty as the backing store for Password.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty PasswordProperty =
             DependencyProperty.Register("Password", typeof(string), typeof(PasswordBoxMaterialDesign),
@@ -49,11 +49,11 @@ namespace Manager_Medias.Views
                     PasswordPropertyChanged, null, false, UpdateSourceTrigger.PropertyChanged));
 
         public event PropertyChangedEventHandler PropertyChanged;
+
         protected void OnPropertyChanged([CallerMemberName] string name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
-
 
         private static void PasswordPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -67,18 +67,25 @@ namespace Manager_Medias.Views
         {
             if (d is PasswordBoxMaterialDesign passwordBox)
             {
+                passwordBox.updateHint();
             }
+        }
+
+        private void updateHint()
+        {
+            MaterialDesignThemes.Wpf.HintAssist.SetHint(PwBox, Hint);
         }
 
         public PasswordBoxMaterialDesign()
         {
             InitializeComponent();
+            MaterialDesignThemes.Wpf.HintAssist.SetHint(PwBox, "Mật khẩu");
         }
 
         private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
         {
             _isPasswordChanging = true;
-            Password = PasswordBox.Password;
+            Password = PwBox.Password;
             _isPasswordChanging = false;
         }
 
@@ -86,7 +93,7 @@ namespace Manager_Medias.Views
         {
             if (!_isPasswordChanging)
             {
-                PasswordBox.Password = Password;
+                PwBox.Password = Password;
             }
         }
     }

@@ -10,7 +10,6 @@
 
 	CONSTRAINT PK_Users PRIMARY KEY (Email)
 )
-alter table Users add roleId INT
 CREATE TABLE Roles
 (
 	Id int IDENTITY,
@@ -206,6 +205,7 @@ select * from Movie_Categories
 select * from Album_Details
 select * from Albums
 select * from Payment_History
+Select * from Profiles
 select * from Users where Email = 'nghiadx2001@gmail.c'
 update Albums set Id = 2 where Name=N'Thiên nhiên'
 update Album_Details set IdAlbum = 2

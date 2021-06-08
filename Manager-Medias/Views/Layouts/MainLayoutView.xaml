@@ -614,6 +614,7 @@
                 <DataTemplate DataType="{x:Type viewmodels:PaymentViewModels}">
                     <vprofile:PaymentView />
                 </DataTemplate>
+                
             </Grid.Resources>
             <ContentControl Content="{Binding ContentViewModel}" />
         </Grid>

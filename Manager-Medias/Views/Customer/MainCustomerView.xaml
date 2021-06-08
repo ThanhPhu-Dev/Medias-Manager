@@ -82,6 +82,9 @@
                 <DataTemplate DataType="{x:Type vm:GuestSetNewPasswordViewModel}">
                     <local:SetNewPasswordView/>
                 </DataTemplate>
+                <DataTemplate DataType="{x:Type vm:ForgetPasswordViewModel}">
+                    <local:ForgetPassword />
+                </DataTemplate>
             </Grid.Resources>
             <ContentControl Content="{Binding ContentViewModel}" />
         </Grid>

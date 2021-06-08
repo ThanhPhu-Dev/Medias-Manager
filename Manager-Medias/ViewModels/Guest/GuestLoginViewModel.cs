@@ -17,6 +17,7 @@ namespace Manager_Medias.ViewModels.Guest
     public class GuestLoginViewModel : BaseViewModel
     {
         public ICommand LoginCmd { get; set; }
+        public ICommand fogetPassword { get; set; }
         private string _email;
         private string _password;
         private string _error;
@@ -62,6 +63,15 @@ namespace Manager_Medias.ViewModels.Guest
 
             this.ValidationRules.Add(nameof(this.Email), new List<ValidationRule>() { new ValidateEmail() });
             this.ValidationRules.Add(nameof(this.Password), new List<ValidationRule>() { new ValidatePassword() });
+            fogetPassword = new RelayCommand<Object[]>(forgetPassword);
+        }
+
+        private void forgetPassword(object[] obj)
+        {
+            //_navigationStore.ContentViewModel = new ForgetPasswordViewModel();
+                _userStore = null;
+                _navigationStore.CurrentViewModel = new GuestMainViewModel();
+                _navigationStore.ContentViewModel = new ForgetPasswordViewModel();
         }
 
         public async void ActionLogin(object[] values)

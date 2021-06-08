@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -25,6 +26,7 @@ namespace Manager_Medias.Views.Movie
         {
             InitializeComponent();
         }
+
         public static childItem FindVisualChild<childItem>(DependencyObject obj)
                 where childItem : DependencyObject
         {
@@ -46,6 +48,7 @@ namespace Manager_Medias.Views.Movie
 
             return null;
         }
+
         private void ItemsControl_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
             if (sender is ItemsControl && !e.Handled)
@@ -57,6 +60,30 @@ namespace Manager_Medias.Views.Movie
                 var parent = ((Control)sender).Parent as UIElement;
                 parent.RaiseEvent(eventArg);
             }
+        }
+
+        private void gDatatemplate_MouseEnter(object sender, MouseEventArgs e)
+        {
+            var grid = sender as Grid;
+            var media = grid.FindName("VideoPreview") as MediaElement;
+            ThreadPool.QueueUserWorkItem(_ =>
+            {
+                Thread.Sleep(500);
+                Dispatcher.Invoke(() =>
+                {
+                    if (media?.Source != null)
+                    {
+                        media?.Play();
+                    }
+                });
+            });
+        }
+
+        private void gDatatemplate_MouseLeave(object sender, MouseEventArgs e)
+        {
+            var grid = sender as Grid;
+            var media = grid.FindName("VideoPreview") as MediaElement;
+            media?.Close();
         }
     }
 }

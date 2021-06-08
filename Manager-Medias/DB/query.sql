@@ -1,19 +1,28 @@
 ﻿CREATE TABLE Users
 (
-	Email varchar(20) NOT NULL UNIQUE,
+	Email varchar(200) NOT NULL UNIQUE,
 	Password varchar(MAX) NOT NULL,
 	Level int,
 	Code varchar(MAX),
 	NumberCard varchar(16),
-	Exp varchar(8)
+	Exp varchar(8),
+	roleId INT
 
 	CONSTRAINT PK_Users PRIMARY KEY (Email)
+)
+alter table Users add roleId INT
+CREATE TABLE Roles
+(
+	Id int IDENTITY,
+	Name NVARCHAR(20),
+
+	CONSTRAINT PK_Roles PRIMARY KEY (Id)
 )
 
 CREATE TABLE Profiles
 (
 	Id int NOT NULL IDENTITY(1,1),
-	Email varchar(20),
+	Email varchar(200),
 	Name NVARCHAR(20),
 	Avatar varchar(200),
 	Status int,
@@ -24,14 +33,13 @@ CREATE TABLE Profiles
 CREATE TABLE Payment_History
 (
 	Id INT IDENTITY(1,1),
-	Email varchar(20),
+	Email varchar(200),
 	DateOfPayment Date,
-	Note Text,
+	Note Nvarchar(MAX),
 	Price numeric(18,0)
 
 	CONSTRAINT PK_PaymentHistory PRIMARY KEY (Id)
 )
-
 CREATE TABLE Levels
 (
 	Id INT NOT NULL IDENTITY(1,1),
@@ -165,6 +173,7 @@ CREATE TABLE View_History
 )
 
 ALTER TABLE Users ADD CONSTRAINT FK_Users_Levels FOREIGN KEY (Level) REFERENCES Levels(Id)
+ALTER TABLE Users ADD CONSTRAINT FK_Users_Roles FOREIGN KEY (roleId) REFERENCES Roles(Id)
 ALTER TABLE Profiles ADD CONSTRAINT FK_Profile_User FOREIGN KEY (Email) REFERENCES Users(Email)
 ALTER TABLE Payment_History ADD CONSTRAINT FK_PaymentHistory_User FOREIGN KEY (Email) REFERENCES Users(Email)
 ALTER TABLE Medias ADD CONSTRAINT FK_Medias_Levels FOREIGN KEY (Lvl) REFERENCES Levels(Id)
@@ -183,6 +192,7 @@ ALTER TABLE View_History ADD CONSTRAINT FK_ViewHistory_Medias FOREIGN KEY (IdMed
 ALTER TABLE View_History ADD CONSTRAINT FK_ViewHistory_Profiles FOREIGN KEY (IdProfile) REFERENCES Profiles(Id)
 
 --SELECT
+Select * from Roles
 select * from Media_categories
 select * from Audios
 select * from Audio_Categories
@@ -195,11 +205,13 @@ select * from Movies
 select * from Movie_Categories
 select * from Album_Details
 select * from Albums
-select * from Profiles
-select * from Users
- where Email = 'nghiadx2001@gmail.c'
+select * from Payment_History
+select * from Users where Email = 'nghiadx2001@gmail.c'
 update Albums set Id = 2 where Name=N'Thiên nhiên'
 update Album_Details set IdAlbum = 2
+
+--insert roles
+insert into Roles(Name) values ('User'),('Admin')
 --insert cấp độ
 INSERT INTO Levels (Name, Price) values
 (N'Cơ bản', 180000),

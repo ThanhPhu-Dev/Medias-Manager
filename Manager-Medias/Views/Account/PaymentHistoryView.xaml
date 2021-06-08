@@ -88,7 +88,7 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn Header="Thanh Toán" Width="200" DisplayMemberBinding="{Binding Path=Price}"/>
-                        <GridViewColumn Header="Ghi Chú" Width="200" DisplayMemberBinding="{Binding Path=Note}"/>
+                        <GridViewColumn Header="Ghi Chú" Width="Auto" DisplayMemberBinding="{Binding Path=Note}"/>
                         <GridViewColumn Header="Ngày Thanh Toán" Width="200">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>

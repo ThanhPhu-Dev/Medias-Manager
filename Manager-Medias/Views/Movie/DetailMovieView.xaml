@@ -371,6 +371,7 @@
                               MediaOpened="audio_MediaOpened"
                               LoadedBehavior="Manual"
                               Stretch="Uniform"
+                              ScrubbingEnabled="True"
                               StretchDirection="Both"
                               Source="{Binding DetailMovies.Video, Converter={StaticResource cvt}}"
                               Height="{Binding ElementName=mediaContainer, Path=ActualWidth, Converter={StaticResource RatioCvt}}">

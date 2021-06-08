@@ -148,8 +148,8 @@ namespace Manager_Medias.ViewModels.Customer
                             media.MediaType = "Âm nhạc";
                             if (history.Any())
                             {
-                                var ht = history.Single(h => h.time ==
-                                                history.Select(s => s.time).Cast<int>().Max().ToString());
+                                var ht = history.Where(h => h.time ==
+                                                history.Select(s => s.time).Cast<int>().Max().ToString()).Single();
 
                                 media.HistoryID = ht.Id;
                                 media.WatchedDate = (DateTime)ht.Date;

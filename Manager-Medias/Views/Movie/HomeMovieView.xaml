@@ -162,7 +162,7 @@
         <DataTemplate DataType="{x:Type model:Movie}" x:Key="carouselItemDefault">
             <Grid Margin="3 1" Height="117">
                 <Image Width="230"
-                        Source="{Binding Poster, Converter={StaticResource imageCvt}}" Stretch="Fill" />
+                        Source="{Binding Poster, Converter={StaticResource imageCvt}}" Stretch="UniformToFill" />
             </Grid>
         </DataTemplate>
 
@@ -173,7 +173,7 @@
                   MouseEnter="gDatatemplate_MouseEnter"
                   MouseLeave="gDatatemplate_MouseLeave">
                 <Image Width="230"
-                       Source="{Binding Poster, Converter={StaticResource imageCvt}}" Stretch="Fill"
+                       Source="{Binding Poster, Converter={StaticResource imageCvt}}" Stretch="UniformToFill"
                        Opacity="1"
                        Name="VideoPoster" />
                 <MediaElement Name="VideoPreview" Width="230" Panel.ZIndex="1"
@@ -184,7 +184,7 @@
                               Opacity="0">
                 </MediaElement>
 
-                <Border Background="Black" Opacity=".5" Panel.ZIndex="2" />
+                <Border Background="Black" Opacity=".2" Panel.ZIndex="2" />
 
                 <StackPanel Panel.ZIndex="3" VerticalAlignment="Bottom" Margin="5">
                     <materialDesign:PackIcon Kind="PlayCircleOutline" Width="26" Height="26"
@@ -286,23 +286,23 @@
         <DataTemplate DataType="{x:Type model:Movie}" x:Key="carouselItemNotEnoughLv">
             <Grid Margin="3 1" Height="117">
                 <Image Width="230"
-                        Panel.ZIndex="1"
-                    Source="{Binding Poster, Converter={StaticResource imageCvt}}" Stretch="Fill" />
+                    Panel.ZIndex="1"
+                    Source="{Binding Poster, Converter={StaticResource imageCvt}}" Stretch="UniformToFill" />
 
                 <Border Background="Black" Opacity=".6" Panel.ZIndex="2" />
-                <StackPanel Panel.ZIndex="3" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <StackPanel Panel.ZIndex="3" HorizontalAlignment="Center" VerticalAlignment="Top">
                     <materialDesign:PackIcon Kind="Alert"
                                              Foreground="{DynamicResource SecondaryAccentBrush}"
                                              Width="26"
                                              Height="26"
                                              HorizontalAlignment="Center"
                                              Margin="0 12 0 0" />
-                    <TextBlock Text="Vui lòng nâng cấp tài khoản để xem"
+                    <TextBlock Text="{Binding Media.Level.Name, StringFormat='{}Yêu cầu tài khoản cấp {0} để xem' }"
                                Foreground="#fff"
                                HorizontalAlignment="Center"
                                VerticalAlignment="Center"
                                TextWrapping="Wrap"
-                               Width="160"
+                               Width="190"
                                FontSize="17"
                                Margin="0 12 0 0" />
                 </StackPanel>

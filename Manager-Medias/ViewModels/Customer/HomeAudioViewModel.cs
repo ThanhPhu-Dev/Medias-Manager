@@ -57,6 +57,7 @@ namespace Manager_Medias.ViewModels.Customer
                 CatAudioList = new ObservableCollection<Audio_Category>(
                     db.Audio_Categories.Include("Audios")
                                     .Include("Audios.Media")
+                                    .Include("Audios.Media.Level")
                                     .ToList());
             }
 

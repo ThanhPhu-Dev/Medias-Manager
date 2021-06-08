@@ -85,6 +85,7 @@ namespace Manager_Medias.ViewModels.Customer
                         CatMovieList = new ObservableCollection<Movie_Category>(
                            db.Movie_Categories.Include("Movies")
                                                .Include("Movies.Media")
+                                               .Include("Movies.Media.Level")
                                                .ToList());
                     }
                 });
@@ -108,6 +109,7 @@ namespace Manager_Medias.ViewModels.Customer
                         CatMovieList = new ObservableCollection<Movie_Category>(
                            db.Movie_Categories.Include("Movies")
                                                .Include("Movies.Media")
+                                               .Include("Movies.Media.Level")
                                                .Where(c => c.Id == CatId)
                                                .ToList());
                     }

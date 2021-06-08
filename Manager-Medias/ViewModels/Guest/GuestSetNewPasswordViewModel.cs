@@ -41,6 +41,12 @@ namespace Manager_Medias.ViewModels.Guest
 
         private void Confirm(object[] obj)
         {
+            
+            if(string.IsNullOrEmpty(Password))
+            {
+                AddError(nameof(Password), "Mật khẩu không được bỏ trống!");
+                return;
+            }
             using (var db = new MediasManangementEntities())
             {
                 //check mail da ton tai chua
@@ -49,7 +55,7 @@ namespace Manager_Medias.ViewModels.Guest
                 //hash password
                 string pwHash = HashPassword.Hash(Password);
 
-                 user.Password = pwHash;
+                user.Password = pwHash;
                 if (db.SaveChanges() > 0)
                 {
                     //chuyển trang

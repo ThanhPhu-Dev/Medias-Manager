@@ -1,6 +1,9 @@
-﻿using System;
+﻿using MaterialDesignThemes.Wpf;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -22,23 +25,48 @@ namespace Manager_Medias.Views
     {
         private bool _isPasswordChanging;
 
+
+        public string Hint
+        {
+            get { return (string)GetValue(HintProperty); }
+            set { SetValue(HintProperty, value); }
+        }
+        public static readonly DependencyProperty HintProperty =
+            DependencyProperty.Register("Hint", typeof(string), typeof(PasswordBoxMaterialDesign),
+                new FrameworkPropertyMetadata("Asad", FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
+                    HintPropertyChanged, null, false, UpdateSourceTrigger.PropertyChanged));
+
         public string Password
         {
             get { return (string)GetValue(PasswordProperty); }
             set { SetValue(PasswordProperty, value); }
         }
-
+         
         // Using a DependencyProperty as the backing store for Password.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty PasswordProperty =
             DependencyProperty.Register("Password", typeof(string), typeof(PasswordBoxMaterialDesign),
                 new FrameworkPropertyMetadata(string.Empty, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
                     PasswordPropertyChanged, null, false, UpdateSourceTrigger.PropertyChanged));
 
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
+
         private static void PasswordPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (d is PasswordBoxMaterialDesign passwordBox)
             {
                 passwordBox.updatePassword();
+            }
+        }
+
+        private static void HintPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is PasswordBoxMaterialDesign passwordBox)
+            {
             }
         }
 

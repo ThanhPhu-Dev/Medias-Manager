@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace Manager_Medias.ViewModels.Customer
@@ -27,6 +28,7 @@ namespace Manager_Medias.ViewModels.Customer
         public ICommand AudioCmd { get; set; }
         public ICommand PictureCmd { get; set; }
         public ICommand PaymentCmd { get; set; }
+        public ICommand MovieByCatCmd { get; set; }
 
         #endregion Command
 
@@ -47,10 +49,23 @@ namespace Manager_Medias.ViewModels.Customer
             get => _userStore.LevelName;
         }
 
+        private ListCollectionView _movieCategories;
+
+        public ListCollectionView MovieCategories
+        {
+            get => _movieCategories;
+            set
+            {
+                _movieCategories = value;
+                OnPropertyChanged();
+            }
+        }
+
         #endregion Binding
 
         public MainLayoutViewModel()
         {
+            LoadMovieCategories();
             NavigateAccountCmd = new NavigateCommand<MainAccountViewModel>(
                 new NavigationService<MainAccountViewModel>(_navigationStore, () => new MainAccountViewModel()));
 
@@ -71,11 +86,31 @@ namespace Manager_Medias.ViewModels.Customer
             MovieCmd = new RelayCommand<object>(MoviewShow);
             AudioCmd = new RelayCommand<object>(AudioShow);
             PictureCmd = new RelayCommand<object>(PictureShow);
+            MovieByCatCmd = new RelayCommand<object>(NavigateMovieWithCat);
 
             _userStore.ProfileChanged += _userStore_ProfileChanged;
             _userStore.AvatarChanged += _userStore_AvatarChanged;
             _userStore.NameChanged += _userStore_NameChanged;
             _userStore.LevelChanged += _userStore_LevelChanged;
+        }
+
+        private void NavigateMovieWithCat(object obj)
+        {
+            if (obj != null)
+            {
+                int CatId = (int)obj;
+
+                _navigationStore.ContentViewModel = new HomeMovieViewModel(CatId);
+            }
+        }
+
+        private void LoadMovieCategories()
+        {
+            using (var db = new MediasManangementEntities())
+            {
+                var cats = db.Movie_Categories.ToList();
+                MovieCategories = new ListCollectionView(cats);
+            }
         }
 
         private void _userStore_LevelChanged()

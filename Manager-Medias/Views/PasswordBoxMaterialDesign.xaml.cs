@@ -1,6 +1,9 @@
-﻿using System;
+﻿using MaterialDesignThemes.Wpf;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -22,6 +25,17 @@ namespace Manager_Medias.Views
     {
         private bool _isPasswordChanging;
 
+        public string Hint
+        {
+            get { return (string)GetValue(HintProperty); }
+            set { SetValue(HintProperty, value); }
+        }
+
+        public static readonly DependencyProperty HintProperty =
+            DependencyProperty.Register("Hint", typeof(string), typeof(PasswordBoxMaterialDesign),
+                new FrameworkPropertyMetadata("hint", FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
+                    HintPropertyChanged, null, false, UpdateSourceTrigger.PropertyChanged));
+
         public string Password
         {
             get { return (string)GetValue(PasswordProperty); }
@@ -34,6 +48,13 @@ namespace Manager_Medias.Views
                 new FrameworkPropertyMetadata(string.Empty, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
                     PasswordPropertyChanged, null, false, UpdateSourceTrigger.PropertyChanged));
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
         private static void PasswordPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (d is PasswordBoxMaterialDesign passwordBox)
@@ -42,15 +63,29 @@ namespace Manager_Medias.Views
             }
         }
 
+        private static void HintPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is PasswordBoxMaterialDesign passwordBox)
+            {
+                passwordBox.updateHint();
+            }
+        }
+
+        private void updateHint()
+        {
+            MaterialDesignThemes.Wpf.HintAssist.SetHint(PwBox, Hint);
+        }
+
         public PasswordBoxMaterialDesign()
         {
             InitializeComponent();
+            MaterialDesignThemes.Wpf.HintAssist.SetHint(PwBox, "Mật khẩu");
         }
 
         private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
         {
             _isPasswordChanging = true;
-            Password = PasswordBox.Password;
+            Password = PwBox.Password;
             _isPasswordChanging = false;
         }
 
@@ -58,7 +93,7 @@ namespace Manager_Medias.Views
         {
             if (!_isPasswordChanging)
             {
-                PasswordBox.Password = Password;
+                PwBox.Password = Password;
             }
         }
     }

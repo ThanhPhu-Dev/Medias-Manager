@@ -129,12 +129,13 @@ namespace Manager_Medias.ViewModels.Guest
                 return task.Result;
             }).ConfigureAwait(false);
 
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                _userStore = new UserStore(user);
-                _navigationStore.CurrentViewModel = new MainLayoutViewModel();
-                _navigationStore.ContentViewModel = new HomeViewModel();
-            });
+            //Application.Current.Dispatcher.Invoke(() =>
+            //{
+            //    _userStore = new UserStore(user);
+            //    _navigationStore.CurrentViewModel = new MainLayoutViewModel();
+            //    _navigationStore.ContentViewModel = new HomeViewModel();
+            //});
+            _navigationStore.ContentViewModel = new GuestSetNewPasswordViewModel();
 
             //_navigationStore.ContentViewModel = new DetailAudioViewModel(1);
         }

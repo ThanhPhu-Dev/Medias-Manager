@@ -56,6 +56,7 @@ namespace Manager_Medias.ViewModels.Guest
                 string pwHash = HashPassword.Hash(Password);
 
                 user.Password = pwHash;
+                user.Code = null;
                 if (db.SaveChanges() > 0)
                 {
                     //chuyển trang

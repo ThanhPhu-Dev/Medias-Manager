@@ -76,58 +76,70 @@ namespace Manager_Medias.ViewModels.Guest
 
         public async void ActionLogin(object[] values)
         {
-            //if (string.IsNullOrEmpty(values.ToString()) || string.IsNullOrEmpty(values[0].ToString()) ||
-            //    string.IsNullOrEmpty(values[1].ToString()))
-            //{
-            //    return;
-            //}
-
-            //User currentUser;
-            //using (var db = new MediasManangementEntities())
-            //{
-            //    currentUser = db.Users.Where(p => p.Email == Email).FirstOrDefault() as User;
-            //}
-
-            //if (currentUser != null)
-            //{
-            //    bool compare = HashPassword.ComparePassword(Password, currentUser.Password);
-
-            //    Error = !compare ? "Mật khẩu không đúng" : null;
-
-            //    UserStore userStore = new UserStore(currentUser);
-            //    if (currentUser.Level == null)
-            //    {
-            //        _navigationStore.ContentViewModel = new GuestLevelRegisterViewModel(currentUser, _navigationStore);
-            //    }
-            //    else if (currentUser.NumberCard == null)
-            //    {
-            //        _navigationStore.ContentViewModel = new GuestCartRegisterViewModel(currentUser, _navigationStore);
-            //    }
-            //    else
-            //    {
-            //        _navigationStore.CurrentViewModel = new MainLayoutViewModel(userStore, _navigationStore);
-            //        _navigationStore.ContentViewModel = new HomeMovieViewModel(_navigationStore);
-            //    }
-            //}
-            //else
-            //{
-            //    Error = "Tài khoản không tồn tại";
-            //    return;
-            //}
+            if (string.IsNullOrEmpty(values.ToString()) || string.IsNullOrEmpty(values[0].ToString()) ||
+                string.IsNullOrEmpty(values[1].ToString()))
+            {
+                return;
+            }
             IsLoading = true;
-
-            User user = await Task.Run(() =>
+            User currentUser;
+            using (var db = new MediasManangementEntities())
             {
-                using (var db = new MediasManangementEntities())
+                currentUser = db.Users.Where(p => p.Email == Email).FirstOrDefault() as User;
+            }
+
+            if (currentUser != null)
+            {
+                bool compare = HashPassword.ComparePassword(Password, currentUser.Password);
+
+                Error = !compare ? "Mật khẩu không đúng" : null;
+                if(compare == true)
                 {
-                    return db.Users.Single(u => u.Email == "nghiadx2001@gmail.c");
-                }
-            }).ContinueWith((task) =>
-            {
-                IsLoading = false;
+                    if(currentUser.Code == null)
+                    {
 
-                return task.Result;
-            }).ConfigureAwait(false);
+                    }
+                    UserStore userStore = new UserStore(currentUser);
+                    if (currentUser.Level == null)
+                    {
+                        _navigationStore.ContentViewModel = new GuestLevelRegisterViewModel(currentUser);
+                    }
+                    else if (currentUser.NumberCard == null)
+                    {
+                        _navigationStore.ContentViewModel = new GuestCartRegisterViewModel(currentUser);
+                    }
+                    else
+                    {
+                        _navigationStore.CurrentViewModel = new MainLayoutViewModel();
+                        _navigationStore.ContentViewModel = new HomeMovieViewModel();
+                    }
+                }
+                else
+                {
+                    Error = "Mật khẩu không chính xác";
+                    return;
+                }
+                
+            }
+            else
+            {
+                Error = "Tài khoản không tồn tại";
+                return;
+            }
+
+            //User user = await Task.Run(() =>
+            //{
+            //    using (var db = new MediasManangementEntities())
+            //    {
+            //        return db.Users.Single(u => u.Email == "nghiadx2001@gmail.c");
+            //    }
+            //}).ContinueWith((task) =>
+            //{
+            //    IsLoading = false;
+
+            //    return task.Result;
+            //}).ConfigureAwait(false);
+
 
             //Application.Current.Dispatcher.Invoke(() =>
             //{

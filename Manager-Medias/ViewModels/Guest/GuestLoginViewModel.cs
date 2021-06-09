@@ -68,25 +68,30 @@ namespace Manager_Medias.ViewModels.Guest
 
         private void forgetPassword(object[] obj)
         {
-            //_navigationStore.ContentViewModel = new ForgetPasswordViewModel();
                 _userStore = null;
-                _navigationStore.CurrentViewModel = new GuestMainViewModel();
                 _navigationStore.ContentViewModel = new ForgetPasswordViewModel();
         }
 
         public async void ActionLogin(object[] values)
         {
-            if (string.IsNullOrEmpty(values.ToString()) || string.IsNullOrEmpty(values[0].ToString()) ||
-                string.IsNullOrEmpty(values[1].ToString()))
-            {
-                return;
-            }
+            //if (string.IsNullOrEmpty(values.ToString()) || string.IsNullOrEmpty(values[0].ToString()) ||
+            //    string.IsNullOrEmpty(values[1].ToString()))
+            //{
+            //    return;
+            //}
             IsLoading = true;
-            User currentUser;
-            using (var db = new MediasManangementEntities())
+            User currentUser = await Task.Run(() =>
             {
-                currentUser = db.Users.Where(p => p.Email == Email).FirstOrDefault() as User;
-            }
+                using (var db = new MediasManangementEntities())
+                {
+                    return db.Users.Where(p => p.Email == Email).FirstOrDefault() as User;
+                }
+            }).ContinueWith((task) =>
+            {
+                IsLoading = false;
+
+                return task.Result;
+            }).ConfigureAwait(false);
 
             if (currentUser != null)
             {
@@ -95,24 +100,26 @@ namespace Manager_Medias.ViewModels.Guest
                 Error = !compare ? "Mật khẩu không đúng" : null;
                 if(compare == true)
                 {
-                    if(currentUser.Code == null)
+                    Application.Current.Dispatcher.Invoke(() =>
                     {
-
-                    }
-                    UserStore userStore = new UserStore(currentUser);
-                    if (currentUser.Level == null)
-                    {
-                        _navigationStore.ContentViewModel = new GuestLevelRegisterViewModel(currentUser);
-                    }
-                    else if (currentUser.NumberCard == null)
-                    {
-                        _navigationStore.ContentViewModel = new GuestCartRegisterViewModel(currentUser);
-                    }
-                    else
-                    {
-                        _navigationStore.CurrentViewModel = new MainLayoutViewModel();
-                        _navigationStore.ContentViewModel = new HomeMovieViewModel();
-                    }
+                        _userStore = new UserStore(currentUser);
+                        if (currentUser.Code != null)
+                        {
+                            _navigationStore.ContentViewModel = new GuestSetNewPasswordViewModel();
+                        }else if (currentUser.Level == null)
+                        {
+                            _navigationStore.ContentViewModel = new GuestLevelRegisterViewModel(currentUser);
+                        }
+                        else if (currentUser.NumberCard == null)
+                        {
+                            _navigationStore.ContentViewModel = new GuestCartRegisterViewModel(currentUser);
+                        }
+                        else
+                        {
+                            _navigationStore.CurrentViewModel = new MainLayoutViewModel();
+                            _navigationStore.ContentViewModel = new HomeViewModel();
+                        }
+                    });
                 }
                 else
                 {
@@ -131,7 +138,7 @@ namespace Manager_Medias.ViewModels.Guest
             //{
             //    using (var db = new MediasManangementEntities())
             //    {
-            //        return db.Users.Single(u => u.Email == "nghiadx2001@gmail.c");
+            //        return db.Users.Where(p => p.Email == Email).FirstOrDefault() as User;
             //    }
             //}).ContinueWith((task) =>
             //{
@@ -141,14 +148,14 @@ namespace Manager_Medias.ViewModels.Guest
             //}).ConfigureAwait(false);
 
 
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                _userStore = new UserStore(user);
-                _navigationStore.CurrentViewModel = new MainLayoutViewModel();
-                _navigationStore.ContentViewModel = new HomeViewModel();
-                //_navigationStore.ContentViewModel = new GuestSetNewPasswordViewModel();
+            //Application.Current.Dispatcher.Invoke(() =>
+            //{
+            //    _userStore = new UserStore(user);
+            //    _navigationStore.CurrentViewModel = new MainLayoutViewModel();
+            //    _navigationStore.ContentViewModel = new HomeViewModel();
+            //    //_navigationStore.ContentViewModel = new GuestSetNewPasswordViewModel();
 
-            });
+            //});
 
             //_navigationStore.ContentViewModel = new DetailAudioViewModel(1);
         }

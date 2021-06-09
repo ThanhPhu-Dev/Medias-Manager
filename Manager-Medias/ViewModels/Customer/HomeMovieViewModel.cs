@@ -45,6 +45,22 @@ namespace Manager_Medias.ViewModels.Customer
             });
         }
 
+        public HomeMovieViewModel(int catId)
+        {
+            LoadMovie(catId);
+
+            //command
+            CmdToDetailMovie = new RelayCommand<object>(ToDetailMovie, (object o) =>
+            {
+                Movie movie = o as Movie;
+                if (movie != null && Level >= movie.Media.Lvl)
+                {
+                    return true;
+                }
+                return false;
+            });
+        }
+
         private void ToDetailMovie(object obj)
         {
             Movie movie = obj as Movie;
@@ -55,16 +71,51 @@ namespace Manager_Medias.ViewModels.Customer
             }
         }
 
-        private void LoadMovie()
+        private async void LoadMovie()
         {
-            using (var db = new MediasManangementEntities())
+            IsLoading = true;
+
+            await Task.Run(() =>
             {
-                //cập nhật danh sách bài hát liên quan (chung danh mục) cho UI
-                CatMovieList = new ObservableCollection<Movie_Category>(
-                    db.Movie_Categories.Include("Movies")
-                                        .Include("Movies.Media")
-                                        .ToList());
-            }
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    using (var db = new MediasManangementEntities())
+                    {
+                        //cập nhật danh sách bài hát liên quan (chung danh mục) cho UI
+                        CatMovieList = new ObservableCollection<Movie_Category>(
+                           db.Movie_Categories.Include("Movies")
+                                               .Include("Movies.Media")
+                                               .ToList());
+                    }
+                });
+            }).ContinueWith((task) =>
+            {
+                IsLoading = false;
+            }).ConfigureAwait(false);
+        }
+
+        private async void LoadMovie(int CatId)
+        {
+            IsLoading = true;
+
+            await Task.Run(() =>
+            {
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    using (var db = new MediasManangementEntities())
+                    {
+                        //cập nhật danh sách bài hát liên quan (chung danh mục) cho UI
+                        CatMovieList = new ObservableCollection<Movie_Category>(
+                           db.Movie_Categories.Include("Movies")
+                                               .Include("Movies.Media")
+                                               .Where(c => c.Id == CatId)
+                                               .ToList());
+                    }
+                });
+            }).ContinueWith((task) =>
+            {
+                IsLoading = false;
+            }).ConfigureAwait(false);
         }
     }
 }

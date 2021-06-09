@@ -25,11 +25,14 @@ namespace Manager_Medias.Views.Audio
     {
         private DispatcherTimer seeker;
         private bool isSeekingMedia = false;
-
+        Storyboard sb_rotate = null;
         public DetailAudioView()
         {
             InitializeComponent();
             audio.Play();
+
+            sb_rotate = this.FindResource("anm_rotate") as Storyboard;
+            sb_rotate.Begin();
         }
 
         private void MediaTimeline_CurrentTimeInvalidated(object sender, EventArgs e)
@@ -39,6 +42,10 @@ namespace Manager_Medias.Views.Audio
         private void audio_MediaOpened(object sender, RoutedEventArgs e)
         {
             timelineSlider.Maximum = audio.NaturalDuration.TimeSpan.TotalMilliseconds;
+            int SliderValue = (int)timelineSlider.Value;
+
+            TimeSpan ts = new TimeSpan(0, 0, 0, 0, SliderValue);
+            audio.Position = ts;
             seeker = new DispatcherTimer();
             seeker.Interval = TimeSpan.FromSeconds(1);
             seeker.Tick += Seeker_Tick;
@@ -60,7 +67,6 @@ namespace Manager_Medias.Views.Audio
 
         private void timelineSlider_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
         {
-            isSeekingMedia = false;
             int SliderValue = (int)timelineSlider.Value;
 
             // Overloaded constructor takes the arguments days, hours, minutes, seconds, milliseconds.
@@ -73,22 +79,29 @@ namespace Manager_Medias.Views.Audio
         private void btn_playvideo_Checked(object sender, RoutedEventArgs e)
         {
             audio.Pause();
+            seeker.Stop();
+            sb_rotate.Pause();
         }
 
         private void btn_playvideo_Unchecked(object sender, RoutedEventArgs e)
         {
             audio.Play();
+            seeker.Start();
+            sb_rotate.Resume();
         }
 
-        //Message 
+        //Message
         private DispatcherTimer _timer;
+
         private int count;
+
         private void btn_likeAudio_Click(object sender, RoutedEventArgs e)
         {
             _timer = null;
             count = 0;
             StartTimer();
         }
+
         public void StartTimer()
         {
             if (_timer == null)
@@ -101,16 +114,43 @@ namespace Manager_Medias.Views.Audio
             _timer.Start();
         }
 
-        void _timer_Tick(object sender, EventArgs e)
+        private void _timer_Tick(object sender, EventArgs e)
         {
             count++;
-            if(count == 3)
+            if (count == 3)
             {
                 _timer.Stop();
                 Storyboard sb = this.FindResource("CloseMessage") as Storyboard;
                 Storyboard.SetTarget(sb, this.bd_Message);
                 sb.Begin();
             }
+        }
+
+        private void audio_Unloaded(object sender, RoutedEventArgs e)
+        {
+            seeker.Stop();
+        }
+
+        private void lb_Audio_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            btn_playvideo.IsChecked = false;
+            //reset animation rotate
+            sb_rotate.Stop();
+            try
+            {
+                sb_rotate.Begin();
+            }
+            catch
+            {
+                return;
+            }
+        }
+
+        private void audio_MediaEnded(object sender, RoutedEventArgs e)
+        {
+            btn_playvideo.IsChecked = true;
+            seeker.Stop();
+            audio.Pause();
         }
     }
 }

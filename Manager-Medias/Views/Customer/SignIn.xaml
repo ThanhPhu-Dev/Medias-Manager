@@ -112,22 +112,29 @@
                     Foreground="#222">
                 </Button>
                 <TextBlock Text="{Binding Error}" Foreground="Red" FontSize="16" />
-                <TextBlock Text="Quên mật khẩu?"
-                           Foreground="White"
-                           ForceCursor="True"
-                           Cursor="Hand"
-                           HorizontalAlignment="Right"
-                           Margin="20 10">
-                    <TextBlock.Style>
-                        <Style TargetType="TextBlock">
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="TextDecorations" Value="Underline" />
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </TextBlock.Style>
-                </TextBlock>
+                <Button Height="40" Command="{Binding fogetPassword}">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <ContentPresenter/>
+                        </ControlTemplate>
+                    </Button.Template>
+                    <TextBlock Text="Quên mật khẩu?"
+                               Foreground="White"
+                               ForceCursor="True"
+                               Cursor="Hand"
+                               HorizontalAlignment="Right"
+                               Margin="20 10">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="TextDecorations" Value="Underline" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </Button>
                 <TextBlock
                            Style="{StaticResource text-primary}"
                            FontSize="14" Padding="0 8">

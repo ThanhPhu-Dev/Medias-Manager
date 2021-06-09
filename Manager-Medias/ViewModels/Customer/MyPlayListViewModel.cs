@@ -99,8 +99,7 @@ namespace Manager_Medias.ViewModels.Customer
 
                             if (history.Any())
                             {
-                                var ht = history.Single(h => h.time ==
-                                        history.Select(s => s.time).Cast<int>().Max().ToString());
+                                var ht = history.OrderByDescending(h => h.Date).FirstOrDefault();
 
                                 media.HistoryID = ht.Id;
                                 media.IsWatched = true;
@@ -148,12 +147,18 @@ namespace Manager_Medias.ViewModels.Customer
                             media.MediaType = "Âm nhạc";
                             if (history.Any())
                             {
-                                var ht = history.Where(h => h.time ==
-                                                history.Select(s => s.time).Cast<int>().Max().ToString()).Single();
+                                var ht = history.OrderByDescending(h => h.Date).FirstOrDefault();
 
                                 media.HistoryID = ht.Id;
+                                media.IsWatched = true;
                                 media.WatchedDate = (DateTime)ht.Date;
-                                media.WatchedPercent = "100";
+                                media.TimeWatched = double.Parse(ht.time);
+                                var time = item.Media.Audio.Time;
+                                string[] t = time.Split(':');
+                                TimeSpan tsMax = new TimeSpan(int.Parse(t[0]), int.Parse(t[1]), int.Parse(t[2]));
+                                TimeSpan tsCur = new TimeSpan(0, 0, 0, 0, Convert.ToInt32(media.TimeWatched));
+                                var percent = (tsCur.TotalMilliseconds / tsMax.TotalMilliseconds) * 100;
+                                media.WatchedPercent = Math.Round(percent, 1).ToString();
                             }
                             break;
 

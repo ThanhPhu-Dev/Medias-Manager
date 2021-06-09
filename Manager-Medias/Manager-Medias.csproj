@@ -220,7 +220,6 @@
     <Compile Include="ViewModels\Customer\DetailMovieViewModel.cs" />
     <Compile Include="ViewModels\Customer\DetailPictureViewModel.cs" />
     <Compile Include="ViewModels\Customer\FavoriteListViewModel.cs" />
-    <Compile Include="ViewModels\Customer\ForgetPassword.cs" />
     <Compile Include="ViewModels\Customer\HomeAudioViewModel.cs" />
     <Compile Include="ViewModels\Customer\HistoryListViewModel.cs" />
     <Compile Include="ViewModels\Customer\HomeMovieViewModel.cs" />
@@ -274,12 +273,14 @@
     <Compile Include="ViewModels\Customer\PaymentViewModels.cs" />
     <Compile Include="ViewModels\Customer\PaymentHistoryViewModel.cs" />
     <Compile Include="ViewModels\Customer\ProfileManagerViewModel.cs" />
+    <Compile Include="ViewModels\Guest\ForgetPasswordViewModel.cs" />
     <Compile Include="ViewModels\Guest\GuestCartRegisterViewModel.cs" />
     <Compile Include="ViewModels\Guest\GuestHomeViewModel.cs" />
     <Compile Include="ViewModels\Guest\GuestInfoRegisterViewModel.cs" />
     <Compile Include="ViewModels\Guest\GuestLevelRegisterViewModel.cs" />
     <Compile Include="ViewModels\Guest\GuestLoginViewModel.cs" />
     <Compile Include="ViewModels\Guest\GuestMainViewModel.cs" />
+    <Compile Include="ViewModels\Guest\GuestSetNewPasswordViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Views\Account\AccountManagerView.xaml.cs">
       <DependentUpon>AccountManagerView.xaml</DependentUpon>
@@ -326,8 +327,8 @@
     <Compile Include="Views\Audio\HomeAudioView.xaml.cs">
       <DependentUpon>HomeAudioView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Customer\ForgetPassword.xaml.cs">
-      <DependentUpon>ForgetPassword.xaml</DependentUpon>
+    <Compile Include="Views\Customer\ForgetPasswordView.xaml.cs">
+      <DependentUpon>ForgetPasswordView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Customer\HomeCustomerView.xaml.cs">
       <DependentUpon>HomeCustomerView.xaml</DependentUpon>
@@ -343,6 +344,9 @@
     </Compile>
     <Compile Include="Views\Customer\Register\LevelRegisterView.xaml.cs">
       <DependentUpon>LevelRegisterView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Customer\SetNewPasswordView.xaml.cs">
+      <DependentUpon>SetNewPasswordView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Customer\SignIn.xaml.cs">
       <DependentUpon>SignIn.xaml</DependentUpon>
@@ -446,7 +450,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Customer\ForgetPassword.xaml">
+    <Page Include="Views\Customer\ForgetPasswordView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -463,6 +467,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Customer\Register\LevelRegisterView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Customer\SetNewPasswordView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -666,9 +674,6 @@
     <Resource Include="Images\Profile\pr3.jpg" />
     <Resource Include="Images\Profile\pr4.jpg" />
     <Resource Include="Images\Profile\pr5.jpg" />
-    <None Include="Images\Profile\default_avatar.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="Images\Movie\Poster\movieposter_posterlunglinh.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -799,6 +804,9 @@
     <Content Include="Images\Audio\mp3\audiomp3_mp3_Trap.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Images\Profile\default_avatar.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="Models\MediasManagement.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>MediasManagement.edmx</DependentUpon>

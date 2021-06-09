@@ -11,11 +11,16 @@
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              d:DesignHeight="585" d:DesignWidth="1200"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding CmdWindowLoaded}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <UserControl.Resources>
         <cvt:ConvertImage x:Key="imgCvt" />
         <cvt:CompareLevelConverter x:Key="levelCvt" />
         <cvt:MillisecondToTimeLapseConverter x:Key="TimeLapseCvt" />
-        
+
         <Style TargetType="materialDesign:PackIcon" x:Key="iconPlay">
             <Setter Property="Foreground" Value="#fff" />
             <Setter Property="VerticalAlignment" Value="Center" />
@@ -24,7 +29,7 @@
             <Setter Property="Margin" Value="15 0" />
         </Style>
         <DataTemplate x:Key="ItemTemplate" DataType="{x:Type model:Audio}">
-            <Grid  Margin="8 8">
+            <Grid  Margin="8 8" Height="30">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="40" />
                     <ColumnDefinition />
@@ -33,7 +38,9 @@
                 <TextBlock Text="{Binding Name}"
                            FontSize="17"
                            Foreground="#fff"
-                           Grid.Column="1" />
+                           Grid.Column="1" 
+                           
+                           VerticalAlignment="Center"/>
             </Grid>
         </DataTemplate>
         <DataTemplate x:Key="SelectedItemTemplate" DataType="{x:Type model:Audio}">
@@ -55,19 +62,18 @@
                            Grid.Column="1"
                            VerticalAlignment="Center" />
             </Grid>
-
         </DataTemplate>
         <Style x:Key="_ListBoxItemStyle" TargetType="ListBoxItem">
             <Style.Triggers>
                 <DataTrigger Value="False">
-                    <DataTrigger.Binding >
+                    <DataTrigger.Binding>
                         <MultiBinding Converter="{StaticResource levelCvt}">
                             <Binding Path="DataContext.Level"
                                      RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type view:DetailAudioView}}" />
                             <Binding Path="Media.Lvl" />
                         </MultiBinding>
                     </DataTrigger.Binding>
-                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Setter Property="Visibility" Value="Collapsed" />
                 </DataTrigger>
             </Style.Triggers>
             <Setter Property="ContentTemplate" Value="{StaticResource ItemTemplate}" />
@@ -96,21 +102,22 @@
             </Setter>
         </Style>
 
-        <!--<Storyboard x:Key="Star_rotate">
+        <Storyboard x:Key="anm_rotate">
             <DoubleAnimation
-                        Storyboard.TargetName="lt_avartar"
+                        Storyboard.TargetName="rotate_avatar"
                         Storyboard.TargetProperty="(RotateTransform.Angle)"
                         From="0.0" To="360"
                         Duration="0:0:7"
                         RepeatBehavior="Forever" />
-        </Storyboard>-->
+        </Storyboard>
+
         <Storyboard SlipBehavior="Slip" x:Key="audioStart">
             <MediaTimeline Source="{Binding ElementName=lb_Audio, Path=SelectedItem.Mp3, Converter={StaticResource imgCvt}}"
                                        Storyboard.TargetName="audio"
                                        BeginTime="0:0:0" />
         </Storyboard>
 
-        <Storyboard x:Key="CloseMessage" >
+        <Storyboard x:Key="CloseMessage">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetName="bd_Message"
                                                    Storyboard.TargetProperty="Width">
                 <EasingDoubleKeyFrame KeyTime="0:0:0"
@@ -119,7 +126,7 @@
                                       Value="0" />
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
-        <Storyboard x:Key="OpenMessage" >
+        <Storyboard x:Key="OpenMessage">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetName="bd_Message"
                                                    Storyboard.TargetProperty="Width">
                 <EasingDoubleKeyFrame KeyTime="0:0:0"
@@ -132,14 +139,14 @@
 
     <UserControl.Triggers>
         <!--khi nhấn play-->
-        <!--
-        <EventTrigger RoutedEvent="ToggleButton.Checked" SourceName="btn_playvideo">
-            -->
-        <!--<PauseStoryboard BeginStoryboardName="anm_rotate" x:Name="pause_anm" />-->
-        <!--
-        </EventTrigger>
+        
+        <!--<EventTrigger RoutedEvent="ToggleButton.Checked" SourceName="btn_playvideo">
 
-        -->
+            <BeginStoryboard Storyboard="{StaticResource anm_rotate}"/>
+
+        </EventTrigger>-->
+
+        
         <!--khi nhấn pause-->
         <!--
         <EventTrigger RoutedEvent="ToggleButton.Unchecked" SourceName="btn_playvideo">
@@ -148,13 +155,13 @@
         <!--
         </EventTrigger>-->
         <EventTrigger RoutedEvent="ToggleButton.Click" SourceName="btn_likeAudio">
-            <BeginStoryboard Storyboard="{StaticResource OpenMessage}"/>
+            <BeginStoryboard Storyboard="{StaticResource OpenMessage}" />
         </EventTrigger>
         <EventTrigger RoutedEvent="ToggleButton.Click" SourceName="btn_bookmarkAudio">
-            <BeginStoryboard Storyboard="{StaticResource OpenMessage}"/>
+            <BeginStoryboard Storyboard="{StaticResource OpenMessage}" />
         </EventTrigger>
         <!--<EventTrigger RoutedEvent="Button.Click" SourceName="btn_closeMessage">
-            <BeginStoryboard Storyboard="{StaticResource CloseMessage}"/>
+            <BeginStoryboard Storyboard="{StaticResource CloseMessage}" />
         </EventTrigger>-->
     </UserControl.Triggers>
     <Grid Background="Black">
@@ -181,7 +188,7 @@
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="0.45*" />
-                    <RowDefinition Height="4*" />
+                    <RowDefinition Height="4.2*" />
                     <RowDefinition Height="1.5*" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
@@ -189,7 +196,7 @@
                     <ColumnDefinition Width="6.3*" />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <Ellipse Grid.Row="1"
+                <!--<Ellipse Grid.Row="1"
                          Grid.Column="1"
                          StrokeThickness="2">
                     <Ellipse.Stroke>
@@ -199,10 +206,9 @@
                             <GradientStop Color="#febb00" Offset="0.6" />
                         </LinearGradientBrush>
                     </Ellipse.Stroke>
-                </Ellipse>
+                </Ellipse>-->
                 <Ellipse Grid.Row="1"
                          Grid.Column="1"
-                         StrokeThickness="3"
                          Margin="4"
                          RenderTransformOrigin="0.5, 0.5"
                          Name="lt_avartar">
@@ -219,7 +225,9 @@
                               Width="0"
                               Visibility="Hidden"
                               MediaOpened="audio_MediaOpened"
+                              Unloaded="audio_Unloaded"
                               LoadedBehavior="Manual"
+                              MediaEnded="audio_MediaEnded"
                               Source="{Binding ElementName=lb_Audio, Path=SelectedItem.Mp3, Converter={StaticResource imgCvt}}" />
                 <StackPanel Grid.ColumnSpan="3"
                             Grid.Row="2"
@@ -249,8 +257,8 @@
                                 Foreground="#febb00"
                                 Name="timelineSlider"
                                 Thumb.DragStarted="timelineSlider_DragStarted"
-                                Thumb.DragCompleted="timelineSlider_DragCompleted" 
-                                Value="{Binding SliderValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                Thumb.DragCompleted="timelineSlider_DragCompleted"
+                                Value="{Binding SliderValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </Grid>
                     <StackPanel Orientation="Horizontal"
                                 HorizontalAlignment="Center">
@@ -325,7 +333,7 @@
                             </ToggleButton.Style>
                         </ToggleButton>
                         <!--<materialDesign:PackIcon Kind="Equal" />-->
-                        <materialDesign:PackIcon Kind="SkipNext" 
+                        <materialDesign:PackIcon Kind="SkipNext"
                                                  Style="{StaticResource iconPlay}" />
 
                         <ToggleButton Width="35" Height="35" Padding="0"
@@ -387,12 +395,13 @@
                      ItemsSource="{Binding AudioList}"
                      SelectedItem="{Binding SelectedAudio}"
                      Margin="30 0 15 0"
-                     ItemContainerStyle="{DynamicResource _ListBoxItemStyle}">
+                     ItemContainerStyle="{DynamicResource _ListBoxItemStyle}"
+                     SelectionChanged="lb_Audio_SelectionChanged">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
-                        <i:InvokeCommandAction 
+                        <i:InvokeCommandAction
                                Command="{Binding CmdSelectionChange}"
-                            CommandParameter="{Binding ElementName=lb_Audio, Path=SelectedItem.Id}"/>
+                            CommandParameter="{Binding ElementName=lb_Audio, Path=SelectedItem.Id}" />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
                 <ListBox.Resources>
@@ -450,29 +459,27 @@
             Grid.ColumnSpan="4"
             VerticalAlignment="Top"
             HorizontalAlignment="Right"
-            Panel.ZIndex="10"
-            >
+            Panel.ZIndex="10">
             <Border Background="#fff"
                     Width="0"
-                    Height="100" 
+                    Height="100"
                     Canvas.Right="0"
                     CornerRadius="18"
-                    Padding="10 0" 
+                    Padding="10 0"
                     Margin="10"
                     Name="bd_Message">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="55"/>
+                        <ColumnDefinition Width="55" />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
 
-                    <materialDesign:PackIcon Kind="CheckCircleOutline" 
+                    <materialDesign:PackIcon Kind="CheckCircleOutline"
                                              Width="55"
                                              Height="55"
                                              Foreground="#ffbb00"
                                              VerticalAlignment="Center"
-                                             HorizontalAlignment="Center"
-                                             />
+                                             HorizontalAlignment="Center" />
                     <TextBlock Text="{Binding Message}"
                                Grid.Column="1"
                                FontSize="20"
@@ -481,22 +488,22 @@
                                VerticalAlignment="Center"
                                HorizontalAlignment="Center"
                                Padding="10 0 0 0"
-                               Foreground="#222"/>
+                               Foreground="#222" />
 
                     <Button Name="btn_closeMessage"
-                            Grid.Column="1" 
+                            Grid.Column="1"
                             BorderThickness="0"
                             BorderBrush="Transparent"
                             Background="Transparent"
                             Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                             ToolTip="Đóng"
                             HorizontalAlignment="Right"
-                            VerticalAlignment="Top" 
+                            VerticalAlignment="Top"
                             Height="24" Width="24"
                             Margin="0 7 0 0">
-                        <materialDesign:PackIcon Kind="Close" 
-                                                 Height="20" Width="20" 
-                                                 Foreground="#222"/>
+                        <materialDesign:PackIcon Kind="Close"
+                                                 Height="20" Width="20"
+                                                 Foreground="#222" />
                     </Button>
                 </Grid>
             </Border>

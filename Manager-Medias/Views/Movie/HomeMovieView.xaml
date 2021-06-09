@@ -169,9 +169,20 @@
         <!--template khi đã hover-->
         <DataTemplate DataType="{x:Type model:Movie}" x:Key="carouselItemMouse">
             <Grid Margin="3 1" Name="gDatatemplate"
-                  Height="117">
-                <Image Width="230" Panel.ZIndex="1"
-                        Source="{Binding Poster, Converter={StaticResource imageCvt}}" Stretch="Fill" />
+                  Height="117"
+                  MouseEnter="gDatatemplate_MouseEnter"
+                  MouseLeave="gDatatemplate_MouseLeave">
+                <Image Width="230"
+                       Source="{Binding Poster, Converter={StaticResource imageCvt}}" Stretch="Fill"
+                       Opacity="1"
+                       Name="VideoPoster" />
+                <MediaElement Name="VideoPreview" Width="230" Panel.ZIndex="1"
+                              Source="{Binding Video, Converter={StaticResource imageCvt}}"
+                              Stretch="Fill"
+                              LoadedBehavior="Manual"
+                              UnloadedBehavior="Manual"
+                              Opacity="0">
+                </MediaElement>
 
                 <Border Background="Black" Opacity=".5" Panel.ZIndex="2" />
 
@@ -230,6 +241,18 @@
                                 <DoubleAnimation Duration="0:0:0.2" To="1.2" />
                             </Storyboard>
                         </BeginStoryboard>
+                        <BeginStoryboard>
+                            <Storyboard Storyboard.TargetProperty="Opacity"
+                                        Storyboard.TargetName="VideoPreview">
+                                <DoubleAnimation Duration="0:0:0.5" To="1" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                        <BeginStoryboard>
+                            <Storyboard Storyboard.TargetProperty="Opacity"
+                                        Storyboard.TargetName="VideoPoster">
+                                <DoubleAnimation Duration="0:0:0.5" To="0" />
+                            </Storyboard>
+                        </BeginStoryboard>
                     </EventTrigger>
                     <EventTrigger RoutedEvent="MouseLeave">
                         <BeginStoryboard>
@@ -239,6 +262,18 @@
                         </BeginStoryboard>
                         <BeginStoryboard>
                             <Storyboard Storyboard.TargetProperty="(ScaleTransform.ScaleY)">
+                                <DoubleAnimation Duration="0:0:0.2" To="1" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                        <BeginStoryboard>
+                            <Storyboard Storyboard.TargetProperty="Opacity"
+                                        Storyboard.TargetName="VideoPreview">
+                                <DoubleAnimation Duration="0:0:0.2" To="0" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                        <BeginStoryboard>
+                            <Storyboard Storyboard.TargetProperty="Opacity"
+                                        Storyboard.TargetName="VideoPoster">
                                 <DoubleAnimation Duration="0:0:0.2" To="1" />
                             </Storyboard>
                         </BeginStoryboard>
@@ -489,10 +524,10 @@
                                                     <TextBlock Text="{Binding ElementName=lb_carousel, Path=SelectedItem.Name}"
                                                            FontSize="30"
                                                            Foreground="#fff"
-                                                           FontWeight="DemiBold" 
+                                                           FontWeight="DemiBold"
                                                                TextWrapping="Wrap"
                                                                TextAlignment="Center"
-                                                               Padding="4 0"/>
+                                                               Padding="4 0" />
                                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom"
                                                                 Margin="0 4">
                                                         <Border
@@ -520,7 +555,7 @@
                                                            Padding="6 0 0 0"
                                                            Foreground="#fff"
                                                            FontSize="14"
-                                                           HorizontalAlignment="Center" DockPanel.Dock="Top"/>
+                                                           HorizontalAlignment="Center" DockPanel.Dock="Top" />
 
                                                 <!--Mô tả phim-->
                                                 <TextBlock DockPanel.Dock="Top"
@@ -529,9 +564,9 @@
                                                             Foreground="#FFC9C9C9"
                                                            Padding="8 15"
                                                            FontSize="14"
-                                                           HorizontalAlignment="Center" 
-                                                           TextWrapping="Wrap"/>
- 
+                                                           HorizontalAlignment="Center"
+                                                           TextWrapping="Wrap" />
+
                                                 <Button DockPanel.Dock="Bottom"
                                                     VerticalAlignment="Bottom"
                                                     Margin="6 16"

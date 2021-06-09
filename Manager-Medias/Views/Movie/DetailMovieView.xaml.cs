@@ -139,5 +139,10 @@ namespace Manager_Medias.Views.Movie
             count = 0;
             StartTimer();
         }
+
+        private void mea_video_Unloaded(object sender, RoutedEventArgs e)
+        {
+            seeker.Stop();
+        }
     }
 }

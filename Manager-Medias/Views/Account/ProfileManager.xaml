@@ -78,7 +78,8 @@
                                 HorizontalAlignment="Stretch">
                         <materialDesign:PackIcon DockPanel.Dock="Left" Kind="Plus" VerticalAlignment="Center" VerticalContentAlignment="Center" Foreground="#000" />
                         <Label DockPanel.Dock="Right" Content="Tạo mới" VerticalAlignment="Center" VerticalContentAlignment="Center"
-                               Margin="0 0 0 2" />
+                               Margin="0 0 0 2"
+                               Foreground="#000" />
                     </DockPanel>
                 </Button>
             </DockPanel>
@@ -88,7 +89,8 @@
                         Background="#FF303030"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
-                        Canvas.Left="114">
+                        Canvas.Left="114"
+                        Canvas.Top="4">
                     <Grid Width="{Binding ActualWidth, ElementName=ModalNewProfile}" Height="{Binding ActualHeight, ElementName=ModalNewProfile}">
                         <StackPanel HorizontalAlignment="Center" Margin="0 20 0 0">
                             <Label Content="TẠO HỒ SƠ MỚI" Foreground="White" FontSize="32"
@@ -160,14 +162,14 @@
                         </StackPanel>
                     </Grid>
                     <Border.Style>
-                        <Style>
-                            <Setter Property="Canvas.Top" Value="-500" />
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="Visibility" Value="Collapsed" />
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding IsNewModalOpen}" Value="false">
-                                    <Setter Property="Canvas.Top" Value="-500" />
+                                    <Setter Property="Visibility" Value="Collapsed" />
                                 </DataTrigger>
                                 <DataTrigger Binding="{Binding IsNewModalOpen}" Value="true">
-                                    <Setter Property="Canvas.Top" Value="4" />
+                                    <Setter Property="Visibility" Value="Visible" />
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
@@ -179,7 +181,8 @@
                         Background="#FF303030"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
-                        Canvas.Left="114">
+                        Canvas.Left="114"
+                        Canvas.Bottom="-320">
                     <Grid Width="{Binding ActualWidth, ElementName=ModalEditProfile}" Height="{Binding ActualHeight, ElementName=ModalEditProfile}">
                         <StackPanel HorizontalAlignment="Center" Margin="0 20 0 0">
                             <Label Content="CHỈNH SỬA HỒ SƠ" Foreground="White" FontSize="32"
@@ -250,14 +253,14 @@
                         </StackPanel>
                     </Grid>
                     <Border.Style>
-                        <Style>
-                            <Setter Property="Canvas.Bottom" Value="-800" />
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="Visibility" Value="Collapsed" />
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding IsEditModalOpen}" Value="false">
-                                    <Setter Property="Canvas.Bottom" Value="-800" />
+                                    <Setter Property="Visibility" Value="Collapsed" />
                                 </DataTrigger>
                                 <DataTrigger Binding="{Binding IsEditModalOpen}" Value="true">
-                                    <Setter Property="Canvas.Bottom" Value="-320" />
+                                    <Setter Property="Visibility" Value="Visible" />
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>

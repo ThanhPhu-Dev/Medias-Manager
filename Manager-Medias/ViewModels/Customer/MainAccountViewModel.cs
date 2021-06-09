@@ -3,9 +3,11 @@ using Manager_Medias.Services;
 using Manager_Medias.Stores;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace Manager_Medias.ViewModels.Customer
@@ -27,10 +29,22 @@ namespace Manager_Medias.ViewModels.Customer
 
         #endregion Command
 
+        private bool _focusFirst = true;
+
+        public bool FocusFirst
+        {
+            get => _focusFirst;
+            set
+            {
+                _focusFirst = value;
+                OnPropertyChanged();
+            }
+        }
+
         public MainAccountViewModel()
         {
+            FocusFirst = true;
             _acccountNavigateStore = new NavigationStore();
-
             _acccountNavigateStore.ContentViewModel = new AccountManagerViewModel();
 
             NavigateAccountManagerCmd = new NavigateCommand<AccountManagerViewModel>(
@@ -60,6 +74,7 @@ namespace Manager_Medias.ViewModels.Customer
 
         private void _acccountNavigateStore_CurrentContentViewModelChanged()
         {
+            FocusFirst = false;
             OnPropertyChanged(nameof(ContentAccountViewModel));
         }
     }

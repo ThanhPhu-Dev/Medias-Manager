@@ -103,7 +103,11 @@ namespace Manager_Medias.ViewModels.Guest
                     Application.Current.Dispatcher.Invoke(() =>
                     {
                         _userStore = new UserStore(currentUser);
-                        if (currentUser.Code != null)
+                        if(currentUser.roleId == 2)
+                        {
+
+                        }
+                        else if (currentUser.Code != null)
                         {
                             _navigationStore.ContentViewModel = new GuestSetNewPasswordViewModel();
                         }else if (currentUser.Level == null)

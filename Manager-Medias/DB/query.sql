@@ -209,6 +209,7 @@ Select * from Profiles
 select * from Users where Email = 'nghiadx2001@gmail.c'
 update Albums set Id = 2 where Name=N'Thiên nhiên'
 update Album_Details set IdAlbum = 2
+update Users set code = 'rwzk7222RW' where Email = 'user@gmail.com'
 
 --insert roles
 insert into Roles(Name) values ('User'),('Admin')

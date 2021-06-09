@@ -52,7 +52,9 @@ namespace Manager_Medias.ViewModels.Guest
                 if (profile != null)
                 {
                     Randompassword();
-                    u.Password = HashPassword.Hash(PasswordRamdom);
+                    string haspass = HashPassword.Hash(PasswordRamdom);
+                    u.Password = haspass;
+                    u.Code = haspass;
                     db.SaveChanges();
                     Mess = "Mật khẩu này chỉ dùng được 1 lần sau khi đăng nhập";
                 }

@@ -68,9 +68,7 @@ namespace Manager_Medias.ViewModels.Guest
 
         private void forgetPassword(object[] obj)
         {
-            //_navigationStore.ContentViewModel = new ForgetPasswordViewModel();
                 _userStore = null;
-                _navigationStore.CurrentViewModel = new GuestMainViewModel();
                 _navigationStore.ContentViewModel = new ForgetPasswordViewModel();
         }
 
@@ -81,46 +79,12 @@ namespace Manager_Medias.ViewModels.Guest
             //{
             //    return;
             //}
-
-            //User currentUser;
-            //using (var db = new MediasManangementEntities())
-            //{
-            //    currentUser = db.Users.Where(p => p.Email == Email).FirstOrDefault() as User;
-            //}
-
-            //if (currentUser != null)
-            //{
-            //    bool compare = HashPassword.ComparePassword(Password, currentUser.Password);
-
-            //    Error = !compare ? "Mật khẩu không đúng" : null;
-
-            //    UserStore userStore = new UserStore(currentUser);
-            //    if (currentUser.Level == null)
-            //    {
-            //        _navigationStore.ContentViewModel = new GuestLevelRegisterViewModel(currentUser, _navigationStore);
-            //    }
-            //    else if (currentUser.NumberCard == null)
-            //    {
-            //        _navigationStore.ContentViewModel = new GuestCartRegisterViewModel(currentUser, _navigationStore);
-            //    }
-            //    else
-            //    {
-            //        _navigationStore.CurrentViewModel = new MainLayoutViewModel(userStore, _navigationStore);
-            //        _navigationStore.ContentViewModel = new HomeMovieViewModel(_navigationStore);
-            //    }
-            //}
-            //else
-            //{
-            //    Error = "Tài khoản không tồn tại";
-            //    return;
-            //}
             IsLoading = true;
-
-            User user = await Task.Run(() =>
+            User currentUser = await Task.Run(() =>
             {
                 using (var db = new MediasManangementEntities())
                 {
-                    return db.Users.Single(u => u.Email == "nghiadx2001@gmail.c");
+                    return db.Users.Where(p => p.Email == Email).FirstOrDefault() as User;
                 }
             }).ContinueWith((task) =>
             {
@@ -129,14 +93,69 @@ namespace Manager_Medias.ViewModels.Guest
                 return task.Result;
             }).ConfigureAwait(false);
 
-            Application.Current.Dispatcher.Invoke(() =>
+            if (currentUser != null)
             {
-                _userStore = new UserStore(user);
-                _navigationStore.CurrentViewModel = new MainLayoutViewModel();
-                _navigationStore.ContentViewModel = new HomeViewModel();
-                //_navigationStore.ContentViewModel = new GuestSetNewPasswordViewModel();
+                bool compare = HashPassword.ComparePassword(Password, currentUser.Password);
 
-            });
+                Error = !compare ? "Mật khẩu không đúng" : null;
+                if(compare == true)
+                {
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        _userStore = new UserStore(currentUser);
+                        if (currentUser.Code != null)
+                        {
+                            _navigationStore.ContentViewModel = new GuestSetNewPasswordViewModel();
+                        }else if (currentUser.Level == null)
+                        {
+                            _navigationStore.ContentViewModel = new GuestLevelRegisterViewModel(currentUser);
+                        }
+                        else if (currentUser.NumberCard == null)
+                        {
+                            _navigationStore.ContentViewModel = new GuestCartRegisterViewModel(currentUser);
+                        }
+                        else
+                        {
+                            _navigationStore.CurrentViewModel = new MainLayoutViewModel();
+                            _navigationStore.ContentViewModel = new HomeViewModel();
+                        }
+                    });
+                }
+                else
+                {
+                    Error = "Mật khẩu không chính xác";
+                    return;
+                }
+                
+            }
+            else
+            {
+                Error = "Tài khoản không tồn tại";
+                return;
+            }
+
+            //User user = await Task.Run(() =>
+            //{
+            //    using (var db = new MediasManangementEntities())
+            //    {
+            //        return db.Users.Where(p => p.Email == Email).FirstOrDefault() as User;
+            //    }
+            //}).ContinueWith((task) =>
+            //{
+            //    IsLoading = false;
+
+            //    return task.Result;
+            //}).ConfigureAwait(false);
+
+
+            //Application.Current.Dispatcher.Invoke(() =>
+            //{
+            //    _userStore = new UserStore(user);
+            //    _navigationStore.CurrentViewModel = new MainLayoutViewModel();
+            //    _navigationStore.ContentViewModel = new HomeViewModel();
+            //    //_navigationStore.ContentViewModel = new GuestSetNewPasswordViewModel();
+
+            //});
 
             //_navigationStore.ContentViewModel = new DetailAudioViewModel(1);
         }

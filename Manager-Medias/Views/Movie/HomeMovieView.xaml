@@ -162,18 +162,29 @@
         <DataTemplate DataType="{x:Type model:Movie}" x:Key="carouselItemDefault">
             <Grid Margin="3 1" Height="117">
                 <Image Width="230"
-                        Source="{Binding Poster, Converter={StaticResource imageCvt}}" Stretch="Fill" />
+                        Source="{Binding Poster, Converter={StaticResource imageCvt}}" Stretch="UniformToFill" />
             </Grid>
         </DataTemplate>
 
         <!--template khi đã hover-->
         <DataTemplate DataType="{x:Type model:Movie}" x:Key="carouselItemMouse">
             <Grid Margin="3 1" Name="gDatatemplate"
-                  Height="117">
-                <Image Width="230" Panel.ZIndex="1"
-                        Source="{Binding Poster, Converter={StaticResource imageCvt}}" Stretch="Fill" />
+                  Height="117"
+                  MouseEnter="gDatatemplate_MouseEnter"
+                  MouseLeave="gDatatemplate_MouseLeave">
+                <Image Width="230"
+                       Source="{Binding Poster, Converter={StaticResource imageCvt}}" Stretch="UniformToFill"
+                       Opacity="1"
+                       Name="VideoPoster" />
+                <MediaElement Name="VideoPreview" Width="230" Panel.ZIndex="1"
+                              Source="{Binding Video, Converter={StaticResource imageCvt}}"
+                              Stretch="Fill"
+                              LoadedBehavior="Manual"
+                              UnloadedBehavior="Manual"
+                              Opacity="0">
+                </MediaElement>
 
-                <Border Background="Black" Opacity=".5" Panel.ZIndex="2" />
+                <Border Background="Black" Opacity=".2" Panel.ZIndex="2" />
 
                 <StackPanel Panel.ZIndex="3" VerticalAlignment="Bottom" Margin="5">
                     <materialDesign:PackIcon Kind="PlayCircleOutline" Width="26" Height="26"
@@ -230,6 +241,18 @@
                                 <DoubleAnimation Duration="0:0:0.2" To="1.2" />
                             </Storyboard>
                         </BeginStoryboard>
+                        <BeginStoryboard>
+                            <Storyboard Storyboard.TargetProperty="Opacity"
+                                        Storyboard.TargetName="VideoPreview">
+                                <DoubleAnimation Duration="0:0:0.5" To="1" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                        <BeginStoryboard>
+                            <Storyboard Storyboard.TargetProperty="Opacity"
+                                        Storyboard.TargetName="VideoPoster">
+                                <DoubleAnimation Duration="0:0:0.5" To="0" />
+                            </Storyboard>
+                        </BeginStoryboard>
                     </EventTrigger>
                     <EventTrigger RoutedEvent="MouseLeave">
                         <BeginStoryboard>
@@ -242,6 +265,18 @@
                                 <DoubleAnimation Duration="0:0:0.2" To="1" />
                             </Storyboard>
                         </BeginStoryboard>
+                        <BeginStoryboard>
+                            <Storyboard Storyboard.TargetProperty="Opacity"
+                                        Storyboard.TargetName="VideoPreview">
+                                <DoubleAnimation Duration="0:0:0.2" To="0" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                        <BeginStoryboard>
+                            <Storyboard Storyboard.TargetProperty="Opacity"
+                                        Storyboard.TargetName="VideoPoster">
+                                <DoubleAnimation Duration="0:0:0.2" To="1" />
+                            </Storyboard>
+                        </BeginStoryboard>
                     </EventTrigger>
                 </Grid.Triggers>
             </Grid>
@@ -251,23 +286,23 @@
         <DataTemplate DataType="{x:Type model:Movie}" x:Key="carouselItemNotEnoughLv">
             <Grid Margin="3 1" Height="117">
                 <Image Width="230"
-                        Panel.ZIndex="1"
-                    Source="{Binding Poster, Converter={StaticResource imageCvt}}" Stretch="Fill" />
+                    Panel.ZIndex="1"
+                    Source="{Binding Poster, Converter={StaticResource imageCvt}}" Stretch="UniformToFill" />
 
                 <Border Background="Black" Opacity=".6" Panel.ZIndex="2" />
-                <StackPanel Panel.ZIndex="3" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <StackPanel Panel.ZIndex="3" HorizontalAlignment="Center" VerticalAlignment="Top">
                     <materialDesign:PackIcon Kind="Alert"
                                              Foreground="{DynamicResource SecondaryAccentBrush}"
                                              Width="26"
                                              Height="26"
                                              HorizontalAlignment="Center"
                                              Margin="0 12 0 0" />
-                    <TextBlock Text="Vui lòng nâng cấp tài khoản để xem"
+                    <TextBlock Text="{Binding Media.Level.Name, StringFormat='{}Yêu cầu tài khoản cấp {0} để xem' }"
                                Foreground="#fff"
                                HorizontalAlignment="Center"
                                VerticalAlignment="Center"
                                TextWrapping="Wrap"
-                               Width="160"
+                               Width="190"
                                FontSize="17"
                                Margin="0 12 0 0" />
                 </StackPanel>
@@ -489,10 +524,10 @@
                                                     <TextBlock Text="{Binding ElementName=lb_carousel, Path=SelectedItem.Name}"
                                                            FontSize="30"
                                                            Foreground="#fff"
-                                                           FontWeight="DemiBold" 
+                                                           FontWeight="DemiBold"
                                                                TextWrapping="Wrap"
                                                                TextAlignment="Center"
-                                                               Padding="4 0"/>
+                                                               Padding="4 0" />
                                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom"
                                                                 Margin="0 4">
                                                         <Border
@@ -520,7 +555,7 @@
                                                            Padding="6 0 0 0"
                                                            Foreground="#fff"
                                                            FontSize="14"
-                                                           HorizontalAlignment="Center" DockPanel.Dock="Top"/>
+                                                           HorizontalAlignment="Center" DockPanel.Dock="Top" />
 
                                                 <!--Mô tả phim-->
                                                 <TextBlock DockPanel.Dock="Top"
@@ -529,9 +564,9 @@
                                                             Foreground="#FFC9C9C9"
                                                            Padding="8 15"
                                                            FontSize="14"
-                                                           HorizontalAlignment="Center" 
-                                                           TextWrapping="Wrap"/>
- 
+                                                           HorizontalAlignment="Center"
+                                                           TextWrapping="Wrap" />
+
                                                 <Button DockPanel.Dock="Bottom"
                                                     VerticalAlignment="Bottom"
                                                     Margin="6 16"

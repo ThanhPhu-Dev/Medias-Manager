@@ -141,13 +141,14 @@ namespace Manager_Medias.ViewModels.Guest
             //}).ConfigureAwait(false);
 
 
-            //Application.Current.Dispatcher.Invoke(() =>
-            //{
-            //    _userStore = new UserStore(user);
-            //    _navigationStore.CurrentViewModel = new MainLayoutViewModel();
-            //    _navigationStore.ContentViewModel = new HomeViewModel();
-            //});
-            _navigationStore.ContentViewModel = new GuestSetNewPasswordViewModel();
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                _userStore = new UserStore(user);
+                _navigationStore.CurrentViewModel = new MainLayoutViewModel();
+                _navigationStore.ContentViewModel = new HomeViewModel();
+                //_navigationStore.ContentViewModel = new GuestSetNewPasswordViewModel();
+
+            });
 
             //_navigationStore.ContentViewModel = new DetailAudioViewModel(1);
         }

@@ -1,4 +1,5 @@
 ﻿using Manager_Medias.Commands;
+using Manager_Medias.Functions;
 using Manager_Medias.Models;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,9 @@ namespace Manager_Medias.ViewModels.Admin
         public static readonly DependencyProperty ProfileListProperty;
         public static readonly DependencyProperty ProfileProperty;
 
+        //public static readonly DependencyProperty RolesListProperty;
+        //public static readonly DependencyProperty RolesProperty;
+
 
         public ICommand CmdAddUser { get; }
         static AdminViewVM()
@@ -30,11 +34,17 @@ namespace Manager_Medias.ViewModels.Admin
             ProfileListProperty = DependencyProperty.Register("ProfileList",
                                 typeof(ListCollectionView), typeof(AdminViewVM));
 
+            //RolesListProperty = DependencyProperty.Register("RolesList",
+            //                   typeof(ListCollectionView), typeof(AdminViewVM));
+
             UserProperty = DependencyProperty.Register("User",
                             typeof(User), typeof(AdminViewVM));
 
             ProfileProperty = DependencyProperty.Register("Profile",
                             typeof(Profile), typeof(AdminViewVM));
+
+            //RolesProperty = DependencyProperty.Register("Role",
+            //                typeof(Role), typeof(AdminViewVM));
         }
 
         public ListCollectionView UserList
@@ -48,7 +58,16 @@ namespace Manager_Medias.ViewModels.Admin
             get => (ListCollectionView)GetValue(ProfileListProperty);
             set => SetValue(ProfileListProperty, value);
         }
-
+        //public ListCollectionView RolesList
+        //{
+        //    get => (ListCollectionView)GetValue(RolesListProperty);
+        //    set => SetValue(RolesListProperty, value);
+        //}
+        //public Role Role
+        //{
+        //    get => (Role)GetValue(RolesProperty);
+        //    set => SetValue(RolesProperty, value);
+        //}
         public User User
         {
             get => (User)GetValue(UserProperty);
@@ -67,10 +86,21 @@ namespace Manager_Medias.ViewModels.Admin
 
             using (var db = new MediasManangementEntities())
             {
-                UserList = new ListCollectionView(db.Users.ToList());
+                UserList = new ListCollectionView(db.Users.Where(u => u.roleId == 1).ToList());
+                //RolesList = new ListCollectionView(db.Roles.ToList());
             }
 
-
+            //RolesList.CurrentChanged += (_obj2, e3) =>
+            //{
+            //    var RoleCurrent = RolesList.CurrentItem as Role;
+            //    if (RoleCurrent == null)
+            //        return;
+            //    Role = new Role
+            //    {
+            //        Id = RoleCurrent.Id,
+            //        Name = RoleCurrent.Name,
+            //    };
+            //};
             UserList.CurrentChanged += (_, e) =>
             {
                 var UserCurrent = UserList.CurrentItem as User;
@@ -83,6 +113,7 @@ namespace Manager_Medias.ViewModels.Admin
                     Level = UserCurrent.Level,
                     Code = UserCurrent.Code,
                     NumberCard = UserCurrent.NumberCard,
+                    roleId = UserCurrent.roleId,
                 };
 
                 using (var db = new MediasManangementEntities())
@@ -112,35 +143,27 @@ namespace Manager_Medias.ViewModels.Admin
         {
             using (var db = new MediasManangementEntities())
             {
+                var a = db.Users.Find(User.Email);
+                
+                if (a != null)
+                {
+                    MessageBox.Show("Email đã tồn tại!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }    
+                   
+                var passWord = HashPassword.Hash(User.Password);
                 var NewUser = new User
                 {
                     Email = User.Email,
-                    Code = User.Code,
                     NumberCard = User.NumberCard,
                     Level = User.Level,
                     Exp = "0/20",
-                    Password = User.Password,
+                    Password = passWord,
                 };
 
                 db.Users.Add(NewUser);
-                try
-                {
-                    db.SaveChanges();
-                }
-                catch (DbEntityValidationException e)
-                {
-                    foreach (var eve in e.EntityValidationErrors)
-                    {
-                        Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                            eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                        foreach (var ve in eve.ValidationErrors)
-                        {
-                            Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-                                ve.PropertyName, ve.ErrorMessage);
-                        }
-                    }
-                    throw;
-                }
+
+                int count = db.SaveChanges();
 
                 UserList.AddNewItem(NewUser);
 
@@ -161,8 +184,16 @@ namespace Manager_Medias.ViewModels.Admin
                 };
 
                 db.Profiles.Add(NewProfile);
-                
-                db.SaveChanges();
+
+                count = count + db.SaveChanges();
+                if(count > 1)
+                {
+                    MessageBox.Show("Thêm người dùng thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Thêm người dùng không thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
 
                 ProfileList.AddNewItem(NewProfile);
 

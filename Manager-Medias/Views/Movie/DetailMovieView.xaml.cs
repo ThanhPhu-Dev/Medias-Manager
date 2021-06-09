@@ -142,7 +142,10 @@ namespace Manager_Medias.Views.Movie
 
         private void mea_video_Unloaded(object sender, RoutedEventArgs e)
         {
-            seeker.Stop();
+            if (seeker != null && seeker.IsEnabled)
+            {
+                seeker.Stop();
+            }
         }
     }
 }

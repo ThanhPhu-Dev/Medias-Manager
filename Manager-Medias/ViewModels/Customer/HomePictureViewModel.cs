@@ -16,10 +16,12 @@ namespace Manager_Medias.ViewModels.Customer
     {
         public static readonly DependencyProperty AlbumProperty =
             DependencyProperty.Register("AlbumList", typeof(ObservableCollection<Album>), typeof(HomePictureViewModel));
+
         public ICommand CmdToDetailMovie { get; set; }
 
         //command like và lưu
         public ICommand CmdLike { get; set; }
+
         public ICommand CmdSave { get; set; }
         public ICommand CmdSelectionChange { get; set; }
         public int _currentProfileID;
@@ -60,6 +62,7 @@ namespace Manager_Medias.ViewModels.Customer
                 OnPropertyChanged();
             }
         }
+
         public bool ToggleButton
         {
             get => _toggleButton;
@@ -85,12 +88,14 @@ namespace Manager_Medias.ViewModels.Customer
         public HomePictureViewModel()
         {
             _currentProfileID = _userStore.CurrentProfile.Id;
-            
+
             //gọi hàm load giao diện
             using (var db = new MediasManangementEntities())
             {
                 AlbumList = new ObservableCollection<Album>(db.Albums.Include("Album_Details")
-                                                                     .Include("Media").ToList());
+                                                                     .Include("Media")
+                                                                     .Include("Media.Level")
+                                                                     .ToList());
             }
 
             //gán 2 nút like save Isnable
@@ -118,6 +123,7 @@ namespace Manager_Medias.ViewModels.Customer
             CmdSave = new RelayCommand<object>(Savemt);
             CmdSelectionChange = new RelayCommand<object>(SelectionChangemt);
         }
+
         public void CreateHistory()
         {
             using (var db = new MediasManangementEntities())
@@ -136,6 +142,7 @@ namespace Manager_Medias.ViewModels.Customer
                 this.historyID = ht.Id;
             }
         }
+
         private void SelectionChangemt(object obj)
         {
             var lb = (ListBox)obj;
@@ -159,10 +166,11 @@ namespace Manager_Medias.ViewModels.Customer
                     ToggleButton = true;
                 }
                 this.id = selected.Id;
-                //tạo lịch sử đã xem 
+                //tạo lịch sử đã xem
                 CreateHistory();
             }
         }
+
         private void LoadSelectedAlbum()
         {
             using (var db = new MediasManangementEntities())
@@ -176,7 +184,9 @@ namespace Manager_Medias.ViewModels.Customer
             using (var db = new MediasManangementEntities())
             {
                 AlbumList = new ObservableCollection<Album>(db.Albums.Include("Album_Details")
-                                                                     .Include("Media").ToList());
+                                                                     .Include("Media")
+                                                                     .Include("Media.Level")
+                                                                     .ToList());
             }
         }
 

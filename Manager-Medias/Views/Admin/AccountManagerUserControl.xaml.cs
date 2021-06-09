@@ -94,7 +94,8 @@ namespace Manager_Medias.Views.Admin
 
         private void btAddUser_Click(object sender, RoutedEventArgs e)
         {
-            txtbCodeAdd.Text = "";
+            //cbRoles.SelectedIndex = 0;
+
             txtbEmailAdd.Text = "";
             txtbLevelAdd.Text = "";
             txtbNumCardAdd.Text = "";

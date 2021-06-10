@@ -246,7 +246,8 @@
                 </StackPanel>
             </ScrollViewer>
         </Border>
-        <ContentControl Grid.Column="1" Content="{Binding ContentAccountViewModel}">
+        <ContentControl Grid.Column="1" Content="{Binding ContentAccountViewModel}"
+                        Validation.ErrorTemplate="{StaticResource ContentControlErrorTemplate}">
             <ContentControl.Resources>
                 <DataTemplate DataType="{x:Type vm:AccountManagerViewModel}">
                     <local:AccountManagerView />

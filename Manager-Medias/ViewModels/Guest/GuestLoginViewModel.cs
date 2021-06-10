@@ -4,6 +4,7 @@ using Manager_Medias.Models;
 using Manager_Medias.Stores;
 using Manager_Medias.Validates;
 using Manager_Medias.ViewModels.Customer;
+using Manager_Medias.Views.Admin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -68,8 +69,8 @@ namespace Manager_Medias.ViewModels.Guest
 
         private void forgetPassword(object[] obj)
         {
-                _userStore = null;
-                _navigationStore.ContentViewModel = new ForgetPasswordViewModel();
+            _userStore = null;
+            _navigationStore.ContentViewModel = new ForgetPasswordViewModel();
         }
 
         public async void ActionLogin(object[] values)
@@ -84,7 +85,8 @@ namespace Manager_Medias.ViewModels.Guest
             {
                 using (var db = new MediasManangementEntities())
                 {
-                    return db.Users.Where(p => p.Email == Email).FirstOrDefault() as User;
+                    return db.Users.Include("Role")
+                                   .Where(p => p.Email == Email).FirstOrDefault() as User;
                 }
             }).ContinueWith((task) =>
             {
@@ -98,15 +100,24 @@ namespace Manager_Medias.ViewModels.Guest
                 bool compare = HashPassword.ComparePassword(Password, currentUser.Password);
 
                 Error = !compare ? "Mật khẩu không đúng" : null;
-                if(compare == true)
+                if (compare == true)
                 {
                     Application.Current.Dispatcher.Invoke(() =>
                     {
+                        if (currentUser.Role.Name.ToLower() == "admin")
+                        {
+                            DashboardAdmin MainAdminView = new DashboardAdmin();
+                            Application.Current.MainWindow.Close();
+                            Application.Current.MainWindow = MainAdminView;
+                            MainAdminView.Show();
+                        }
+
                         _userStore = new UserStore(currentUser);
                         if (currentUser.Code != null)
                         {
                             _navigationStore.ContentViewModel = new GuestSetNewPasswordViewModel();
-                        }else if (currentUser.Level == null)
+                        }
+                        else if (currentUser.Level == null)
                         {
                             _navigationStore.ContentViewModel = new GuestLevelRegisterViewModel(currentUser);
                         }
@@ -126,7 +137,6 @@ namespace Manager_Medias.ViewModels.Guest
                     Error = "Mật khẩu không chính xác";
                     return;
                 }
-                
             }
             else
             {
@@ -146,7 +156,6 @@ namespace Manager_Medias.ViewModels.Guest
 
             //    return task.Result;
             //}).ConfigureAwait(false);
-
 
             //Application.Current.Dispatcher.Invoke(() =>
             //{

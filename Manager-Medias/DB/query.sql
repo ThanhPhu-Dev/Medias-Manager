@@ -254,14 +254,15 @@ update Medias set Lvl = 2 where Id = 25
 update Medias set Lvl = 2 where Id = 31
 update Medias set Lvl = 3 where Id = 28
 --Insert user 
-INSERT INTO Users VALUES ('nghiadx2001@gmail.c', '123', 1, 'CDCD', '362')
+INSERT INTO Users VALUES ('thongars22222@gmail.com', '123abc', 1, 'CDCD', '7352222288839364', '10/20', 2)
 INSERT INTO Users (Email, Password) VALUES ('1@gmail.c', '123')
 Insert into Users(Email,Password,NumberCard,Level)values ('user@gmail.com', 'G9BBbVflIID4fJFh4ljRqrOgtzA33ztt4q474rYmz8IhcOqD', '1253871235', 1) 
 
 --insert profile
+
 INSERT INTO Profiles (Email, Name) VALUES ('nghiadx2001@gmail.c', N'Nguyễn H Nghĩa')
 insert into profiles(Email,Name,Status) values ('user@gmail.com', '5 coder bị đơ', 1)
-
+insert into profiles(Email,Name,Status) values ('nghiadx22222@gmail.com', 'Thêm được không', 1)
 --MEDIA_CAT// chỉ có 3 cái thui, không thêm- sửa -xóa nữa
 INSERT INTO Media_Categories (Name) VALUES (N'Hinh Ảnh'), (N'Phim'), (N'Âm Nhạc')
 

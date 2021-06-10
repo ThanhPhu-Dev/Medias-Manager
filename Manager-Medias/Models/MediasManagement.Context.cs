@@ -19,7 +19,7 @@ namespace Manager_Medias.Models
             : base("name=MediasManangementEntities")
         {
         }
-    
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();

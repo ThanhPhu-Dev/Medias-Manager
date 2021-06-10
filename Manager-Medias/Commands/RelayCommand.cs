@@ -13,6 +13,7 @@ namespace Manager_Medias.Commands
 
         private readonly Action<T> _execute = null;
         private readonly Predicate<T> _canExecute = null;
+        private ICommand viewModelLoaded;
 
         #endregion Fields
 
@@ -40,6 +41,11 @@ namespace Manager_Medias.Commands
 
             _execute = execute;
             _canExecute = canExecute;
+        }
+
+        public RelayCommand(ICommand viewModelLoaded)
+        {
+            this.viewModelLoaded = viewModelLoaded;
         }
 
         #endregion Constructors

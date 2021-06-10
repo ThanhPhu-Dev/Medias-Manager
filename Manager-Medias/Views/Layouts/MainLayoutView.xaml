@@ -433,7 +433,7 @@
         <Canvas Panel.ZIndex="100">
             <Grid x:Name="Sidebar"
                   Background="#000"
-                  Height="650"
+                  Height="{Binding ElementName=Container, Path=ActualHeight}"
                   Width="0"
                   Canvas.Left="0"
                   Canvas.Top="0"
@@ -441,8 +441,14 @@
                 <ScrollViewer HorizontalScrollBarVisibility="Disabled"
                               VerticalScrollBarVisibility="Disabled"
                               Padding="0 0 0 40">
-                    <StackPanel Margin="10 0">
-                        <DockPanel HorizontalAlignment="Stretch">
+                    <Grid Margin="10 0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="58" />
+                            <RowDefinition Height="12" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="40" />
+                        </Grid.RowDefinitions>
+                        <DockPanel Grid.Row="0" HorizontalAlignment="Stretch">
                             <Button DockPanel.Dock="Left"
                                     Margin="20 20 0 0"
                                     Height="32"
@@ -472,103 +478,109 @@
                                                          HorizontalAlignment="Right" />
                             </Button>
                         </DockPanel>
-                        <Separator Margin="0 10 0 0"
-                                   Foreground="#fff" />
-                        <StackPanel x:Name="SidebarList">
-                            <Button Margin="0 10 0 10"
+                        <Separator Foreground="#fff"
+                                   Grid.Row="1" />
+                        <Grid Grid.Row="2">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="244" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <StackPanel x:Name="SidebarList"
+                                        Grid.Row="0">
+                                <Button Margin="0 10 0 10"
                                     Padding="20 4"
                                     Style="{StaticResource SidebarButton}"
                                     Command="{Binding PictureCmd}">
-                                <StackPanel Orientation="Horizontal">
-                                    <materialDesign:PackIcon Kind="ImageOutline"
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon Kind="ImageOutline"
                                                              Foreground="#febb00"
                                                              HorizontalAlignment="Center"
                                                              VerticalAlignment="Center" />
-                                    <Label Content="Hình ảnh"
+                                        <Label Content="Hình ảnh"
                                            Foreground="#fff" />
-                                </StackPanel>
-                                <Button.Triggers>
-                                    <EventTrigger RoutedEvent="Button.Click">
-                                        <BeginStoryboard Storyboard="{StaticResource CloseSidebar}" />
-                                        <BeginStoryboard Storyboard="{StaticResource CloseModal}" />
-                                    </EventTrigger>
-                                </Button.Triggers>
-                            </Button>
-                            <Button Margin="0 10 0 10"
+                                    </StackPanel>
+                                    <Button.Triggers>
+                                        <EventTrigger RoutedEvent="Button.Click">
+                                            <BeginStoryboard Storyboard="{StaticResource CloseSidebar}" />
+                                            <BeginStoryboard Storyboard="{StaticResource CloseModal}" />
+                                        </EventTrigger>
+                                    </Button.Triggers>
+                                </Button>
+                                <Button Margin="0 10 0 10"
                                     Padding="20 4"
                                     Style="{StaticResource SidebarButton}"
                                     Command="{Binding AudioCmd}">
-                                <StackPanel Orientation="Horizontal">
-                                    <materialDesign:PackIcon Kind="PlaylistMusic"
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon Kind="PlaylistMusic"
                                                              Foreground="#febb00"
                                                              HorizontalAlignment="Center"
                                                              VerticalAlignment="Center" />
-                                    <Label Content="Âm thanh"
+                                        <Label Content="Âm thanh"
                                            Foreground="#fff" />
-                                </StackPanel>
-                                <Button.Triggers>
-                                    <EventTrigger RoutedEvent="Button.Click">
-                                        <BeginStoryboard Storyboard="{StaticResource CloseSidebar}" />
-                                        <BeginStoryboard Storyboard="{StaticResource CloseModal}" />
-                                    </EventTrigger>
-                                </Button.Triggers>
-                            </Button>
-                            <Button Margin="0 10 0 10"
+                                    </StackPanel>
+                                    <Button.Triggers>
+                                        <EventTrigger RoutedEvent="Button.Click">
+                                            <BeginStoryboard Storyboard="{StaticResource CloseSidebar}" />
+                                            <BeginStoryboard Storyboard="{StaticResource CloseModal}" />
+                                        </EventTrigger>
+                                    </Button.Triggers>
+                                </Button>
+                                <Button Margin="0 10 0 10"
                                     Padding="20 4"
                                     Style="{StaticResource SidebarButton}"
                                     Command="{Binding MovieCmd}">
-                                <StackPanel Orientation="Horizontal">
-                                    <materialDesign:PackIcon Kind="MovieOutline"
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon Kind="MovieOutline"
                                                              Foreground="#febb00"
                                                              HorizontalAlignment="Center"
                                                              VerticalAlignment="Center" />
-                                    <Label Content="Phim"
+                                        <Label Content="Phim"
                                            Foreground="#fff" />
-                                </StackPanel>
-                                <Button.Triggers>
-                                    <EventTrigger RoutedEvent="Button.Click">
-                                        <BeginStoryboard Storyboard="{StaticResource CloseSidebar}" />
-                                        <BeginStoryboard Storyboard="{StaticResource CloseModal}" />
-                                    </EventTrigger>
-                                </Button.Triggers>
-                            </Button>
-                            <StackPanel x:Name="SubSidebar"
-                                        Margin="38 4 20 0">
-                                <ListView ItemsSource="{Binding MovieCategories}"
-                                          HorizontalAlignment="Stretch"
-                                          VerticalAlignment="Stretch"
-                                          HorizontalContentAlignment="Stretch"
-                                          VerticalContentAlignment="Stretch"
-                                          Height="270"
-                                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                          ScrollViewer.VerticalScrollBarVisibility="Auto">
-                                    <ListView.ItemsPanel>
-                                        <ItemsPanelTemplate>
-                                            <VirtualizingStackPanel />
-                                        </ItemsPanelTemplate>
-                                    </ListView.ItemsPanel>
-                                    <ListView.ItemTemplate>
-                                        <DataTemplate>
-                                            <Button Content="{Binding Name}"
+                                    </StackPanel>
+                                    <Button.Triggers>
+                                        <EventTrigger RoutedEvent="Button.Click">
+                                            <BeginStoryboard Storyboard="{StaticResource CloseSidebar}" />
+                                            <BeginStoryboard Storyboard="{StaticResource CloseModal}" />
+                                        </EventTrigger>
+                                    </Button.Triggers>
+                                </Button>
+                            </StackPanel>
+                            <ListView x:Name="SubSidebar"
+                                    ItemsSource="{Binding MovieCategories}"
+                                    Margin="38 4 20 0"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Top"
+                                    HorizontalContentAlignment="Stretch"
+                                    VerticalContentAlignment="Stretch"
+                                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                    ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                      Grid.Row="1">
+                                <ListView.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <VirtualizingStackPanel />
+                                    </ItemsPanelTemplate>
+                                </ListView.ItemsPanel>
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Button Content="{Binding Name}"
                                                     Style="{StaticResource SubSidebarButton}"
                                                     FontSize="14"
                                                     Foreground="#fff"
                                                     Command="{Binding DataContext.MovieByCatCmd, RelativeSource={RelativeSource Mode=FindAncestor,
                                                                 AncestorType={x:Type local:MainLayoutView}}}"
                                                     CommandParameter="{Binding Id}">
-                                                <Button.Triggers>
-                                                    <EventTrigger RoutedEvent="Button.Click">
-                                                        <BeginStoryboard Storyboard="{StaticResource CloseSidebar}" />
-                                                        <BeginStoryboard Storyboard="{StaticResource CloseModal}" />
-                                                    </EventTrigger>
-                                                </Button.Triggers>
-                                            </Button>
-                                        </DataTemplate>
-                                    </ListView.ItemTemplate>
-                                </ListView>
-                            </StackPanel>
-                        </StackPanel>
-                    </StackPanel>
+                                            <Button.Triggers>
+                                                <EventTrigger RoutedEvent="Button.Click">
+                                                    <BeginStoryboard Storyboard="{StaticResource CloseSidebar}" />
+                                                    <BeginStoryboard Storyboard="{StaticResource CloseModal}" />
+                                                </EventTrigger>
+                                            </Button.Triggers>
+                                        </Button>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </Grid>
+                    </Grid>
                 </ScrollViewer>
             </Grid>
             <Grid x:Name="Modal"
@@ -614,9 +626,8 @@
                 <DataTemplate DataType="{x:Type viewmodels:PaymentViewModels}">
                     <vprofile:PaymentView />
                 </DataTemplate>
-                
             </Grid.Resources>
-            <ContentControl Content="{Binding ContentViewModel}" />
+            <ContentControl Content="{Binding ContentViewModel}" Validation.ErrorTemplate="{StaticResource ContentControlErrorTemplate}" />
         </Grid>
         <view:LoadingUC IsLoading="{Binding IsLoading}" />
     </Grid>

@@ -17,7 +17,6 @@
         <!--ERROR TEMPLATE-->
         <ControlTemplate x:Key="TextBoxErrorTemplate">
             <StackPanel>
-                <!-- Placeholder for the DataGridTextColumn itself -->
                 <AdornedElementPlaceholder />
                 <ItemsControl ItemsSource="{Binding}">
                     <ItemsControl.ItemTemplate>

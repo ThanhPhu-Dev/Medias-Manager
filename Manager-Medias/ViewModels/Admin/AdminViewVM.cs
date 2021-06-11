@@ -390,6 +390,10 @@ namespace Manager_Medias.ViewModels.Admin
 
                 ProfileList.AddNewItem(NewProfile);
 
+                ProfileList.CommitNew();
+                ProfileList.CancelNew();
+                ProfileList.CancelEdit();
+                
 
             }
         }

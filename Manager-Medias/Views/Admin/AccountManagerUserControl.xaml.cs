@@ -237,5 +237,48 @@ namespace Manager_Medias.Views.Admin
         {
             searchTb.Text = "";
         }
+
+        private void btSearch_Click(object sender, RoutedEventArgs e)
+        {
+            //TextBox t = (TextBox)sender;
+            var checkedValue = levelPanel1.Children.OfType<RadioButton>()
+                             .FirstOrDefault(r => r.IsChecked.HasValue && r.IsChecked.Value);
+            if(checkedValue == null)
+            {
+                checkedValue = levelPanel2.Children.OfType<RadioButton>()
+                             .FirstOrDefault(r => r.IsChecked.HasValue && r.IsChecked.Value);
+            }
+            int filterLevel = int.Parse(checkedValue.Tag.ToString());
+            int filterRole = cbSearchRole.SelectedIndex + 1;
+
+            this.UsersDg.CommitEdit();
+            //this.UsersDg.CommitEdit();
+
+            //this.UsersDg.CancelEdit();
+            this.UsersDg.CancelEdit();
+            ICollectionView cv = CollectionViewSource.GetDefaultView(UsersDg.ItemsSource);
+            if (filterRole == 3 && filterLevel == 0)
+                cv.Filter = null;
+            else
+            {
+                
+                cv.Filter = o =>
+                {
+                    User p = o as User;
+                    if (filterLevel == 0)
+                    {
+                        return (p.roleId == filterRole);
+                    }
+                    if(filterRole == 3)
+                    {
+                        return (p.Level == filterLevel);
+                    }
+
+                    return (p.roleId == filterRole) && (p.Level == filterLevel);
+                };
+                
+
+            }
+        }
     }
 }

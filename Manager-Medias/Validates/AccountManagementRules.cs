@@ -88,7 +88,7 @@ namespace Manager_Medias.Validates
                     return new ValidationResult(false, "Hãy nhập số thẻ!");
                 }
 
-                if (((string)value).Length < 16)
+                if (((string)value).Length != 16)
                 {
                     return new ValidationResult(false, "Số thẻ phải có 16 ký tự!");
                 }

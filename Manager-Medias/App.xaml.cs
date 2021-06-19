@@ -21,7 +21,6 @@ namespace Manager_Medias
     {
         protected override void OnStartup(StartupEventArgs e)
         {
-            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("NDUwNjgwQDMxMzkyZTMxMmUzMEFCRUZSUzU4RGNhTGo0eHkvMW9YYVJkMUd5UXhxbTdaNTdtSFFJSS84dlU9");
             // Init location
             NavigationStore navigationStore = new NavigationStore();
             LoadingServices ls = new LoadingServices();

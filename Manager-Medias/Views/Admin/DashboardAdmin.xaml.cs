@@ -83,6 +83,7 @@ namespace Manager_Medias.Views.Admin
         {
             mainGrid.Children.Clear();
             mainGrid.Children.Add(new MediaManagementUserControl());
+
         }
     }
 }

@@ -9,10 +9,10 @@ using System.Windows.Controls;
 
 namespace Manager_Medias.Validates
 {
-    class ValidateEmail : ValidationRule
+    internal class ValidateEmail : ValidationRule
     {
+        private Regex rg = new Regex(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$");
 
-        Regex rg = new Regex(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$");
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             if (!(value is string Name))
@@ -27,7 +27,7 @@ namespace Manager_Medias.Validates
 
             if (!rg.IsMatch(Name.ToString()))
             {
-                return new ValidationResult(false, "Đinh dạng mail không đúng");
+                return new ValidationResult(false, "Định dạng email không đúng");
             }
 
             return ValidationResult.ValidResult;

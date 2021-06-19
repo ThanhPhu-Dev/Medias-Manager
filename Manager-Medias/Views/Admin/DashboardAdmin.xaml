@@ -8,9 +8,11 @@
         mc:Ignorable="d"
         Title="DashboardAdmin" Height="740" Width="1090" 
         Loaded="Window_Loaded"
+        xmlns:cvt="clr-namespace:Manager_Medias.Converters"
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None">
     <Window.Resources>
-        <ResourceDictionary>
+        <cvt:ConvertImage x:Key="imageCvt" />
+        <ResourceDictionary x:Key="validationRsD">
             <Style x:Key="ScrollThumbs" TargetType="{x:Type Thumb}">
                 <Setter Property="Template">
                     <Setter.Value>
@@ -31,6 +33,7 @@
             </Style>
 
             <!--ScrollBars-->
+            <!--
             <Style x:Key="{x:Type ScrollBar}" TargetType="{x:Type ScrollBar}">
                 <Setter Property="Stylus.IsFlicksEnabled" Value="false" />
                 <Setter Property="Foreground" Value="LightGray" />
@@ -85,8 +88,11 @@
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
-            </Style>
+            </Style>-->
         </ResourceDictionary>
+
+
+
     </Window.Resources>
 
 
@@ -149,7 +155,9 @@
                     </Grid>
                 </Button>
 
-                <Button Margin="10 15 10 15" Background="#FF8522BD" BorderBrush="#FF8522BD">
+                <Button Margin="10 15 10 15" Background="#FF8522BD"
+                        Name="btMedia" Click="btMedia_Click"
+                        BorderBrush="#FF8522BD">
                     <Grid Width="150">
                         <materialDesign:PackIcon Kind="Movie" 
                                                  VerticalAlignment="Center"/>
@@ -157,7 +165,7 @@
                                    Text="Quản lý media" FontFamily="Champagne &amp; Limousines"/>
                     </Grid>
                 </Button>
-                              
+
                 <Button Margin="10 15 10 15" Background="#FF8522BD" BorderBrush="#FF8522BD">
                     <Grid Width="150">
                         <materialDesign:PackIcon Kind="RateReview" VerticalAlignment="Center"/>

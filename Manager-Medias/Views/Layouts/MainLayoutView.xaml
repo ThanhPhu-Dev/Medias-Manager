@@ -482,8 +482,8 @@
                                    Grid.Row="1" />
                         <Grid Grid.Row="2">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="244"/>
-                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="244" />
+                                <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
                             <StackPanel x:Name="SidebarList"
                                         Grid.Row="0">
@@ -580,7 +580,6 @@
                                 </ListView.ItemTemplate>
                             </ListView>
                         </Grid>
-                        
                     </Grid>
                 </ScrollViewer>
             </Grid>
@@ -628,7 +627,7 @@
                     <vprofile:PaymentView />
                 </DataTemplate>
             </Grid.Resources>
-            <ContentControl Content="{Binding ContentViewModel}" />
+            <ContentControl Content="{Binding ContentViewModel}" Validation.ErrorTemplate="{StaticResource ContentControlErrorTemplate}" />
         </Grid>
         <view:LoadingUC IsLoading="{Binding IsLoading}" />
     </Grid>

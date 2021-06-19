@@ -80,13 +80,13 @@
                     <us:CartRegisterView />
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type vm:GuestSetNewPasswordViewModel}">
-                    <local:SetNewPasswordView/>
+                    <local:SetNewPasswordView />
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type vm:ForgetPasswordViewModel}">
                     <local:ForgetPassword />
                 </DataTemplate>
             </Grid.Resources>
-            <ContentControl Content="{Binding ContentViewModel}" />
+            <ContentControl Content="{Binding ContentViewModel}" Validation.ErrorTemplate="{StaticResource ContentControlErrorTemplate}" />
         </Grid>
     </Grid>
 </UserControl>

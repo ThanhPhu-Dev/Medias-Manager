@@ -14,6 +14,15 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
+using System;
+using System.Windows;
+using System.Windows.Controls.Primitives;
+using System.Windows.Input;
+using System.Windows.Threading;
+using Microsoft.Win32;
+using Manager_Medias.Models;
+using System.Threading;
 
 namespace Manager_Medias.Views.Admin
 {
@@ -22,15 +31,14 @@ namespace Manager_Medias.Views.Admin
     /// </summary>
     public partial class DashboardAdmin : Window
     {
-        AdminViewVM vm;
+       
+        
         public DashboardAdmin()
         {
             InitializeComponent();
 
-
-
         }
-
+        
 
         private void ButtonCloseApp_Click(object sender, RoutedEventArgs e)
         {
@@ -44,7 +52,8 @@ namespace Manager_Medias.Views.Admin
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            mainGrid.Children.Add(new MainDashBoardAdminUserControl());
+            //mainGrid.Children.Add(new MainDashBoardAdminUserControl());
+            
         }
 
         private void addUserBt_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -68,6 +77,13 @@ namespace Manager_Medias.Views.Admin
         {
             mainGrid.Children.Clear();
             mainGrid.Children.Add(new StatisticalUserControl());
+        }
+
+        private void btMedia_Click(object sender, RoutedEventArgs e)
+        {
+            mainGrid.Children.Clear();
+            mainGrid.Children.Add(new MediaManagementUserControl());
+
         }
     }
 }

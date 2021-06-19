@@ -28,7 +28,7 @@
                 <vguest:MainCustomerView />
             </DataTemplate>
         </Grid.Resources>
-        <ContentControl Content="{Binding CurrentViewModel}" />
+        <ContentControl Content="{Binding CurrentViewModel}" Validation.ErrorTemplate="{StaticResource ContentControlErrorTemplate}" />
         <view:LoadingUC IsLoading="{Binding IsLoading}" />
     </Grid>
 </Window>

@@ -19,6 +19,12 @@
             <!--ACCENT-->
             <SolidColorBrush x:Key="SecondaryAccentBrush" Color="#febb00" />
             <SolidColorBrush x:Key="SecondaryAccentForegroundBrush" Color="#000" />
+            <!--ERROR TEMPLATE-->
+            <ControlTemplate x:Key="ContentControlErrorTemplate">
+                <Border BorderBrush="{x:Null}" BorderThickness="0">
+                    <AdornedElementPlaceholder />
+                </Border>
+            </ControlTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

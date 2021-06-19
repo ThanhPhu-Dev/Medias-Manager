@@ -38,6 +38,15 @@ namespace Manager_Medias.Validates
                 }
             }
 
+            if (property == "Status")
+            {
+                if ((string)value != "1" && (string)value != "0")
+                {
+                    return new ValidationResult(false, "Chỉ nhập 1 hoặc 0 \n1: Còn hoạt động, 0: Không còn hoạt động!");
+                }
+            }
+
+
             if (property == "Level")
             {
                 int level = 0;
@@ -73,30 +82,32 @@ namespace Manager_Medias.Validates
 
             if (property == "NumberCard")
             {
-                double cardNum = 0;
-                try
-                {
-                    if (((string)value).Length > 0)
-                    {
-                        cardNum = double.Parse(value.ToString());
-                    }
-                    else
-                    {
-                        return new ValidationResult(false, "Hãy nhập số thẻ!");
-                    }
-                        
 
-                    if (cardNum.ToString().Length < 16)
-                    {
-                        return new ValidationResult(false, "Số thẻ phải có 16 ký tự!");
-                    }
-                }
-                catch (Exception e)
+                if (((string)value).Length == 0)
                 {
-                    return new ValidationResult(false, "Không được nhập ký tự ngoài chữ số! - " + e.Message);
+                    return new ValidationResult(false, "Hãy nhập số thẻ!");
+                }
+
+                if (((string)value).Length != 16)
+                {
+                    return new ValidationResult(false, "Số thẻ phải có 16 ký tự!");
+                }
+               
+            }
+            if(property == "FullName")
+            {
+                if (((string)value).Length == 0)
+                {
+                    return new ValidationResult(false, "Hãy nhập họ tên!");
                 }
             }
-
+            if (property == "Exp")
+            {
+                if (((string)value).Length == 0)
+                {
+                    return new ValidationResult(false, "Hãy nhập tích lũy!");
+                }
+            }
             return new ValidationResult(true, null);
 
         }

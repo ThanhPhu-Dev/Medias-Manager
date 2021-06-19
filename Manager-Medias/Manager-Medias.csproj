@@ -169,6 +169,7 @@
     <Compile Include="Converters\ProfileImageConverter.cs" />
     <Compile Include="Converters\ProfileLoginEnableConverter.cs" />
     <Compile Include="Converters\RatioVideoConverter.cs" />
+    <Compile Include="Converters\RoleIdToRoleNameConverter.cs" />
     <Compile Include="Converters\TextToPasswordCharConverter.cs" />
     <Compile Include="Converters\ToShortDateConverter.cs" />
     <Compile Include="CustomModels\DetailMovieCustomModel.cs" />
@@ -212,6 +213,7 @@
     <Compile Include="Validates\ValidateEmailRegister.cs" />
     <Compile Include="Validates\ValidatePassword.cs" />
     <Compile Include="Validates\PhoneNumberValidationRule.cs" />
+    <Compile Include="ViewModels\Admin\AdminViewMediaVM.cs" />
     <Compile Include="ViewModels\Admin\AdminViewVM.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\Customer\AccountManagerViewModel.cs" />
@@ -317,6 +319,9 @@
     </Compile>
     <Compile Include="Views\Admin\MainDashBoardAdminUserControl.xaml.cs">
       <DependentUpon>MainDashBoardAdminUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\MediaManagementUserControl.xaml.cs">
+      <DependentUpon>MediaManagementUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Admin\StatisticalUserControl.xaml.cs">
       <DependentUpon>StatisticalUserControl.xaml</DependentUpon>
@@ -437,6 +442,10 @@
     <Page Include="Views\Admin\MainDashBoardAdminUserControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Admin\MediaManagementUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Admin\StatisticalUserControl.xaml">
       <SubType>Designer</SubType>

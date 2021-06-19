@@ -7,11 +7,11 @@
              xmlns:cvt="clr-namespace:Manager_Medias.Converters"
              xmlns:local="clr-namespace:Manager_Medias.Views.Admin"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" Loaded="UserControl_Loaded">
+             d:DesignHeight="850" d:DesignWidth="1000" Loaded="UserControl_Loaded">
     <UserControl.Resources>
         <cvt:ConvertImage x:Key="imageCvt" />
     </UserControl.Resources>
-    <Grid>
+    <Grid x:Name="gridParent">
         <Grid.RowDefinitions>
             <RowDefinition Height="70*"/>
             <RowDefinition Height="6*"/>
@@ -56,10 +56,26 @@
                                 </ListView.ItemsPanel>
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
+
                                         <Border BorderBrush="Gray" BorderThickness="2" Name="boderTemplate"
-                                MouseLeftButtonDown="boderTemplate_MouseLeftButtonDown"
-                                MouseLeave="boderTemplate_MouseLeave"
-                                Height="115" Width="200">
+                                                MouseLeftButtonDown="boderTemplate_MouseLeftButtonDown"
+                                                MouseLeave="boderTemplate_MouseLeave"
+                                                Height="115" Width="200">
+                                            <Border.ContextMenu>
+                                                <ContextMenu>
+                                                    <MenuItem Header="Cập nhật thông tin" Name="btOpenMovieDetail"
+                                                              Click="btOpenMovieDetail_Click">
+                                                        <MenuItem.Icon>
+                                                            <materialDesign:PackIcon Kind="Update"/>
+                                                        </MenuItem.Icon>
+                                                    </MenuItem>
+                                                    <MenuItem Header="Xóa phim này">
+                                                        <MenuItem.Icon>
+                                                            <materialDesign:PackIcon Kind="Delete"/>
+                                                        </MenuItem.Icon>
+                                                    </MenuItem>
+                                                </ContextMenu>
+                                            </Border.ContextMenu>
                                             <Border.Background>
                                                 <ImageBrush ImageSource="{Binding Poster, Converter={StaticResource imageCvt}}" Stretch="Uniform"/>
                                             </Border.Background>
@@ -75,18 +91,82 @@
                     </Grid>
 
                     <Grid Background="AliceBlue"
-                                  Height="300"
-                                  Name="detailPanel">
-                        <StackPanel>
-                            <Border BorderBrush="Gray" Margin="5"
-                                    HorizontalAlignment="Left"
-                                    BorderThickness="2" Height="235" Width="415">
-                                <MediaElement Source="{Binding ElementName=lvMovies,Path=SelectedItem.Video, Converter={StaticResource imageCvt}}"
-                                              UnloadedBehavior="Manual"
-                                              Volume="0"/>
+                          Height="500"
+                          Name="detailPanel">
+                        <StackPanel Orientation="Horizontal">
+                            <Border BorderBrush="Gray" Margin="5 0 5 5"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Left" Name="borderMedia"
+                                    BorderThickness="2" >
+
+                                <Grid MouseWheel="Grid_MouseWheel">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    
+                                    <ToolBar>
+                                        <Button Name="btOpenFolder"
+                                                Click="btOpenFolder_Click">
+                                            <materialDesign:PackIcon Kind="Folder"/>
+                                        </Button>
+                                        <Separator />
+                                        <Button Name="btPlayMovie" Click="btPlayMovie_Click">
+                                            <materialDesign:PackIcon Kind="Play"/>
+                                        </Button>
+                                        <Button Name="btPauseMovie" Click="btPauseMovie_Click">
+                                            <materialDesign:PackIcon Kind="Pause"/>
+                                        </Button>
+                                        <Button Name="btStopMovie">
+                                            <materialDesign:PackIcon Kind="Stop"/>
+                                        </Button>
+                                        <Button x:Name="btFullScreen" Click="btFullScreen_Click">
+                                            <materialDesign:PackIcon Kind="Fullscreen"/>
+                                        </Button>
+                                    </ToolBar>
+                                    <Border Grid.Row="1" BorderBrush="Gray" 
+                                            Name="boderMedia"
+                                            BorderThickness="2">
+                                        <MediaElement Name="mePlayer" Height="220" Width="380"
+                                                      Source="{Binding ElementName=lvMovies,Path=SelectedItem.Video, Converter={StaticResource imageCvt}}"
+                                                      LoadedBehavior="Manual" Volume="0"/>
+                                    </Border>
+
+
+                                    <StatusBar Grid.Row="2">
+                                        <StatusBar.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="Auto" />
+                                                    </Grid.ColumnDefinitions>
+                                                </Grid>
+                                            </ItemsPanelTemplate>
+                                        </StatusBar.ItemsPanel>
+                                        <StatusBarItem>
+                                            <TextBlock Name="lblProgressStatus">00:00:00</TextBlock>
+                                        </StatusBarItem>
+                                        <StatusBarItem Grid.Column="1" HorizontalContentAlignment="Stretch">
+                                            <Slider Name="sliProgress" 
+                                                    Thumb.DragCompleted="sliProgress_DragCompleted" 
+                                                    ValueChanged="sliProgress_ValueChanged" />
+                                        </StatusBarItem>
+                                        <StatusBarItem Grid.Column="2">
+                                            <ProgressBar Name="pbVolume" Width="50" Height="12" Maximum="1"
+                                                         Value="{Binding ElementName=mePlayer, Path=Volume}" />
+                                        </StatusBarItem>
+                                    </StatusBar>
+                                </Grid>
                             </Border>
 
-
+                            <StackPanel>
+                                
+                            </StackPanel>
+                            
+                            
                         </StackPanel>
 
                     </Grid>
@@ -150,61 +230,6 @@
         </Grid>
 
 
-        <!--<Grid.CommandBindings>
-                <CommandBinding Command="ApplicationCommands.Open" CanExecute="Open_CanExecute" Executed="Open_Executed" />
-                <CommandBinding Command="MediaCommands.Play" CanExecute="Play_CanExecute" Executed="Play_Executed" />
-                <CommandBinding Command="MediaCommands.Pause" CanExecute="Pause_CanExecute" Executed="Pause_Executed" />
-                <CommandBinding Command="MediaCommands.Stop" CanExecute="Stop_CanExecute" Executed="Stop_Executed" />
-            </Grid.CommandBindings>
-            <Grid MouseWheel="Grid_MouseWheel">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <ToolBar>
-                    <Button Command="ApplicationCommands.Open">
-                        <materialDesign:PackIcon Kind="Folder"/>
-                    </Button>
-                    <Separator />
-                    <Button Command="MediaCommands.Play">
-                        <materialDesign:PackIcon Kind="Play"/>
-                    </Button>
-                    <Button Command="MediaCommands.Pause">
-                        <materialDesign:PackIcon Kind="Pause"/>
-                    </Button>
-                    <Button Command="MediaCommands.Stop">
-                        <materialDesign:PackIcon Kind="Stop"/>
-                    </Button>
-                </ToolBar>
-                <Border Grid.Row="1" BorderBrush="Gray" BorderThickness="2" Height="200" Width="490">
-                    <MediaElement Name="mePlayer"  LoadedBehavior="Manual"
-                              />
-                </Border>
-                
 
-                <StatusBar Grid.Row="2">
-                    <StatusBar.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                            </Grid>
-                        </ItemsPanelTemplate>
-                    </StatusBar.ItemsPanel>
-                    <StatusBarItem>
-                        <TextBlock Name="lblProgressStatus">00:00:00</TextBlock>
-                    </StatusBarItem>
-                    <StatusBarItem Grid.Column="1" HorizontalContentAlignment="Stretch">
-                        <Slider Name="sliProgress" Thumb.DragStarted="sliProgress_DragStarted"  Thumb.DragCompleted="sliProgress_DragCompleted" ValueChanged="sliProgress_ValueChanged" />
-                    </StatusBarItem>
-                    <StatusBarItem Grid.Column="2">
-                        <ProgressBar Name="pbVolume" Width="50" Height="12" Maximum="1" Value="{Binding ElementName=mePlayer, Path=Volume}" />
-                    </StatusBarItem>
-                </StatusBar>
-            </Grid>-->
     </Grid>
 </UserControl>

@@ -57,7 +57,7 @@ namespace Manager_Medias.ViewModels.Guest
 
         public GuestLoginViewModel()
         {
-            LoginCmd = new RelayCommand<Object[]>(ActionLogin, (Object[] obj) => !HasErrors);
+            LoginCmd = new RelayCommand<Object>(ActionLogin, (Object obj) => !HasErrors);
             this.Errors = new Dictionary<string, List<string>>();
             this.ValidationRules = new Dictionary<string, List<ValidationRule>>();
 
@@ -72,8 +72,13 @@ namespace Manager_Medias.ViewModels.Guest
                 _navigationStore.ContentViewModel = new ForgetPasswordViewModel();
         }
 
-        public async void ActionLogin(object[] values)
+        public async void ActionLogin(object values)
         {
+            if(values != null)
+            {
+                //UserControl win = (UserControl)values;
+
+            }
             //if (string.IsNullOrEmpty(values.ToString()) || string.IsNullOrEmpty(values[0].ToString()) ||
             //    string.IsNullOrEmpty(values[1].ToString()))
             //{
@@ -105,7 +110,7 @@ namespace Manager_Medias.ViewModels.Guest
                         _userStore = new UserStore(currentUser);
                         if(currentUser.roleId == 2)
                         {
-
+                            
                         }
                         else if (currentUser.Code != null)
                         {

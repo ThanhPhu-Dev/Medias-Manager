@@ -21,7 +21,6 @@ namespace Manager_Medias.Views.Home
         public static childItem FindVisualChild<childItem>(DependencyObject obj)
                 where childItem : DependencyObject
         {
-            // Iterate through all immediate children
             for (int i = 0; i < VisualTreeHelper.GetChildrenCount(obj); i++)
             {
                 DependencyObject child = VisualTreeHelper.GetChild(obj, i);

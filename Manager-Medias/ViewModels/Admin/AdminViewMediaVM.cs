@@ -45,6 +45,30 @@ namespace Manager_Medias.ViewModels.Admin
             {
                 MovieList = new ListCollectionView(db.Movies.ToList());
             }
+
+            MovieList.CurrentChanged += (_, e) =>
+            {
+                var MovieCurrent = MovieList.CurrentItem as Movie;
+                if (MovieCurrent == null)
+                    return;
+                Movie = new Movie
+                {
+                    Id = MovieCurrent.Id,
+                    IdCategory = MovieCurrent.IdCategory,
+                    Name = MovieCurrent.Name,
+                    Description = MovieCurrent.Description,
+                    IMDB = MovieCurrent.IMDB,
+                    Poster = MovieCurrent.Poster,
+                    Likes = MovieCurrent.Likes,
+                    Age = MovieCurrent.Age,
+                    NumberOfViews = MovieCurrent.NumberOfViews,
+                    Video = MovieCurrent.Video,
+                    Season = MovieCurrent.Season,
+                    Time = MovieCurrent.Time,
+                    Directors = MovieCurrent.Directors,
+                    Nation = MovieCurrent.Nation,
+                };
+            };
         }
     }
 }

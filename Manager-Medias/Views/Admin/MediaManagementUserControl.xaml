@@ -10,6 +10,69 @@
              d:DesignHeight="850" d:DesignWidth="1000" Loaded="UserControl_Loaded">
     <UserControl.Resources>
         <cvt:ConvertImage x:Key="imageCvt" />
+        <SolidColorBrush x:Key="TextBox.Static.Border" Color="#FFABAdB3"/>
+        <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#FF7EB4EA"/>
+        <SolidColorBrush x:Key="TextBox.Focus.Border" Color="#FF569DE5"/>
+        <Style x:Key="TxtStyleValidation" TargetType="{x:Type TextBox}">
+            <Setter Property="BorderBrush" Value="{StaticResource TextBox.Static.Border}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Margin" Value="0 10 0 0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="2"
+                                Background="{TemplateBinding Background}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Border BorderBrush="{TemplateBinding BorderBrush}" 
+                                        CornerRadius="1"
+                                        BorderThickness="1">
+                                    <Grid x:Name="grdHeader">
+                                        <Label x:Name="lbHeader" Content="{TemplateBinding Tag}" 
+                                           FontWeight="Bold" MinWidth="74"
+                                           VerticalContentAlignment="Center" Padding="5,0,5,0"
+                                           Foreground="Black" ></Label>
+                                    </Grid>
+                                </Border>
+
+                                <ScrollViewer x:Name="PART_ContentHost" Focusable="false" Width="260"
+                                              HorizontalScrollBarVisibility="Hidden"
+                                              VerticalScrollBarVisibility="Hidden" Grid.Column="1" 
+                                              VerticalContentAlignment="Center" Padding="5,5,2,1"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsKeyboardFocused" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.Focus.Border}"/>
+                            </Trigger>
+                            <Trigger Property="Validation.HasError" Value="true">
+                                <Setter Property="ToolTip"
+                                    Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+                                    Path=(Validation.Errors)[0].ErrorContent}"/>
+
+                                <Setter Property="Background" TargetName="lbHeader" Value="Red"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsInactiveSelectionHighlightEnabled" Value="true"/>
+                        <Condition Property="IsSelectionActive" Value="false"/>
+                    </MultiTrigger.Conditions>
+                    <Setter Property="SelectionBrush" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"/>
+                </MultiTrigger>
+            </Style.Triggers>
+        </Style>
+
     </UserControl.Resources>
     <Grid x:Name="gridParent">
         <Grid.RowDefinitions>
@@ -19,35 +82,44 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="2">
+            
             <ScrollViewer>
                 <StackPanel>
                     <Grid>
-                        <Button Background="{x:Null}"
-                            BorderBrush="{x:Null}"
-                            Height="80" Name="btMoveRight"
-                            VerticalAlignment="Center" Panel.ZIndex="2"
-                            HorizontalAlignment="Right" Margin="0 20 -10 0"
-                            Click="btMoveRight_Click">
+
+                        <Grid.Resources>
+                            <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFlatButton}">
+                                <Setter Property="Background" Value="{x:Null}"/>
+                                <Setter Property="BorderBrush" Value="{x:Null}"/>
+                                <Setter Property="Height" Value="80"/>
+                                <Setter Property="Panel.ZIndex" Value="2"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                            </Style>
+                        </Grid.Resources>
+                        
+                        <Button Name="btMoveRight"
+                                HorizontalAlignment="Right" Margin="0 25 -10 0"
+                                Click="btMoveRight_Click">
                             <Grid>
-                                <materialDesign:PackIcon Kind="ArrowRight" Height="80" Width="80"/>
+                                <materialDesign:PackIcon Kind="ArrowRight" Height="80" Foreground="White"  Width="80"/>
                             </Grid>
                         </Button>
-                        <Button Background="{x:Null}"
-                            BorderBrush="{x:Null}" Margin="-10 20 0 0"
-                            Height="80" Name="btMoveLeft"
-                            VerticalAlignment="Center" Panel.ZIndex="2"
-                            HorizontalAlignment="Left"
-                            Click="btMoveLeft_Click" Width="106">
+                        
+                        <Button Margin="-10 25 0 0"
+                                Name="btMoveLeft"
+                                HorizontalAlignment="Left"
+                                Click="btMoveLeft_Click" Width="106">
                             <Grid>
-                                <materialDesign:PackIcon Kind="ArrowLeft" Height="80" Width="80"/>
+                                <materialDesign:PackIcon Kind="ArrowLeft" Foreground="White" 
+                                                         Height="80" Width="80"/>
                             </Grid>
                         </Button>
                         <StackPanel Panel.ZIndex="1">
                             <TextBlock FontSize="32" HorizontalAlignment="Center" 
-                                       FontWeight="Bold">Danh sách phim hay</TextBlock>
+                                       FontWeight="Bold">Danh sách phim mới</TextBlock>
                             <ListView Name="lvMovies" ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                                       ItemsSource="{Binding MovieList}"
-                                      Height="140">
+                                      Height="140" SelectionMode="Single" IsSynchronizedWithCurrentItem="True">
 
                                 <ListView.ItemsPanel>
                                     <ItemsPanelTemplate>
@@ -94,79 +166,226 @@
                           Height="500"
                           Name="detailPanel">
                         <StackPanel Orientation="Horizontal">
-                            <Border BorderBrush="Gray" Margin="5 0 5 5"
-                                    VerticalAlignment="Center"
+                            
+
+                            <StackPanel>
+                                <Border BorderBrush="Gray" Margin="5 0 5 5"
+                                    VerticalAlignment="Top"
                                     HorizontalAlignment="Left" Name="borderMedia"
                                     BorderThickness="2" >
 
-                                <Grid MouseWheel="Grid_MouseWheel">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="*" />
-                                        <RowDefinition Height="Auto" />
-                                    </Grid.RowDefinitions>
-                                    
-                                    <ToolBar>
-                                        <Button Name="btOpenFolder"
+                                    <Grid MouseWheel="Grid_MouseWheel">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+
+                                        <ToolBar>
+                                            <Button Name="btOpenFolder"
                                                 Click="btOpenFolder_Click">
-                                            <materialDesign:PackIcon Kind="Folder"/>
-                                        </Button>
-                                        <Separator />
-                                        <Button Name="btPlayMovie" Click="btPlayMovie_Click">
-                                            <materialDesign:PackIcon Kind="Play"/>
-                                        </Button>
-                                        <Button Name="btPauseMovie" Click="btPauseMovie_Click">
-                                            <materialDesign:PackIcon Kind="Pause"/>
-                                        </Button>
-                                        <Button Name="btStopMovie">
-                                            <materialDesign:PackIcon Kind="Stop"/>
-                                        </Button>
-                                        <Button x:Name="btFullScreen" Click="btFullScreen_Click">
-                                            <materialDesign:PackIcon Kind="Fullscreen"/>
-                                        </Button>
-                                    </ToolBar>
-                                    <Border Grid.Row="1" BorderBrush="Gray" 
+                                                <materialDesign:PackIcon Kind="Folder"/>
+                                            </Button>
+                                            <Separator />
+                                            <Button Name="btPlayMovie" Click="btPlayMovie_Click">
+                                                <materialDesign:PackIcon Kind="Play"/>
+                                            </Button>
+                                            <Button Name="btPauseMovie" Click="btPauseMovie_Click">
+                                                <materialDesign:PackIcon Kind="Pause"/>
+                                            </Button>
+                                            <Button Name="btStopMovie">
+                                                <materialDesign:PackIcon Kind="Stop"/>
+                                            </Button>
+                                            <Button x:Name="btFullScreen" Click="btFullScreen_Click">
+                                                <materialDesign:PackIcon Kind="Fullscreen"/>
+                                            </Button>
+                                        </ToolBar>
+                                        <Border Grid.Row="1" BorderBrush="Gray" 
                                             Name="boderMedia"
                                             BorderThickness="2">
-                                        <MediaElement Name="mePlayer" Height="220" Width="380"
-                                                      Source="{Binding ElementName=lvMovies,Path=SelectedItem.Video, Converter={StaticResource imageCvt}}"
+                                            <MediaElement Name="mePlayer" Height="220" Width="380"
+                                                      Source="{Binding ElementName=txtbVideoAdd,Path=Text, Converter={StaticResource imageCvt}}"
                                                       LoadedBehavior="Manual" Volume="0"/>
-                                    </Border>
+                                        </Border>
 
 
-                                    <StatusBar Grid.Row="2">
-                                        <StatusBar.ItemsPanel>
-                                            <ItemsPanelTemplate>
-                                                <Grid>
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="Auto" />
-                                                        <ColumnDefinition Width="*" />
-                                                        <ColumnDefinition Width="Auto" />
-                                                    </Grid.ColumnDefinitions>
-                                                </Grid>
-                                            </ItemsPanelTemplate>
-                                        </StatusBar.ItemsPanel>
-                                        <StatusBarItem>
-                                            <TextBlock Name="lblProgressStatus">00:00:00</TextBlock>
-                                        </StatusBarItem>
-                                        <StatusBarItem Grid.Column="1" HorizontalContentAlignment="Stretch">
-                                            <Slider Name="sliProgress" 
+                                        <StatusBar Grid.Row="2">
+                                            <StatusBar.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto" />
+                                                            <ColumnDefinition Width="*" />
+                                                            <ColumnDefinition Width="Auto" />
+                                                        </Grid.ColumnDefinitions>
+                                                    </Grid>
+                                                </ItemsPanelTemplate>
+                                            </StatusBar.ItemsPanel>
+                                            <StatusBarItem>
+                                                <TextBlock Name="lblProgressStatus">00:00:00</TextBlock>
+                                            </StatusBarItem>
+                                            <StatusBarItem Grid.Column="1" HorizontalContentAlignment="Stretch">
+                                                <Slider Name="sliProgress" 
                                                     Thumb.DragCompleted="sliProgress_DragCompleted" 
                                                     ValueChanged="sliProgress_ValueChanged" />
-                                        </StatusBarItem>
-                                        <StatusBarItem Grid.Column="2">
-                                            <ProgressBar Name="pbVolume" Width="50" Height="12" Maximum="1"
-                                                         Value="{Binding ElementName=mePlayer, Path=Volume}" />
-                                        </StatusBarItem>
-                                    </StatusBar>
-                                </Grid>
-                            </Border>
+                                            </StatusBarItem>
+                                            <StatusBarItem Grid.Column="2">
+                                                <Slider Name="pbVolume" Width="50" Maximum="1"
+                                                    Value="{Binding ElementName=mePlayer, Path=Volume, Mode=TwoWay}" />
+                                            </StatusBarItem>
+                                        </StatusBar>
+                                    </Grid>
 
-                            <StackPanel>
-                                
+                                </Border>
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center"
+                                            HorizontalAlignment="Center">
+                                    <TextBlock Text="Poster:" DockPanel.Dock="Top"
+                                                           FontWeight="Bold" Margin="5 5 0 0"
+                                                           Foreground="Black" FontSize="14"/>
+
+                                    
+                                    <Border BorderBrush="Gray"
+                                                        Padding="5"
+                                                        Height="150" Width="180" BorderThickness="2"
+                                                        Margin="20 10 0 5">
+                                        <Image Name="imgAvatarAdd"
+                                               Source="{Binding Movie.Poster, Converter={StaticResource imageCvt}}"/>
+                                    </Border>
+
+                                    <TextBox Tag="Họ tên: " Name="txtavatar" Visibility="Collapsed"
+                                                         Style="{DynamicResource TxtStyleValidation}" 
+                                                         Grid.Row="1">
+                                        <TextBox.Text>
+                                            <Binding Path="Profile.Avatar" UpdateSourceTrigger="PropertyChanged" >
+                                                <Binding.ValidationRules>
+
+                                                </Binding.ValidationRules>
+                                            </Binding>
+                                        </TextBox.Text>
+                                    </TextBox>
+
+                                    <Button HorizontalAlignment="Center" Margin="5 0 0 10"
+                                                        Name="btChooseImgAdd"
+                                                        FontSize="10" Height="25">Chọn ảnh</Button>
+
+
+                                   
+                                </StackPanel>
                             </StackPanel>
                             
-                            
+                            <StackPanel Width="400" Margin="40 0 0 0">
+                                <DockPanel Margin="10 20 10 0" LastChildFill="True">
+                                    <Grid Margin="5">
+
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+
+                                        <TextBox Tag="Age: " Name="txtbAgeAdd"
+                                                 Style="{DynamicResource TxtStyleValidation}" 
+                                                 Grid.Row="3">
+                                            <TextBox.Text>
+                                                <Binding Path="Movie.Age" UpdateSourceTrigger="PropertyChanged" >
+                                                    <Binding.ValidationRules>
+                                                        
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>
+                                        <TextBox Tag="Name: " Name="txtbNameAdd"
+                                                 Style="{DynamicResource TxtStyleValidation}" 
+                                                 Grid.Row="1">
+                                            <TextBox.Text>
+                                                <Binding Path="Movie.Name" 
+                                                         UpdateSourceTrigger="PropertyChanged" >
+                                                    <Binding.ValidationRules>
+                                                        
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>
+                                        <TextBox Tag="Descrip: " Name="txtbDesAdd" Height="100"
+                                                 Style="{DynamicResource TxtStyleValidation}" 
+                                                 Grid.Row="7" TextWrapping="Wrap">
+                                            <TextBox.Text>
+                                                <Binding Path="Movie.Description" UpdateSourceTrigger="PropertyChanged" >
+                                                    <Binding.ValidationRules>
+                                                       
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>
+
+                                        <TextBox Tag="Directors: " Name="txtbDirectorsAdd"
+                                                 Style="{DynamicResource TxtStyleValidation}" 
+                                                 Grid.Row="6">
+                                            <TextBox.Text>
+                                                <Binding Path="Movie.Directors" UpdateSourceTrigger="PropertyChanged" >
+                                                    <Binding.ValidationRules>
+
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>
+
+                                        <TextBox Tag="Nation: " Name="txtbNationAdd"
+                                                 Style="{DynamicResource TxtStyleValidation}" 
+                                                 Grid.Row="2">
+                                            <TextBox.Text>
+                                                <Binding Path="Movie.Nation" UpdateSourceTrigger="PropertyChanged" >
+                                                    <Binding.ValidationRules>
+
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>
+
+                                        <Border BorderBrush="Gray"
+                                                CornerRadius="2"
+                                                BorderThickness="1" Margin="0 8 0 0"
+                                                Grid.Row="5"
+                                                Background="White">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Border BorderBrush="Gray" BorderThickness="1" Width="75">
+                                                    <TextBlock Text="Category:"
+                                                               Padding="5 3 0 0" FontWeight="Bold"/>
+                                                </Border>
+
+                                                <ComboBox Name="cbRoles" ItemsSource="{Binding RolesList}" 
+                                                          DisplayMemberPath="Name" Padding="18 0 0 0"
+                                                          Margin="5 2 0 2" Width="160"/>
+                                            </StackPanel>
+                                        </Border>
+                                        
+
+                                        <TextBox Tag="Video:" x:Name="txtbVideoAdd"
+                                                 Visibility="Collapsed"
+                                                 Style="{DynamicResource TxtStyleValidation}"
+                                                 Grid.Row="4">
+                                            <TextBox.Text>
+                                                <Binding Path="Movie.Video" UpdateSourceTrigger="PropertyChanged" >
+                                                    <Binding.ValidationRules>
+                                                       
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>
+
+                                        <Grid Grid.Row="8">
+                                            
+                                        </Grid>
+
+                                    </Grid>
+                                </DockPanel>
+                            </StackPanel>
                         </StackPanel>
 
                     </Grid>
@@ -195,7 +414,7 @@
                         </Button>
                         <StackPanel Panel.ZIndex="1">
                             <TextBlock FontSize="32" HorizontalAlignment="Center" 
-                                       FontWeight="Bold">Danh sách phim cùi</TextBlock>
+                                       FontWeight="Bold">Danh sách phim có nhiều lượt xem nhất</TextBlock>
                             <ListView Name="lvMovies2" ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                                       ItemsSource="{Binding MovieList}"
                                       Height="140">

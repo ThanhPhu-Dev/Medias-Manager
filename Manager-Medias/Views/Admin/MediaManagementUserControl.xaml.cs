@@ -171,7 +171,7 @@ namespace Manager_Medias.Views.Admin
         {
             if(!_FullScreen)
             {
-                mePlayer.Height = detailPanel.Height - 115;
+                mePlayer.Height = detailPanel.Height - 100;
                 mePlayer.Width = 860;
             }
             else

@@ -199,17 +199,21 @@ select * from Media_Categories
 select * from Likes 
 select * from My_Lists
 select * from levels
-select * from Medias 
+select * from Medias where IdCategory = 2
 select * from Movies
 select * from Movie_Categories
 select * from Album_Details
 select * from Albums
 select * from Payment_History
 Select * from Profiles
+select * from View_History
 select * from Users where Email = 'nghiadx2001@gmail.c'
 update Albums set Id = 2 where Name=N'Thiên nhiên'
 update Album_Details set IdAlbum = 2
 update Users set code = 'rwzk7222RW' where Email = 'user@gmail.com'
+
+
+
 
 --insert roles
 insert into Roles(Name) values ('User'),('Admin')
@@ -258,6 +262,15 @@ update Medias set Lvl = 3 where Id = 28
 INSERT INTO Users VALUES ('thongars22222@gmail.com', '123abc', 1, 'CDCD', '7352222288839364', '10/20', 2)
 INSERT INTO Users (Email, Password) VALUES ('1@gmail.c', '123')
 Insert into Users(Email,Password,NumberCard,Level)values ('user@gmail.com', 'G9BBbVflIID4fJFh4ljRqrOgtzA33ztt4q474rYmz8IhcOqD', '1253871235', 1) 
+
+Insert into Users(Email,Password,NumberCard,Level,Code)values ('ali125@gmail.com', '123matkhau123', '6911000003591177', 1, 'QAZXC1'),
+('beatriz211@gmail.com', '123matkhau123', '6911000003911077', 2, 'QYYXC1'), ('12charles@gmail.com', '123matkhau123', '6911000003599911', 1, 'QPPXC1'), 
+('diya0001@gmail.com', '123matkhau123', '6911000051391177', 3, 'QIIQXC1'), ('eric2019@gmail.com', '123matkhau123', '6911852613591177', 1, '123ZXC1'),
+('gabriel@gmail.com', '123matkhau123', '6946810003591177', 1, 'Q84331'), ('avxHhnna@gmail.com', '123matkhau123', '9622200003591177', 2, 'Q45633') 
+
+insert into profiles(Email,Name,Status) values ('ali125@gmail.com', 'Alice', 1), ('ali125@gmail.com', 'Alice', 1), ('beatriz211@gmail.com', 'beatriz', 1), ('12charles@gmail.com', 'Chattlotte', 1),
+('diya0001@gmail.com', 'diana 123', 1), ('eric2019@gmail.com', 'Eric gaxia', 1), ('ali125@gmail.com', 'Alice', 1), ('gabriel@gmail.com', 'Gabriel', 1), ('avxHhnna@gmail.com', 'Hanana',0)
+
 
 --insert profile
 

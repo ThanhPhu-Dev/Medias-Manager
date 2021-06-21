@@ -80,10 +80,5 @@ namespace Manager_Medias.Views.Home
         {
 
         }
-
-        private void PreviewMouseWheel(object sender, MouseWheelEventArgs e)
-        {
-
-        }
     }
 }

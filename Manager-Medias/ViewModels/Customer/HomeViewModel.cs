@@ -13,13 +13,11 @@ namespace Manager_Medias.ViewModels.Customer
 {
     public class HomeViewModel : BaseViewModel
     {
-        public static readonly DependencyProperty CatMovieListProperty = 
-            DependencyProperty.Register("CatMovieList",
-                typeof(ObservableCollection<Movie_Category>), typeof(HomeViewModel));
+        public static readonly DependencyProperty CatMovieListProperty = DependencyProperty.Register("CatMovieList",
+               typeof(ObservableCollection<Movie_Category>), typeof(HomeViewModel));
 
-        public ICommand CmdToDetailMovie { get; set; }
-
-        public int Level => (int)_userStore.CurrentUser.Level;
+        public static readonly DependencyProperty TopIMDbMovieProperty = DependencyProperty.Register("TopIMDbMovie",
+               typeof(ObservableCollection<Movie>), typeof(HomeViewModel));
 
         public ObservableCollection<Movie_Category> CatMovieList
         {
@@ -27,9 +25,20 @@ namespace Manager_Medias.ViewModels.Customer
             set => SetValue(CatMovieListProperty, value);
         }
 
+        public ObservableCollection<Movie> TopIMDbMovie
+        {
+            get => (ObservableCollection<Movie>)GetValue(TopIMDbMovieProperty);
+            set => SetValue(TopIMDbMovieProperty, value);
+        }
+
+        public ICommand CmdToDetailMovie { get; set; }
+
+        public int Level => 10; /*(int) _userStore.CurrentUser.Level;*/
+
         public HomeViewModel()
         {
             LoadMovie();
+            loadTopIMDbMovie();
 
             CmdToDetailMovie = new RelayCommand<object>(ToDetailMovie, (object o) =>
             {
@@ -63,9 +72,29 @@ namespace Manager_Medias.ViewModels.Customer
                     {
                         CatMovieList = new ObservableCollection<Movie_Category>(
                            db.Movie_Categories.Include("Movies")
-                                               .Include("Movies.Media")
-                                               .Include("Movies.Media.Level")
-                                               .ToList());
+                                              .Include("Movies.Media")
+                                              .Include("Movies.Media.Level")
+                                              .ToList());
+                    }
+                });
+            }).ContinueWith((task) =>
+            {
+                IsLoading = false;
+            }).ConfigureAwait(false);
+        }
+
+        private async void loadTopIMDbMovie()
+        {
+            IsLoading = true;
+            await Task.Run(() =>
+            {
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    using (var db = new MediasManangementEntities())
+                    {
+                        TopIMDbMovie = new ObservableCollection<Movie>(
+                            db.Movies.Include("Media").Include("Media.Level").OrderByDescending(m => m.IMDB).Take(8).ToList());
+
                     }
                 });
             }).ContinueWith((task) =>

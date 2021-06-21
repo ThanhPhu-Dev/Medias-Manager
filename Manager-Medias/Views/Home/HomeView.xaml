@@ -236,13 +236,23 @@
                         <materialDesign:PackIcon Kind="Star"
                                                  Foreground="White"
                                                  FontSize="25"
-                                                 Margin="0 2 2 0" />
+                                                 VerticalAlignment="Center" />
                         <TextBlock Text="{Binding IMDB}"
-                                   Foreground="White">
+                                   Foreground="White"
+                                   VerticalAlignment="Center">
                         </TextBlock>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
+        </DataTemplate>
+
+        <!--template khi chưa hover TopViewsMovie-->
+        <DataTemplate DataType="{x:Type model:Movie}"
+                      x:Key="topViewsItemDefault">
+            <Image Height="200"
+                   Margin="0 0 10 0"
+                   Source="{Binding Poster, Converter={StaticResource imageCvt}}"
+                   Stretch="UniformToFill" />
         </DataTemplate>
 
         <!--template khi đã hover-->
@@ -515,6 +525,61 @@
             </Style.Triggers>
         </Style>
 
+        <!--style cho TopViewsMovie-->
+        <Style TargetType="ListBoxItem"
+               x:Key="topViewsMovieStyle">
+            <Setter Property="Cursor"
+                    Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border Name="Border"
+                                BorderThickness="0.5"
+                                Padding="0"
+                                SnapsToDevicePixels="true">
+                            <ContentPresenter />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected"
+                                     Value="true">
+                                <Setter TargetName="Border"
+                                        Property="BorderBrush"
+                                        Value="#febb00" />
+                                <Setter TargetName="Border"
+                                        Property="BorderThickness"
+                                        Value="0.5" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled"
+                                     Value="false">
+                                <Setter Property="Foreground"
+                                        Value="{x:Static Brushes.Transparent}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="ContentTemplate"
+                    Value="{StaticResource topViewsItemDefault}" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver"
+                         Value="True">
+                    <Setter Property="ContentTemplate"
+                            Value="{StaticResource carouselItemMouse}" />
+                </Trigger>
+                <DataTrigger Value="False">
+                    <DataTrigger.Binding>
+                        <MultiBinding Converter="{StaticResource levelCvt}">
+                            <Binding Path="DataContext.Level"
+                                     RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type view:HomeView}}" />
+                            <Binding Path="Media.Lvl" />
+                        </MultiBinding>
+                    </DataTrigger.Binding>
+                    <Setter Property="ContentTemplate"
+                            Value="{StaticResource carouselItemNotEnoughLv}" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
         <Storyboard x:Key="stb_OpicityTo1">
             <DoubleAnimation Storyboard.TargetProperty="Opacity"
                              To="1"
@@ -543,16 +608,94 @@
     </UserControl.Resources>
     <ScrollViewer HorizontalScrollBarVisibility="Disabled">
         <DockPanel>
-            <ListBox DockPanel.Dock="Top"
-                     ItemsSource="{Binding TopIMDbMovie}"
-                     ItemContainerStyle="{StaticResource carouselMovieStyle}"
-                     PreviewMouseWheel="ItemsControl_PreviewMouseWheel">
-                <ListBox.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <VirtualizingStackPanel Orientation="Horizontal" />
-                    </ItemsPanelTemplate>
-                </ListBox.ItemsPanel>
-            </ListBox>
+            <GroupBox DockPanel.Dock="Top">
+                <GroupBox.Header>
+                    <DockPanel Margin="30 0 0 0">
+                        <materialDesign:PackIcon Kind="Eye"
+                                                 FontSize="30"
+                                                 Foreground="Orange"
+                                                 VerticalAlignment="Center"
+                                                 Margin="0 0 5 0" />
+                        <TextBlock Foreground="Orange"
+                                   FontWeight="Bold"
+                                   VerticalAlignment="Center">
+                        Top Views
+                        </TextBlock>
+                    </DockPanel>
+                </GroupBox.Header>
+                <ListBox ItemsSource="{Binding TopViewsMovie}"
+                         ItemContainerStyle="{StaticResource topViewsMovieStyle}"
+                         PreviewMouseWheel="ItemsControl_PreviewMouseWheel">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.Template>
+                        <ControlTemplate TargetType="ItemsControl">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="40" />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="40" />
+                                </Grid.ColumnDefinitions>
+                                <ScrollViewer Grid.ColumnSpan="3"
+                                              Name="sv_carousel"
+                                              HorizontalScrollBarVisibility="Hidden"
+                                              VerticalScrollBarVisibility="Disabled">
+                                    <ItemsPresenter />
+                                </ScrollViewer>
+                                <Grid Name="gScrollLeft"
+                                      Margin="0"
+                                      Grid.Column="0"
+                                      Opacity="0"
+                                      Style="{StaticResource g_opicityRepeatButton}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Border Background="Black"
+                                            Opacity=".6"
+                                            Panel.ZIndex="0"
+                                            BorderThickness="0"
+                                            Margin="0"
+                                            Padding="0" />
+                                    <RepeatButton Command="{x:Static ScrollBar.LineLeftCommand}"
+                                                  CommandTarget="{Binding ElementName=sv_carousel}">
+                                        <materialDesign:PackIcon Kind="ChevronLeft"
+                                                                 Width="55"
+                                                                 Height="55"
+                                                                 VerticalAlignment="Center"
+                                                                 HorizontalAlignment="Center" />
+                                    </RepeatButton>
+                                </Grid>
+                                <Grid Name="gScrollRight"
+                                      Margin="0"
+                                      Grid.Column="2"
+                                      Opacity="0"
+                                      Style="{StaticResource g_opicityRepeatButton}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Border Background="Black"
+                                            Opacity=".6"
+                                            Panel.ZIndex="0"
+                                            BorderThickness="0"
+                                            Margin="0"
+                                            Padding="0" />
+                                    <RepeatButton Command="{x:Static ScrollBar.LineRightCommand}"
+                                                  CommandTarget="{Binding ElementName=sv_carousel}">
+                                        <materialDesign:PackIcon Kind="ChevronRight"
+                                                                 Width="55"
+                                                                 Height="55"
+                                                                 VerticalAlignment="Center"
+                                                                 HorizontalAlignment="Center" />
+                                    </RepeatButton>
+                                </Grid>
+                            </Grid>
+                        </ControlTemplate>
+                    </ListBox.Template>
+                </ListBox>
+            </GroupBox>
             <GroupBox Width="350"
                       DockPanel.Dock="Right">
                 <GroupBox.Header>
@@ -567,16 +710,6 @@
                                    VerticalAlignment="Center">
                         Top IMDb
                         </TextBlock>
-                        <Button Background="Transparent"
-                                BorderThickness="0"
-                                HorizontalAlignment="Right"
-                                Foreground="White"
-                                FontWeight="Bold"
-                                FontStyle="Italic"
-                                FontSize="10"
-                                VerticalAlignment="Top">
-                            Xem thêm
-                        </Button>
                     </DockPanel>
                 </GroupBox.Header>
                 <ListBox Name="lb_carousel"
@@ -621,16 +754,6 @@
                                                            FontWeight="Bold"
                                                            HorizontalAlignment="Left"
                                                            Name="txtCatName" />
-                                                <Button Background="Transparent"
-                                                        BorderThickness="0"
-                                                        HorizontalAlignment="Right"
-                                                        Foreground="White"
-                                                        FontWeight="Bold"
-                                                        FontStyle="Italic"
-                                                        FontSize="10"
-                                                        VerticalAlignment="Top">
-                                                    Xem thêm
-                                                </Button>
                                             </DockPanel>
                                         </GroupBox.Header>
                                         <Grid Name="g_carousel"

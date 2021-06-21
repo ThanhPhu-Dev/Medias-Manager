@@ -19,6 +19,9 @@ namespace Manager_Medias.ViewModels.Customer
         public static readonly DependencyProperty TopIMDbMovieProperty = DependencyProperty.Register("TopIMDbMovie",
                typeof(ObservableCollection<Movie>), typeof(HomeViewModel));
 
+        public static readonly DependencyProperty TopViewsMovieProperty = DependencyProperty.Register("TopViewsMovie",
+              typeof(ObservableCollection<Movie>), typeof(HomeViewModel));
+
         public ObservableCollection<Movie_Category> CatMovieList
         {
             get => (ObservableCollection<Movie_Category>)GetValue(CatMovieListProperty);
@@ -31,6 +34,12 @@ namespace Manager_Medias.ViewModels.Customer
             set => SetValue(TopIMDbMovieProperty, value);
         }
 
+        public ObservableCollection<Movie> TopViewsMovie
+        {
+            get => (ObservableCollection<Movie>)GetValue(TopViewsMovieProperty);
+            set => SetValue(TopViewsMovieProperty, value);
+        }
+
         public ICommand CmdToDetailMovie { get; set; }
 
         public int Level => 10; /*(int) _userStore.CurrentUser.Level;*/
@@ -39,6 +48,7 @@ namespace Manager_Medias.ViewModels.Customer
         {
             LoadMovie();
             loadTopIMDbMovie();
+            loadTopViewsMovie();
 
             CmdToDetailMovie = new RelayCommand<object>(ToDetailMovie, (object o) =>
             {
@@ -94,6 +104,26 @@ namespace Manager_Medias.ViewModels.Customer
                     {
                         TopIMDbMovie = new ObservableCollection<Movie>(
                             db.Movies.Include("Media").Include("Media.Level").OrderByDescending(m => m.IMDB).Take(8).ToList());
+
+                    }
+                });
+            }).ContinueWith((task) =>
+            {
+                IsLoading = false;
+            }).ConfigureAwait(false);
+        }
+
+        private async void loadTopViewsMovie()
+        {
+            IsLoading = true;
+            await Task.Run(() =>
+            {
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    using (var db = new MediasManangementEntities())
+                    {
+                        TopViewsMovie = new ObservableCollection<Movie>(
+                            db.Movies.Include("Media").Include("Media.Level").OrderByDescending(m => m.NumberOfViews).Take(8).ToList());
 
                     }
                 });

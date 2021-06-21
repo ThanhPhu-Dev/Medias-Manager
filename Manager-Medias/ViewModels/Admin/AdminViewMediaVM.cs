@@ -14,6 +14,7 @@ namespace Manager_Medias.ViewModels.Admin
         public static readonly DependencyProperty MovieListProperty;
         public static readonly DependencyProperty MovieProperty;
 
+        public static readonly DependencyProperty CategoryListProperty;
 
         static AdminViewMediaVM()
         {
@@ -24,6 +25,9 @@ namespace Manager_Medias.ViewModels.Admin
             MovieProperty = DependencyProperty.Register("Movie",
                             typeof(Movie), typeof(AdminViewMediaVM));
 
+
+            CategoryListProperty = DependencyProperty.Register("CategoryList",
+                               typeof(ListCollectionView), typeof(AdminViewMediaVM));
         }
 
         public ListCollectionView MovieList
@@ -39,11 +43,19 @@ namespace Manager_Medias.ViewModels.Admin
             set => SetValue(MovieProperty, value);
         }
 
+        public ListCollectionView CategoryList
+        {
+            get => (ListCollectionView)GetValue(CategoryListProperty);
+            set => SetValue(CategoryListProperty, value);
+        }
+
         public AdminViewMediaVM()
         {
             using (var db = new MediasManangementEntities())
             {
                 MovieList = new ListCollectionView(db.Movies.ToList());
+
+                CategoryList = new ListCollectionView(db.Movie_Categories.ToList());
             }
 
             MovieList.CurrentChanged += (_, e) =>
@@ -51,23 +63,8 @@ namespace Manager_Medias.ViewModels.Admin
                 var MovieCurrent = MovieList.CurrentItem as Movie;
                 if (MovieCurrent == null)
                     return;
-                Movie = new Movie
-                {
-                    Id = MovieCurrent.Id,
-                    IdCategory = MovieCurrent.IdCategory,
-                    Name = MovieCurrent.Name,
-                    Description = MovieCurrent.Description,
-                    IMDB = MovieCurrent.IMDB,
-                    Poster = MovieCurrent.Poster,
-                    Likes = MovieCurrent.Likes,
-                    Age = MovieCurrent.Age,
-                    NumberOfViews = MovieCurrent.NumberOfViews,
-                    Video = MovieCurrent.Video,
-                    Season = MovieCurrent.Season,
-                    Time = MovieCurrent.Time,
-                    Directors = MovieCurrent.Directors,
-                    Nation = MovieCurrent.Nation,
-                };
+
+                Movie = MovieCurrent;
             };
         }
     }

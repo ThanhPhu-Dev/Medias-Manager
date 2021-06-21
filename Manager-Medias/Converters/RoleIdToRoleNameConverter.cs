@@ -12,7 +12,10 @@ namespace Manager_Medias.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if(value.ToString() == "1")
+            if (value == null)
+                return "Không xác định";
+
+            if (value.ToString() == "1")
             {
                 return "Người dùng";
             }

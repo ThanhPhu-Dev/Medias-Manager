@@ -52,7 +52,7 @@ namespace Manager_Medias.Views.Admin
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            //mainGrid.Children.Add(new MainDashBoardAdminUserControl());
+            mainGrid.Children.Add(new MainDashBoardAdminUserControl());
             
         }
 

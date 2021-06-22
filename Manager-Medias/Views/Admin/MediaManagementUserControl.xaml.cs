@@ -1,12 +1,22 @@
 ﻿using Manager_Medias.ViewModels.Admin;
 using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
+using HtmlAgilityPack;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Linq;
-using System.Runtime.InteropServices;
+using System.Collections.Generic;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -19,6 +29,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using System.Threading;
 
 namespace Manager_Medias.Views.Admin
 {
@@ -65,7 +76,11 @@ namespace Manager_Medias.Views.Admin
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Media files (*.mp3;*.mpg;*.mpeg;*.mp4)|*.mp3;*.mpg;*.mpeg;*mp4|All files (*.*)|*.*";
             if (openFileDialog.ShowDialog() == true)
+            {
                 mePlayer.Source = new Uri(openFileDialog.FileName);
+                txtbDuration.Text = mePlayer.NaturalDuration.ToString();
+            }    
+                
         }
 
         private void btPlayMovie_Click(object sender, RoutedEventArgs e)

@@ -75,15 +75,5 @@ namespace Manager_Medias.Views.Home
             var media = grid.FindName("VideoPreview") as MediaElement;
             media?.Close();
         }
-
-        private void albumsButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void PreviewMouseWheel(object sender, MouseWheelEventArgs e)
-        {
-
-        }
     }
 }

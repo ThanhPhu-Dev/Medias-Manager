@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:rules="clr-namespace:Manager_Medias.Validates"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:cvt="clr-namespace:Manager_Medias.Converters"
              xmlns:local="clr-namespace:Manager_Medias.Views.Admin"
@@ -82,13 +83,169 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0" Background="CadetBlue">
-            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0" Name="addUserBt">
+                <Rectangle Height="120" Margin="10" 
+                               Fill="White" RadiusY="10" RadiusX="10" >
+                    <Rectangle.Effect>
+                        <DropShadowEffect BlurRadius="20" Color="#FFDEDEDE" RenderingBias="Quality" ShadowDepth="1"/>
+                    </Rectangle.Effect>
+                </Rectangle>
+                <Grid Height="110" Margin="15 5 15 0">
+                    <StackPanel>
+                        <Button Margin="10,5,10,0" Background="#1c944e"
+                                    Height="26"
+                                    BorderBrush="CadetBlue">
+                            <Grid Width="220">
+
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="Update"/>
+                                    <TextBlock FontSize="13" Margin="8 0 0 0"
+                                               Text="Các tài khoản quản trị" FontFamily="Champagne &amp; Limousines" />
+                                </StackPanel>
+
+                            </Grid>
+                        </Button>
+                        <Button Margin="10,8,10,0" Background="CadetBlue"
+                                Height="26"
+                                Name="btAddMovie" Click="btAddMovie_Click"
+                                BorderBrush="CadetBlue">
+                            <Grid Width="220">
+
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="AddBold"/>
+                                    <TextBlock  FontSize="13" Margin="8 0 0 0"                                           
+                                                Text="Thêm người phim mới" FontFamily="Champagne &amp; Limousines" />
+                                </StackPanel>
+
+                            </Grid>
+                        </Button>
+
+
+                        <Button Margin="10,8,10,0" Background="#c7462c"
+                                Height="26" Click="btAdvancedSearch_Click" Name="btAdvancedSearch"
+                                BorderBrush="CadetBlue">
+                            <Grid Width="220">
+
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="Delete"/>
+                                    <TextBlock  FontSize="13" Margin="8 0 0 0"
+                                                Text="Tìm kiếm nâng cao" FontFamily="Champagne &amp; Limousines" />
+                                </StackPanel>
+
+                            </Grid>
+                        </Button>
+
+                    </StackPanel>
+
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Column="1">
+                <Rectangle Height="120" Margin="10" Fill="White" RadiusY="10" RadiusX="10" >
+                    <Rectangle.Effect>
+                        <DropShadowEffect BlurRadius="20" Color="#FFDEDEDE" 
+                                              RenderingBias="Quality" ShadowDepth="1"/>
+                    </Rectangle.Effect>
+                </Rectangle>
+                <Grid Height="120">
+                    <StackPanel Orientation="Horizontal">
+                        <Grid Width="50" Height="65" Background="#FF41A43C" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,0,0,0">
+                            <Grid.Effect>
+                                <DropShadowEffect BlurRadius="20" Color="#FFECECEC" 
+                                                  RenderingBias="Quality" ShadowDepth="1"/>
+                            </Grid.Effect>
+                            <materialDesign:PackIcon Kind="People" HorizontalAlignment="Center" 
+                                                     VerticalAlignment="Bottom" Margin="5" 
+                                                     Foreground="White" Width="30" Height="30"/>
+                        </Grid>
+                        <StackPanel>
+                            <TextBlock Text="Tổng số thành viên" 
+                                           Padding="60 6 0 0"
+                                           FontWeight="Bold"
+                                           Foreground="Black" FontSize="16"/>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <TextBlock Text="321" FontSize="50" 
+                                               Foreground="IndianRed"
+                                               FontWeight="Bold"
+                                               VerticalAlignment="Top" Height="64"/>
+
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="ImportantDevices" Height="21" Width="21" />
+                                <TextBlock Margin="5 0 0 0" Text="Số thành viên VIP:"
+                                               FontSize="14"/>
+                                <TextBlock Margin="5 0 0 0" 
+                                               FontSize="14"
+                                               Text="98" Foreground="OrangeRed"
+                                               FontWeight="Bold"/>
+                            </StackPanel>
+
+                        </StackPanel>
+
+                    </StackPanel>
+
+                </Grid>
+
+            </Grid>
+
+            <Grid Grid.Column="2">
+                <Rectangle Height="120" Margin="10" Fill="White" RadiusY="10" RadiusX="10" >
+                    <Rectangle.Effect>
+                        <DropShadowEffect BlurRadius="20" Color="#FFDEDEDE" 
+                                              RenderingBias="Quality" ShadowDepth="1"/>
+                    </Rectangle.Effect>
+                </Rectangle>
+                <Grid Height="120">
+                    <StackPanel Orientation="Horizontal">
+                        <Grid Width="50" Height="65" Background="DodgerBlue" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,0,0,0">
+                            <Grid.Effect>
+                                <DropShadowEffect BlurRadius="20" Color="AliceBlue" 
+                                                  RenderingBias="Quality" ShadowDepth="1"/>
+                            </Grid.Effect>
+                            <materialDesign:PackIcon Kind="Payment" HorizontalAlignment="Center" 
+                                                     VerticalAlignment="Bottom" Margin="5" 
+                                                     Foreground="White" Width="30" Height="30"/>
+                        </Grid>
+                        <StackPanel>
+                            <TextBlock Text="Tổng nạp tháng này" 
+                                           Padding="60 6 0 0"
+                                           FontWeight="Bold"
+                                           Foreground="Black" FontSize="16"/>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <TextBlock Text="7.240.000" FontSize="37" 
+                                               Foreground="#edb634"
+                                               FontWeight="Bold"
+                                               VerticalAlignment="Top" Height="64"/>
+                                <TextBlock Text="VNĐ" Padding="0 0 0 15" VerticalAlignment="Bottom"/>
+
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="FreeBreakfast" Height="21" Width="21" />
+                                <TextBlock Margin="5 0 0 0" Text="Số thành viên VIP mới:"
+                                               FontSize="14"/>
+                                <TextBlock Margin="5 0 0 0" 
+                                               FontSize="14"
+                                               Text="16" Foreground="OrangeRed"
+                                               FontWeight="Bold"/>
+                            </StackPanel>
+
+                        </StackPanel>
+
+                    </StackPanel>
+
+                </Grid>
+            </Grid>
         </Grid>
         <Grid Grid.Row="1" Background="Gainsboro">
 
         </Grid>
         <Grid Grid.Row="2">
-
             <ScrollViewer x:Name="mainScrollViewer">
                 <StackPanel>
                     <StackPanel.Resources>
@@ -213,9 +370,9 @@
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                         <Border BorderBrush="Gray" BorderThickness="2" Name="boderTemplate2"
-                                MouseLeftButtonDown="boderTemplate_MouseLeftButtonDown"
-                                MouseLeave="boderTemplate_MouseLeave"
-                                Height="115" Width="200">
+                                                MouseLeftButtonDown="boderTemplate_MouseLeftButtonDown"
+                                                MouseLeave="boderTemplate_MouseLeave"
+                                                Height="115" Width="200">
                                             <Border.Background>
                                                 <ImageBrush ImageSource="{Binding Poster, Converter={StaticResource imageCvt}}" Stretch="Uniform"/>
                                             </Border.Background>
@@ -390,21 +547,20 @@
                                             </StatusBarItem>
                                         </StatusBar>
                                     </Grid>
-
                                 </Border>
                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center"
                                             HorizontalAlignment="Center">
-                                    <TextBlock Text="Poster:" DockPanel.Dock="Top"
-                                                           FontWeight="Bold" Margin="5 15 0 0"
-                                                           Foreground="Black" FontSize="14"/>
+                                    <TextBlock Text="Poster:" DockPanel.Dock="Top" Name="txtbPoster"
+                                               FontWeight="Bold" Margin="5 15 0 0"
+                                               Foreground="Black" FontSize="14"/>
 
 
                                     <Border BorderBrush="Gray"
                                                         Padding="5"
                                                         Height="220" Width="190" BorderThickness="2"
                                                         Margin="20 10 0 5">
-                                        <Image Name="imgAvatarAdd"
-                                               Source="{Binding Movie.Poster, Converter={StaticResource imageCvt}}"/>
+                                        <Image Name="imgPoster"
+                                               Source="{Binding ElementName=txtbPosterAdd, Path=Text, Converter={StaticResource imageCvt}}"/>
                                     </Border>
 
                                     <TextBox Tag="Họ tên: " Name="txtavatar" Visibility="Collapsed"
@@ -424,7 +580,8 @@
                                                         FontSize="10" Height="25">Đổi poster</Button>
 
 
-
+                                    <TextBlock Text="{Binding Movie.Poster}" Name="txtbPosterAdd"
+                                               Visibility="Collapsed"/>
                                 </StackPanel>
                             </StackPanel>
 
@@ -456,7 +613,7 @@
                                                 <TextBox.Text>
                                                     <Binding Path="Movie.Age" UpdateSourceTrigger="PropertyChanged" >
                                                         <Binding.ValidationRules>
-
+                                                            <rules:MovieManagementRules property="Age"/>
                                                         </Binding.ValidationRules>
                                                     </Binding>
                                                 </TextBox.Text>
@@ -467,7 +624,7 @@
                                                 <TextBox.Text>
                                                     <Binding Path="Movie.Season" UpdateSourceTrigger="PropertyChanged" >
                                                         <Binding.ValidationRules>
-
+                                                            <rules:MovieManagementRules property="Season"/>
                                                         </Binding.ValidationRules>
                                                     </Binding>
                                                 </TextBox.Text>
@@ -481,7 +638,7 @@
                                                 <Binding Path="Movie.Name" 
                                                          UpdateSourceTrigger="PropertyChanged" >
                                                     <Binding.ValidationRules>
-
+                                                        <rules:MovieManagementRules property="Name"/>
                                                     </Binding.ValidationRules>
                                                 </Binding>
                                             </TextBox.Text>
@@ -492,19 +649,20 @@
                                             <TextBox.Text>
                                                 <Binding Path="Movie.Description" UpdateSourceTrigger="PropertyChanged" >
                                                     <Binding.ValidationRules>
-
+                                                        <rules:MovieManagementRules property="Descrip"/>
                                                     </Binding.ValidationRules>
                                                 </Binding>
                                             </TextBox.Text>
                                         </TextBox>
 
-                                        <TextBox Tag="Directors: " Name="txtbDirectorsAdd"
+                                        <TextBox Tag="Directors: " Width="300"
+                                                 Name="txtbDirectorsAdd" HorizontalAlignment="Left"
                                                  Style="{DynamicResource TxtStyleValidation}" 
                                                  Grid.Row="6">
                                             <TextBox.Text>
                                                 <Binding Path="Movie.Directors" UpdateSourceTrigger="PropertyChanged" >
                                                     <Binding.ValidationRules>
-
+                                                        <rules:MovieManagementRules property="Directors"/>
                                                     </Binding.ValidationRules>
                                                 </Binding>
                                             </TextBox.Text>
@@ -517,13 +675,13 @@
                                                 <TextBox.Text>
                                                     <Binding Path="Movie.IMDB" UpdateSourceTrigger="PropertyChanged" >
                                                         <Binding.ValidationRules>
-
+                                                            <rules:MovieManagementRules property="IMDB"/>
                                                         </Binding.ValidationRules>
                                                     </Binding>
                                                 </TextBox.Text>
                                             </TextBox>
                                             <Button Background="{x:Null}" Command="{Binding CmdUpdateIMDBrating}"
-                                                    Foreground="Blue" Padding="0 5 0 0"
+                                                    Foreground="Blue" Padding="0 5 0 0" 
                                                     BorderBrush="{x:Null}">
                                                 <materialDesign:PackIcon Kind="Update" Height="28" Width="46"/>
                                             </Button>
@@ -537,7 +695,7 @@
                                             <TextBox.Text>
                                                 <Binding Path="Movie.Nation" UpdateSourceTrigger="PropertyChanged" >
                                                     <Binding.ValidationRules>
-
+                                                        <rules:MovieManagementRules property="Nation"/>
                                                     </Binding.ValidationRules>
                                                 </Binding>
                                             </TextBox.Text>

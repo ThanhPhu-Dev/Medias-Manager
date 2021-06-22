@@ -206,6 +206,7 @@
     <Compile Include="Validates\CheckAppyValidationRule.cs" />
     <Compile Include="Validates\DateExpirationValidationRule.cs" />
     <Compile Include="Validates\EmptyStringValidationRule.cs" />
+    <Compile Include="Validates\MovieManagementRules.cs" />
     <Compile Include="Validates\ValidateEmail.cs" />
     <Compile Include="Validates\ValidateEmailRegister.cs" />
     <Compile Include="Validates\ValidatePassword.cs" />

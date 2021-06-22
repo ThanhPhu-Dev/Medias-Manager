@@ -77,7 +77,8 @@ namespace Manager_Medias.Views.Admin
             openFileDialog.Filter = "Media files (*.mp3;*.mpg;*.mpeg;*.mp4)|*.mp3;*.mpg;*.mpeg;*mp4|All files (*.*)|*.*";
             if (openFileDialog.ShowDialog() == true)
             {
-                mePlayer.Source = new Uri(openFileDialog.FileName);
+                txtbVideoAdd.Text = openFileDialog.FileName.ToString();
+
                 txtbDuration.Text = mePlayer.NaturalDuration.ToString();
             }    
                 
@@ -207,7 +208,17 @@ namespace Manager_Medias.Views.Admin
 
         private void btChooseImgAdd_Click(object sender, RoutedEventArgs e)
         {
-            
+            var a = imgPoster.Source.ToString();
+
+            var screen = new OpenFileDialog();
+            if (screen.ShowDialog() == true)
+            {
+                var filename = screen.FileName;
+                //var Image = new BitmapImage(new Uri(filename, UriKind.Absolute));
+                txtbPosterAdd.Text = filename;
+                var b = imgPoster.Source.ToString(); 
+
+            }
         }
 
         private void boderTemplate_MouseEnter(object sender, MouseEventArgs e)
@@ -231,6 +242,21 @@ namespace Manager_Medias.Views.Admin
         private void btExitPopup_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             PCheckBox.IsChecked = false;
+        }
+
+        private void btAddMovie_Click(object sender, RoutedEventArgs e)
+        {
+            detailPanel.Show();
+            double move = 1408.0;
+            mainScrollViewer.ScrollToVerticalOffset(move);
+            detailPanel.Focus();
+
+
+        }
+
+        private void btAdvancedSearch_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

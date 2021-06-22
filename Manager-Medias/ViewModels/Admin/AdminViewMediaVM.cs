@@ -126,7 +126,6 @@ namespace Manager_Medias.ViewModels.Admin
             JObject response = JObject.Parse(new System.Net.WebClient().DownloadString(query));
 
             HtmlNodeCollection node = null;
-            HtmlNodeCollection name = null;
             HtmlDocument document = null;
             do
             {
@@ -141,7 +140,6 @@ namespace Manager_Medias.ViewModels.Admin
                 imdbLink = imdbLink.Substring(0, imdbLink.LastIndexOf("/"));
                 HtmlWeb web = new HtmlWeb();
                 document = web.Load(imdbLink);
-                name = document.DocumentNode.SelectNodes("//h1[@class]");
                 node = document.DocumentNode.SelectNodes("//span[contains(@itemprop, 'ratingValue')]");
             } while (node == null);
 
@@ -150,12 +148,53 @@ namespace Manager_Medias.ViewModels.Admin
             imdbRating = double.Parse(nodes[0].InnerHtml.ToString());
             nodes = document.DocumentNode.SelectNodes("//span[contains(@itemprop, 'ratingCount')]").ToArray();
             imdbRatingCount = int.Parse(nodes[0].InnerHtml.ToString().Replace(",", string.Empty));
-            nodes = name.ToArray();
+            nodes = document.DocumentNode.SelectNodes("//h1[@class]").ToArray();
             string nameMovie = nodes[0].InnerText.ToString().Replace("&nbsp;", "\nNăm phát hành: ");
+            nodes = document.DocumentNode.SelectNodes("//div[contains(@class, 'credit_summary_item')]").ToArray();
+            string directorName = nodes[0].InnerText.ToString();
+            directorName = directorName.Substring(directorName.LastIndexOf("\n") + 1).Replace("    ", "");
+            nodes = document.DocumentNode.SelectNodes("//div[contains(@class, 'subtext')]").ToArray();
+            string info = nodes[0].InnerText.ToString().Replace(" ", "").Replace("\n", "");
+            string nhan = info.Substring(0, info.IndexOf("|"));
+            string duration = "";
+            if (info.Split('|').Length - 1 == 3)
+            {
+                duration = info.Substring(info.IndexOf("|") + 1, 7);
+            }
+            else
+            {
+                duration = nhan;
+                nhan = "Không có";
+            }
 
             //Placing the result in the rating text box
-            MessageBox.Show("Phim: " + nameMovie + "\nĐiểm IMDB: " + imdbRating + "\nTổng số " + imdbRatingCount + " đánh giá.", "Xác nhận phim", 
-                MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var result = MessageBox.Show("Phim: " + nameMovie + "\nĐạo diễn: "+ directorName + "\nĐiểm IMDB: " + imdbRating + "\nTổng số đánh giá: " + imdbRatingCount + "\nNhãn: " + nhan + "\nThời lượng: "+ duration, "Xác nhận phim", 
+                                        MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                using (var db = new MediasManangementEntities())
+                { 
+                    var MovieUpdate = db.Movies.FirstOrDefault(u => u.Id == Movie.Id);
+                    MovieUpdate.Directors = directorName;
+                    MovieUpdate.IMDB = imdbRating;
+                    MovieUpdate.Time = duration;
+
+                    if (db.SaveChanges() > 0)
+                    {
+                        MessageBox.Show("Cập nhật thành công");
+                        var movieCur = MovieList.CurrentItem as Movie;
+                        movieCur.Directors = directorName;
+                        movieCur.IMDB = imdbRating;
+                        movieCur.Time = duration;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Không có thay đổi hoặc cập nhật thất bại");
+                    }
+                }
+            }
+
 
         }
     }

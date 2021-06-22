@@ -17,6 +17,10 @@ namespace Manager_Medias.Converters
             {
                 return null;
             }
+            if (File.Exists(value.ToString()))
+            {
+                return value.ToString();
+            }
             string val = value.ToString();
             var type = val.Split('_');
             StringBuilder url = new StringBuilder(AppDomain.CurrentDomain.BaseDirectory + "Images" + Path.DirectorySeparatorChar);

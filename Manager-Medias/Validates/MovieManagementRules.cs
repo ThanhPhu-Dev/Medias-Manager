@@ -13,7 +13,8 @@ namespace Manager_Medias.Validates
     {
         public string property { get; set; }
 
-        private Regex NoNumberAndSpecialChar = new Regex(@"/[^a-zA-Z ]/g");
+        private Regex NoNumberAndSpecialChar = new Regex(@"^\p{L}+$");
+        private Regex intOrDou = new Regex(@"-?\d+(?:\.\d+)?");
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             if (property == "Name")
@@ -53,15 +54,19 @@ namespace Manager_Medias.Validates
                 }
             }
 
-            if (property == "Seasion")
+            if (property == "Season")
             {
-                if(value.ToString().Length > 0)
+                if (value.ToString().Length == 0)
+                {
+                    return new ValidationResult(true, null);
+                }
+                if (value.ToString().Length > 0)
                 {
                     try
                     {
                         int season = int.Parse(value.ToString());
                     }
-                    catch(Exception e)
+                    catch
                     {
                         return new ValidationResult(false, "Phải nhập số nguyên cho mục này!");
                     }
@@ -70,26 +75,37 @@ namespace Manager_Medias.Validates
 
             if (property == "IMDB")
             {
-                if (value.ToString().Length > 0)
+                if(value == null || value.ToString().Length == 0)
                 {
-                    try
+                    return new ValidationResult(true, null);
+                }
+
+                if (!intOrDou.IsMatch(value.ToString()))
+                {
+                    return new ValidationResult(false, "Phải nhập số cho trường này!");
+                }
+                else
+                {
+                    double imdb = double.Parse(value.ToString());
+                    if(imdb > 10)
                     {
-                        double season = double.Parse(value.ToString());
-                    }
-                    catch (Exception e)
-                    {
-                        return new ValidationResult(false, "Phải nhập số cho mục này!");
+                        return new ValidationResult(false, "Điểm IMDB phải nhỏ hơn 10.0!");
                     }
                 }
+                  
             }
 
             if (property == "Age")
             {
+                if (value.ToString().Length == 0)
+                {
+                    return new ValidationResult(false, "Hãy độ tuổi cho phép của phim!");
+                }
                 if (value.ToString().Length > 0)
                 {
                     try
                     {
-                        int season = int.Parse(value.ToString());
+                        int age = int.Parse(value.ToString());
                     }
                     catch(Exception e)
                     {

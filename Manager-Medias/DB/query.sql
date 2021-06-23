@@ -195,11 +195,12 @@ Select * from Roles
 select * from Media_categories
 select * from Audios
 select * from Audio_Categories
-select * from Media_Categories 
+
 select * from Likes 
 select * from My_Lists
 select * from levels
-select * from Medias where IdCategory = 2
+select * from Media_Categories 
+select * from Medias 
 select * from Movies
 select * from Movie_Categories
 select * from Album_Details

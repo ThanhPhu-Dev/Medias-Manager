@@ -78,8 +78,6 @@ namespace Manager_Medias.Views.Admin
             if (openFileDialog.ShowDialog() == true)
             {
                 txtbVideoAdd.Text = openFileDialog.FileName.ToString();
-
-                txtbDuration.Text = mePlayer.NaturalDuration.ToString();
             }    
                 
         }
@@ -166,7 +164,7 @@ namespace Manager_Medias.Views.Admin
         ScrollViewer scrollViwer;
         private void btMoveRight_Click(object sender, RoutedEventArgs e)
         {
-
+            scrollViwer = GetScrollViewer(lvMovies) as ScrollViewer;
             double move = scrollViwer.HorizontalOffset + 3;
             scrollViwer.ScrollToHorizontalOffset(move);
             detailPanel.Collapse();
@@ -186,6 +184,7 @@ namespace Manager_Medias.Views.Admin
             double move = 1408.0;
             mainScrollViewer.ScrollToVerticalOffset(move);
             detailPanel.Focus();
+            PCheckBox.IsEnabled = true;
         }
         
 
@@ -208,16 +207,13 @@ namespace Manager_Medias.Views.Admin
 
         private void btChooseImgAdd_Click(object sender, RoutedEventArgs e)
         {
-            var a = imgPoster.Source.ToString();
+            //var a = imgPoster.Source.ToString();
 
             var screen = new OpenFileDialog();
             if (screen.ShowDialog() == true)
             {
                 var filename = screen.FileName;
-                //var Image = new BitmapImage(new Uri(filename, UriKind.Absolute));
-                txtbPosterAdd.Text = filename;
-                var b = imgPoster.Source.ToString(); 
-
+                txtbPosterAdd.Text = filename.ToString();
             }
         }
 
@@ -251,6 +247,17 @@ namespace Manager_Medias.Views.Admin
             mainScrollViewer.ScrollToVerticalOffset(move);
             detailPanel.Focus();
 
+            txtbAgeAdd.Text = "";
+            txtbDesAdd.Text = "";
+            txtbNameAdd.Text = "";
+            txtbNationAdd.Text = "";
+            txtavatar.Text = "";
+            txtbDirectorsAdd.Text = "";
+            txtbIMDBAdd.Text = "";
+            txtbSeasonAdd.Text = "";
+            txtbVideoAdd.Text = "";
+            txtbPosterAdd.Text = "";
+            PCheckBox.IsEnabled = false;
 
         }
 

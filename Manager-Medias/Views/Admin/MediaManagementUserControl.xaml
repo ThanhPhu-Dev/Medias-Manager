@@ -73,7 +73,24 @@
                 </MultiTrigger>
             </Style.Triggers>
         </Style>
+        <Style TargetType="Button" x:Key="buttonValidationFailStyle"
+               BasedOn="{StaticResource MaterialDesignFlatAccentBgButton}">
+            <Setter Property="IsEnabled" Value="False"/>
 
+            <Style.Triggers>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions> 
+                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=txtbNameAdd}" Value="False"/>
+                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=txtbNationAdd}" Value="False"/>
+                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=txtbAgeAdd}" Value="False"/>
+                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=txtbSeasonAdd}" Value="False"/>
+                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=txtbDirectorsAdd}" Value="False"/>
+                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=txtbDesAdd}" Value="False"/>
+                    </MultiDataTrigger.Conditions>
+                    <Setter Property="IsEnabled" Value="True"/>
+                </MultiDataTrigger>
+            </Style.Triggers>
+        </Style>
     </UserControl.Resources>
     <Grid x:Name="gridParent">
         <Grid.RowDefinitions>
@@ -287,7 +304,7 @@
                                        FontWeight="Bold">Danh sách phim mới</TextBlock>
                             <ListView Name="lvMovies" ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                                       ItemsSource="{Binding MovieList}" ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                                      Height="140" SelectionMode="Single" IsSynchronizedWithCurrentItem="True">
+                                      Height="140" SelectionMode="Single">
 
                                 <ListView.ItemsPanel>
                                     <ItemsPanelTemplate>
@@ -550,7 +567,7 @@
                                 </Border>
                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center"
                                             HorizontalAlignment="Center">
-                                    <TextBlock Text="Poster:" DockPanel.Dock="Top" Name="txtbPoster"
+                                    <TextBlock Text="Poster:" DockPanel.Dock="Top"
                                                FontWeight="Bold" Margin="5 15 0 0"
                                                Foreground="Black" FontSize="14"/>
 
@@ -580,8 +597,18 @@
                                                         FontSize="10" Height="25">Đổi poster</Button>
 
 
-                                    <TextBlock Text="{Binding Movie.Poster}" Name="txtbPosterAdd"
-                                               Visibility="Collapsed"/>
+                                    <TextBox x:Name="txtbPosterAdd"
+                                                 Visibility="Collapsed"
+                                                 Style="{DynamicResource TxtStyleValidation}"
+                                                 Grid.Row="4">
+                                        <TextBox.Text>
+                                            <Binding Path="Movie.Poster" UpdateSourceTrigger="PropertyChanged" >
+                                                <Binding.ValidationRules>
+
+                                                </Binding.ValidationRules>
+                                            </Binding>
+                                        </TextBox.Text>
+                                    </TextBox>
                                 </StackPanel>
                             </StackPanel>
 
@@ -631,21 +658,28 @@
                                             </TextBox>
                                         </StackPanel>
 
-                                        <TextBox Tag="Name: " Name="txtbNameAdd"
-                                                 Style="{DynamicResource TxtStyleValidation}" 
-                                                 Grid.Row="1">
-                                            <TextBox.Text>
-                                                <Binding Path="Movie.Name" 
-                                                         UpdateSourceTrigger="PropertyChanged" >
-                                                    <Binding.ValidationRules>
-                                                        <rules:MovieManagementRules property="Name"/>
-                                                    </Binding.ValidationRules>
-                                                </Binding>
-                                            </TextBox.Text>
-                                        </TextBox>
+                                        <StackPanel Orientation="Horizontal" Grid.Row="1">
+                                            <TextBox Tag="Name: " Name="txtbNameAdd"
+                                                     Style="{DynamicResource TxtStyleValidation}" Width="300">                                    
+                                                <TextBox.Text>
+                                                    <Binding Path="Movie.Name" 
+                                                             UpdateSourceTrigger="PropertyChanged" >
+                                                        <Binding.ValidationRules>
+                                                            <rules:MovieManagementRules property="Name"/>
+                                                        </Binding.ValidationRules>
+                                                    </Binding>
+                                                </TextBox.Text>
+                                            </TextBox>
+                                            <Button Background="{x:Null}" Command="{Binding CmdUpdateIMDBrating}"
+                                                    Foreground="Blue" Padding="0 5 0 0" 
+                                                    BorderBrush="{x:Null}">
+                                                <materialDesign:PackIcon Kind="Search" Height="28" Width="46"/>
+                                            </Button>
+                                        </StackPanel>
+                                        
                                         <TextBox Tag="Descrip: " Name="txtbDesAdd" Height="130"
                                                  Style="{DynamicResource TxtStyleValidation}" 
-                                                 Grid.Row="8" TextWrapping="Wrap">
+                                                 Grid.Row="7" TextWrapping="Wrap">
                                             <TextBox.Text>
                                                 <Binding Path="Movie.Description" UpdateSourceTrigger="PropertyChanged" >
                                                     <Binding.ValidationRules>
@@ -655,37 +689,50 @@
                                             </TextBox.Text>
                                         </TextBox>
 
-                                        <TextBox Tag="Directors: " Width="300"
-                                                 Name="txtbDirectorsAdd" HorizontalAlignment="Left"
-                                                 Style="{DynamicResource TxtStyleValidation}" 
-                                                 Grid.Row="6">
-                                            <TextBox.Text>
-                                                <Binding Path="Movie.Directors" UpdateSourceTrigger="PropertyChanged" >
-                                                    <Binding.ValidationRules>
-                                                        <rules:MovieManagementRules property="Directors"/>
-                                                    </Binding.ValidationRules>
-                                                </Binding>
-                                            </TextBox.Text>
-                                        </TextBox>
+                                        <Border BorderBrush="Gray"
+                                                CornerRadius="2"
+                                                BorderThickness="1" Margin="0 8 0 0"
+                                                Grid.Row="8"
+                                                Background="White">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Border BorderBrush="Gray" BorderThickness="1" Width="75">
+                                                    <TextBlock Text="Cấp độ:"
+                                                               Padding="5 3 0 0" FontWeight="Bold"/>
+                                                </Border>
 
-                                        <StackPanel Grid.Row="7" Orientation="Horizontal">
+                                                <ComboBox Name="cbUserLV" ItemsSource="{Binding UserLevelList}" 
+                                                          DisplayMemberPath="Name" Padding="28 0 0 0"
+                                                          SelectedValuePath="Id"
+                                                          SelectedValue="{Binding Level.Lvl}"
+                                                          Margin="5 2 0 2" Width="190"/>
+                                            </StackPanel>
+                                        </Border>
+
+                                        <StackPanel Grid.Row="6" Orientation="Horizontal">
                                             <TextBox Tag="IMBD: " Name="txtbIMDBAdd"
-                                                     Width="300"
+                                                     Width="120"
                                                      Style="{DynamicResource TxtStyleValidation}" >
                                                 <TextBox.Text>
-                                                    <Binding Path="Movie.IMDB" UpdateSourceTrigger="PropertyChanged" >
+                                                    <Binding Path="Movie.IMDB" TargetNullValue='' StringFormat="N1"
+                                                             UpdateSourceTrigger="PropertyChanged" >
                                                         <Binding.ValidationRules>
                                                             <rules:MovieManagementRules property="IMDB"/>
                                                         </Binding.ValidationRules>
                                                     </Binding>
                                                 </TextBox.Text>
                                             </TextBox>
-                                            <Button Background="{x:Null}" Command="{Binding CmdUpdateIMDBrating}"
-                                                    Foreground="Blue" Padding="0 5 0 0" 
-                                                    BorderBrush="{x:Null}">
-                                                <materialDesign:PackIcon Kind="Update" Height="28" Width="46"/>
-                                            </Button>
-                                            
+                                            <TextBox Tag="Directors: " Width="230"
+                                                     Name="txtbDirectorsAdd" HorizontalAlignment="Left"
+                                                     Style="{DynamicResource TxtStyleValidation}" >
+                                                <TextBox.Text>
+                                                    <Binding Path="Movie.Directors" UpdateSourceTrigger="PropertyChanged" >
+                                                        <Binding.ValidationRules>
+                                                            <rules:MovieManagementRules property="Directors"/>
+                                                        </Binding.ValidationRules>
+                                                    </Binding>
+                                                </TextBox.Text>
+                                            </TextBox>
+
                                         </StackPanel>
 
 
@@ -738,7 +785,9 @@
                                             <StackPanel HorizontalAlignment="Right">
                                                 <StackPanel Orientation="Horizontal"
                                                             Margin="0 20 0 10">
-                                                    <Button Content="Thêm phim" Margin="0 0 10 0"/>
+                                                    <Button Content="Thêm phim" Margin="0 0 10 0"
+                                                          
+                                                            Command="{Binding CmdAddMovie}"/>
                                                     <Button Content="Xóa phim"/>
                                                 </StackPanel>
                                                 <Button Content="Cập nhật thông tin"/>
@@ -774,17 +823,21 @@
                                                     <RowDefinition Height="Auto"/>
                                                     <RowDefinition Height="Auto"/>
                                                     <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
                                                 </Grid.RowDefinitions>
 
                                                 <TextBlock Grid.Row="1">Số lượt like:</TextBlock>
                                                 <TextBlock Grid.Row="2">Số lượt xem:</TextBlock>
                                                 <TextBlock Grid.Row="3">Thời lượng:</TextBlock>
+                                                <TextBlock Grid.Row="4">Id phim:</TextBlock>
 
                                                 <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Movie.Likes}"/>
                                                 <TextBlock Grid.Row="2"  Grid.Column="1" 
                                                            Text="{Binding Movie.NumberOfViews}"/>
                                                 <TextBlock Grid.Row="3"  Grid.Column="1" Name="txtbDuration"
                                                            Text="{Binding Movie.Time}"/>
+                                                <TextBlock Grid.Row="4"  Grid.Column="1" Name="txtbId"
+                                                           Text="{Binding Movie.Id}"/>
 
                                                 <materialDesign:PackIcon Grid.Column="2" Grid.Row="0" Width="20"
                                                                          Kind="LocationExit" Cursor="Hand"

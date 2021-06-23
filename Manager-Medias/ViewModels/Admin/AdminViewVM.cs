@@ -382,17 +382,19 @@ namespace Manager_Medias.ViewModels.Admin
                 if (count > 1)
                 {
                     MessageBox.Show("Thêm người dùng thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    ProfileList.AddNewItem(NewProfile);
+
+                    ProfileList.CommitNew();
+                    ProfileList.CancelNew();
+                    ProfileList.CancelEdit();
                 }
                 else
                 {
                     MessageBox.Show("Thêm người dùng không thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
 
-                ProfileList.AddNewItem(NewProfile);
-
-                ProfileList.CommitNew();
-                ProfileList.CancelNew();
-                ProfileList.CancelEdit();
+               
                 
 
             }

@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.IO;
 
 namespace Manager_Medias.ViewModels.Admin
 {
@@ -19,6 +20,9 @@ namespace Manager_Medias.ViewModels.Admin
         public static readonly DependencyProperty MovieProperty;
 
         public static readonly DependencyProperty CategoryListProperty;
+
+        public static readonly DependencyProperty UserLevelListProperty;
+        public static readonly DependencyProperty UserLevelProperty;
 
 
         public ICommand CmdAddMovie { get; }
@@ -35,6 +39,14 @@ namespace Manager_Medias.ViewModels.Admin
 
             CategoryListProperty = DependencyProperty.Register("CategoryList",
                                typeof(ListCollectionView), typeof(AdminViewMediaVM));
+
+            UserLevelListProperty = DependencyProperty.Register("UserLevelList",
+                               typeof(ListCollectionView), typeof(AdminViewMediaVM));
+
+            UserLevelProperty = DependencyProperty.Register("Level",
+                typeof(Media), typeof(AdminViewMediaVM));
+
+
         }
 
         public ListCollectionView MovieList
@@ -56,6 +68,18 @@ namespace Manager_Medias.ViewModels.Admin
             set => SetValue(CategoryListProperty, value);
         }
 
+        public ListCollectionView UserLevelList
+        {
+            get => (ListCollectionView)GetValue(UserLevelListProperty);
+            set => SetValue(UserLevelListProperty, value);
+        }
+
+        public Media Level
+        {
+            get => (Media)GetValue(UserLevelProperty);
+            set => SetValue(UserLevelProperty, value);
+        }
+
         public AdminViewMediaVM()
         {
             CmdAddMovie = new RelayCommand<object>(AddMovie);
@@ -66,6 +90,8 @@ namespace Manager_Medias.ViewModels.Admin
                 MovieList = new ListCollectionView(db.Movies.ToList());
 
                 CategoryList = new ListCollectionView(db.Movie_Categories.ToList());
+
+                UserLevelList = new ListCollectionView(db.Levels.ToList());
             }
 
             MovieList.CurrentChanged += (_, e) =>
@@ -74,43 +100,105 @@ namespace Manager_Medias.ViewModels.Admin
                 if (MovieCurrent == null)
                     return;
 
-                Movie = MovieCurrent;
+                Movie = new Movie
+                {
+                    Id = MovieCurrent.Id,
+                    Name = MovieCurrent.Name,
+                    Poster = MovieCurrent.Poster,
+                    IdCategory = MovieCurrent.IdCategory,
+                    Nation = MovieCurrent.Nation,
+                    Age = MovieCurrent.Age,
+                    Season = MovieCurrent.Season,
+                    Directors = MovieCurrent.Directors,
+                    Description = MovieCurrent.Description,
+                    Video = MovieCurrent.Video,
+                    Likes = MovieCurrent.Likes,
+                    IMDB = MovieCurrent.IMDB,
+                    NumberOfViews = MovieCurrent.NumberOfViews,
+                    Time = MovieCurrent.Time,
+                };
+               
+
+                using (var db = new MediasManangementEntities())
+                {
+                    var level = db.Medias.Find(Movie.Id);
+                    Level = level;
+                }
             };
         }
 
         private void AddMovie(object obj)
         {
+
+
+            if (Movie.Video == "" || Movie.Poster == "")
+            {
+                MessageBox.Show("Hãy thêm Video và Poster cho phim!");
+                return;
+            }
+            StringBuilder url = new StringBuilder(AppDomain.CurrentDomain.BaseDirectory + "Images" + Path.DirectorySeparatorChar);
+            url.Append("Movie" + Path.DirectorySeparatorChar + "Poster" + Path.DirectorySeparatorChar);
+
+            var tailFile = Movie.Poster.Substring(Movie.Poster.LastIndexOf("."));
+            var newFileNamePoster = string.Format(@"{0}{1}", Guid.NewGuid(), tailFile);
+
+            var newPathPoster = url.Append(newFileNamePoster);
+            File.Copy(Movie.Poster, newPathPoster.ToString());
+
+
+            url = new StringBuilder(AppDomain.CurrentDomain.BaseDirectory + "Images" + Path.DirectorySeparatorChar);
+            url.Append("Movie" + Path.DirectorySeparatorChar + "Video" + Path.DirectorySeparatorChar);
+            var newFileNameVideo = string.Format(@"{0}.mp4", Guid.NewGuid());
+            var newPathVideo = url.Append(newFileNameVideo);
+            File.Copy(Movie.Video, newPathVideo.ToString());
+
+            Random rd = new Random();
             using (var db = new MediasManangementEntities())
             {
-
-                var Cat = CategoryList.CurrentItem as Movie_Category;
-
-                Random rd = new Random();
                 int newID;
                 do
                 {
                     newID = rd.Next(1, 1000);
                 } while (db.Movies.SingleOrDefault(p => p.Id == newID) != null);
 
+                var newMedia = new Media
+                {
+                    Id = newID,
+                    IdCategory = 2,
+                    Lvl = Level.Lvl,
+                };
+                db.Medias.Add(newMedia);
+
+                var Cat = CategoryList.CurrentItem as Movie_Category;
                 var NewMovie = new Movie
                 {
                     Id = newID,
                     Name = Movie.Name,
-                    Poster = Movie.Poster,
+                    Poster = newFileNamePoster,
                     IdCategory = Cat.Id,
                     Nation = Movie.Nation,
                     Age = Movie.Age,
                     Season = Movie.Season,
                     Directors = Movie.Directors,
                     Description = Movie.Description,
-                    Video = Movie.Video,
+                    Video = newFileNameVideo,
                     Likes = 0,
+                    IMDB = Movie.IMDB,
                     NumberOfViews = 0,
                     Time = Movie.Time,
                 };
 
                 db.Movies.Add(NewMovie);
-                db.SaveChanges();
+                if (db.SaveChanges() > 1)
+                {
+                    MessageBox.Show("Thêm phim thành công!");
+
+                    MovieList.AddNewItem(NewMovie);
+                }
+                else
+                {
+                    MessageBox.Show("Thêm phim không thành công!");
+                }
             }
         }
 
@@ -132,7 +220,7 @@ namespace Manager_Medias.ViewModels.Admin
                 var link = response.SelectToken("items[0].link");
                 if (link == null)
                 {
-                    MessageBox.Show("Không tìm thấy phim hoặc phim không có điểm IMDB. Hãy thử lại lần sau");
+                    MessageBox.Show("Không tìm thấy phim trên IMDB. Hãy thử lại lần sau");
                     return;
                 }
 
@@ -166,33 +254,45 @@ namespace Manager_Medias.ViewModels.Admin
                 duration = nhan;
                 nhan = "Không có";
             }
-
+            if(nhan == "R")
+            {
+                nhan += " (trên 17 tuổi)";
+            }
+            if(nhan == "PG-13")
+            {
+                nhan += " (trên 12 tuổi)";
+            }
+            if (nhan == "PG")
+            {
+                nhan += " (trên 9 tuổi)";
+            }
             //Placing the result in the rating text box
-            var result = MessageBox.Show("Phim: " + nameMovie + "\nĐạo diễn: "+ directorName + "\nĐiểm IMDB: " + imdbRating + "\nTổng số đánh giá: " + imdbRatingCount + "\nNhãn: " + nhan + "\nThời lượng: "+ duration, "Xác nhận phim", 
+            var result = MessageBox.Show("Phim: " + nameMovie + "\nĐạo diễn: "+ directorName + "\nĐiểm IMDB: " + imdbRating + "\nTổng số đánh giá: " + imdbRatingCount + "\nNhãn: " + nhan + "\nThời lượng: "+ duration + "\nXác nhận cập nhật các thông tin trên ?", "Xác nhận phim", 
                                         MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             if (result == MessageBoxResult.Yes)
             {
-                using (var db = new MediasManangementEntities())
-                { 
-                    var MovieUpdate = db.Movies.FirstOrDefault(u => u.Id == Movie.Id);
-                    MovieUpdate.Directors = directorName;
-                    MovieUpdate.IMDB = imdbRating;
-                    MovieUpdate.Time = duration;
+                Movie.Directors = directorName;
+                Movie.IMDB = imdbRating;
+                Movie.Time = duration;
 
-                    if (db.SaveChanges() > 0)
-                    {
-                        MessageBox.Show("Cập nhật thành công");
-                        var movieCur = MovieList.CurrentItem as Movie;
-                        movieCur.Directors = directorName;
-                        movieCur.IMDB = imdbRating;
-                        movieCur.Time = duration;
-                    }
-                    else
-                    {
-                        MessageBox.Show("Không có thay đổi hoặc cập nhật thất bại");
-                    }
+                if (nhan == "R")
+                {
+                    Movie.Age = 18;
                 }
+                if (nhan == "PG-13")
+                {
+                    Movie.Age = 13;
+                }
+                if (nhan == "PG")
+                {
+                    Movie.Age = 10;
+                }
+                else
+                {
+                    Movie.Age = 0;
+                }
+
             }
 
 

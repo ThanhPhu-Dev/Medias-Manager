@@ -27,6 +27,8 @@ namespace Manager_Medias.ViewModels.Admin
 
         public ICommand CmdAddMovie { get; }
         public ICommand CmdUpdateIMDBrating { get;  }
+
+        public ICommand CmdUpdateMovie { get; }
         static AdminViewMediaVM()
         {
 
@@ -84,6 +86,7 @@ namespace Manager_Medias.ViewModels.Admin
         {
             CmdAddMovie = new RelayCommand<object>(AddMovie);
             CmdUpdateIMDBrating = new RelayCommand<object>(UpdateIMDBrating);
+            CmdUpdateMovie = new RelayCommand<object>(UpdateMovie);
 
             using (var db = new MediasManangementEntities())
             {
@@ -125,12 +128,22 @@ namespace Manager_Medias.ViewModels.Admin
                     Level = level;
                 }
             };
+
+            UserLevelList.CurrentChanged += (_, e) =>
+            {
+                var LevelCurrent = UserLevelList.CurrentItem as Level;
+                if (LevelCurrent == null)
+                    return;
+
+                Level = new Media
+                {
+                    Lvl = LevelCurrent.Id,
+                };
+            };
         }
 
         private void AddMovie(object obj)
         {
-
-
             if (Movie.Video == "" || Movie.Poster == "")
             {
                 MessageBox.Show("Hãy thêm Video và Poster cho phim!");
@@ -199,6 +212,55 @@ namespace Manager_Medias.ViewModels.Admin
                 {
                     MessageBox.Show("Thêm phim không thành công!");
                 }
+            }
+        }
+
+
+        private void UpdateMovie(object obj)
+        {
+            var cat = CategoryList.CurrentItem as Movie_Category;
+            
+            using (var db = new MediasManangementEntities())
+            {
+                var movieUpdate = db.Movies.FirstOrDefault(u => u.Id == Movie.Id);
+                movieUpdate.Name = Movie.Name;
+                movieUpdate.Nation = Movie.Nation;
+                movieUpdate.Age = Movie.Age;
+                movieUpdate.Season = Movie.Season;
+                movieUpdate.IdCategory = cat.Id;
+                movieUpdate.IMDB = Movie.IMDB;
+                movieUpdate.Directors = Movie.Directors;
+                movieUpdate.Description = Movie.Description;
+
+                var LevelUpdate = db.Medias.FirstOrDefault(u => u.Id == Movie.Id);
+                LevelUpdate.Lvl = Level.Lvl;
+
+
+                if (db.SaveChanges() > 0)
+                {
+                    MessageBox.Show("Cập nhật thành công");
+
+                    var MovieCur = MovieList.CurrentItem as Movie;
+                    MovieCur.Name = Movie.Name;
+                    MovieCur.Nation = Movie.Name;
+                    MovieCur.Age = Movie.Age;
+                    MovieCur.Season = Movie.Season;
+                    MovieCur.IdCategory = cat.Id;
+                    MovieCur.IMDB = Movie.IMDB;
+                    MovieCur.Directors = Movie.Directors;
+                    MovieCur.Description = Movie.Description;
+
+                    var LevelCur = UserLevelList.CurrentItem as Level;
+                    LevelCur.Id = (int)Level.Lvl;
+
+                }
+                else
+                {
+                    MessageBox.Show("Không có thay đổi hoặc cập nhật thất bại");
+                }
+
+                
+
             }
         }
 

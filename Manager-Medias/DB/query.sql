@@ -201,7 +201,7 @@ select * from My_Lists
 select * from levels
 select * from Media_Categories 
 select * from Medias 
-select * from Movies
+select * from Movies mo join Medias m on mo.Id = m.Id
 select * from Movie_Categories
 select * from Album_Details
 select * from Albums

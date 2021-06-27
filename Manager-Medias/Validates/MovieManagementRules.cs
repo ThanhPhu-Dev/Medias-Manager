@@ -13,7 +13,7 @@ namespace Manager_Medias.Validates
     {
         public string property { get; set; }
 
-        private Regex NoNumberAndSpecialChar = new Regex(@"^\p{L}+$");
+        private Regex NoNumberAndSpecialChar = new Regex(@"^[\p{L} ]+$");
         private Regex intOrDou = new Regex(@"-?\d+(?:\.\d+)?");
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {

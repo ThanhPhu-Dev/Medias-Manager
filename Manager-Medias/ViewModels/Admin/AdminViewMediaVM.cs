@@ -29,6 +29,8 @@ namespace Manager_Medias.ViewModels.Admin
         public ICommand CmdUpdateIMDBrating { get;  }
 
         public ICommand CmdUpdateMovie { get; }
+
+        public ICommand CmdDeleteMovie { get; }
         static AdminViewMediaVM()
         {
 
@@ -87,6 +89,7 @@ namespace Manager_Medias.ViewModels.Admin
             CmdAddMovie = new RelayCommand<object>(AddMovie);
             CmdUpdateIMDBrating = new RelayCommand<object>(UpdateIMDBrating);
             CmdUpdateMovie = new RelayCommand<object>(UpdateMovie);
+            CmdDeleteMovie = new RelayCommand<object>(DeleteMovie);
 
             using (var db = new MediasManangementEntities())
             {
@@ -142,6 +145,37 @@ namespace Manager_Medias.ViewModels.Admin
             };
         }
 
+        private void DeleteMovie(object obj)
+        {
+            using (var db = new MediasManangementEntities())
+            {
+
+                db.Likes.RemoveRange(db.Likes.Where(l => l.IdMedia == Movie.Id));
+                db.View_History.RemoveRange(db.View_History.Where(v => v.IdMedia == Movie.Id));
+                db.Medias.Remove(db.Medias.FirstOrDefault(m => m.Id == Movie.Id));
+
+                //db.SaveChanges();
+
+                var MovieDel = db.Movies.FirstOrDefault(u => u.Id == Movie.Id);
+                if (MovieDel == null)
+                    return;
+                db.Movies.Remove(MovieDel);
+
+                if (db.SaveChanges() > 1)
+                {
+                    MessageBox.Show("Đã xóa phim!");
+                    if (MovieList.IsAddingNew)
+                    {
+                        MovieList.CancelNew();
+                    }
+                    MovieList.Remove(MovieList.CurrentItem);
+                }
+                else
+                {
+                    MessageBox.Show("Xóa phim không thành công!");
+                }
+            }
+        }
         private void AddMovie(object obj)
         {
             if (Movie.Video == "" || Movie.Poster == "")
@@ -149,6 +183,13 @@ namespace Manager_Medias.ViewModels.Admin
                 MessageBox.Show("Hãy thêm Video và Poster cho phim!");
                 return;
             }
+
+            if (!File.Exists(Movie.Poster) || !File.Exists(Movie.Video))
+            {
+                MessageBox.Show("Không tìm thấy Poster hoặc Video trong thư mục của bạn!");
+                return;
+            }
+
             StringBuilder url = new StringBuilder(AppDomain.CurrentDomain.BaseDirectory + "Images" + Path.DirectorySeparatorChar);
             url.Append("Movie" + Path.DirectorySeparatorChar + "Poster" + Path.DirectorySeparatorChar);
 
@@ -231,6 +272,42 @@ namespace Manager_Medias.ViewModels.Admin
                 movieUpdate.IMDB = Movie.IMDB;
                 movieUpdate.Directors = Movie.Directors;
                 movieUpdate.Description = Movie.Description;
+                if(movieUpdate.Video != Movie.Video)
+                {
+                    if (!File.Exists(Movie.Video))
+                    {
+                        MessageBox.Show("Không tìm thấy Video trong thư mục!");
+                        return;
+                    }
+
+                    StringBuilder url = new StringBuilder(AppDomain.CurrentDomain.BaseDirectory + "Images" + Path.DirectorySeparatorChar);
+                    url.Append("Movie" + Path.DirectorySeparatorChar + "Video" + Path.DirectorySeparatorChar);
+                    var newFileNameVideo = string.Format(@"{0}.mp4", Guid.NewGuid());
+                    var newPathVideo = url.Append(newFileNameVideo);
+                    File.Copy(Movie.Video, newPathVideo.ToString());
+
+                    movieUpdate.Video = newFileNameVideo;
+                }
+                if(movieUpdate.Poster != Movie.Poster)
+                {
+                    if (!File.Exists(Movie.Poster))
+                    {
+                        MessageBox.Show("Không tìm thấy Poster trong thư mục!");
+                        return;
+                    }
+                    StringBuilder url = new StringBuilder(AppDomain.CurrentDomain.BaseDirectory + "Images" + Path.DirectorySeparatorChar);
+                    url.Append("Movie" + Path.DirectorySeparatorChar + "Poster" + Path.DirectorySeparatorChar);
+
+                    var tailFile = Movie.Poster.Substring(Movie.Poster.LastIndexOf("."));
+                    var newFileNamePoster = string.Format(@"{0}{1}", Guid.NewGuid(), tailFile);
+
+                    var newPathPoster = url.Append(newFileNamePoster);
+                    File.Copy(Movie.Poster, newPathPoster.ToString());
+
+                    movieUpdate.Poster = newFileNamePoster;
+                }
+                
+                
 
                 var LevelUpdate = db.Medias.FirstOrDefault(u => u.Id == Movie.Id);
                 LevelUpdate.Lvl = Level.Lvl;
@@ -249,6 +326,8 @@ namespace Manager_Medias.ViewModels.Admin
                     MovieCur.IMDB = Movie.IMDB;
                     MovieCur.Directors = Movie.Directors;
                     MovieCur.Description = Movie.Description;
+                    MovieCur.Video = Movie.Video;
+                    MovieCur.Poster = Movie.Poster;
 
                     var LevelCur = UserLevelList.CurrentItem as Level;
                     LevelCur.Id = (int)Level.Lvl;

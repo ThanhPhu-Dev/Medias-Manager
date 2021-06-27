@@ -31,6 +31,22 @@ namespace Manager_Medias.Validates
                     return new ValidationResult(false, "Mô tả phim phải có hơn 20 ký tự!");
                 }
             }
+            if (property == "Video")
+            {
+                string name = value.ToString();
+                if (name.Substring(name.Length - 3) != "mp4")
+                {
+                    return new ValidationResult(false, "Bạn phải chọn file mp4");
+                }
+            }
+            if (property == "Poster")
+            {
+                string name = value.ToString();
+                if (name.Substring(name.Length - 3) != "jpg" && name.Substring(name.Length - 3) != "png")
+                {
+                    return new ValidationResult(false, "Bạn phải chọn file hình ảnh");
+                }
+            }
             if (property == "Nation")
             {
                 if (value.ToString().Length == 0)

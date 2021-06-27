@@ -394,9 +394,6 @@ namespace Manager_Medias.ViewModels.Admin
                     MessageBox.Show("Thêm người dùng không thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
 
-               
-                
-
             }
         }
     } 

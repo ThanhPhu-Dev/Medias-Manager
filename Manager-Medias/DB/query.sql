@@ -214,7 +214,7 @@ update Album_Details set IdAlbum = 2
 update Users set code = 'rwzk7222RW' where Email = 'user@gmail.com'
 
 
-
+insert into View_History  values (1, 20, '2021-05-03', 21)
 
 --insert roles
 insert into Roles(Name) values ('User'),('Admin')
@@ -320,6 +320,9 @@ INSERT INTO Album_Details (IdAlbum, Image) VALUES
 insert into Likes (IdProfile, IdMedia, Date) values 
 (1, 2, '01-01-2021'),
 (1, 5, '01-03-2021')
+
+insert into Likes (IdProfile, IdMedia, Date) values 
+(1, 20, '01-01-2021')
 
 insert into My_Lists(IdProfile, IdMedia, Date) values 
 (1, 1, '01-01-2021'),

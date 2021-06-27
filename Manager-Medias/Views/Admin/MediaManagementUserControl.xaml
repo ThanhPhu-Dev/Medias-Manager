@@ -76,7 +76,6 @@
         <Style TargetType="Button" x:Key="buttonValidationFailStyle"
                BasedOn="{StaticResource MaterialDesignFlatAccentBgButton}">
             <Setter Property="IsEnabled" Value="False"/>
-
             <Style.Triggers>
                 <MultiDataTrigger>
                     <MultiDataTrigger.Conditions> 
@@ -91,6 +90,31 @@
                 </MultiDataTrigger>
             </Style.Triggers>
         </Style>
+
+        <Style TargetType="Border" x:Key="toolbarValidationFailStyle2">
+            <Setter Property="BorderBrush" Value="Red"/>
+            <Style.Triggers>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=txtbVideoAdd}" Value="False"/>
+                    </MultiDataTrigger.Conditions>
+                    <Setter Property="BorderBrush" Value="Gray"/>
+                </MultiDataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="Border" x:Key="BorderValidationFailStyle">
+            <Setter Property="BorderBrush" Value="Red"/>
+            <Style.Triggers>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=txtbPosterAdd}" Value="False"/>
+                    </MultiDataTrigger.Conditions>
+                    <Setter Property="BorderBrush" Value="Gray"/>
+                </MultiDataTrigger>
+            </Style.Triggers>
+        </Style>
+
     </UserControl.Resources>
     <Grid x:Name="gridParent">
         <Grid.RowDefinitions>
@@ -506,10 +530,10 @@
 
 
                             <StackPanel>
-                                <Border BorderBrush="Gray" Margin="5 0 5 5"
-                                    VerticalAlignment="Top"
-                                    HorizontalAlignment="Left" Name="borderMedia"
-                                    BorderThickness="2" >
+                                <Border Margin="5 0 5 5"
+                                        VerticalAlignment="Top"  Style="{DynamicResource toolbarValidationFailStyle2}"
+                                        HorizontalAlignment="Left" Name="borderMedia"
+                                        BorderThickness="2">
 
                                     <Grid MouseWheel="Grid_MouseWheel">
                                         <Grid.RowDefinitions>
@@ -518,7 +542,7 @@
                                             <RowDefinition Height="Auto" />
                                         </Grid.RowDefinitions>
 
-                                        <ToolBar>
+                                        <ToolBar >
                                             <Button Name="btOpenFolder"
                                                 Click="btOpenFolder_Click">
                                                 <materialDesign:PackIcon Kind="Folder"/>
@@ -538,11 +562,11 @@
                                             </Button>
                                         </ToolBar>
                                         <Border Grid.Row="1" BorderBrush="Gray" 
-                                            Name="boderMedia"
-                                            BorderThickness="2">
+                                                Name="boderMedia"
+                                                BorderThickness="2">
                                             <MediaElement Name="mePlayer" Height="220" Width="380"
-                                                      Source="{Binding ElementName=txtbVideoAdd,Path=Text, Converter={StaticResource imageCvt}}"
-                                                      LoadedBehavior="Manual" Volume="0"/>
+                                                          Source="{Binding ElementName=txtbVideoAdd,Path=Text, Converter={StaticResource imageCvt}}"
+                                                          LoadedBehavior="Manual" Volume="0"/>
                                         </Border>
 
 
@@ -573,50 +597,30 @@
                                         </StatusBar>
                                     </Grid>
                                 </Border>
-                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center"
+                                <StackPanel Orientation="Horizontal" 
+                                            VerticalAlignment="Center"
                                             HorizontalAlignment="Center">
                                     <TextBlock Text="Poster:" DockPanel.Dock="Top"
                                                FontWeight="Bold" Margin="5 15 0 0"
                                                Foreground="Black" FontSize="14"/>
 
 
-                                    <Border BorderBrush="Gray"
-                                                        Padding="5"
-                                                        Height="220" Width="190" BorderThickness="2"
-                                                        Margin="20 10 0 5">
+                                    <Border 
+                                            Padding="5" Style="{DynamicResource BorderValidationFailStyle}"
+                                            Height="220" Width="190" BorderThickness="2"
+                                            Margin="20 10 0 5">
                                         <Image Name="imgPoster"
                                                Source="{Binding ElementName=txtbPosterAdd, Path=Text, Converter={StaticResource imageCvt}}"/>
                                     </Border>
 
-                                    <TextBox Tag="Họ tên: " Name="txtavatar" Visibility="Collapsed"
-                                                         Style="{DynamicResource TxtStyleValidation}" 
-                                                         Grid.Row="1">
-                                        <TextBox.Text>
-                                            <Binding Path="Profile.Avatar" UpdateSourceTrigger="PropertyChanged" >
-                                                <Binding.ValidationRules>
 
-                                                </Binding.ValidationRules>
-                                            </Binding>
-                                        </TextBox.Text>
-                                    </TextBox>
 
                                     <Button HorizontalAlignment="Center" Margin="5 0 0 10"
                                                         Name="btChooseImgAdd" Click="btChooseImgAdd_Click"
                                                         FontSize="10" Height="25">Đổi poster</Button>
 
 
-                                    <TextBox x:Name="txtbPosterAdd"
-                                                 Visibility="Collapsed"
-                                                 Style="{DynamicResource TxtStyleValidation}"
-                                                 Grid.Row="4">
-                                        <TextBox.Text>
-                                            <Binding Path="Movie.Poster" UpdateSourceTrigger="PropertyChanged" >
-                                                <Binding.ValidationRules>
-
-                                                </Binding.ValidationRules>
-                                            </Binding>
-                                        </TextBox.Text>
-                                    </TextBox>
+                                    
                                 </StackPanel>
                             </StackPanel>
 
@@ -783,7 +787,19 @@
                                             <TextBox.Text>
                                                 <Binding Path="Movie.Video" UpdateSourceTrigger="PropertyChanged" >
                                                     <Binding.ValidationRules>
+                                                        <rules:MovieManagementRules property="Video"/>
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>
 
+                                        <TextBox x:Name="txtbPosterAdd" Tag="Poster"  Visibility="Collapsed"
+                                                 Style="{DynamicResource TxtStyleValidation}"
+                                                 Grid.Row="4">
+                                            <TextBox.Text>
+                                                <Binding Path="Movie.Poster" UpdateSourceTrigger="PropertyChanged" >
+                                                    <Binding.ValidationRules>
+                                                        <rules:MovieManagementRules property="Poster"/>
                                                     </Binding.ValidationRules>
                                                 </Binding>
                                             </TextBox.Text>
@@ -794,9 +810,8 @@
                                                 <StackPanel Orientation="Horizontal"
                                                             Margin="0 20 0 10">
                                                     <Button Content="Thêm phim" Margin="0 0 10 0"
-                                                          
                                                             Command="{Binding CmdAddMovie}"/>
-                                                    <Button Content="Xóa phim"/>
+                                                    <Button Command="{Binding CmdDeleteMovie}" Content="Xóa phim"/>
                                                 </StackPanel>
                                                 <Button Command="{Binding CmdUpdateMovie}" Content="Cập nhật thông tin"/>
                                             </StackPanel>

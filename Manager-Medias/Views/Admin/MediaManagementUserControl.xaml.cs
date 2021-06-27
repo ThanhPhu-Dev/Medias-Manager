@@ -251,7 +251,7 @@ namespace Manager_Medias.Views.Admin
             txtbDesAdd.Text = "";
             txtbNameAdd.Text = "";
             txtbNationAdd.Text = "";
-            txtavatar.Text = "";
+            //txtavatar.Text = "";
             txtbDirectorsAdd.Text = "";
             txtbIMDBAdd.Text = "";
             txtbSeasonAdd.Text = "";

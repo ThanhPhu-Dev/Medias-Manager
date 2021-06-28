@@ -33,6 +33,16 @@ namespace Manager_Medias.ViewModels.Admin
             get => Data;
         }
 
+        public SeriesCollection chartData2
+        {
+            get => Data2;
+        }
+
+        public SeriesCollection chartData3
+        {
+            get => Data3;
+        }
+
 
         public AdminViewStatisticsVM()
         {
@@ -86,6 +96,47 @@ namespace Manager_Medias.ViewModels.Admin
             {
                 Values = new ChartValues<int> { (int)statistics[9].NumberOfViews} , Title = statistics[9].Name
             }
+        };
+
+        public SeriesCollection Data2 => new SeriesCollection() // Biến chứa dữ liệu biểu đồ
+        {
+             new ColumnSeries()
+            {
+                Values = new ChartValues<float> { 124124} , Title = "Tháng 1"
+            },
+            new ColumnSeries()
+            {
+                Values = new ChartValues<float> { 57342} , Title = "Tháng 2"
+            },
+            new ColumnSeries()
+            {
+                Values = new ChartValues<float> { 56233 } , Title ="Tháng 3"
+            },
+            new ColumnSeries()
+            {
+                Values = new ChartValues<float> { 235235 }, Title = "Tháng 4"
+            },
+            
+        };
+
+        public SeriesCollection Data3 => new SeriesCollection() // Biến chứa dữ liệu biểu đồ
+        {
+             new PieSeries()
+            {
+                Values = new ChartValues<float> { 124124} , Title = "Tháng 11"
+            },
+            new PieSeries()
+            {
+                Values = new ChartValues<float> { 57342} , Title = "Tháng 12"
+            },
+            new PieSeries()
+            {
+                Values = new ChartValues<float> { 56233 } , Title ="Tháng 3"
+            },
+            new PieSeries()
+            {
+                Values = new ChartValues<float> { 235235 }, Title = "Tháng 4"
+            },
         };
 
     }

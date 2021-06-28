@@ -74,7 +74,7 @@ namespace Manager_Medias.Views.Admin
         private void btOpenFolder_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Media files (*.mp3;*.mpg;*.mpeg;*.mp4)|*.mp3;*.mpg;*.mpeg;*mp4|All files (*.*)|*.*";
+            openFileDialog.Filter = "Video files (*.mp4)|*mp4";
             if (openFileDialog.ShowDialog() == true)
             {
                 txtbVideoAdd.Text = openFileDialog.FileName.ToString();
@@ -210,6 +210,7 @@ namespace Manager_Medias.Views.Admin
             //var a = imgPoster.Source.ToString();
 
             var screen = new OpenFileDialog();
+            screen.Filter = "Image files (*.png,*jpg)|*png;*jpg";
             if (screen.ShowDialog() == true)
             {
                 var filename = screen.FileName;

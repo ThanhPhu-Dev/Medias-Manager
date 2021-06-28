@@ -228,6 +228,10 @@ update Album_Details set IdAlbum = 2
 update Users set Password = 'G9BBbVflIID4fJFh4ljRqrOgtzA33ztt4q474rYmz8IhcOqD' where Email = 'vovanminh@gmail.com'
 
 
+update users set CreateAt = '2020-06-29'
+update users set CreateAt = '2020-05-29' where Email = 'vovanminh@gmail.com'
+update users set CreateAt = '2020-05-29' where Email = 'nghiadx2001@gmail.c'
+
 insert into View_History  values (1, 20, '2021-05-03', 21)
 
 --insert roles

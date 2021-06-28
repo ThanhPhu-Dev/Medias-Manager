@@ -432,8 +432,6 @@ namespace Manager_Medias.ViewModels.Admin
                 Movie.Time = duration;
 
             }
-
-
         }
     }
 }

@@ -190,6 +190,9 @@
     <Compile Include="Models\Movie_Category.cs">
       <DependentUpon>MediasManagement.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Movie_classify.cs">
+      <DependentUpon>MediasManagement.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\My_List.cs">
       <DependentUpon>MediasManagement.tt</DependentUpon>
     </Compile>

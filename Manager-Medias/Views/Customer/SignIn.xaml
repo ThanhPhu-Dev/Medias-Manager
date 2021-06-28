@@ -1,6 +1,7 @@
 ﻿<UserControl x:Class="Manager_Medias.Views.Customer.SignIn"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Name="loginview"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Manager_Medias.Views.Customer"
@@ -103,7 +104,8 @@
                 </StackPanel>
 
                 <Button
-                    Command="{Binding LoginCmd}"
+                    Command="{Binding LoginCmd, Mode=OneWay}"
+                    CommandParameter="{Binding ElementName=loginview}"
                     Background="#FFbb00"
                     IsDefault="True"
                     Style="{StaticResource MaterialDesignRaisedButton}"

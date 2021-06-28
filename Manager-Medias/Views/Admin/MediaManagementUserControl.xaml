@@ -735,7 +735,7 @@
                                             </TextBox>
                                             <TextBox Tag="Directors: " Width="230"
                                                      Name="txtbDirectorsAdd" HorizontalAlignment="Left"
-                                                     Style="{DynamicResource TxtStyleValidation}" >
+                                                     Style="{DynamicResource TxtStyleValidation}">
                                                 <TextBox.Text>
                                                     <Binding Path="Movie.Directors" UpdateSourceTrigger="PropertyChanged" >
                                                         <Binding.ValidationRules>

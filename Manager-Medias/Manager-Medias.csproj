@@ -173,6 +173,8 @@
     <Compile Include="CustomModels\InfoPaymentHistoryCustomModelcs.cs" />
     <Compile Include="CustomModels\InfoUserPayment.cs" />
     <Compile Include="CustomModels\MediaCustomModel.cs" />
+    <Compile Include="CustomModels\MovieCustomModel.cs" />
+    <Compile Include="CustomModels\UserCustomModel.cs" />
     <Compile Include="Functions\HashPassword.cs" />
     <Compile Include="Models\Album_Detail.cs">
       <DependentUpon>MediasManagement.tt</DependentUpon>
@@ -215,6 +217,7 @@
     <Compile Include="Validates\ValidatePassword.cs" />
     <Compile Include="Validates\PhoneNumberValidationRule.cs" />
     <Compile Include="ViewModels\Admin\AdminViewMediaVM.cs" />
+    <Compile Include="ViewModels\Admin\AdminViewStatisticsVM.cs" />
     <Compile Include="ViewModels\Admin\AdminViewVM.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\Customer\AccountManagerViewModel.cs" />

@@ -1,5 +1,6 @@
 ﻿using LiveCharts;
 using LiveCharts.Wpf;
+using Manager_Medias.ViewModels.Admin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,30 +23,30 @@ namespace Manager_Medias.Views.Admin
     /// </summary>
     public partial class StatisticalUserControl : UserControl
     {
+        AdminViewStatisticsVM vm;
         public StatisticalUserControl()
         {
             InitializeComponent();
 
-            DataContext = this;
-            mostRateChartPanel.Visibility = Visibility.Hidden;
+            vm = new AdminViewStatisticsVM();
+            DataContext = vm;
+
+           
         }
 
-        private void Button_Tab_Click(object sender, RoutedEventArgs e)
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            int index = int.Parse(((Button)e.Source).Uid);
-            GridCursor.Margin = new Thickness((250 * index + 30), 0, 0, 0);
-
-            if(index == 0)
+            var index = cbDoanhThu.SelectedIndex;
+            if (index == 0)
             {
-                mostViewChartPanel.Visibility = Visibility.Visible;
-                mostRateChartPanel.Visibility = Visibility.Hidden;
+                monthChart.Visibility = Visibility.Visible;
+                YearChart.Visibility = Visibility.Hidden;
             }
             if (index == 1)
             {
-                mostViewChartPanel.Visibility = Visibility.Hidden;
-                mostRateChartPanel.Visibility = Visibility.Visible;
+                monthChart.Visibility = Visibility.Hidden;
+                YearChart.Visibility = Visibility.Visible;
             }
-            
         }
 
         private void PieChart_DataClick(object sender, LiveCharts.ChartPoint chartPoint)
@@ -59,94 +60,5 @@ namespace Manager_Medias.Views.Admin
             var neo = chartPoint.SeriesView as PieSeries;
             neo.PushOut = 30;
         }
-
-        public SeriesCollection Data => new SeriesCollection() // Biến chứa dữ liệu biểu đồ
-        {
-            new PieSeries()
-            {
-                Values = new ChartValues<float> { 124124} , Title = "Spider man: Far from home"
-            },
-            new PieSeries()
-            {
-                Values = new ChartValues<float> { 57342} , Title = "Bố già lắm chiêu"
-            },
-            new PieSeries()
-            {
-                Values = new ChartValues<float> { 56233 } , Title ="Gái già"
-            },
-            new PieSeries()
-            {
-                Values = new ChartValues<float> { 235235 }, Title = "Còn cái nịt"
-            },
-            new PieSeries()
-            {
-                Values = new ChartValues<float> { 54745} , Title = "Còn đúng cái nịt thôi"
-            },
-            new PieSeries()
-            {
-                Values = new ChartValues<float> { 235} , Title = "One piece Movie 3"
-            },
-            new PieSeries()
-            {
-                Values = new ChartValues<float> { 23425} , Title = "Trò chơi vương quyền 7"
-            },
-            new PieSeries()
-            {
-                Values = new ChartValues<float> { 1212} , Title = "Captain Mavel"
-            },
-            new PieSeries()
-            {
-                Values = new ChartValues<float> { 9865} , Title = "Trò chơi vương quyền 1"
-            },
-            new PieSeries()
-            {
-                Values = new ChartValues<float> { 12314} , Title = "Còn đúng cái nịt thôi"
-            },
-
-        };
-
-        public SeriesCollection Data2 => new SeriesCollection() // Biến chứa dữ liệu biểu đồ
-        {
-             new ColumnSeries()
-            {
-                Values = new ChartValues<float> { 124124} , Title = "Spider man: Far from home"
-            },
-            new ColumnSeries()
-            {
-                Values = new ChartValues<float> { 57342} , Title = "Bố già lắm chiêu"
-            },
-            new ColumnSeries()
-            {
-                Values = new ChartValues<float> { 56233 } , Title ="Gái già"
-            },
-            new ColumnSeries()
-            {
-                Values = new ChartValues<float> { 235235 }, Title = "Còn cái nịt"
-            },
-            new ColumnSeries()
-            {
-                Values = new ChartValues<float> { 54745} , Title = "Còn đúng cái nịt thôi"
-            },
-            new ColumnSeries()
-            {
-                Values = new ChartValues<float> { 235} , Title = "One piece Movie 3"
-            },
-            new ColumnSeries()
-            {
-                Values = new ChartValues<float> { 23425} , Title = "Trò chơi vương quyền 7"
-            },
-            new ColumnSeries()
-            {
-                Values = new ChartValues<float> { 1212} , Title = "Captain Mavel"
-            },
-            new ColumnSeries()
-            {
-                Values = new ChartValues<float> { 9865} , Title = "Trò chơi vương quyền 1"
-            },
-            new ColumnSeries()
-            {
-                Values = new ChartValues<float> { 12314} , Title = "Còn đúng cái nịt thôi"
-            },
-        };
     }
 }

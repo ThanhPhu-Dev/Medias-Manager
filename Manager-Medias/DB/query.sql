@@ -225,7 +225,7 @@ select * from View_History
 select * from Users where Email = 'nghiadx2001@gmail.c'
 update Albums set Id = 2 where Name=N'Thiên nhiên'
 update Album_Details set IdAlbum = 2
-update Users set code = 'rwzk7222RW' where Email = 'user@gmail.com'
+update Users set Password = 'G9BBbVflIID4fJFh4ljRqrOgtzA33ztt4q474rYmz8IhcOqD' where Email = 'vovanminh@gmail.com'
 
 
 insert into View_History  values (1, 20, '2021-05-03', 21)
@@ -356,7 +356,7 @@ insert into Movie_Categories (Name) values
 (N'Viễn tưởng'), 
 (N'Kinh dị')
 --insert phim 
-select * from Movies
+select top 10 Name, NumberOfViews from Movies Order by NumberOfViews DeSC
 select * from Movie_Categories
 update Movie_Categories set Name=N'Cổ Trang' where Id=2
 update Movie_Categories set Name=N'Siêu Anh Hùng' where Id=3

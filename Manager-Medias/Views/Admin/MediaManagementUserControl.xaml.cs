@@ -255,8 +255,8 @@ namespace Manager_Medias.Views.Admin
             txtbDirectorsAdd.Text = "";
             txtbIMDBAdd.Text = "";
             txtbSeasonAdd.Text = "";
-            txtbVideoAdd.Text = "";
-            txtbPosterAdd.Text = "";
+            txtbVideoAdd.Text = ".mp4";
+            txtbPosterAdd.Text = ".jpg";
             PCheckBox.IsEnabled = false;
 
         }

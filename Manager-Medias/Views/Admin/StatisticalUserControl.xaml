@@ -62,7 +62,7 @@
                 <StackPanel Name="mostViewChartPanel">
                         <StackPanel Orientation="Horizontal" Height="462"                                 
                                     Margin="0,0,0.2,0">
-                            <lvc:PieChart Series="{Binding Data}"
+                        <lvc:PieChart Series="{Binding chartData}"
                                   Height="400"
                                   Foreground="Black"
                                   FontSize="20"                                  

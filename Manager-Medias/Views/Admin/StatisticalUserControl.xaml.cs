@@ -1,5 +1,6 @@
 ﻿using LiveCharts;
 using LiveCharts.Wpf;
+using Manager_Medias.ViewModels.Admin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,11 +23,13 @@ namespace Manager_Medias.Views.Admin
     /// </summary>
     public partial class StatisticalUserControl : UserControl
     {
+        AdminViewStatisticsVM vm;
         public StatisticalUserControl()
         {
             InitializeComponent();
 
-            DataContext = this;
+            vm = new AdminViewStatisticsVM();
+            DataContext = vm;
             mostRateChartPanel.Visibility = Visibility.Hidden;
         }
 
@@ -60,50 +63,7 @@ namespace Manager_Medias.Views.Admin
             neo.PushOut = 30;
         }
 
-        public SeriesCollection Data => new SeriesCollection() // Biến chứa dữ liệu biểu đồ
-        {
-            new PieSeries()
-            {
-                Values = new ChartValues<float> { 124124} , Title = "Spider man: Far from home"
-            },
-            new PieSeries()
-            {
-                Values = new ChartValues<float> { 57342} , Title = "Bố già lắm chiêu"
-            },
-            new PieSeries()
-            {
-                Values = new ChartValues<float> { 56233 } , Title ="Gái già"
-            },
-            new PieSeries()
-            {
-                Values = new ChartValues<float> { 235235 }, Title = "Còn cái nịt"
-            },
-            new PieSeries()
-            {
-                Values = new ChartValues<float> { 54745} , Title = "Còn đúng cái nịt thôi"
-            },
-            new PieSeries()
-            {
-                Values = new ChartValues<float> { 235} , Title = "One piece Movie 3"
-            },
-            new PieSeries()
-            {
-                Values = new ChartValues<float> { 23425} , Title = "Trò chơi vương quyền 7"
-            },
-            new PieSeries()
-            {
-                Values = new ChartValues<float> { 1212} , Title = "Captain Mavel"
-            },
-            new PieSeries()
-            {
-                Values = new ChartValues<float> { 9865} , Title = "Trò chơi vương quyền 1"
-            },
-            new PieSeries()
-            {
-                Values = new ChartValues<float> { 12314} , Title = "Còn đúng cái nịt thôi"
-            },
-
-        };
+      
 
         public SeriesCollection Data2 => new SeriesCollection() // Biến chứa dữ liệu biểu đồ
         {

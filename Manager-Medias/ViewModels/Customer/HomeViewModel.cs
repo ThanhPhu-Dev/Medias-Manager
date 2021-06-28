@@ -19,9 +19,6 @@ namespace Manager_Medias.ViewModels.Customer
         public static readonly DependencyProperty TopIMDbMovieProperty = DependencyProperty.Register("TopIMDbMovie",
                typeof(ObservableCollection<Movie>), typeof(HomeViewModel));
 
-        public static readonly DependencyProperty TopViewsMovieProperty = DependencyProperty.Register("TopViewsMovie",
-              typeof(ObservableCollection<Movie>), typeof(HomeViewModel));
-
         public ObservableCollection<Movie_Category> CatMovieList
         {
             get => (ObservableCollection<Movie_Category>)GetValue(CatMovieListProperty);
@@ -34,21 +31,40 @@ namespace Manager_Medias.ViewModels.Customer
             set => SetValue(TopIMDbMovieProperty, value);
         }
 
-        public ObservableCollection<Movie> TopViewsMovie
+        public ICommand CmdToDetailMovie { get; set; }
+        public ICommand CmdMainMovie { get; set; }
+
+        public int Level => (int)_userStore.CurrentUser.Level;
+
+        private Movie _mainMovie;
+
+        public Movie MainMovie
         {
-            get => (ObservableCollection<Movie>)GetValue(TopViewsMovieProperty);
-            set => SetValue(TopViewsMovieProperty, value);
+            get => _mainMovie;
+            set
+            {
+                _mainMovie = value;
+                OnPropertyChanged();
+            }
         }
 
-        public ICommand CmdToDetailMovie { get; set; }
+        private bool _isPlaying = false;
 
-        public int Level => 10; /*(int) _userStore.CurrentUser.Level;*/
+        public bool IsPlaying
+        {
+            get => _isPlaying;
+            set
+            {
+                _isPlaying = value;
+                OnPropertyChanged();
+            }
+        }
 
         public HomeViewModel()
         {
             LoadMovie();
             loadTopIMDbMovie();
-            loadTopViewsMovie();
+            LoadMainMovie();
 
             CmdToDetailMovie = new RelayCommand<object>(ToDetailMovie, (object o) =>
             {
@@ -59,6 +75,8 @@ namespace Manager_Medias.ViewModels.Customer
                 }
                 return false;
             });
+
+            CmdMainMovie = new RelayCommand<object>(TogglePlay);
         }
 
         private void ToDetailMovie(object obj)
@@ -68,6 +86,11 @@ namespace Manager_Medias.ViewModels.Customer
             {
                 _navigationStore.ContentViewModel = new DetailMovieViewModel(movie.Id);
             }
+        }
+
+        private void TogglePlay(object obj)
+        {
+            IsPlaying = !IsPlaying;
         }
 
         private async void LoadMovie()
@@ -104,7 +127,6 @@ namespace Manager_Medias.ViewModels.Customer
                     {
                         TopIMDbMovie = new ObservableCollection<Movie>(
                             db.Movies.Include("Media").Include("Media.Level").OrderByDescending(m => m.IMDB).Take(8).ToList());
-
                     }
                 });
             }).ContinueWith((task) =>
@@ -113,7 +135,7 @@ namespace Manager_Medias.ViewModels.Customer
             }).ConfigureAwait(false);
         }
 
-        private async void loadTopViewsMovie()
+        private async void LoadMainMovie()
         {
             IsLoading = true;
             await Task.Run(() =>
@@ -122,9 +144,7 @@ namespace Manager_Medias.ViewModels.Customer
                 {
                     using (var db = new MediasManangementEntities())
                     {
-                        TopViewsMovie = new ObservableCollection<Movie>(
-                            db.Movies.Include("Media").Include("Media.Level").OrderByDescending(m => m.NumberOfViews).Take(8).ToList());
-
+                        MainMovie = db.Movies.FirstOrDefault();
                     }
                 });
             }).ContinueWith((task) =>

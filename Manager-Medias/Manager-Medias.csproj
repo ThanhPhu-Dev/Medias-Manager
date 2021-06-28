@@ -216,6 +216,7 @@
     <Compile Include="Validates\ValidatePassword.cs" />
     <Compile Include="Validates\PhoneNumberValidationRule.cs" />
     <Compile Include="ViewModels\Admin\AdminViewMediaVM.cs" />
+    <Compile Include="ViewModels\Admin\AdminViewStatisticsVM.cs" />
     <Compile Include="ViewModels\Admin\AdminViewVM.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\Customer\AccountManagerViewModel.cs" />

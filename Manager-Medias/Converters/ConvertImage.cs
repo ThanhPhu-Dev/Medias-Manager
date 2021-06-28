@@ -13,9 +13,13 @@ namespace Manager_Medias.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value == null)
+            if (value == null || value.ToString() == "")
             {
                 return null;
+            }
+            if (File.Exists(value.ToString()))
+            {
+                return value.ToString();
             }
             string val = value.ToString();
             var type = val.Split('_');
@@ -38,6 +42,17 @@ namespace Manager_Medias.Converters
                     url.Append("Movie" + Path.DirectorySeparatorChar + "Video" + Path.DirectorySeparatorChar);
                     break;
 
+                default:
+                    var tail = val.Substring(val.Length - 3);
+                    if(tail == "jpg" || tail == "png")
+                    {
+                        url.Append("Movie" + Path.DirectorySeparatorChar + "Poster" + Path.DirectorySeparatorChar);
+                    }
+                    if(tail == "mp4")
+                    {
+                        url.Append("Movie" + Path.DirectorySeparatorChar + "Video" + Path.DirectorySeparatorChar);
+                    }
+                    break;
             }
             return url.Append(val).ToString();
         }

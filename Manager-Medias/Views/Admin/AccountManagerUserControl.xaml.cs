@@ -139,18 +139,7 @@ namespace Manager_Medias.Views.Admin
                     imgAvatar.Visibility = Visibility.Visible;
                     txtavatar2.Text = filename.Substring(filename.LastIndexOf("\\") + 1);
                 }    
-                   
-                //var encoder = new JpegBitmapEncoder();
-                //encoder.Frames.Add(BitmapFrame.Create(Image));
-
-                
-                //using (var stream = new MemoryStream())
-                //{
-                //    encoder.Save(stream);
-                //    value = stream.ToArray();
-                //}
             }
-            //return value;
         }
         private void btChooseImgAdd_Click(object sender, RoutedEventArgs e)
         {

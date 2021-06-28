@@ -1,4 +1,5 @@
-﻿using Manager_Medias.Models;
+﻿using Manager_Medias.Commands;
+using Manager_Medias.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -6,36 +7,70 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 
 namespace Manager_Medias.ViewModels.Customer
 {
     public class HomeViewModel : BaseViewModel
     {
-        public static readonly DependencyProperty MovieListProperty =
-            DependencyProperty.Register("MovieList", typeof(ObservableCollection<Movie>), typeof(HomeViewModel));
+        public static readonly DependencyProperty CatMovieListProperty = DependencyProperty.Register("CatMovieList",
+               typeof(ObservableCollection<Movie_Category>), typeof(HomeViewModel));
 
-        public ObservableCollection<Movie> Movies
+        public static readonly DependencyProperty TopIMDbMovieProperty = DependencyProperty.Register("TopIMDbMovie",
+               typeof(ObservableCollection<Movie>), typeof(HomeViewModel));
+
+        public static readonly DependencyProperty TopViewsMovieProperty = DependencyProperty.Register("TopViewsMovie",
+              typeof(ObservableCollection<Movie>), typeof(HomeViewModel));
+
+        public ObservableCollection<Movie_Category> CatMovieList
         {
-            get => (ObservableCollection<Movie>)GetValue(MovieListProperty);
-            set => SetValue(MovieListProperty, value);
+            get => (ObservableCollection<Movie_Category>)GetValue(CatMovieListProperty);
+            set => SetValue(CatMovieListProperty, value);
         }
 
-        public static ObservableCollection<Audio> Audios { get; set; }
+        public ObservableCollection<Movie> TopIMDbMovie
+        {
+            get => (ObservableCollection<Movie>)GetValue(TopIMDbMovieProperty);
+            set => SetValue(TopIMDbMovieProperty, value);
+        }
 
-        public static ObservableCollection<Album_Detail> Albums { get; set; }
+        public ObservableCollection<Movie> TopViewsMovie
+        {
+            get => (ObservableCollection<Movie>)GetValue(TopViewsMovieProperty);
+            set => SetValue(TopViewsMovieProperty, value);
+        }
+
+        public ICommand CmdToDetailMovie { get; set; }
+
+        public int Level => 10; /*(int) _userStore.CurrentUser.Level;*/
 
         public HomeViewModel()
         {
-            //using (var db = new MediasManangementEntities())
-            //{
-            //    Albums = new ObservableCollection<Album_Detail>(db.Album_Details.ToList());
-            //    Audios = new ObservableCollection<Audio>(db.Audios.ToList());
-            //    Movies = new ObservableCollection<Movie>(db.Movies.ToList());
-            //}
-            LoadData();
+            LoadMovie();
+            loadTopIMDbMovie();
+            loadTopViewsMovie();
+
+            CmdToDetailMovie = new RelayCommand<object>(ToDetailMovie, (object o) =>
+            {
+                Movie movie = o as Movie;
+                if (movie != null && Level >= movie.Media.Lvl)
+                {
+                    return true;
+                }
+                return false;
+            });
         }
 
-        public async void LoadData()
+        private void ToDetailMovie(object obj)
+        {
+            Movie movie = obj as Movie;
+            if (movie != null)
+            {
+                _navigationStore.ContentViewModel = new DetailMovieViewModel(movie.Id);
+            }
+        }
+
+        private async void LoadMovie()
         {
             IsLoading = true;
 
@@ -45,15 +80,57 @@ namespace Manager_Medias.ViewModels.Customer
                 {
                     using (var db = new MediasManangementEntities())
                     {
-                        Albums = new ObservableCollection<Album_Detail>(db.Album_Details.ToList());
-                        Audios = new ObservableCollection<Audio>(db.Audios.ToList());
-                        Movies = new ObservableCollection<Movie>(db.Movies.ToList());
+                        CatMovieList = new ObservableCollection<Movie_Category>(
+                           db.Movie_Categories.Include("Movies")
+                                              .Include("Movies.Media")
+                                              .Include("Movies.Media.Level")
+                                              .ToList());
                     }
                 });
-            }).ContinueWith(task =>
+            }).ContinueWith((task) =>
             {
                 IsLoading = false;
-            });
+            }).ConfigureAwait(false);
+        }
+
+        private async void loadTopIMDbMovie()
+        {
+            IsLoading = true;
+            await Task.Run(() =>
+            {
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    using (var db = new MediasManangementEntities())
+                    {
+                        TopIMDbMovie = new ObservableCollection<Movie>(
+                            db.Movies.Include("Media").Include("Media.Level").OrderByDescending(m => m.IMDB).Take(8).ToList());
+
+                    }
+                });
+            }).ContinueWith((task) =>
+            {
+                IsLoading = false;
+            }).ConfigureAwait(false);
+        }
+
+        private async void loadTopViewsMovie()
+        {
+            IsLoading = true;
+            await Task.Run(() =>
+            {
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    using (var db = new MediasManangementEntities())
+                    {
+                        TopViewsMovie = new ObservableCollection<Movie>(
+                            db.Movies.Include("Media").Include("Media.Level").OrderByDescending(m => m.NumberOfViews).Take(8).ToList());
+
+                    }
+                });
+            }).ContinueWith((task) =>
+            {
+                IsLoading = false;
+            }).ConfigureAwait(false);
         }
     }
 }

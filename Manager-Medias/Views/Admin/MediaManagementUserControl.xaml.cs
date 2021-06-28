@@ -1,15 +1,15 @@
 ﻿using Manager_Medias.ViewModels.Admin;
 using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
+using HtmlAgilityPack;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Linq;
-using System.Runtime.InteropServices;
+using System.Collections.Generic;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -17,7 +17,19 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Animation;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 using System.Windows.Threading;
+using System.Threading;
 
 namespace Manager_Medias.Views.Admin
 {
@@ -50,10 +62,11 @@ namespace Manager_Medias.Views.Admin
                 sliProgress.Value = mePlayer.Position.TotalSeconds;
             }
         }
-
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             scrollViwer = GetScrollViewer(lvMovies) as ScrollViewer;
+            scrollMain = GetScrollViewer(mainScrollViewer) as ScrollViewer;          
+
             detailPanel.Collapse();
         }
 
@@ -63,7 +76,10 @@ namespace Manager_Medias.Views.Admin
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Media files (*.mp3;*.mpg;*.mpeg;*.mp4)|*.mp3;*.mpg;*.mpeg;*mp4|All files (*.*)|*.*";
             if (openFileDialog.ShowDialog() == true)
-                mePlayer.Source = new Uri(openFileDialog.FileName);
+            {
+                txtbVideoAdd.Text = openFileDialog.FileName.ToString();
+            }    
+                
         }
 
         private void btPlayMovie_Click(object sender, RoutedEventArgs e)
@@ -94,21 +110,21 @@ namespace Manager_Medias.Views.Admin
 
         private void boderTemplate_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            var border = sender as Border;
-            var media = border.FindName("movieItem") as MediaElement;
-            ThreadPool.QueueUserWorkItem(_ =>
-            {
-                Thread.Sleep(200);
-                Dispatcher.Invoke(() =>
-                {
-                    if (media?.Source != null)
-                    {
-                        media.Visibility = Visibility.Visible;
-                        media?.Play();
+            //var border = sender as Border;
+            //var media = border.FindName("movieItem") as MediaElement;
+            //ThreadPool.QueueUserWorkItem(_ =>
+            //{
+            //    Thread.Sleep(200);
+            //    Dispatcher.Invoke(() =>
+            //    {
+            //        if (media?.Source != null)
+            //        {
+            //            media.Visibility = Visibility.Visible;
+            //            media?.Play();
                         
-                    }
-                });
-            });
+            //        }
+            //    });
+            //});
         }
 
         private void boderTemplate_MouseLeave(object sender, MouseEventArgs e)
@@ -148,7 +164,7 @@ namespace Manager_Medias.Views.Admin
         ScrollViewer scrollViwer;
         private void btMoveRight_Click(object sender, RoutedEventArgs e)
         {
-
+            scrollViwer = GetScrollViewer(lvMovies) as ScrollViewer;
             double move = scrollViwer.HorizontalOffset + 3;
             scrollViwer.ScrollToHorizontalOffset(move);
             detailPanel.Collapse();
@@ -161,17 +177,23 @@ namespace Manager_Medias.Views.Admin
             scrollViwer.ScrollToHorizontalOffset(move);
         }
 
+        ScrollViewer scrollMain;
         private void btOpenMovieDetail_Click(object sender, RoutedEventArgs e)
         {
             detailPanel.Show();
+            double move = 1408.0;
+            mainScrollViewer.ScrollToVerticalOffset(move);
+            detailPanel.Focus();
+            PCheckBox.IsEnabled = true;
         }
+        
 
         bool _FullScreen = false;
         private void btFullScreen_Click(object sender, RoutedEventArgs e)
         {
             if(!_FullScreen)
             {
-                mePlayer.Height = detailPanel.Height - 115;
+                mePlayer.Height = detailPanel.Height - 100;
                 mePlayer.Width = 860;
             }
             else
@@ -181,6 +203,67 @@ namespace Manager_Medias.Views.Admin
             }
 
             _FullScreen = !_FullScreen;
+        }
+
+        private void btChooseImgAdd_Click(object sender, RoutedEventArgs e)
+        {
+            //var a = imgPoster.Source.ToString();
+
+            var screen = new OpenFileDialog();
+            if (screen.ShowDialog() == true)
+            {
+                var filename = screen.FileName;
+                txtbPosterAdd.Text = filename.ToString();
+            }
+        }
+
+        private void boderTemplate_MouseEnter(object sender, MouseEventArgs e)
+        {
+            var border = sender as Border;
+            var media = border.FindName("movieItem") as MediaElement;
+            ThreadPool.QueueUserWorkItem(_ =>
+            {
+                //Thread.Sleep(200);
+                Dispatcher.Invoke(() =>
+                {
+                    if (media?.Source != null)
+                    {
+                        media.Visibility = Visibility.Visible;
+                        media?.Play();
+                    }
+                });
+            });
+        }
+
+        private void btExitPopup_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            PCheckBox.IsChecked = false;
+        }
+
+        private void btAddMovie_Click(object sender, RoutedEventArgs e)
+        {
+            detailPanel.Show();
+            double move = 1408.0;
+            mainScrollViewer.ScrollToVerticalOffset(move);
+            detailPanel.Focus();
+
+            txtbAgeAdd.Text = "";
+            txtbDesAdd.Text = "";
+            txtbNameAdd.Text = "";
+            txtbNationAdd.Text = "";
+            //txtavatar.Text = "";
+            txtbDirectorsAdd.Text = "";
+            txtbIMDBAdd.Text = "";
+            txtbSeasonAdd.Text = "";
+            txtbVideoAdd.Text = "";
+            txtbPosterAdd.Text = "";
+            PCheckBox.IsEnabled = false;
+
+        }
+
+        private void btAdvancedSearch_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

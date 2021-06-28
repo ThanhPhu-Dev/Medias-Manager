@@ -195,22 +195,27 @@ Select * from Roles
 select * from Media_categories
 select * from Audios
 select * from Audio_Categories
-select * from Media_Categories 
+
 select * from Likes 
 select * from My_Lists
 select * from levels
+select * from Media_Categories 
 select * from Medias 
-select * from Movies
+select * from Movies mo join Medias m on mo.Id = m.Id
 select * from Movie_Categories
 select * from Album_Details
 select * from Albums
 select * from Payment_History
 Select * from Profiles
+select * from View_History
 select * from Users where Email = 'nghiadx2001@gmail.c'
 update Albums set Id = 2 where Name=N'Thiên nhiên'
 update Album_Details set IdAlbum = 2
-update Users set roleId = '2' where Email = 'user@gmail.com'
-update Profiles set Name=N'user' where Email = 'user@gmail.com'
+update Users set code = 'rwzk7222RW' where Email = 'user@gmail.com'
+
+
+insert into View_History  values (1, 20, '2021-05-03', 21)
+
 --insert roles
 insert into Roles(Name) values ('User'),('Admin')
 --insert cấp độ
@@ -259,6 +264,15 @@ INSERT INTO Users VALUES ('thongars22222@gmail.com', '123abc', 1, 'CDCD', '73522
 INSERT INTO Users (Email, Password) VALUES ('1@gmail.c', '123')
 Insert into Users(Email,Password,NumberCard,Level)values ('user@gmail.com', 'G9BBbVflIID4fJFh4ljRqrOgtzA33ztt4q474rYmz8IhcOqD', '1253871235', 1) 
 
+Insert into Users(Email,Password,NumberCard,Level,Code)values ('ali125@gmail.com', '123matkhau123', '6911000003591177', 1, 'QAZXC1'),
+('beatriz211@gmail.com', '123matkhau123', '6911000003911077', 2, 'QYYXC1'), ('12charles@gmail.com', '123matkhau123', '6911000003599911', 1, 'QPPXC1'), 
+('diya0001@gmail.com', '123matkhau123', '6911000051391177', 3, 'QIIQXC1'), ('eric2019@gmail.com', '123matkhau123', '6911852613591177', 1, '123ZXC1'),
+('gabriel@gmail.com', '123matkhau123', '6946810003591177', 1, 'Q84331'), ('avxHhnna@gmail.com', '123matkhau123', '9622200003591177', 2, 'Q45633') 
+
+insert into profiles(Email,Name,Status) values ('ali125@gmail.com', 'Alice', 1), ('ali125@gmail.com', 'Alice', 1), ('beatriz211@gmail.com', 'beatriz', 1), ('12charles@gmail.com', 'Chattlotte', 1),
+('diya0001@gmail.com', 'diana 123', 1), ('eric2019@gmail.com', 'Eric gaxia', 1), ('ali125@gmail.com', 'Alice', 1), ('gabriel@gmail.com', 'Gabriel', 1), ('avxHhnna@gmail.com', 'Hanana',0)
+
+
 --insert profile
 
 INSERT INTO Profiles (Email, Name) VALUES ('nghiadx2001@gmail.c', N'Nguyễn H Nghĩa')
@@ -306,6 +320,9 @@ INSERT INTO Album_Details (IdAlbum, Image) VALUES
 insert into Likes (IdProfile, IdMedia, Date) values 
 (1, 2, '01-01-2021'),
 (1, 5, '01-03-2021')
+
+insert into Likes (IdProfile, IdMedia, Date) values 
+(1, 20, '01-01-2021')
 
 insert into My_Lists(IdProfile, IdMedia, Date) values 
 (1, 1, '01-01-2021'),

@@ -28,8 +28,11 @@ namespace Manager_Medias.Models
         public string Time { get; set; }
         public string Directors { get; set; }
         public string Nation { get; set; }
+        public Nullable<System.DateTime> CreateAt { get; set; }
+        public Nullable<int> IdClassifiles { get; set; }
     
         public virtual Media Media { get; set; }
         public virtual Movie_Category Movie_Categories { get; set; }
+        public virtual Movie_classify Movie_classifies { get; set; }
     }
 }

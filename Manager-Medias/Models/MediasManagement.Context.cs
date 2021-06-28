@@ -19,7 +19,7 @@ namespace Manager_Medias.Models
             : base("name=MediasManangementEntities")
         {
         }
-
+    
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
@@ -41,5 +41,6 @@ namespace Manager_Medias.Models
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<View_History> View_History { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
+        public virtual DbSet<Movie_classify> Movie_classify { get; set; }
     }
 }

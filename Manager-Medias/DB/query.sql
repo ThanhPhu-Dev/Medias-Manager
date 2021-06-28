@@ -6,10 +6,12 @@
 	Code varchar(MAX),
 	NumberCard varchar(16),
 	Exp varchar(8),
-	roleId INT
+	roleId INT,
+	CreateAt Date
 
 	CONSTRAINT PK_Users PRIMARY KEY (Email)
 )
+
 CREATE TABLE Roles
 (
 	Id int IDENTITY,
@@ -58,6 +60,7 @@ CREATE TABLE Media_Categories
 	CONSTRAINT PK_MediaCategory PRIMARY KEY (Id)
 )
 
+
 CREATE TABLE Medias
 (
 	Id INT IDENTITY(1,1),
@@ -75,10 +78,19 @@ CREATE TABLE Movie_Categories
 	CONSTRAINT PK_MovieCategory PRIMARY KEY (Id)
 )
 
+CREATE TABLE Movie_classifies
+(
+	Id INT NOT NULL IDENTITY(1,1),
+	Name NVARCHAR(20)
+
+	CONSTRAINT PK_MovieClassifies PRIMARY KEY (Id)
+)
+
 CREATE TABLE Movies
 (
 	Id INT NOT NULL UNIQUE,
 	IdCategory INT,
+	IdClassifiles INT,
 	Name NVARCHAR(255),
 	Description NTEXT,
 	IMDB Float,
@@ -91,6 +103,7 @@ CREATE TABLE Movies
 	Time varchar(8),
 	Directors NVARCHAR(100),
 	Nation NVARCHAR(20),
+	CreateAt Date,
 
 	CONSTRAINT PK_Movie PRIMARY KEY (Id)
 )
@@ -189,6 +202,7 @@ ALTER TABLE Likes ADD CONSTRAINT FK_Likes_Medias FOREIGN KEY (IdMedia) REFERENCE
 ALTER TABLE Likes ADD CONSTRAINT FK_Likes_Profiles FOREIGN KEY (IdProfile) REFERENCES Profiles(Id)
 ALTER TABLE View_History ADD CONSTRAINT FK_ViewHistory_Medias FOREIGN KEY (IdMedia) REFERENCES Medias(Id)
 ALTER TABLE View_History ADD CONSTRAINT FK_ViewHistory_Profiles FOREIGN KEY (IdProfile) REFERENCES Profiles(Id)
+ALTER TABLE Movies add CONSTRAINT fk_movies_MovieClassifies FOREIGN KEY (IdClassifiles) REFERENCES Movie_classifies(Id)
 
 --SELECT
 Select * from Roles

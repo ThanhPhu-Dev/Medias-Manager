@@ -81,6 +81,13 @@
           <Property Name="Name" Type="nvarchar" MaxLength="20" />
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
+        <EntityType Name="Movie_classifies">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="20" />
+        </EntityType>
         <EntityType Name="Movies">
           <Key>
             <PropertyRef Name="Id" />
@@ -99,6 +106,8 @@
           <Property Name="Time" Type="varchar" MaxLength="8" />
           <Property Name="Directors" Type="nvarchar" MaxLength="100" />
           <Property Name="Nation" Type="nvarchar" MaxLength="20" />
+          <Property Name="CreateAt" Type="date" />
+          <Property Name="IdClassifiles" Type="int" />
         </EntityType>
         <EntityType Name="My_Lists">
           <Key>
@@ -147,6 +156,7 @@
           <Property Name="NumberCard" Type="varchar" MaxLength="16" />
           <Property Name="Exp" Type="varchar" MaxLength="8" />
           <Property Name="roleId" Type="int" />
+          <Property Name="CreateAt" Type="date" />
         </EntityType>
         <EntityType Name="View_History">
           <Key>
@@ -278,6 +288,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_movies_MovieClassifies">
+          <End Role="Movie_classifies" Type="Self.Movie_classifies" Multiplicity="0..1" />
+          <End Role="Movies" Type="Self.Movies" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Movie_classifies">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Movies">
+              <PropertyRef Name="IdClassifiles" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_MyLists_Medias">
           <End Role="Medias" Type="Self.Medias" Multiplicity="0..1" />
           <End Role="My_Lists" Type="Self.My_Lists" Multiplicity="*" />
@@ -372,6 +394,7 @@
           <EntitySet Name="Media_Categories" EntityType="Self.Media_Categories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Medias" EntityType="Self.Medias" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Movie_Categories" EntityType="Self.Movie_Categories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Movie_classifies" EntityType="Self.Movie_classifies" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Movies" EntityType="Self.Movies" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="My_Lists" EntityType="Self.My_Lists" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Payment_History" EntityType="Self.Payment_History" Schema="dbo" store:Type="Tables" />
@@ -417,6 +440,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_Movies_MovieCategories" Association="Self.FK_Movies_MovieCategories">
             <End Role="Movie_Categories" EntitySet="Movie_Categories" />
+            <End Role="Movies" EntitySet="Movies" />
+          </AssociationSet>
+          <AssociationSet Name="fk_movies_MovieClassifies" Association="Self.fk_movies_MovieClassifies">
+            <End Role="Movie_classifies" EntitySet="Movie_classifies" />
             <End Role="Movies" EntitySet="Movies" />
           </AssociationSet>
           <AssociationSet Name="FK_MyLists_Medias" Association="Self.FK_MyLists_Medias">
@@ -568,6 +595,9 @@
           <NavigationProperty Name="Movie_Categories" Relationship="Self.FK_Movies_MovieCategories" FromRole="Movies" ToRole="Movie_Categories" />
           <Property Name="Directors" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Nation" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CreateAt" Type="DateTime" Precision="0" />
+          <Property Name="IdClassifiles" Type="Int32" />
+          <NavigationProperty Name="Movie_classifies" Relationship="MediasManangementModel.fk_movies_MovieClassifies" FromRole="Movie" ToRole="Movie_classifies" />
         </EntityType>
         <EntityType Name="My_List">
           <Key>
@@ -618,6 +648,7 @@
           <NavigationProperty Name="Lvl" Relationship="MediasManangementModel.FK_Users_Levels" FromRole="User" ToRole="Level" />
           <Property Name="roleId" Type="Int32" />
           <NavigationProperty Name="Role" Relationship="MediasManangementModel.FK_Users_Roles" FromRole="User" ToRole="Role" />
+          <Property Name="CreateAt" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="View_History">
           <Key>
@@ -896,6 +927,11 @@
             <End Role="Role" EntitySet="Roles" />
             <End Role="User" EntitySet="Users" />
           </AssociationSet>
+          <EntitySet Name="Movie_classify" EntityType="MediasManangementModel.Movie_classify" />
+          <AssociationSet Name="fk_movies_MovieClassifies" Association="MediasManangementModel.fk_movies_MovieClassifies">
+            <End Role="Movie_classifies" EntitySet="Movie_classify" />
+            <End Role="Movie" EntitySet="Movies" />
+          </AssociationSet>
         </EntityContainer>
         <Association Name="FK_Users_Levels">
           <End Type="MediasManangementModel.Level" Role="Level" Multiplicity="0..1" />
@@ -926,6 +962,26 @@
             </Principal>
             <Dependent Role="User">
               <PropertyRef Name="roleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Movie_classify">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Movies" Relationship="MediasManangementModel.fk_movies_MovieClassifies" FromRole="Movie_classifies" ToRole="Movie" />
+        </EntityType>
+        <Association Name="fk_movies_MovieClassifies">
+          <End Type="MediasManangementModel.Movie_classify" Role="Movie_classifies" Multiplicity="0..1" />
+          <End Type="MediasManangementModel.Movie" Role="Movie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Movie_classifies">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Movie">
+              <PropertyRef Name="IdClassifiles" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1023,6 +1079,8 @@
           <EntitySetMapping Name="Movies">
             <EntityTypeMapping TypeName="MediasManangementModel.Movie">
               <MappingFragment StoreEntitySet="Movies">
+                <ScalarProperty Name="IdClassifiles" ColumnName="IdClassifiles" />
+                <ScalarProperty Name="CreateAt" ColumnName="CreateAt" />
                 <ScalarProperty Name="Nation" ColumnName="Nation" />
                 <ScalarProperty Name="Directors" ColumnName="Directors" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -1075,6 +1133,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="MediasManangementModel.User">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="CreateAt" ColumnName="CreateAt" />
                 <ScalarProperty Name="roleId" ColumnName="roleId" />
                 <ScalarProperty Name="Exp" ColumnName="Exp" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
@@ -1099,6 +1158,14 @@
           <EntitySetMapping Name="Roles">
             <EntityTypeMapping TypeName="MediasManangementModel.Role">
               <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Movie_classify">
+            <EntityTypeMapping TypeName="MediasManangementModel.Movie_classify">
+              <MappingFragment StoreEntitySet="Movie_classifies">
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>

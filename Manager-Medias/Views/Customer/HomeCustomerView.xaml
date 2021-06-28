@@ -14,6 +14,113 @@
              TextOptions.TextRenderingMode="Auto"
              FontFamily="{DynamicResource MaterialDesignFont}">
     <UserControl.Resources>
+        <Style x:Key="{x:Type ScrollBar}" TargetType="{x:Type ScrollBar}">
+            <Setter Property="Stylus.IsFlicksEnabled" Value="false" />
+            <Setter Property="Foreground" Value="#FF666666" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Width" Value="8" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ScrollBar}">
+                        <Grid
+                            x:Name="GridRoot"
+                            Width="10"
+                            Background="{TemplateBinding Background}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="0.00001*" />
+                            </Grid.RowDefinitions>
+
+                            <Track
+                                x:Name="PART_Track"
+                                Grid.Row="0"
+                                Focusable="false"
+                                IsDirectionReversed="true">
+                                <Track.Thumb>
+                                    <Thumb
+                                        x:Name="Thumb"
+                                        Background="{TemplateBinding Foreground}"
+                                        Style="{DynamicResource ScrollThumbs}" />
+                                </Track.Thumb>
+                                <Track.IncreaseRepeatButton>
+                                    <RepeatButton
+                                        x:Name="PageUp"
+                                        Command="ScrollBar.PageDownCommand"
+                                        Focusable="false"
+                                        Opacity="0" />
+                                </Track.IncreaseRepeatButton>
+                                <Track.DecreaseRepeatButton>
+                                    <RepeatButton
+                                        x:Name="PageDown"
+                                        Command="ScrollBar.PageUpCommand"
+                                        Focusable="false"
+                                        Opacity="0" />
+                                </Track.DecreaseRepeatButton>
+                            </Track>
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger SourceName="Thumb" Property="IsMouseOver" Value="true">
+                                <Setter TargetName="Thumb" Property="Background" Value="{DynamicResource ButtonSelectBrush}" />
+                            </Trigger>
+                            <Trigger SourceName="Thumb" Property="IsDragging" Value="true">
+                                <Setter TargetName="Thumb" Property="Background" Value="{DynamicResource DarkBrush}" />
+                            </Trigger>
+
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter TargetName="Thumb" Property="Visibility" Value="Collapsed" />
+                            </Trigger>
+                            <Trigger Property="Orientation" Value="Horizontal">
+                                <Setter TargetName="GridRoot" Property="LayoutTransform">
+                                    <Setter.Value>
+                                        <RotateTransform Angle="-90" />
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="PART_Track" Property="LayoutTransform">
+                                    <Setter.Value>
+                                        <RotateTransform Angle="-90" />
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Width" Value="Auto" />
+                                <Setter Property="Height" Value="12" />
+                                <Setter TargetName="Thumb" Property="Tag" Value="Horizontal" />
+                                <Setter TargetName="PageDown" Property="Command" Value="ScrollBar.PageLeftCommand" />
+                                <Setter TargetName="PageUp" Property="Command" Value="ScrollBar.PageRightCommand" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ScrollThumbs" TargetType="{x:Type Thumb}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Thumb}">
+                        <Grid x:Name="Grid">
+                            <Rectangle
+                                Width="Auto"
+                                Height="Auto"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                Fill="Transparent" />
+                            <Border
+                                x:Name="Rectangle1"
+                                Width="Auto"
+                                Height="Auto"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="8" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Tag" Value="Horizontal">
+                                <Setter TargetName="Rectangle1" Property="Width" Value="Auto" />
+                                <Setter TargetName="Rectangle1" Property="Height" Value="7" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
         <Style TargetType="Button" x:Key="btn_lognin">
             <Setter Property="Foreground" Value="#fff" />
             <Setter Property="Padding" Value="13 0" />
@@ -98,6 +205,15 @@
             <Setter Property="Foreground" Value="#fff" />
             <Setter Property="FontWeight" Value="bold" />
             <Setter Property="HorizontalAlignment" Value="Center" />
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="txtExpander">
+            <Setter Property="Background" Value="#303030"/>
+            <Setter Property="Foreground" Value="#fff"/>
+            <Setter Property="FontSize" Value="26"/>
+            <Setter Property="TextAlignment" Value="Justify"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+
         </Style>
     </UserControl.Resources>
 
@@ -319,6 +435,161 @@
                                     </Grid>
                                 </Border>
                             </StackPanel>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <!--EXPANDER-->
+                <Border BorderThickness="0 8 0 0"
+                        BorderBrush="#222222"
+                        Background="Black">
+                    <StackPanel Margin="0 30 0 60">
+                        <TextBlock 
+                            FontSize="45" 
+                            Foreground="#fff"
+                            TextAlignment="Center"
+                            Text="Câu hỏi thường gặp"
+                            Padding="0 0 0 30"/>
+                        <Grid >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="3.5*"/>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <materialDesign:Card 
+                                Grid.Column="1"
+                                Background="Transparent"
+                                BorderBrush="Transparent"
+                                BorderThickness="0">
+                                <StackPanel Background="Black">
+                                    <Expander
+                                        HorizontalAlignment="Stretch"
+                                        Background="#303030"
+                                        Foreground="#fff">
+                                        <Expander.Header>
+                                            <TextBlock Text="Netflix là gì?"
+                                               Style="{StaticResource txtExpander}"/>
+                                        </Expander.Header>
+                                        <StackPanel
+                                            Orientation="Vertical"
+                                            TextBlock.Foreground="{DynamicResource MaterialDesignBody}"
+                                            Margin="24,8,24,16">
+                                            <TextBlock 
+                                                Foreground="#fff"
+                                                Margin="0 0 0 10"
+                                                Text="Netflix là dịch vụ phát trực tuyến mang đến đa dạng các loại chương trình truyền hình, phim, anime, phim tài liệu đoạt giải thưởng và nhiều nội dung khác trên hàng nghìn thiết bị có kết nối Internet."
+                                                Style="{StaticResource txtExpander}"/>
+                                            <TextBlock 
+                                                Style="{StaticResource txtExpander}"
+                                                Foreground="#fff"
+                                                Text="Bạn có thể xem bao nhiêu tùy thích, bất cứ lúc nào bạn muốn mà không gặp phải một quảng cáo nào – tất cả chỉ với một mức giá thấp hàng tháng. Luôn có những nội dung mới để bạn khám phá và những chương trình truyền hình, phim mới được bổ sung mỗi tuần!"/>
+                                        </StackPanel>
+                                    </Expander>
+                                    <Border Height="5"/>
+                                    <Expander
+                                        HorizontalAlignment="Stretch"
+                                        Background="#303030"
+                                        Foreground="#fff">
+                                        <Expander.Header>
+                                            <TextBlock 
+                                         Style="{StaticResource txtExpander}"
+                                        Text="Tôi phải trả bao nhiêu tiền để xem Netflix?"/>
+                                        </Expander.Header>
+                                        <StackPanel
+                                            Orientation="Vertical"
+                                            TextBlock.Foreground="{DynamicResource MaterialDesignBody}"
+                                            Margin="24,8,24,16">
+                                            <TextBlock
+                                                Style="{StaticResource txtExpander}"
+                                                Text="Xem Netflix trên điện thoại thông minh, máy tính bảng, TV thông minh, máy tính xách tay hoặc thiết bị phát trực tuyến, chỉ với một khoản phí cố định hàng tháng. Các gói dịch vụ với mức giá từ 180.000 ₫ đến 260.000 ₫ mỗi tháng. Không phụ phí, không hợp đồng." />
+                                        </StackPanel>
+                                    </Expander>
+                                    <Border Height="5"/>
+                                    <Expander
+                                        HorizontalAlignment="Stretch"
+                                        Background="#303030"
+                                        Foreground="#fff">
+                                        <Expander.Header>
+                                            <TextBlock 
+                                                Style="{StaticResource txtExpander}"
+                                                Text="Tôi có thể xem ở đâu?"/>
+                                        </Expander.Header>
+                                        <StackPanel
+                                            Orientation="Vertical"
+                                            TextBlock.Foreground="{DynamicResource MaterialDesignBody}"
+                                            Margin="24,8,24,16">
+                                            <TextBlock
+                                                Margin="0 0 0 10"
+                                                Style="{StaticResource txtExpander}"
+                                                Text="Xem mọi lúc, mọi nơi và không bị giới hạn số lượng thiết bị. Đăng nhập bằng tài khoản Netflix của bạn để xem ngay trên trang web netflix.com từ máy tính cá nhân, hoặc trên bất kỳ thiết bị nào có kết nối Internet và có cài đặt ứng dụng Netflix, bao gồm TV thông minh, điện thoại thông minh, máy tính bảng, thiết bị phát đa phương tiện trực tuyến và máy chơi game." />
+                                            <TextBlock 
+                                                Style="{StaticResource txtExpander}"
+                                                Text="Bạn cũng có thể tải xuống các chương trình yêu thích bằng ứng dụng trên iOS, Android hoặc Windows 10. Vào phần nội dung đã tải xuống để xem trong khi di chuyển và khi không có kết nối Internet. Mang Netflix theo bạn đến mọi nơi."/>
+                                        </StackPanel>
+                                    </Expander>
+                                    <Border Height="5"/>
+                                    <Expander
+                                        HorizontalAlignment="Stretch"
+                                        Background="#303030"
+                                        Foreground="#fff">
+                                        <Expander.Header>
+                                            <TextBlock 
+                                                Style="{StaticResource txtExpander}"
+                                                Text="Làm thế nào để hủy?"/>
+                                        </Expander.Header>
+                                        <StackPanel
+                                            Orientation="Vertical"
+                                            TextBlock.Foreground="{DynamicResource MaterialDesignBody}"
+                                            Margin="24,8,24,16">
+                                            <TextBlock
+                                                Style="{StaticResource txtExpander}"
+                                                Text="Netflix rất linh hoạt. Không có hợp đồng phiền toái, không ràng buộc. Bạn có thể dễ dàng hủy tài khoản trực tuyến chỉ trong hai cú nhấp chuột. Không mất phí hủy – bạn có thể bắt đầu hoặc ngừng tài khoản bất cứ lúc nào."/>
+                                        </StackPanel>
+                                    </Expander>
+                                    <Border Height="5"/>
+                                    <Expander
+                                        HorizontalAlignment="Stretch"
+                                        Background="#303030"
+                                        Foreground="#fff">
+                                        <Expander.Header>
+                                            <TextBlock 
+                                         Style="{StaticResource txtExpander}"
+                                        Text="Tôi có thể xem gì trên Netflix?"/>
+                                        </Expander.Header>
+                                        <StackPanel
+                                            Orientation="Vertical"
+                                            TextBlock.Foreground="{DynamicResource MaterialDesignBody}"
+                                            Margin="24,8,24,16">
+                                            <TextBlock
+                                            Style="{StaticResource txtExpander}"
+                                            Text="Netflix có một thư viện phong phú gồm các phim truyện, phim tài liệu, chương trình truyền hình, anime, tác phẩm giành giải thưởng của Netflix và nhiều nội dung khác. Xem không giới hạn bất cứ lúc nào bạn muốn."/>
+                                        </StackPanel>
+                                    </Expander>
+                                    <Border Height="5"/>
+                                    <Expander
+                                        HorizontalAlignment="Stretch"
+                                        Background="#303030"
+                                        Foreground="#fff">
+                                        <Expander.Header>
+                                            <TextBlock 
+                                         Style="{StaticResource txtExpander}"
+                                        Text="Netflix có phù hợp cho trẻ em không?"/>
+                                        </Expander.Header>
+                                        <StackPanel
+                                            Orientation="Vertical"
+                                            TextBlock.Foreground="{DynamicResource MaterialDesignBody}"
+                                            Margin="24,8,24,16">
+                                            <TextBlock
+                                                Margin="0 0 0 10"
+                                                Style="{StaticResource txtExpander}"
+                                                Text="Trải nghiệm Netflix Trẻ em có sẵn trong gói dịch vụ của bạn, trao cho phụ huynh quyền kiểm soát trong khi các em có thể thưởng thức các bộ phim và chương trình phù hợp cho gia đình tại không gian riêng."/>
+                                            <TextBlock
+                                                Style="{StaticResource txtExpander}"
+                                                Text="Hồ sơ Trẻ em đi kèm tính năng kiểm soát của cha mẹ (được bảo vệ bằng mã PIN), cho phép bạn giới hạn độ tuổi cho nội dung con mình được phép xem, cũng như chặn những phim hoặc chương trình mà bạn không muốn các em nhìn thấy."/>
+                                        </StackPanel>
+                                    </Expander>
+                                </StackPanel>
+                            </materialDesign:Card>
                         </Grid>
                     </StackPanel>
                 </Border>

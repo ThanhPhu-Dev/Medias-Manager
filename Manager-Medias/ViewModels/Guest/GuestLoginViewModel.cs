@@ -109,18 +109,13 @@ namespace Manager_Medias.ViewModels.Guest
                 {
                     Application.Current.Dispatcher.Invoke(() =>
                     {
+                        _userStore = new UserStore(currentUser);
                         if (currentUser.Role.Name.ToLower() == "admin")
                         {
                             DashboardAdmin MainAdminView = new DashboardAdmin();
                             Application.Current.MainWindow.Close();
                             Application.Current.MainWindow = MainAdminView;
                             MainAdminView.Show();
-                        }
-
-                        _userStore = new UserStore(currentUser);
-                        if(currentUser.roleId == 2)
-                        {
-                            
                         }
                         else if (currentUser.Code != null)
                         {

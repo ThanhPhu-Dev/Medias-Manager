@@ -11,6 +11,7 @@ using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.IO;
+using Manager_Medias.CustomModels;
 
 namespace Manager_Medias.ViewModels.Admin
 {
@@ -38,7 +39,7 @@ namespace Manager_Medias.ViewModels.Admin
                                 typeof(ListCollectionView), typeof(AdminViewMediaVM));
 
             MovieProperty = DependencyProperty.Register("Movie",
-                            typeof(Movie), typeof(AdminViewMediaVM));
+                            typeof(MovieCustomModel), typeof(AdminViewMediaVM));
 
 
             CategoryListProperty = DependencyProperty.Register("CategoryList",
@@ -60,9 +61,9 @@ namespace Manager_Medias.ViewModels.Admin
             set => SetValue(MovieListProperty, value);
         }
 
-        public Movie Movie
+        public MovieCustomModel Movie
         {
-            get => (Movie)GetValue(MovieProperty);
+            get => (MovieCustomModel)GetValue(MovieProperty);
             set => SetValue(MovieProperty, value);
         }
 
@@ -106,21 +107,21 @@ namespace Manager_Medias.ViewModels.Admin
                 if (MovieCurrent == null)
                     return;
 
-                Movie = new Movie
+                Movie = new MovieCustomModel
                 {
                     Id = MovieCurrent.Id,
                     Name = MovieCurrent.Name,
                     Poster = MovieCurrent.Poster,
-                    IdCategory = MovieCurrent.IdCategory,
+                    IdCategory = (int)MovieCurrent.IdCategory,
                     Nation = MovieCurrent.Nation,
-                    Age = MovieCurrent.Age,
+                    Age = (int)MovieCurrent.Age,
                     Season = MovieCurrent.Season,
                     Directors = MovieCurrent.Directors,
                     Description = MovieCurrent.Description,
                     Video = MovieCurrent.Video,
-                    Likes = MovieCurrent.Likes,
-                    IMDB = MovieCurrent.IMDB,
-                    NumberOfViews = MovieCurrent.NumberOfViews,
+                    Likes = (int)MovieCurrent.Likes,
+                    IMDB = (double)MovieCurrent.IMDB,
+                    NumberOfViews = (int)MovieCurrent.NumberOfViews,
                     Time = MovieCurrent.Time,
                 };
                
@@ -271,6 +272,7 @@ namespace Manager_Medias.ViewModels.Admin
                 movieUpdate.IdCategory = cat.Id;
                 movieUpdate.IMDB = Movie.IMDB;
                 movieUpdate.Directors = Movie.Directors;
+                return;
                 movieUpdate.Description = Movie.Description;
                 if(movieUpdate.Video != Movie.Video)
                 {
@@ -395,17 +397,27 @@ namespace Manager_Medias.ViewModels.Admin
                 duration = nhan;
                 nhan = "Không có";
             }
-            if(nhan == "R")
+
+            int age = 0;
+            if (nhan == "R")
             {
                 nhan += " (trên 17 tuổi)";
+                age = 18;
             }
             if(nhan == "PG-13")
             {
                 nhan += " (trên 12 tuổi)";
+                age = 13;
             }
             if (nhan == "PG")
             {
                 nhan += " (trên 9 tuổi)";
+                age = 10;
+            }
+            if (nhan == "C18")
+            {
+                nhan += " (trên 18 tuổi)";
+                age = 19;
             }
             //Placing the result in the rating text box
             var result = MessageBox.Show("Phim: " + nameMovie + "\nĐạo diễn: "+ directorName + "\nĐiểm IMDB: " + imdbRating + "\nTổng số đánh giá: " + imdbRatingCount + "\nNhãn: " + nhan + "\nThời lượng: "+ duration + "\nXác nhận cập nhật các thông tin trên ?", "Xác nhận phim", 
@@ -413,26 +425,11 @@ namespace Manager_Medias.ViewModels.Admin
 
             if (result == MessageBoxResult.Yes)
             {
+
+                Movie.Age = age;
                 Movie.Directors = directorName;
                 Movie.IMDB = imdbRating;
                 Movie.Time = duration;
-
-                if (nhan == "R")
-                {
-                    Movie.Age = 18;
-                }
-                if (nhan == "PG-13")
-                {
-                    Movie.Age = 13;
-                }
-                if (nhan == "PG")
-                {
-                    Movie.Age = 10;
-                }
-                else
-                {
-                    Movie.Age = 0;
-                }
 
             }
 

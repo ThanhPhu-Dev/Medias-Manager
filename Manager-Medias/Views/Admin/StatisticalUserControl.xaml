@@ -52,7 +52,7 @@
                     </Setter>
                 </Style>
             </TabControl.Resources>
-            <TabItem Header="Top phim được xem nhiều nhất">
+            <TabItem Header="Top 10 phim được xem nhiều nhất">
                 <lvc:PieChart Series="{Binding chartData}"
                               Height="360"
                               Foreground="Black"

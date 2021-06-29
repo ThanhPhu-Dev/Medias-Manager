@@ -1,4 +1,5 @@
 ﻿using Manager_Medias.Commands;
+using Manager_Medias.CustomModels;
 using Manager_Medias.Functions;
 using Manager_Medias.Models;
 using System;
@@ -50,7 +51,7 @@ namespace Manager_Medias.ViewModels.Admin
                                typeof(ListCollectionView), typeof(AdminViewVM));
 
             UserProperty = DependencyProperty.Register("User",
-                            typeof(User), typeof(AdminViewVM));
+                            typeof(UserCustomModel), typeof(AdminViewVM));
 
             ProfileProperty = DependencyProperty.Register("Profile",
                             typeof(Profile), typeof(AdminViewVM));
@@ -68,6 +69,11 @@ namespace Manager_Medias.ViewModels.Admin
 
 
         public string VirtualPassword { get; set; }
+
+        public int UserCount { get; set; }
+        public int VipUserCount { get; set; }
+        public int ProfileCount { get; set; }
+        public int NewUserCount { get; set; }
         public ListCollectionView ProfileList
         {
             get => (ListCollectionView)GetValue(ProfileListProperty);
@@ -83,9 +89,9 @@ namespace Manager_Medias.ViewModels.Admin
             get => (Role)GetValue(RolesProperty);
             set => SetValue(RolesProperty, value);
         }
-        public User User
+        public UserCustomModel User
         {
-            get => (User)GetValue(UserProperty);
+            get => (UserCustomModel)GetValue(UserProperty);
             set => SetValue(UserProperty, value);
         }
 
@@ -108,9 +114,36 @@ namespace Manager_Medias.ViewModels.Admin
 
             using (var db = new MediasManangementEntities())
             {
-                UserList = new ListCollectionView(db.Users.ToList());
+                var getUser = db.Users.ToList();
+
+                BindingList<UserCustomModel> userCustomList = new BindingList<UserCustomModel>();
+                foreach (User u in getUser) 
+                {
+                    var user = new UserCustomModel
+                    {
+                        Code = u.Code,
+                        Email = u.Email,
+                        Exp = u.Exp,
+                        Level = u.Level,
+                        NumberCard = u.NumberCard,
+                        Password = u.Password,
+                        roleId = u.roleId
+                    };
+
+                    userCustomList.Add(user);
+                }
+
+                UserList = new ListCollectionView(userCustomList);
                 
                 RolesList = new ListCollectionView(db.Roles.ToList());
+
+                UserCount = db.Users.Count();
+                ProfileCount = db.Profiles.Count();
+
+                DateTime now = DateTime.Today;
+                NewUserCount = db.Users.Where(u => u.CreateAt.Value.Month == now.Month).Count();
+
+                VipUserCount = db.Users.Where(u => u.Level == 3).Count();
             }
 
             RolesList.CurrentChanged += (_obj2, e3) =>
@@ -126,10 +159,10 @@ namespace Manager_Medias.ViewModels.Admin
             };
             UserList.CurrentChanged += (_, e) =>
             {             
-                var UserCurrent = UserList.CurrentItem as User;
+                var UserCurrent = UserList.CurrentItem as UserCustomModel;
                 if (UserCurrent == null)
                     return;
-                User = new User
+                User = new UserCustomModel
                 {
                     Email = UserCurrent.Email,
                     Password = "",
@@ -279,17 +312,17 @@ namespace Manager_Medias.ViewModels.Admin
                 if (db.SaveChanges() > 0)
                 {
                     MessageBox.Show("Cập nhật thành công");
+
+                    var userCur = UserList.CurrentItem as UserCustomModel;
+                    userCur.Level = User.Level;
+                    userCur.NumberCard = User.NumberCard;
+                    userCur.Exp = User.Exp;
+                    userCur.roleId = Role.Id;
                 }
                 else
                 {
                     MessageBox.Show("Không có thay đổi hoặc cập nhật thất bại");
                 }
-
-                var userCur = UserList.CurrentItem as User;
-                userCur.Level = User.Level;
-                userCur.NumberCard = User.NumberCard;
-                userCur.Exp = User.Exp;
-                userCur.roleId = Role.Id;
 
             }
         }
@@ -351,6 +384,7 @@ namespace Manager_Medias.ViewModels.Admin
                     Exp = "0/20",
                     Password = passWord,
                     roleId = Role.Id,
+                    CreateAt = DateTime.Now
                 };
 
                 db.Users.Add(NewUser);

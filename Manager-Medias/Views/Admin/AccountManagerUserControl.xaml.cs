@@ -1,4 +1,5 @@
-﻿using Manager_Medias.Models;
+﻿using Manager_Medias.CustomModels;
+using Manager_Medias.Models;
 using Manager_Medias.ViewModels.Admin;
 using Microsoft.Win32;
 using System;
@@ -123,6 +124,7 @@ namespace Manager_Medias.Views.Admin
         {
             var screen = new OpenFileDialog();
             //byte[] value = null;
+            screen.Filter = "Image files (*.png,*jpg)|*png;*jpg";
             if (screen.ShowDialog() == true)
             {
                 var filename = screen.FileName;
@@ -191,31 +193,69 @@ namespace Manager_Medias.Views.Admin
 
         private void searchTb_TextChanged(object sender, TextChangedEventArgs e)
         {
-            TextBox t = (TextBox)sender;
-            string filter = t.Text;
+
+            int filterLevel = 0;
+            if(_check != null)
+            {
+                filterLevel = int.Parse(_check.Tag.ToString());
+            }
+            int filterRole = cbSearchRole.SelectedIndex + 1;
+
+            if(UsersDg != null)
+            {
+                this.UsersDg.CommitEdit();
+                this.UsersDg.CancelEdit();
+            }
+            else
+            {
+                return;
+            }
+           
+
+
+            string filter = "";
+            if(searchTb != null)
+            {
+                filter = searchTb.Text;
+            }
             ICollectionView cv = CollectionViewSource.GetDefaultView(UsersDg.ItemsSource);
-            if (filter == "")
+
+            if (filterRole == 3 && filterLevel == 0 && filter == "")
                 cv.Filter = null;
             else
             {
                 if(cbSearch.SelectedIndex == 0)
                 {
+
                     cv.Filter = o =>
                     {
-                        User p = o as User;
-                        if (t.Name == "txtbEmailSearch")
-                            return (p.Email == filter);
-                        return (p.Email.ToUpper().Contains(filter.ToUpper()));
+                        UserCustomModel p = o as UserCustomModel;
+                        if (filterLevel == 0)
+                        {
+                            return (p.roleId == filterRole) && (p.Email.ToUpper().Contains(filter.ToUpper()));
+                        }
+                        if (filterRole == 3)
+                        {
+                            return (p.Level == filterLevel) && (p.Email.ToUpper().Contains(filter.ToUpper()));
+                        }
+                        return (p.roleId == filterRole) && (p.Level == filterLevel) && (p.Email.ToUpper().Contains(filter.ToUpper()));
                     };
                 }
                 else
                 {
                     cv.Filter = o =>
                     {
-                        User p = o as User;
-                        if (t.Name == "txtbNumCardSearch")
-                            return (p.NumberCard == filter);
-                        return (p.NumberCard.ToUpper().Contains(filter.ToUpper()));
+                        UserCustomModel p = o as UserCustomModel;
+                        if (filterLevel == 0)
+                        {
+                            return (p.roleId == filterRole) && (p.NumberCard.ToUpper().Contains(filter.ToUpper()));
+                        }
+                        if (filterRole == 3)
+                        {
+                            return (p.Level == filterLevel) && (p.NumberCard.ToUpper().Contains(filter.ToUpper()));
+                        }
+                        return (p.roleId == filterRole) && (p.Level == filterLevel) && (p.NumberCard.ToUpper().Contains(filter.ToUpper()));
+
                     };
                 }
                 
@@ -229,45 +269,26 @@ namespace Manager_Medias.Views.Admin
 
         private void btSearch_Click(object sender, RoutedEventArgs e)
         {
-            //TextBox t = (TextBox)sender;
+            
+        }
+
+        private void cbSearchRole_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            searchTb_TextChanged(null, null);
+        }
+
+        RadioButton _check;
+        private void rdBt4_Checked(object sender, RoutedEventArgs e)
+        {
             var checkedValue = levelPanel1.Children.OfType<RadioButton>()
                              .FirstOrDefault(r => r.IsChecked.HasValue && r.IsChecked.Value);
-            if(checkedValue == null)
+            if (checkedValue == null)
             {
                 checkedValue = levelPanel2.Children.OfType<RadioButton>()
                              .FirstOrDefault(r => r.IsChecked.HasValue && r.IsChecked.Value);
             }
-            int filterLevel = int.Parse(checkedValue.Tag.ToString());
-            int filterRole = cbSearchRole.SelectedIndex + 1;
-
-            this.UsersDg.CommitEdit();
-            //this.UsersDg.CommitEdit();
-
-            //this.UsersDg.CancelEdit();
-            this.UsersDg.CancelEdit();
-            ICollectionView cv = CollectionViewSource.GetDefaultView(UsersDg.ItemsSource);
-            if (filterRole == 3 && filterLevel == 0)
-                cv.Filter = null;
-            else
-            {
-                
-                cv.Filter = o =>
-                {
-                    User p = o as User;
-                    if (filterLevel == 0)
-                    {
-                        return (p.roleId == filterRole);
-                    }
-                    if(filterRole == 3)
-                    {
-                        return (p.Level == filterLevel);
-                    }
-
-                    return (p.roleId == filterRole) && (p.Level == filterLevel);
-                };
-                
-
-            }
+            _check = checkedValue;
+            searchTb_TextChanged(null, null);
         }
     }
 }

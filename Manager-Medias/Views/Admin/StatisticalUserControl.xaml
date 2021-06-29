@@ -119,6 +119,11 @@
                                                          Mode="OneWay" />
                                             </MultiBinding>
                                         </DatePicker.SelectedDate>
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="SelectedDateChanged">
+                                                <i:InvokeCommandAction Command="{Binding SelectedDateChangedCmd}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
                                     </DatePicker>
                                     <materialDesign:PackIcon Kind="ArrowRight"
                                                              VerticalAlignment="Center"
@@ -137,20 +142,23 @@
                                                          Mode="OneWay" />
                                             </MultiBinding>
                                         </DatePicker.SelectedDate>
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="SelectedDateChanged">
+                                                <i:InvokeCommandAction Command="{Binding SelectedDateChangedCmd}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
                                     </DatePicker>
                                 </StackPanel>
                             </Grid>
                         </DockPanel>
 
                         <Grid Margin="0 40 0 0">
-                            <lvc:CartesianChart Series="{Binding chartData2}"
+                            <lvc:CartesianChart Series="{Binding RevenueData}"
                                                 Height="500"
-                                                Name="monthChart"
                                                 Foreground="Black"
                                                 Panel.ZIndex="0"
                                                 FontSize="14"
-                                                LegendLocation="Bottom"
-                                                DataClick="PieChart_DataClick">
+                                                LegendLocation="Bottom">
                             </lvc:CartesianChart>
 
                             <!--<lvc:PieChart Series="{Binding chartData3}"

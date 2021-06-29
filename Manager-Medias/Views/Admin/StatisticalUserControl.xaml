@@ -2,32 +2,49 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Manager_Medias.Views.Admin"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             xmlns:cv="clr-namespace:Manager_Medias.Converters"
+             mc:Ignorable="d"
+             d:DesignHeight="450"
+             d:DesignWidth="800">
+    <UserControl.Resources>
+        <cv:SelectedDateConverter x:Key="selectedDateCvt" />
+    </UserControl.Resources>
     <Grid>
-        <TabControl Margin="10" BorderBrush="Gainsboro">
+        <TabControl Margin="10"
+                    BorderBrush="Gainsboro">
             <TabControl.Resources>
                 <Style TargetType="TabItem">
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="TabItem">
-                                <Border Name="Border" BorderThickness="1,1,1,0" BorderBrush="Gainsboro" CornerRadius="4,4,0,0" Margin="2,0">
+                                <Border Name="Border"
+                                        BorderThickness="1,1,1,0"
+                                        BorderBrush="Gainsboro"
+                                        CornerRadius="4,4,0,0"
+                                        Margin="2,0">
                                     <ContentPresenter x:Name="ContentSite"
-                                        VerticalAlignment="Center"
-                                        HorizontalAlignment="Center"
-                                        ContentSource="Header"
-                                        Margin="10,2"/>
+                                                      VerticalAlignment="Center"
+                                                      HorizontalAlignment="Center"
+                                                      ContentSource="Header"
+                                                      Margin="10,2" />
                                 </Border>
                                 <ControlTemplate.Triggers>
-                                    <Trigger Property="IsSelected" Value="True">
-                                        <Setter TargetName="Border" Property="Background" Value="LightSkyBlue" />
+                                    <Trigger Property="IsSelected"
+                                             Value="True">
+                                        <Setter TargetName="Border"
+                                                Property="Background"
+                                                Value="LightSkyBlue" />
                                     </Trigger>
-                                    <Trigger Property="IsSelected" Value="False">
-                                        <Setter TargetName="Border" Property="Background" Value="GhostWhite" />
+                                    <Trigger Property="IsSelected"
+                                             Value="False">
+                                        <Setter TargetName="Border"
+                                                Property="Background"
+                                                Value="GhostWhite" />
                                     </Trigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
@@ -37,61 +54,114 @@
             </TabControl.Resources>
             <TabItem Header="Top phim được xem nhiều nhất">
                 <lvc:PieChart Series="{Binding chartData}"
-                                    Height="360"
-                                    Foreground="Black" Panel.ZIndex="0"
-                                    FontSize="20"     
-                                    LegendLocation="Right"
-                                    DataClick="PieChart_DataClick" Width="580" >
+                              Height="360"
+                              Foreground="Black"
+                              Panel.ZIndex="0"
+                              FontSize="20"
+                              LegendLocation="Right"
+                              DataClick="PieChart_DataClick"
+                              Width="580">
                 </lvc:PieChart>
             </TabItem>
             <TabItem Header="Thống kê theo doanh thu">
                 <StackPanel Name="DoanhthuChartPanel">
-                    <TextBlock HorizontalAlignment="Center"
-                               FontSize="25">Danh thu theo tháng</TextBlock>
-                    <StackPanel Orientation="Horizontal" Height="450"                                 
-                                    Margin="0,10,0,0">
-                        <Grid>
+                    <!--<TextBlock HorizontalAlignment="Center"
+                               FontSize="25">Danh thu theo tháng</TextBlock>-->
+                    <StackPanel Margin="12,10,12,0">
+                        <DockPanel LastChildFill="True">
+                            <ComboBox Width="150"
+                                      SelectedIndex="0"
+                                      Name="cbDoanhThu"
+                                      HorizontalAlignment="Left"
+                                      VerticalAlignment="Top"
+                                      DockPanel.Dock="Left">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SelectionChanged">
+                                        <i:InvokeCommandAction Command="{Binding cbDoanhThuCmd}"
+                                                               CommandParameter="{Binding ElementName=cbDoanhThu, Path=SelectedItem.Name}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                                <ComboBoxItem Name="Days">
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon Kind="ViewDay"
+                                                                 Foreground="DarkSeaGreen" />
+                                        <TextBlock Padding="5 0 0 5">Thống kê theo ngày</TextBlock>
+                                    </StackPanel>
+                                </ComboBoxItem>
+                                <ComboBoxItem Name="Month">
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon Kind="AccountBalanceWallet"
+                                                                 Foreground="DarkSeaGreen" />
+                                        <TextBlock Padding="5 0 0 5">Thống kê theo tháng</TextBlock>
+                                    </StackPanel>
+                                </ComboBoxItem>
+                                <ComboBoxItem Name="Year">
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon Kind="CalendarCheck"
+                                                                 Foreground="DarkSeaGreen" />
+                                        <TextBlock Padding="5 0 0 5">Thống kê theo năm</TextBlock>
+                                    </StackPanel>
+                                </ComboBoxItem>
+                            </ComboBox>
+                            <Grid DockPanel.Dock="Right"
+                                  VerticalAlignment="Center">
+                                <StackPanel Orientation="Horizontal"
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Center">
+                                    <DatePicker Width="100"
+                                                materialDesign:HintAssist.Hint="From"
+                                                Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
+                                                SelectedDateFormat="Short">
+                                        <DatePicker.SelectedDate>
+                                            <MultiBinding Converter="{StaticResource selectedDateCvt}">
+                                                <Binding Path="FromDate" />
+                                                <Binding Path="SelectedDateFormat"
+                                                         Mode="OneWay" />
+                                            </MultiBinding>
+                                        </DatePicker.SelectedDate>
+                                    </DatePicker>
+                                    <materialDesign:PackIcon Kind="ArrowRight"
+                                                             VerticalAlignment="Center"
+                                                             Margin="20 10 20 0"
+                                                             Width="20"
+                                                             Height="20"
+                                                             Foreground="#000" />
+                                    <DatePicker Width="100"
+                                                materialDesign:HintAssist.Hint="To"
+                                                Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
+                                                SelectedDateFormat="Short">
+                                        <DatePicker.SelectedDate>
+                                            <MultiBinding Converter="{StaticResource selectedDateCvt}">
+                                                <Binding Path="ToDate" />
+                                                <Binding Path="SelectedDateFormat"
+                                                         Mode="OneWay" />
+                                            </MultiBinding>
+                                        </DatePicker.SelectedDate>
+                                    </DatePicker>
+                                </StackPanel>
+                            </Grid>
+                        </DockPanel>
+
+                        <Grid Margin="0 40 0 0">
                             <lvc:CartesianChart Series="{Binding chartData2}"
-                                            Height="360" Name="monthChart"
-                                            Foreground="Black" Panel.ZIndex="0"
-                                            FontSize="20"     
-                                            LegendLocation="Right"
-                                            DataClick="PieChart_DataClick" Width="580" >
+                                                Height="500"
+                                                Name="monthChart"
+                                                Foreground="Black"
+                                                Panel.ZIndex="0"
+                                                FontSize="14"
+                                                LegendLocation="Bottom"
+                                                DataClick="PieChart_DataClick">
                             </lvc:CartesianChart>
 
-
-                            <lvc:PieChart Series="{Binding chartData3}"
+                            <!--<lvc:PieChart Series="{Binding chartData3}"
                                             Height="360" Name="YearChart"
                                             Foreground="Black"
-                                            FontSize="20" 
+                                            FontSize="20"
                                             LegendLocation="Right"
-                                            DataClick="PieChart_DataClick" Width="580" >
-                            </lvc:PieChart>
+                                            DataClick="PieChart_DataClick" Width="580">
+                            </lvc:PieChart>-->
                         </Grid>
-
-                        <ComboBox Width="150" SelectedIndex="0" 
-                                      Name="cbDoanhThu"
-                                      SelectionChanged="ComboBox_SelectionChanged"
-                                      HorizontalAlignment="Right"
-                                      VerticalAlignment="Top">
-                            <ComboBoxItem>
-                                <StackPanel Orientation="Horizontal">
-                                    <materialDesign:PackIcon Foreground="PaleVioletRed" Kind="Clock" />
-                                    <TextBlock Padding="5 0 0 5">Thống kê theo quý</TextBlock>
-                                </StackPanel>
-                            </ComboBoxItem>
-                            <ComboBoxItem>
-                                <StackPanel Orientation="Horizontal">
-                                    <materialDesign:PackIcon Kind="AccountBalanceWallet" Foreground="DarkSeaGreen"/>
-                                    <TextBlock Padding="5 0 0 5">Thống kê theo tháng</TextBlock>
-                                </StackPanel>
-                            </ComboBoxItem>
-                        </ComboBox>
                     </StackPanel>
-
-                    <TextBlock Text="Tăng so với tháng trước x %"
-                               FontSize="24"
-                               FontWeight="Bold"/>
                 </StackPanel>
             </TabItem>
             <TabItem Header="Details" />

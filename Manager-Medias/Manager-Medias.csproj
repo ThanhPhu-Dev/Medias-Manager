@@ -167,6 +167,7 @@
     <Compile Include="Converters\ProfileLoginEnableConverter.cs" />
     <Compile Include="Converters\RatioVideoConverter.cs" />
     <Compile Include="Converters\RoleIdToRoleNameConverter.cs" />
+    <Compile Include="Converters\SelectedDateConverter.cs" />
     <Compile Include="Converters\TextToPasswordCharConverter.cs" />
     <Compile Include="Converters\ToShortDateConverter.cs" />
     <Compile Include="CustomModels\DetailMovieCustomModel.cs" />

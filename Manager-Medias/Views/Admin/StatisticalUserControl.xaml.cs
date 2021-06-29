@@ -3,8 +3,10 @@ using LiveCharts.Wpf;
 using Manager_Medias.ViewModels.Admin;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -23,7 +25,8 @@ namespace Manager_Medias.Views.Admin
     /// </summary>
     public partial class StatisticalUserControl : UserControl
     {
-        AdminViewStatisticsVM vm;
+        private AdminViewStatisticsVM vm;
+
         public StatisticalUserControl()
         {
             InitializeComponent();
@@ -31,22 +34,8 @@ namespace Manager_Medias.Views.Admin
             vm = new AdminViewStatisticsVM();
             DataContext = vm;
 
-           
-        }
-
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var index = cbDoanhThu.SelectedIndex;
-            if (index == 0)
-            {
-                monthChart.Visibility = Visibility.Visible;
-                YearChart.Visibility = Visibility.Hidden;
-            }
-            if (index == 1)
-            {
-                monthChart.Visibility = Visibility.Hidden;
-                YearChart.Visibility = Visibility.Visible;
-            }
+            Thread.CurrentThread.CurrentCulture = (CultureInfo)Thread.CurrentThread.CurrentCulture.Clone();
+            Thread.CurrentThread.CurrentCulture.DateTimeFormat.ShortDatePattern = "dd/MM/yyyy";
         }
 
         private void PieChart_DataClick(object sender, LiveCharts.ChartPoint chartPoint)

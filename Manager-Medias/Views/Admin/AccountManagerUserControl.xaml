@@ -284,9 +284,9 @@
                                 <TextBlock Margin="5 0 0 0" Text="Số thành viên cao cấp:"
                                                FontSize="14"/>
                                 <TextBlock Margin="5 0 0 0" 
-                                               FontSize="14"
-                                               Text="16" Foreground="OrangeRed"
-                                               FontWeight="Bold"/>
+                                           FontSize="14"
+                                           Text="{Binding VipUserCount}" Foreground="OrangeRed"
+                                           FontWeight="Bold"/>
                             </StackPanel>
 
                         </StackPanel>

@@ -210,8 +210,6 @@ namespace Manager_Medias.Views.Admin
             {
                 return;
             }
-           
-
 
             string filter = "";
             if(searchTb != null)

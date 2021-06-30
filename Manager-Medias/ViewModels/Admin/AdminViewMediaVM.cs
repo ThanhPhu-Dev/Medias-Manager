@@ -18,6 +18,10 @@ namespace Manager_Medias.ViewModels.Admin
     class AdminViewMediaVM : DependencyObject
     {
         public static readonly DependencyProperty MovieListProperty;
+        public static readonly DependencyProperty MostViewMovieListProperty;
+        public static readonly DependencyProperty MostLikeMovieListProperty;
+        public static readonly DependencyProperty NewMovieListProperty;
+
         public static readonly DependencyProperty MovieProperty;
 
         public static readonly DependencyProperty CategoryListProperty;
@@ -32,10 +36,17 @@ namespace Manager_Medias.ViewModels.Admin
         public ICommand CmdUpdateMovie { get; }
 
         public ICommand CmdDeleteMovie { get; }
+
         static AdminViewMediaVM()
         {
 
             MovieListProperty = DependencyProperty.Register("MovieList",
+                                typeof(ListCollectionView), typeof(AdminViewMediaVM));
+            MostViewMovieListProperty = DependencyProperty.Register("ViewMovieList",
+                                typeof(ListCollectionView), typeof(AdminViewMediaVM));
+            MostLikeMovieListProperty = DependencyProperty.Register("LikeMovieList",
+                                typeof(ListCollectionView), typeof(AdminViewMediaVM));
+            NewMovieListProperty = DependencyProperty.Register("NewMovieList",
                                 typeof(ListCollectionView), typeof(AdminViewMediaVM));
 
             MovieProperty = DependencyProperty.Register("Movie",
@@ -59,6 +70,32 @@ namespace Manager_Medias.ViewModels.Admin
 
             get => (ListCollectionView)GetValue(MovieListProperty);
             set => SetValue(MovieListProperty, value);
+        }
+
+        public ListCollectionView NewMovieList
+        {
+
+            get => (ListCollectionView)GetValue(NewMovieListProperty);
+            set => SetValue(NewMovieListProperty, value);
+        }
+
+        public ListCollectionView MostViewMovieList
+        {
+
+            get => (ListCollectionView)GetValue(MostViewMovieListProperty);
+            set => SetValue(MostViewMovieListProperty, value);
+        }
+
+        public int MovieCount { get; set; }
+        public int CategoryCount { get; set; }
+        public int totalView { get; set; }
+        public int totalLike { get; set; }
+
+        public ListCollectionView MostLikeMovieList
+        {
+
+            get => (ListCollectionView)GetValue(MostLikeMovieListProperty);
+            set => SetValue(MostLikeMovieListProperty, value);
         }
 
         public MovieCustomModel Movie
@@ -85,20 +122,34 @@ namespace Manager_Medias.ViewModels.Admin
             set => SetValue(UserLevelProperty, value);
         }
 
+        int check = 0;
         public AdminViewMediaVM()
         {
+           
             CmdAddMovie = new RelayCommand<object>(AddMovie);
             CmdUpdateIMDBrating = new RelayCommand<object>(UpdateIMDBrating);
             CmdUpdateMovie = new RelayCommand<object>(UpdateMovie);
             CmdDeleteMovie = new RelayCommand<object>(DeleteMovie);
 
+            
             using (var db = new MediasManangementEntities())
             {
                 MovieList = new ListCollectionView(db.Movies.ToList());
+                
 
                 CategoryList = new ListCollectionView(db.Movie_Categories.ToList());
 
                 UserLevelList = new ListCollectionView(db.Levels.ToList());
+
+                NewMovieList = new ListCollectionView(db.Movies.OrderByDescending(x => x.CreateAt).Take(10).ToList());
+                MostLikeMovieList = new ListCollectionView(db.Movies.OrderByDescending(x => x.Likes).Take(10).ToList());
+                MostViewMovieList = new ListCollectionView(db.Movies.OrderByDescending(x => x.NumberOfViews).Take(10).ToList());
+
+                MovieCount = db.Movies.Count();
+                CategoryCount = db.Movie_Categories.Count();
+
+                totalLike = (int)db.Movies.Sum(l => l.Likes);
+                totalView = (int)db.Movies.Sum(l => l.NumberOfViews);
             }
 
             MovieList.CurrentChanged += (_, e) =>
@@ -131,7 +182,114 @@ namespace Manager_Medias.ViewModels.Admin
                     var level = db.Medias.Find(Movie.Id);
                     Level = level;
                 }
+
+                check = 1;
             };
+
+
+            NewMovieList.CurrentChanged += (_, e) =>
+            {
+                var MovieCurrent = NewMovieList.CurrentItem as Movie;
+                if (MovieCurrent == null)
+                    return;
+
+                Movie = new MovieCustomModel
+                {
+                    Id = MovieCurrent.Id,
+                    Name = MovieCurrent.Name,
+                    Poster = MovieCurrent.Poster,
+                    IdCategory = (int)MovieCurrent.IdCategory,
+                    Nation = MovieCurrent.Nation,
+                    Age = (int)MovieCurrent.Age,
+                    Season = MovieCurrent.Season,
+                    Directors = MovieCurrent.Directors,
+                    Description = MovieCurrent.Description,
+                    Video = MovieCurrent.Video,
+                    Likes = (int)MovieCurrent.Likes,
+                    IMDB = (double)MovieCurrent.IMDB,
+                    NumberOfViews = (int)MovieCurrent.NumberOfViews,
+                    Time = MovieCurrent.Time,
+                };
+
+
+                using (var db = new MediasManangementEntities())
+                {
+                    var level = db.Medias.Find(Movie.Id);
+                    Level = level;
+                }
+
+                check = 1;
+            };
+
+            MostLikeMovieList.CurrentChanged += (_, e) =>
+            {
+                var MovieCurrent = MostLikeMovieList.CurrentItem as Movie;
+                if (MovieCurrent == null)
+                    return;
+
+                Movie = new MovieCustomModel
+                {
+                    Id = MovieCurrent.Id,
+                    Name = MovieCurrent.Name,
+                    Poster = MovieCurrent.Poster,
+                    IdCategory = (int)MovieCurrent.IdCategory,
+                    Nation = MovieCurrent.Nation,
+                    Age = (int)MovieCurrent.Age,
+                    Season = MovieCurrent.Season,
+                    Directors = MovieCurrent.Directors,
+                    Description = MovieCurrent.Description,
+                    Video = MovieCurrent.Video,
+                    Likes = (int)MovieCurrent.Likes,
+                    IMDB = (double)MovieCurrent.IMDB,
+                    NumberOfViews = (int)MovieCurrent.NumberOfViews,
+                    Time = MovieCurrent.Time,
+                };
+
+
+                using (var db = new MediasManangementEntities())
+                {
+                    var level = db.Medias.Find(Movie.Id);
+                    Level = level;
+                }
+
+                check = 1;
+            };
+
+            MostViewMovieList.CurrentChanged += (_, e) =>
+            {
+                var MovieCurrent = MostViewMovieList.CurrentItem as Movie;
+                if (MovieCurrent == null)
+                    return;
+
+                Movie = new MovieCustomModel
+                {
+                    Id = MovieCurrent.Id,
+                    Name = MovieCurrent.Name,
+                    Poster = MovieCurrent.Poster,
+                    IdCategory = (int)MovieCurrent.IdCategory,
+                    Nation = MovieCurrent.Nation,
+                    Age = (int)MovieCurrent.Age,
+                    Season = MovieCurrent.Season,
+                    Directors = MovieCurrent.Directors,
+                    Description = MovieCurrent.Description,
+                    Video = MovieCurrent.Video,
+                    Likes = (int)MovieCurrent.Likes,
+                    IMDB = (double)MovieCurrent.IMDB,
+                    NumberOfViews = (int)MovieCurrent.NumberOfViews,
+                    Time = MovieCurrent.Time,
+                };
+
+
+                using (var db = new MediasManangementEntities())
+                {
+                    var level = db.Medias.Find(Movie.Id);
+                    Level = level;
+                }
+
+                check = 1;
+            };
+
+
 
             UserLevelList.CurrentChanged += (_, e) =>
             {
@@ -154,6 +312,7 @@ namespace Manager_Medias.ViewModels.Admin
                 db.Likes.RemoveRange(db.Likes.Where(l => l.IdMedia == Movie.Id));
                 db.View_History.RemoveRange(db.View_History.Where(v => v.IdMedia == Movie.Id));
                 db.Medias.Remove(db.Medias.FirstOrDefault(m => m.Id == Movie.Id));
+                db.My_Lists.RemoveRange(db.My_Lists.Where(m => m.IdMedia == Movie.Id));
 
                 //db.SaveChanges();
 
@@ -168,8 +327,27 @@ namespace Manager_Medias.ViewModels.Admin
                     if (MovieList.IsAddingNew)
                     {
                         MovieList.CancelNew();
+                        NewMovieList.CancelNew();
                     }
-                    MovieList.Remove(MovieList.CurrentItem);
+                    var del = MovieList.CurrentItem as Movie;
+                    if(del.Id != Movie.Id)
+                    {
+                        del = NewMovieList.CurrentItem as Movie;
+                    }
+                    if (del.Id != Movie.Id)
+                    {
+                        del = MostViewMovieList.CurrentItem as Movie;
+                    }
+                    if (del.Id != Movie.Id)
+                    {
+                        del = MostLikeMovieList.CurrentItem as Movie;
+                    }
+
+                    MovieList.Remove(del);
+                    NewMovieList.Remove(del);
+                    MostViewMovieList.Remove(del);
+                    MostLikeMovieList.Remove(del);
+
                 }
                 else
                 {
@@ -249,6 +427,8 @@ namespace Manager_Medias.ViewModels.Admin
                     MessageBox.Show("Thêm phim thành công!");
 
                     MovieList.AddNewItem(NewMovie);
+
+                    NewMovieList.AddNewItem(NewMovie);
                 }
                 else
                 {
@@ -261,10 +441,13 @@ namespace Manager_Medias.ViewModels.Admin
         private void UpdateMovie(object obj)
         {
             var cat = CategoryList.CurrentItem as Movie_Category;
-            
+            string name;
             using (var db = new MediasManangementEntities())
             {
+
                 var movieUpdate = db.Movies.FirstOrDefault(u => u.Id == Movie.Id);
+                name = movieUpdate.Name;
+
                 movieUpdate.Name = Movie.Name;
                 movieUpdate.Nation = Movie.Nation;
                 movieUpdate.Age = Movie.Age;
@@ -272,7 +455,6 @@ namespace Manager_Medias.ViewModels.Admin
                 movieUpdate.IdCategory = cat.Id;
                 movieUpdate.IMDB = Movie.IMDB;
                 movieUpdate.Directors = Movie.Directors;
-                return;
                 movieUpdate.Description = Movie.Description;
                 if(movieUpdate.Video != Movie.Video)
                 {
@@ -320,8 +502,23 @@ namespace Manager_Medias.ViewModels.Admin
                     MessageBox.Show("Cập nhật thành công");
 
                     var MovieCur = MovieList.CurrentItem as Movie;
+                    if(MovieCur.Name != name)
+                    {
+                        MovieCur = NewMovieList.CurrentItem as Movie;
+                    }
+
+                    if (MovieCur.Name != name)
+                    {
+                        MovieCur = MostLikeMovieList.CurrentItem as Movie;
+                    }
+
+                    if (MovieCur.Name != name)
+                    {
+                        MovieCur = MostViewMovieList.CurrentItem as Movie;
+                    }
+
                     MovieCur.Name = Movie.Name;
-                    MovieCur.Nation = Movie.Name;
+                    MovieCur.Nation = Movie.Nation;
                     MovieCur.Age = Movie.Age;
                     MovieCur.Season = Movie.Season;
                     MovieCur.IdCategory = cat.Id;
@@ -330,6 +527,8 @@ namespace Manager_Medias.ViewModels.Admin
                     MovieCur.Description = Movie.Description;
                     MovieCur.Video = Movie.Video;
                     MovieCur.Poster = Movie.Poster;
+
+
 
                     var LevelCur = UserLevelList.CurrentItem as Level;
                     LevelCur.Id = (int)Level.Lvl;
@@ -433,5 +632,6 @@ namespace Manager_Medias.ViewModels.Admin
 
             }
         }
+
     }
 }

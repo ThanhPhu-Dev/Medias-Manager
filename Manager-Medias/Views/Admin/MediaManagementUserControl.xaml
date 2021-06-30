@@ -139,19 +139,6 @@
                 </Rectangle>
                 <Grid Height="110" Margin="15 5 15 0">
                     <StackPanel>
-                        <Button Margin="10,5,10,0" Background="#1c944e"
-                                    Height="26"
-                                    BorderBrush="CadetBlue">
-                            <Grid Width="220">
-
-                                <StackPanel Orientation="Horizontal">
-                                    <materialDesign:PackIcon Kind="Update"/>
-                                    <TextBlock FontSize="13" Margin="8 0 0 0"
-                                               Text="Các tài khoản quản trị" FontFamily="Champagne &amp; Limousines" />
-                                </StackPanel>
-
-                            </Grid>
-                        </Button>
                         <Button Margin="10,8,10,0" Background="CadetBlue"
                                 Height="26"
                                 Name="btAddMovie" Click="btAddMovie_Click"
@@ -161,20 +148,20 @@
                                 <StackPanel Orientation="Horizontal">
                                     <materialDesign:PackIcon Kind="AddBold"/>
                                     <TextBlock  FontSize="13" Margin="8 0 0 0"                                           
-                                                Text="Thêm người phim mới" FontFamily="Champagne &amp; Limousines" />
+                                                Text="Thêm phim mới" FontFamily="Champagne &amp; Limousines" />
                                 </StackPanel>
 
                             </Grid>
                         </Button>
 
 
-                        <Button Margin="10,8,10,0" Background="#c7462c"
+                        <Button Margin="10,8,10,0" Background="#1c944e"
                                 Height="26" Click="btAdvancedSearch_Click" Name="btAdvancedSearch"
                                 BorderBrush="CadetBlue">
                             <Grid Width="220">
 
                                 <StackPanel Orientation="Horizontal">
-                                    <materialDesign:PackIcon Kind="Delete"/>
+                                    <materialDesign:PackIcon Kind="SearchAdd"/>
                                     <TextBlock  FontSize="13" Margin="8 0 0 0"
                                                 Text="Tìm kiếm nâng cao" FontFamily="Champagne &amp; Limousines" />
                                 </StackPanel>
@@ -201,30 +188,32 @@
                                 <DropShadowEffect BlurRadius="20" Color="#FFECECEC" 
                                                   RenderingBias="Quality" ShadowDepth="1"/>
                             </Grid.Effect>
-                            <materialDesign:PackIcon Kind="People" HorizontalAlignment="Center" 
+                            <materialDesign:PackIcon Kind="Movie" HorizontalAlignment="Center" 
                                                      VerticalAlignment="Bottom" Margin="5" 
                                                      Foreground="White" Width="30" Height="30"/>
                         </Grid>
                         <StackPanel>
-                            <TextBlock Text="Tổng số thành viên" 
+                            <TextBlock Text="Tổng số phim" 
                                            Padding="60 6 0 0"
                                            FontWeight="Bold"
                                            Foreground="Black" FontSize="16"/>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                <TextBlock Text="321" FontSize="50" 
-                                               Foreground="IndianRed"
-                                               FontWeight="Bold"
-                                               VerticalAlignment="Top" Height="64"/>
+                                <TextBlock Text="{Binding MovieCount}" FontSize="50" 
+                                           Foreground="IndianRed"
+                                           FontWeight="Bold"
+                                           VerticalAlignment="Top" Height="64"/>
 
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <materialDesign:PackIcon Kind="ImportantDevices" Height="21" Width="21" />
-                                <TextBlock Margin="5 0 0 0" Text="Số thành viên VIP:"
+                                <materialDesign:PackIcon Kind="Category" Height="21" Width="21" />
+                                <TextBlock Margin="5 0 0 0" Text="Với hơn: "
                                                FontSize="14"/>
                                 <TextBlock Margin="5 0 0 0" 
-                                               FontSize="14"
-                                               Text="98" Foreground="OrangeRed"
-                                               FontWeight="Bold"/>
+                                           FontSize="14"
+                                           Text="{Binding CategoryCount}" Foreground="OrangeRed"
+                                           FontWeight="Bold"/>
+                                <TextBlock Margin="5 0 0 0" Text=" thể loại"
+                                               FontSize="14"/>
                             </StackPanel>
 
                         </StackPanel>
@@ -249,31 +238,31 @@
                                 <DropShadowEffect BlurRadius="20" Color="AliceBlue" 
                                                   RenderingBias="Quality" ShadowDepth="1"/>
                             </Grid.Effect>
-                            <materialDesign:PackIcon Kind="Payment" HorizontalAlignment="Center" 
+                            <materialDesign:PackIcon Kind="ViewArray" HorizontalAlignment="Center" 
                                                      VerticalAlignment="Bottom" Margin="5" 
                                                      Foreground="White" Width="30" Height="30"/>
                         </Grid>
                         <StackPanel>
-                            <TextBlock Text="Tổng nạp tháng này" 
+                            <TextBlock Text="Tổng số lượt xem: " 
                                            Padding="60 6 0 0"
                                            FontWeight="Bold"
                                            Foreground="Black" FontSize="16"/>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                <TextBlock Text="7.240.000" FontSize="37" 
-                                               Foreground="#edb634"
-                                               FontWeight="Bold"
-                                               VerticalAlignment="Top" Height="64"/>
-                                <TextBlock Text="VNĐ" Padding="0 0 0 15" VerticalAlignment="Bottom"/>
+                                <TextBlock Text="{Binding totalView}" FontSize="37" 
+                                           Foreground="#edb634"
+                                           FontWeight="Bold"
+                                           VerticalAlignment="Top" Height="64"/>
+                                <TextBlock Text="lượt" Padding="0 0 0 15" VerticalAlignment="Bottom"/>
 
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <materialDesign:PackIcon Kind="FreeBreakfast" Height="21" Width="21" />
-                                <TextBlock Margin="5 0 0 0" Text="Số thành viên VIP mới:"
+                                <materialDesign:PackIcon Kind="Like" Height="21" Width="21" />
+                                <TextBlock Margin="5 0 0 0" Text="Tổng số lượt thích:"
                                                FontSize="14"/>
                                 <TextBlock Margin="5 0 0 0" 
-                                               FontSize="14"
-                                               Text="16" Foreground="OrangeRed"
-                                               FontWeight="Bold"/>
+                                           FontSize="14"
+                                           Text="{Binding totalLike}" Foreground="OrangeRed"
+                                           FontWeight="Bold"/>
                             </StackPanel>
 
                         </StackPanel>
@@ -283,7 +272,7 @@
                 </Grid>
             </Grid>
         </Grid>
-        <Grid Grid.Row="1" Background="Gainsboro">
+        <Grid Grid.Row="1" Background="#768399">
 
         </Grid>
         <Grid Grid.Row="2">
@@ -327,9 +316,9 @@
                             <TextBlock FontSize="32" HorizontalAlignment="Center" 
                                        FontWeight="Bold">Danh sách phim mới</TextBlock>
                             <ListView Name="lvMovies" ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                                      ItemsSource="{Binding MovieList}" ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                      IsSynchronizedWithCurrentItem="True"
+                                      ItemsSource="{Binding NewMovieList}" ScrollViewer.VerticalScrollBarVisibility="Disabled"
                                       Height="170" SelectionMode="Single">
-
                                 <ListView.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <StackPanel Orientation="Horizontal"/>
@@ -352,7 +341,7 @@
                                                                 <materialDesign:PackIcon Kind="Update"/>
                                                             </MenuItem.Icon>
                                                         </MenuItem>
-                                                        <MenuItem Header="Xóa phim này">
+                                                        <MenuItem Header="Xóa phim này" Command="{Binding CmdDeleteMovie}" >
                                                             <MenuItem.Icon>
                                                                 <materialDesign:PackIcon Kind="Delete"/>
                                                             </MenuItem.Icon>
@@ -406,10 +395,9 @@
                         <StackPanel Panel.ZIndex="1">
                             <TextBlock FontSize="32" HorizontalAlignment="Center" 
                                        FontWeight="Bold">Danh sách phim có nhiều lượt xem nhất</TextBlock>
-                            <ListView Name="lvMovies2" ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                                      ItemsSource="{Binding MovieList}" ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                                      Height="140">
-
+                            <ListView Name="lvMoviesView" ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                                      ItemsSource="{Binding MostViewMovieList}" ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                      Height="170" SelectionMode="Single" IsSynchronizedWithCurrentItem="True">
                                 <ListView.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <StackPanel Orientation="Horizontal"/>
@@ -417,19 +405,41 @@
                                 </ListView.ItemsPanel>
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        
-                                        <Border BorderBrush="Gray" BorderThickness="2" Name="boderTemplate2"
-                                                MouseLeftButtonDown="boderTemplate_MouseLeftButtonDown"
-                                                MouseLeave="boderTemplate_MouseLeave"
-                                                Height="115" Width="200">
-                                            <Border.Background>
-                                                <ImageBrush ImageSource="{Binding Poster, Converter={StaticResource imageCvt}}" Stretch="Uniform"/>
-                                            </Border.Background>
-                                            <MediaElement Source="{Binding Video, Converter={StaticResource imageCvt}}"
-                                                          LoadedBehavior="Manual"
-                                                          UnloadedBehavior="Manual" Name="movieItem2"
-                                                          Volume="0"/>
-                                        </Border>
+
+                                        <StackPanel>
+                                            <Border BorderBrush="Gray" BorderThickness="2" Name="boderTemplateView"
+                                                    MouseLeftButtonDown="boderTemplate_MouseLeftButtonDown"
+                                                    MouseEnter="boderTemplate_MouseEnter"
+                                                    MouseLeave="boderTemplate_MouseLeave"
+                                                    Height="115" Width="200">
+                                                <Border.ContextMenu>
+                                                    <ContextMenu>
+                                                        <MenuItem Header="Cập nhật thông tin" Name="btOpenMovieDetailView"
+                                                                  Click="btOpenMovieDetail_Click">
+                                                            <MenuItem.Icon>
+                                                                <materialDesign:PackIcon Kind="Update"/>
+                                                            </MenuItem.Icon>
+                                                        </MenuItem>
+                                                        <MenuItem Header="Xóa phim này" Command="{Binding CmdDeleteMovie}" >
+                                                            <MenuItem.Icon>
+                                                                <materialDesign:PackIcon Kind="Delete"/>
+                                                            </MenuItem.Icon>
+                                                        </MenuItem>
+                                                    </ContextMenu>
+                                                </Border.ContextMenu>
+                                                <Border.Background>
+                                                    <ImageBrush ImageSource="{Binding Poster, Converter={StaticResource imageCvt}}" Stretch="Uniform"/>
+                                                </Border.Background>
+                                                <MediaElement Source="{Binding Video, Converter={StaticResource imageCvt}}"
+                                                              LoadedBehavior="Manual"
+                                                              UnloadedBehavior="Manual" Name="movieItemView"
+                                                              Volume="0"/>
+                                            </Border>
+
+                                            <TextBlock FontSize="15" FontWeight="Bold"
+                                                       VerticalAlignment="Center" HorizontalAlignment="Center"
+                                                       Text="{Binding Name}"/>
+                                        </StackPanel>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
@@ -440,7 +450,7 @@
                     <Grid>
                         <Button Background="{x:Null}"
                             BorderBrush="{x:Null}"
-                            Height="80" Name="btMoveRight21"
+                            Height="80" Name="btMoveRight3"
                             VerticalAlignment="Center" Panel.ZIndex="2"
                             HorizontalAlignment="Right" Margin="0 20 -10 0"
                             Click="btMoveRight_Click">
@@ -450,7 +460,7 @@
                         </Button>
                         <Button Background="{x:Null}"
                             BorderBrush="{x:Null}" Margin="-10 20 0 0"
-                            Height="80" Name="btMoveLeft21"
+                            Height="80" Name="btMoveLeft3"
                             VerticalAlignment="Center" Panel.ZIndex="2"
                             HorizontalAlignment="Left"
                             Click="btMoveLeft_Click" Width="106">
@@ -461,10 +471,9 @@
                         <StackPanel Panel.ZIndex="1">
                             <TextBlock FontSize="32" HorizontalAlignment="Center" 
                                        FontWeight="Bold">Danh sách phim có nhiều lượt thích nhất</TextBlock>
-                            <ListView Name="lvMovies21" ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                                      ItemsSource="{Binding MovieList}"
-                                      Height="140" ScrollViewer.VerticalScrollBarVisibility="Disabled">
-
+                            <ListView Name="lvMoviesLike" ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                                      ItemsSource="{Binding MostLikeMovieList}" SelectionMode="Single" IsSynchronizedWithCurrentItem="True"
+                                      Height="170" ScrollViewer.VerticalScrollBarVisibility="Disabled">
                                 <ListView.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <StackPanel Orientation="Horizontal"/>
@@ -472,16 +481,40 @@
                                 </ListView.ItemsPanel>
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <Border BorderBrush="Gray" BorderThickness="2" Name="boderTemplate21"
-                                                Height="115" Width="200">
-                                            <Border.Background>
-                                                <ImageBrush ImageSource="{Binding Poster, Converter={StaticResource imageCvt}}" Stretch="Uniform"/>
-                                            </Border.Background>
-                                            <MediaElement Source="{Binding Video, Converter={StaticResource imageCvt}}"
-                                                          LoadedBehavior="Manual"
-                                                          UnloadedBehavior="Manual" Name="movieItem21"
-                                                          Volume="0"/>
-                                        </Border>
+                                        <StackPanel>
+                                            <Border BorderBrush="Gray" BorderThickness="2" Name="boderTemplateLike"
+                                                    MouseLeftButtonDown="boderTemplate_MouseLeftButtonDown"
+                                                    MouseEnter="boderTemplate_MouseEnter"
+                                                    MouseLeave="boderTemplate_MouseLeave"
+                                                    Height="115" Width="200">
+                                                <Border.ContextMenu>
+                                                    <ContextMenu>
+                                                        <MenuItem Header="Cập nhật thông tin" Name="btOpenMovieDetailLike"
+                                                                  Click="btOpenMovieDetail_Click">
+                                                            <MenuItem.Icon>
+                                                                <materialDesign:PackIcon Kind="Update"/>
+                                                            </MenuItem.Icon>
+                                                        </MenuItem>
+                                                        <MenuItem Header="Xóa phim này" Command="{Binding CmdDeleteMovie}" >
+                                                            <MenuItem.Icon>
+                                                                <materialDesign:PackIcon Kind="Delete"/>
+                                                            </MenuItem.Icon>
+                                                        </MenuItem>
+                                                    </ContextMenu>
+                                                </Border.ContextMenu>
+                                                <Border.Background>
+                                                    <ImageBrush ImageSource="{Binding Poster, Converter={StaticResource imageCvt}}" Stretch="Uniform"/>
+                                                </Border.Background>
+                                                <MediaElement Source="{Binding Video, Converter={StaticResource imageCvt}}"
+                                                              LoadedBehavior="Manual"
+                                                              UnloadedBehavior="Manual" Name="movieItemLike"
+                                                              Volume="0"/>
+                                            </Border>
+
+                                            <TextBlock FontSize="15" FontWeight="Bold"
+                                                       VerticalAlignment="Center" HorizontalAlignment="Center"
+                                                       Text="{Binding Name}"/>
+                                        </StackPanel>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
@@ -490,12 +523,81 @@
 
 
                     <Grid>
-                        <StackPanel Panel.ZIndex="1">
-                            <TextBlock FontSize="32" HorizontalAlignment="Center" 
-                                       FontWeight="Bold">Tất cả phim</TextBlock>
-                            <ListView Name="lvMovies212" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                      ItemsSource="{Binding MovieList}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0"  Name="filterPanel">
+                            <Border BorderThickness="1" Height="400"
+                                    VerticalAlignment="Top"
+                                    BorderBrush="Wheat" Margin="10 43 10 0"
+                                    CornerRadius="2">
+                                <StackPanel Visibility="Visible"                                  
+                                            Background="#a3c2ab">
+                                    <TextBlock Text="Lọc phim" 
+                                               FontWeight="Bold" Margin="0 25 0 0"
+                                               HorizontalAlignment="Center"
+                                               Foreground="Black" FontSize="20"/>
 
+                                    <TextBlock FontSize="16" 
+                                               Margin="10 50 10 0"
+                                               FontWeight="Bold" Text="Thể loại:"/>
+
+                                    <StackPanel Orientation="Horizontal">
+                                        <ComboBox Margin="10,10,10,0" DisplayMemberPath="Name"
+                                              Name="cbCat" ItemsSource="{Binding CategoryList, Mode=OneWay}"
+                                              SelectedIndex="0" VerticalAlignment="Center" SelectedValuePath="Id" Width="145"/>
+                                        <materialDesign:PackIcon Kind="Clear" HorizontalAlignment="Center"
+                                                                 Foreground="OrangeRed"
+                                                                 Margin="0 15 0 0" Name="clearCat"
+                                                                 Cursor="Hand" MouseLeftButtonDown="clearCat_MouseLeftButtonDown"
+                                                                 VerticalAlignment="Center"/>
+
+                                    </StackPanel>
+                                    
+
+                                    <StackPanel Margin="10 20 10 10" Name="imdbPanel">
+                                        <Label FontWeight="Bold"
+                                       FontSize="16">Điểm IMDB:</Label>
+                                        <StackPanel Name="ImdbPanel1" Orientation="Horizontal" Margin="0 10 0 0">
+                                            <RadioButton GroupName="ready" Tag="1" Checked="rdBt4_Checked"
+                                                 Name="rdBt1">Dưới 5</RadioButton>
+                                            <RadioButton Margin="47 0 0 0" Name="rdBt2" Tag="2" Checked="rdBt4_Checked"
+                                                 GroupName="ready">Từ 5 - 8</RadioButton>
+                                        </StackPanel>
+                                        <StackPanel Name="ImdbPanel2" 
+                                                    Margin="0 10 0 0" Orientation="Horizontal">
+                                            <RadioButton GroupName="ready" Checked="rdBt4_Checked"
+                                                         Tag="3" Name="rdBt3">Trên 8</RadioButton>
+                                            <RadioButton GroupName="ready" Tag="0"
+                                                         Checked="rdBt4_Checked" 
+                                                         Margin="50 0 0 0" Name="rdBt4"
+                                                         IsChecked="True">Tất cả</RadioButton>
+                                        </StackPanel>
+                                        <RadioButton GroupName="ready" Tag="-1"
+                                                     Checked="rdBt4_Checked"
+                                                     Margin="0 7 0 0"
+                                                     Name="rdBt5"
+                                                     >Không xác định</RadioButton>
+                                        <Button Content="Tìm kiếm" Margin="0 40 10 0"
+                                                HorizontalAlignment="Right" Background="#1c944e" 
+                                                Name="btSearch" Click="btSearch_Click"/>
+                                    </StackPanel>
+
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+                        <StackPanel Panel.ZIndex="1" Grid.Column="1">
+                            <TextBlock FontSize="32" HorizontalAlignment="Center"  
+                                       FontWeight="Bold">Tất cả phim</TextBlock>
+                            <ListView Name="lvMoviesAll" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                      ItemsSource="{Binding MovieList}" SelectionMode="Single"
+                                      Height="500" IsSynchronizedWithCurrentItem="True">
+                                <!--<ListView.Template>
+                                    <ControlTemplate>
+                                        <ItemsPresenter></ItemsPresenter>
+                                    </ControlTemplate>
+                                </ListView.Template>-->
                                 <ListView.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <WrapPanel/>
@@ -504,16 +606,42 @@
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel>
-                                            <Border BorderBrush="Gray" BorderThickness="2" Name="boderTemplate212"
-                                                    Height="115" Width="200">
-                                                <Border.Background>
-                                                    <ImageBrush ImageSource="{Binding Poster, Converter={StaticResource imageCvt}}" Stretch="Uniform"/>
-                                                </Border.Background>
-                                                <MediaElement Source="{Binding Video, Converter={StaticResource imageCvt}}"
-                                                              LoadedBehavior="Manual"
-                                                              UnloadedBehavior="Manual" Name="movieItem212"
-                                                              Volume="0"/>
-                                            </Border>
+                                            <StackPanel>
+                                                <Border BorderBrush="Gray" BorderThickness="2" Name="boderTemplateAll"
+                                                    MouseLeftButtonDown="boderTemplate_MouseLeftButtonDown"
+                                                    MouseEnter="boderTemplate_MouseEnter"
+                                                    MouseLeave="boderTemplate_MouseLeave"
+                                                    Height="105" Width="180">
+                                                    <Border.ContextMenu>
+                                                        <ContextMenu>
+                                                            <MenuItem Header="Cập nhật thông tin" Name="btOpenMovieDetailAll"
+                                                                  Click="btOpenMovieDetail_Click">
+                                                                <MenuItem.Icon>
+                                                                    <materialDesign:PackIcon Kind="Update"/>
+                                                                </MenuItem.Icon>
+                                                            </MenuItem>
+                                                            <MenuItem Header="Xóa phim này" Command="{Binding CmdDeleteMovie}" >
+                                                                <MenuItem.Icon>
+                                                                    <materialDesign:PackIcon Kind="Delete"/>
+                                                                </MenuItem.Icon>
+                                                            </MenuItem>
+                                                        </ContextMenu>
+                                                    </Border.ContextMenu>
+                                                    <Border.Background>
+                                                        <ImageBrush ImageSource="{Binding Poster, Converter={StaticResource imageCvt}}" Stretch="Uniform"/>
+                                                    </Border.Background>
+                                                    <MediaElement Source="{Binding Video, Converter={StaticResource imageCvt}}"
+                                                                  LoadedBehavior="Manual"
+                                                                  UnloadedBehavior="Manual" Name="movieItemAll"
+                                                                  Volume="0"/>
+                                                </Border>
+
+                                                <TextBlock FontSize="14" FontWeight="Bold" Height="40" Margin="10 0 0 0"
+                                                           VerticalAlignment="Center" HorizontalAlignment="Center"
+                                                           Text="{Binding Name}" Width="180" TextWrapping="Wrap"/>
+                                                <TextBlock Visibility="Collapsed" x:Name="txtbCatMovie"
+                                                           Text="{Binding IdCategory}"/>
+                                            </StackPanel>
                                         </StackPanel>
                                         
                                     </DataTemplate>
@@ -558,6 +686,12 @@
                                                 </Button>
                                                 <Button x:Name="btFullScreen" Click="btFullScreen_Click">
                                                     <materialDesign:PackIcon Kind="Fullscreen"/>
+                                                </Button>
+
+                                                <Button Name="btInfoMedia" Click="btInfoMedia_Click"
+                                                        HorizontalAlignment="Right"
+                                                        Margin="50 0 0 0">
+                                                    <materialDesign:PackIcon Kind="Information"/>
                                                 </Button>
                                             </ToolBar>
                                             <Border Grid.Row="1" BorderBrush="Gray" 
@@ -645,7 +779,7 @@
                                             </Grid.RowDefinitions>
 
                                             <StackPanel Orientation="Horizontal" Grid.Row="3">
-                                                <TextBox Tag="Age: " Name="txtbAgeAdd"
+                                                <TextBox Tag="Tuổi: " Name="txtbAgeAdd"
                                                  Style="{DynamicResource TxtStyleValidation}" 
                                                  Width="190">
                                                     <TextBox.Text>
@@ -670,7 +804,7 @@
                                             </StackPanel>
 
                                             <StackPanel Orientation="Horizontal" Grid.Row="1">
-                                                <TextBox Tag="Name: " Name="txtbNameAdd"
+                                                <TextBox Tag="Tên: " Name="txtbNameAdd"
                                                      Style="{DynamicResource TxtStyleValidation}" Width="300">
                                                     <TextBox.Text>
                                                         <Binding Path="Movie.Name" 
@@ -688,7 +822,7 @@
                                                 </Button>
                                             </StackPanel>
 
-                                            <TextBox Tag="Descrip: " Name="txtbDesAdd" Height="130"
+                                            <TextBox Tag="Mô tả: " Name="txtbDesAdd" Height="130"
                                                  Style="{DynamicResource TxtStyleValidation}" 
                                                  Grid.Row="7" TextWrapping="Wrap">
                                                 <TextBox.Text>
@@ -732,7 +866,7 @@
                                                         </Binding>
                                                     </TextBox.Text>
                                                 </TextBox>
-                                                <TextBox Tag="Directors: " Width="230"
+                                                <TextBox Tag="Đạo diễn: " Width="230"
                                                      Name="txtbDirectorsAdd" HorizontalAlignment="Left"
                                                      Style="{DynamicResource TxtStyleValidation}">
                                                     <TextBox.Text>
@@ -747,7 +881,7 @@
                                             </StackPanel>
 
 
-                                            <TextBox Tag="Nation: " Name="txtbNationAdd"
+                                            <TextBox Tag="Quốc gia: " Name="txtbNationAdd"
                                                  Style="{DynamicResource TxtStyleValidation}" 
                                                  Grid.Row="2">
                                                 <TextBox.Text>
@@ -766,15 +900,15 @@
                                                 Background="White">
                                                 <StackPanel Orientation="Horizontal">
                                                     <Border BorderBrush="Gray" BorderThickness="1" Width="75">
-                                                        <TextBlock Text="Category:"
+                                                        <TextBlock Text="Thể loại:"
                                                                Padding="5 3 0 0" FontWeight="Bold"/>
                                                     </Border>
 
                                                     <ComboBox Name="cbRoles" ItemsSource="{Binding CategoryList}" 
-                                                          DisplayMemberPath="Name" Padding="28 0 0 0"
-                                                          SelectedValuePath="Id"
-                                                          SelectedValue="{Binding Movie.IdCategory}"
-                                                          Margin="5 2 0 2" Width="190"/>
+                                                              DisplayMemberPath="Name" Padding="28 0 0 0"
+                                                              SelectedValuePath="Id"
+                                                              SelectedValue="{Binding Movie.IdCategory}"
+                                                              Margin="5 2 0 2" Width="190"/>
                                                 </StackPanel>
                                             </Border>
 

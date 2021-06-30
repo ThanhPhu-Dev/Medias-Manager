@@ -228,9 +228,14 @@ update Album_Details set IdAlbum = 2
 update Users set Password = 'G9BBbVflIID4fJFh4ljRqrOgtzA33ztt4q474rYmz8IhcOqD' where Email = 'vovanminh@gmail.com'
 
 
-update users set CreateAt = '2020-06-29'
-update users set CreateAt = '2020-05-29' where Email = 'vovanminh@gmail.com'
-update users set CreateAt = '2020-05-29' where Email = 'nghiadx2001@gmail.c'
+update users set CreateAt = '2021-06-29'
+update users set CreateAt = '2021-05-29' where Email = 'vovanminh@gmail.com'
+update users set CreateAt = '2021-05-29' where Email = 'nghiadx2001@gmail.c'
+update users set CreateAt = '2021-05-29', Level = 3 where Email = 'eric2019@gmail.com'
+
+update Movies set CreateAt = '2021-07-05' where Id % 3 = 0
+update Movies set CreateAt = '2021-06-05' where Id % 3 = 1
+update Movies set CreateAt = '2021-08-05' where Id % 3 = 2
 
 insert into View_History  values (1, 20, '2021-05-03', 21)
 
@@ -290,7 +295,12 @@ Insert into Users(Email,Password,NumberCard,Level,Code)values ('ali125@gmail.com
 insert into profiles(Email,Name,Status) values ('ali125@gmail.com', 'Alice', 1), ('ali125@gmail.com', 'Alice', 1), ('beatriz211@gmail.com', 'beatriz', 1), ('12charles@gmail.com', 'Chattlotte', 1),
 ('diya0001@gmail.com', 'diana 123', 1), ('eric2019@gmail.com', 'Eric gaxia', 1), ('ali125@gmail.com', 'Alice', 1), ('gabriel@gmail.com', 'Gabriel', 1), ('avxHhnna@gmail.com', 'Hanana',0)
 
-
+---
+insert into Payment_History (Email, DateOfPayment, Price) values ('ali125@gmail.com', '2021-06-25', 180000)
+insert into Payment_History (Email, DateOfPayment, Price) values ('avxHhnna@gmail.com', '2021-06-25', 180000)
+insert into Payment_History (Email, DateOfPayment, Price) values ('ali125@gmail.com', '2021-06-25', 200000)
+insert into Payment_History (Email, DateOfPayment, Price) values ('eric2019@gmail.com', '2021-06-25', 180000)
+insert into Payment_History (Email, DateOfPayment, Price) values ('beatriz211@gmail.com', '2021-05-25', 180000)
 --insert profile
 
 INSERT INTO Profiles (Email, Name) VALUES ('nghiadx2001@gmail.c', N'Nguyễn H Nghĩa')

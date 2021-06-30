@@ -222,16 +222,16 @@
                             TextAlignment="Center"
                             FontSize="35"
                             FontWeight="DemiBold"
-                            Text="Độ phân giải"
+                            Text="Phân loại"
                             TextDecorations="Underline"/>
                         <ListView 
                             ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                            ItemsSource="{Binding catMovies}">
+                            ItemsSource="{Binding classifyMovies}">
                             <ListView.View>
                                 <GridView>
                                     <GridViewColumn
                                     DisplayMemberBinding="{Binding Name}"
-                                    Header="Độ phân giải" />
+                                    Header="Phân loại" />
                                     <GridViewColumn
                                     DisplayMemberBinding="{Binding Movies.Count}"
                                     Header="Tổng phim" />

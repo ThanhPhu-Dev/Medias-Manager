@@ -23,6 +23,8 @@ namespace Manager_Medias.ViewModels.Admin
             DependencyProperty.Register("statistics", typeof(ObservableCollection<Movie>), typeof(AdminViewStatisticsVM));
         public static readonly DependencyProperty catMoviesProperties =
             DependencyProperty.Register("catMovies", typeof(ObservableCollection<Movie_Category>), typeof(AdminViewStatisticsVM));
+        public static readonly DependencyProperty classifyMoviesProperties =
+            DependencyProperty.Register("classifyMovies", typeof(ObservableCollection<Movie_classify>), typeof(AdminViewStatisticsVM));
 
         #region Command
 
@@ -85,6 +87,11 @@ namespace Manager_Medias.ViewModels.Admin
             get => (ObservableCollection<Movie_Category>)GetValue(catMoviesProperties);
             set => SetValue(catMoviesProperties, value);
         }
+        public ObservableCollection<Movie_classify> classifyMovies
+        {
+            get => (ObservableCollection<Movie_classify>)GetValue(classifyMoviesProperties);
+            set => SetValue(classifyMoviesProperties, value);
+        }
 
         public SeriesCollection chartData
         {
@@ -117,8 +124,9 @@ namespace Manager_Medias.ViewModels.Admin
             {
                 statistics = new ObservableCollection<Movie>(db.Movies.OrderByDescending(x => x.NumberOfViews).Take(10).ToArray());
 
-                //ds danh mục phim
+                //ds danh mục - phân loại phim
                 catMovies = new ObservableCollection<Movie_Category>(db.Movie_Categories.Include("Movies").ToList());
+                classifyMovies = new ObservableCollection<Movie_classify>(db.Movie_classify.Include("Movies").ToList());
             }
 
             // Command selection changed

@@ -464,6 +464,9 @@ update Movies set IdCategory=3, Name=N'Phù Thủy Tối Thượng',
 				  Season='cmncfvx', Time='00:02:23', Directors= N'Scott Derrickson',
 				  Nation = N'Mỹ' Where Id = 31
 
+update Movies set IdClassifiles = 1 where id between 18 and 23
+update Movies set IdClassifiles = 2 where id between 24 and 26
+update Movies set IdClassifiles = 3 where id between 27 and 37
 -- Phim viễn Tưởng ( Bắt đầu Id = 32 -> 37 là dùng update vì có data test trong db r)
 
 --BAI HÁT
@@ -526,4 +529,7 @@ insert into Audios values
 			(45, 3, N'ToNight', 'audioposter_avatar_ToNight.jpg', 'audiomp3_mp3_ToNight.mp3', '00:00:44', N'BTS'),
 			(46, 3, N'Bang Bang Bang', 'audioposter_avatar_BBB.jpg', 'audiomp3_mp3_BBB.mp3', '00:00:34', N'BIG BANG'),
 			(47, 3, N'Fire', 'audioposter_avatar_Fire.jpg', 'audiomp3_mp3_Fire.mp3', '00:00:49', N'BTS')
+
+--PHÂN LOẠI
+insert into Movie_classifies (Name) values (N'Trẻ em'), ('13+'), (N'16+')
 

@@ -11,18 +11,27 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="#000" />
-            <SolidColorBrush x:Key="PrimaryHueLightForegroundBrush" Color="#fff" />
-            <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#0c0c0c" />
-            <SolidColorBrush x:Key="PrimaryHueMidForegroundBrush" Color="#fff" />
-            <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="#000" />
-            <SolidColorBrush x:Key="PrimaryHueDarkForegroundBrush" Color="#fff" />
+            <SolidColorBrush x:Key="PrimaryHueLightBrush"
+                             Color="#000" />
+            <SolidColorBrush x:Key="PrimaryHueLightForegroundBrush"
+                             Color="#fff" />
+            <SolidColorBrush x:Key="PrimaryHueMidBrush"
+                             Color="#0c0c0c" />
+            <SolidColorBrush x:Key="PrimaryHueMidForegroundBrush"
+                             Color="#fff" />
+            <SolidColorBrush x:Key="PrimaryHueDarkBrush"
+                             Color="#000" />
+            <SolidColorBrush x:Key="PrimaryHueDarkForegroundBrush"
+                             Color="#fff" />
             <!--ACCENT-->
-            <SolidColorBrush x:Key="SecondaryAccentBrush" Color="#febb00" />
-            <SolidColorBrush x:Key="SecondaryAccentForegroundBrush" Color="#000" />
+            <SolidColorBrush x:Key="SecondaryAccentBrush"
+                             Color="#febb00" />
+            <SolidColorBrush x:Key="SecondaryAccentForegroundBrush"
+                             Color="#000" />
             <!--ERROR TEMPLATE-->
             <ControlTemplate x:Key="ContentControlErrorTemplate">
-                <Border BorderBrush="{x:Null}" BorderThickness="0">
+                <Border BorderBrush="{x:Null}"
+                        BorderThickness="0">
                     <AdornedElementPlaceholder />
                 </Border>
             </ControlTemplate>

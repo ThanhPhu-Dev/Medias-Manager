@@ -105,6 +105,7 @@ namespace Manager_Medias.ViewModels.Customer
                     {
                         CatMovieList = new ObservableCollection<Movie_Category>(
                            db.Movie_Categories.Include("Movies")
+                                              .Include("Movies.Movie_classifies")
                                               .Include("Movies.Media")
                                               .Include("Movies.Media.Level")
                                               .ToList());
@@ -126,7 +127,9 @@ namespace Manager_Medias.ViewModels.Customer
                     using (var db = new MediasManangementEntities())
                     {
                         TopIMDbMovie = new ObservableCollection<Movie>(
-                            db.Movies.Include("Media").Include("Media.Level").OrderByDescending(m => m.IMDB).Take(8).ToList());
+                            db.Movies.Include("Movie_classifies")
+                            .Include("Media").Include("Media.Level")
+                            .OrderByDescending(m => m.IMDB).Take(8).ToList());
                     }
                 });
             }).ContinueWith((task) =>

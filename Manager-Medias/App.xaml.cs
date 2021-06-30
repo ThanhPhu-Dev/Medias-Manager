@@ -22,15 +22,15 @@ namespace Manager_Medias
         protected override void OnStartup(StartupEventArgs e)
         {
             // Init location
-            NavigationStore navigationStore = new NavigationStore();
-            LoadingServices ls = new LoadingServices();
+            //NavigationStore navigationStore = new NavigationStore();
+            //LoadingServices ls = new LoadingServices();
 
-            MainWindow = new MainWindow()
-            {
-                DataContext = new MainViewModel(navigationStore, ls)
-            };
+            //MainWindow = new MainWindow()
+            //{
+            //    DataContext = new MainViewModel(navigationStore, ls)
+            //};
 
-            MainWindow.Show();
+            //MainWindow.Show();
 
             base.OnStartup(e);
         }

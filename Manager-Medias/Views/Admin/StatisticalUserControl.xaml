@@ -172,7 +172,77 @@
                     </StackPanel>
                 </StackPanel>
             </TabItem>
-            <TabItem Header="Details" />
+            <TabItem Header="Details" >
+                <Grid Margin="0 20 0 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="0.2*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="1" >
+                        <TextBlock 
+                            TextAlignment="Center"
+                            FontSize="35"
+                            FontWeight="DemiBold"
+                            Text="Thể loại"
+                            TextDecorations="Underline"/>
+                        <ListView ItemsSource="{Binding catMovies}">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn>
+                                        <GridViewColumn.Header>
+                                            <TextBlock 
+                                                Text="Thể loại"
+                                                TextAlignment="Right"/>
+                                        </GridViewColumn.Header>
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Name}" 
+                                                           TextAlignment="Left"
+                                                            />
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn Header="Tổng phim" >
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Movies.Count}" 
+                                                           TextAlignment="Right"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </StackPanel>
+                    <StackPanel Grid.Column="3">
+                        <TextBlock 
+                            TextAlignment="Center"
+                            FontSize="35"
+                            FontWeight="DemiBold"
+                            Text="Độ phân giải"
+                            TextDecorations="Underline"/>
+                        <ListView 
+                            ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                            ItemsSource="{Binding catMovies}">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn
+                                    DisplayMemberBinding="{Binding Name}"
+                                    Header="Độ phân giải" />
+                                    <GridViewColumn
+                                    DisplayMemberBinding="{Binding Movies.Count}"
+                                    Header="Tổng phim" />
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </StackPanel>
+                    
+                </Grid>
+                
+            </TabItem>
         </TabControl>
     </Grid>
 </UserControl>

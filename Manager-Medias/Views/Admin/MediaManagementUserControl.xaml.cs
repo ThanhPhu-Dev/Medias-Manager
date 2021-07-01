@@ -356,7 +356,7 @@ namespace Manager_Medias.Views.Admin
                 engine.GetMetadata(sourceFile);
             }
 
-            MessageBox.Show("Duration: " + sourceFile.Metadata.Duration +
+            MessageBox.Show("Duration: " + sourceFile.Metadata.Duration + "\nFotmat: " + sourceFile.Metadata.VideoData.Format +
                             "\nBit Rate Kbs: " + sourceFile.Metadata.VideoData.BitRateKbs +
                             "\nFps: " + sourceFile.Metadata.VideoData.Fps +
                             "\nFrameSize: " + sourceFile.Metadata.VideoData.FrameSize, "Thông tin video", MessageBoxButton.OKCancel, MessageBoxImage.Information);

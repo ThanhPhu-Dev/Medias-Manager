@@ -126,7 +126,7 @@
             </Grid.Effect>
 
             <Grid Background="#FFA46FE4">
-                <TextBlock Text="Phim Hai Bốn Bẩy" HorizontalAlignment="Center"
+                <TextBlock Text="Quản trị" HorizontalAlignment="Center"
                            VerticalAlignment="Center" 
                            FontFamily="Arial"
                            FontWeight="Bold"
@@ -134,7 +134,7 @@
             </Grid>
 
             <StackPanel Grid.Row="1">
-                <Button Margin="10 15 10 15" Name="dashBordBt"
+                <Button Margin="10 35 10 15" Name="dashBordBt"
                         Click="dashBordBt_Click"
                         Background="#FF8522BD" BorderBrush="#FF8522BD">
                     <Grid Width="150">
@@ -164,12 +164,7 @@
                     </Grid>
                 </Button>
 
-                <Button Margin="10 15 10 15" Background="#FF8522BD" BorderBrush="#FF8522BD">
-                    <Grid Width="150">
-                        <materialDesign:PackIcon Kind="RateReview" VerticalAlignment="Center"/>
-                        <TextBlock HorizontalAlignment="Center" Text="Đánh giá" FontFamily="Champagne &amp; Limousines"/>
-                    </Grid>
-                </Button>
+
 
                 <Button Margin="10 15 10 15" Background="#FF8522BD" 
                         BorderBrush="#FF8522BD" Name="statisticalBt"
@@ -181,15 +176,7 @@
                     </Grid>
                 </Button>
 
-                <Button Margin="10 15 10 15" Background="#FF8522BD" 
-                        BorderBrush="#FF8522BD">
-                    <Grid Width="150">
-                        <materialDesign:PackIcon Kind="Settings" 
-                                                 VerticalAlignment="Center"/>
-                        <TextBlock HorizontalAlignment="Center" 
-                                   Text="Cài đặt" FontFamily="Champagne &amp; Limousines"/>
-                    </Grid>
-                </Button>
+                
             </StackPanel>
         </Grid>
 

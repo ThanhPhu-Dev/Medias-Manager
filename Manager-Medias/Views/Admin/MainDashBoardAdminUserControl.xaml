@@ -4,9 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Manager_Medias.Views.Admin"
+              xmlns:MetroChart="clr-namespace:De.TorstenMandelkow.MetroChart;assembly=De.TorstenMandelkow.MetroChart"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="850" d:DesignWidth="800">
     <Grid>
         <ScrollViewer>
             <Grid>
@@ -34,21 +35,25 @@
                             </Grid.Effect>
                             <materialDesign:PackIcon Kind="ContentSave" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="5" Foreground="White" Width="20" Height="20"/>
                         </Grid>
-                        <TextBlock Text="Dung lượng lưu trữ" HorizontalAlignment="Right" 
-                                       FontWeight="Bold"
-                                       FontFamily="Champagne &amp; Limousines" Margin="5" VerticalAlignment="Top" Foreground="Gray"/>
+                        <TextBlock Text="Dung lượng meida" HorizontalAlignment="Right" 
+                                   FontWeight="Bold"
+                                   FontFamily="Champagne &amp; Limousines" Margin="0 5 5 5" VerticalAlignment="Top" Foreground="Gray"/>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" 
-                                        VerticalAlignment="Top" Margin="19 20">
-                            <TextBlock Text="2245" FontFamily="Champagne &amp; Limousines" 
-                                           VerticalAlignment="Center" Foreground="Gray" FontSize="50" />
-                            <TextBlock Text="GB" FontFamily="Champagne &amp; Limousines" Margin="0 5" Foreground="Gray" FontSize="20" VerticalAlignment="Bottom"/>
+                                        VerticalAlignment="Top" Margin="0 19 20 20">
+                            <TextBlock Text="{Binding CapacityMedia}" FontFamily="Champagne &amp; Limousines" 
+                                       VerticalAlignment="Center" Foreground="Gray" FontSize="48" />
+                            <TextBlock Text="MB" FontFamily="Champagne &amp; Limousines" Margin="0 5" Foreground="Gray" FontSize="20" VerticalAlignment="Bottom"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" 
                                     
                                     Margin="20" Cursor="Hand">
-                            <materialDesign:PackIcon Kind="AlertOutline" Foreground="Red" Width="15" Height="15" VerticalAlignment="Center" Margin="5 0"/>
-                            <TextBlock Text="Còn vài GB nữa là hết" 
-                                       FontSize="10" Foreground="#FF8522BD"/>
+                            <materialDesign:PackIcon Kind="MoveToInbox" Foreground="YellowGreen" Width="15" Height="15" VerticalAlignment="Center" Margin="5 0"/>
+                            <TextBlock Text="Dung lượng phim là: " 
+                                       FontSize="11" Foreground="#FF8522BD"/>
+                            <TextBlock Text="{Binding CapacityMovie}" 
+                                       FontSize="12" Foreground="OrangeRed"/>
+                            <TextBlock Text=" MB" 
+                                       FontSize="10"/>
                         </StackPanel>
                     </Grid>
                 </Grid>
@@ -65,28 +70,25 @@
                             </Grid.Effect>
                             <materialDesign:PackIcon Kind="Money" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="5" Foreground="White" Width="20" Height="20"/>
                         </Grid>
-                        <TextBlock Text="Doanh thu" HorizontalAlignment="Right" 
+                        <TextBlock Text="Tổng doanh thu" HorizontalAlignment="Right" 
                                        FontWeight="Bold"
                                        FontFamily="Champagne &amp; Limousines" Margin="0,0,4.6,101" VerticalAlignment="Bottom" Foreground="Gray"/>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10 30">
 
-                            <TextBlock Text="9.995.0000 " FontFamily="Champagne &amp; Limousines" 
+                            <TextBlock Text="{Binding Revenue}" FontFamily="Champagne &amp; Limousines" 
                                            VerticalAlignment="Center" Foreground="Gray" FontSize="25"/>
-                            <TextBlock Text="VNĐ" FontFamily="Champagne &amp; Limousines" 
+                            <TextBlock Text=" VNĐ" FontFamily="Champagne &amp; Limousines" 
                                            Margin="0 2" Foreground="Gray" FontSize="18" 
                                            VerticalAlignment="Bottom"/>
                         </StackPanel>
                         <StackPanel  Margin="20 20 20 20"  VerticalAlignment="Bottom">
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="TrolleyArrowUp" Foreground="Gray" Width="15" Height="15" VerticalAlignment="Center" Margin="5 0"/>
-                                <TextBlock Text="Tăng 20% với tháng trước" FontSize="10" Foreground="Gray"/>
+                                <TextBlock Text="Doanh thu tháng này: " FontSize="10" Foreground="Gray"/>
+                                <TextBlock Text="{Binding monthRevenue}" FontSize="10" Foreground="Black"/>
+                                <TextBlock Text=" VNĐ" FontSize="10" Foreground="Gray"/>
                             </StackPanel>
-                            <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
-                                <materialDesign:PackIcon Kind="TrolleyArrowDown" 
-                                                             Foreground="Gray" Width="15" Height="15" VerticalAlignment="Center" Margin="5 0"/>
-                                <TextBlock Text="0" Padding="0 2 0 0"
-                                               FontSize="8" Foreground="Gray"/>
-                            </StackPanel>
+                           
                         </StackPanel>
 
                     </Grid>
@@ -104,26 +106,26 @@
                             </Grid.Effect>
                             <materialDesign:PackIcon Kind="InformationOutline" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="5" Foreground="White" Width="20" Height="20"/>
                         </Grid>
-                        <TextBlock Text="Thành viên mới" HorizontalAlignment="Right" 
-                                       FontFamily="Champagne &amp; Limousines" 
-                                       FontWeight="Bold"
-                                       Margin="5" VerticalAlignment="Top" Foreground="Gray"/>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10 30">
-                            <TextBlock Text="0135" FontFamily="Champagne &amp; Limousines" VerticalAlignment="Center" 
-                                           Foreground="Gray" FontSize="40"/>
+                        <TextBlock Text="Tổng số thanh viên" HorizontalAlignment="Right" 
+                                   FontFamily="Champagne &amp; Limousines" 
+                                   FontWeight="Bold"
+                                   Margin="5" VerticalAlignment="Top" Foreground="Gray"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,30,9.8,0" Width="103">
+                            <TextBlock Text="{Binding UserCount}" FontFamily="Champagne &amp; Limousines" VerticalAlignment="Center" 
+                                       Foreground="Gray" FontSize="40"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Margin="20">
                             <materialDesign:PackIcon Kind="Account" Foreground="Gray" Width="18" Height="18" VerticalAlignment="Center" Margin="5 0"/>
-                            <TextBlock Text="Top 1 nạp tiền quý: " FontSize="10" Padding="0 2 0 0"
+                            <TextBlock Text="Số hồ sơ đăng hoạt động: " FontSize="10" Padding="0 2 0 0"
                                            Foreground="Gray"/>
-                            <TextBlock Text="Võ Văn Minh Thông" FontSize="10" Padding="0 2 0 0"
-                                           Foreground="OrangeRed"/>
+                            <TextBlock Text="{ Binding profileCount}" FontSize="10" Padding="0 2 0 0"
+                                       Foreground="OrangeRed"/>
                         </StackPanel>
                     </Grid>
                 </Grid>
 
-                <Grid Grid.Row="1" Grid.ColumnSpan="2"
-                          Width="580" Height="510">
+                <Grid Grid.Row="1" Grid.ColumnSpan="3"
+                          Width="780" Height="510">
                     <Grid Background="White" Margin="20 50 20 20">
                         <Grid.OpacityMask>
                             <VisualBrush Visual="{ Binding ElementName=BorderG1 }"/>
@@ -133,48 +135,33 @@
                             <TextBlock Text="Số phim đã thêm" Margin="10 0" FontFamily="Champagne &amp; Limousines" Foreground="Gray" FontSize="20"/>
                             <StackPanel Orientation="Horizontal" Margin="20 5">
                                 <materialDesign:PackIcon Kind="ArrowUp" Foreground="Green" VerticalAlignment="Center"/>
-                                <TextBlock Text="55%" FontFamily="Champagne &amp; Limousines" 
-                                               Foreground="Green" FontSize="15"/>
-                                <TextBlock Text="So với tháng trước" Margin="20 0" FontFamily="Champagne &amp; Limousines" Foreground="Gray" FontSize="15"/>
+                                <TextBlock Text="{Binding increaseMovie}" FontFamily="Champagne &amp; Limousines" 
+                                           Foreground="Green" FontSize="15"/>
+                                <TextBlock Text="% So với tháng trước" Margin="5 0" FontFamily="Champagne &amp; Limousines" Foreground="Gray" FontSize="15"/>
                             </StackPanel>
-                            <StackPanel Orientation="Horizontal" Margin="10 5">
-                                <materialDesign:PackIcon Kind="Clock" Foreground="Gray" VerticalAlignment="Center"/>
-                                <TextBlock Text="30 phim đang được yêu cầu" Margin="5 0" FontFamily="Champagne &amp; Limousines" Foreground="Gray" FontSize="15"/>
-                            </StackPanel>
+                            
                         </StackPanel>
                     </Grid>
-                    <Grid Margin="50 20 50 150">
+                    <Grid Margin="20 20 20 150" Grid.Column="1" Grid.ColumnSpan="2" >
                         <Grid.OpacityMask>
                             <VisualBrush Visual="{ Binding ElementName=BorderG2 }"/>
                         </Grid.OpacityMask>
                         <Border x:Name="BorderG2" CornerRadius="15" Background="#FF340051"/>
 
-                        <!--<MetroChart:RadialGaugeChart Background="{x:Null}" ChartTitle="Số lượng phim" 
-                                                         ChartSubTitle="" Foreground="LightGray" >
-                                <MetroChart:RadialGaugeChart.Series>
-                                    <MetroChart:ChartSeries
-                                        DisplayMember="Titulo"                                      
-                                        ItemsSource="{Binding Path=Consumo}"
-                                        SeriesTitle="Lượng phim"
-                                        ValueMember="Porcentagem" HorizontalAlignment="Center"/>
-                                </MetroChart:RadialGaugeChart.Series>
-                            </MetroChart:RadialGaugeChart>-->
+                        <MetroChart:RadialGaugeChart ChartSubTitle="Phim, audio, hình ảnh"  
+                                 ChartTitle="Tỉ lệ giữa các media" 
+                                 Background="{x:Null}">
+                            <MetroChart:RadialGaugeChart.Series>
+                                <MetroChart:ChartSeries ItemsSource="{Binding Data}"
+                                                        SeriesTitle="My Population Series"
+                                                        DisplayMember="Name" 
+                                                        ValueMember="Count" />
+                            </MetroChart:RadialGaugeChart.Series>
+                        </MetroChart:RadialGaugeChart>
                     </Grid>
                 </Grid>
                 <Grid Grid.Column="2" Grid.Row="1">
-                    <Border x:Name="BorderG6" CornerRadius="5" Background="White">
-                        <StackPanel Margin="15">
-                            <StackPanel Orientation="Horizontal">
-                                <materialDesign:PackIcon Kind="Notifications" 
-                                                             Foreground="BlueViolet"
-                                                             Height="23" Width="20"/>
-                                <TextBlock Margin="5 0 0 0" Text="Notification" 
-                                               FontSize="18"
-                                               FontWeight="Bold"/>
-                            </StackPanel>
-                        </StackPanel>
-
-                    </Border>
+                   
 
                 </Grid>
             </Grid>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Manager_Medias.ViewModels.Admin;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -41,6 +42,8 @@ namespace Manager_Medias.Views.Admin
         public MainDashBoardAdminUserControl()
         {
             InitializeComponent();
+            var vm = new AdminViewMainVM();
+            this.DataContext = vm;
         }
     }
 }

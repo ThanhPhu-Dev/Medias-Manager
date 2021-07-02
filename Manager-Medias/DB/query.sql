@@ -533,3 +533,39 @@ insert into Audios values
 --PHÂN LOẠI
 insert into Movie_classifies (Name) values (N'Trẻ em'), ('13+'), (N'16+')
 
+--HÌNH ẢNH
+--CHIẾN TRANH
+INSERT INTO ALBUM_DETAILS VALUES (9, 'album_VietnamWar-01.jpg'), 
+(9, 'album_VietnamWar-02.jpg'), (9, 'album_VietnamWar-04.jpg'), 
+(9, 'album_VietnamWar-05.jpg'), (9, 'album_VietnamWar-06.jpg'), 
+(9, 'album_VietnamWar-08.jpg'), (9, 'album_VietnamWar-10.jpg')
+
+INSERT INTO MEDIAS VALUES (1, 1),(1, 2),(1, 3),(1, 1)
+
+INSERT INTO ALBUMS VALUES (48, N'Fun In The Sun', 'album_4b826a1d19_b.jpg')
+INSERT INTO ALBUM_DETAILS VALUES (48, 'album_ac007f554c_b.jpg'), 
+(48, 'album_8341a509cf_b.jpg'), (48, 'album_50972179388_9292fe8874_c.jpg'), 
+(48, 'album_c6e6360239_c.jpg'), (48, 'album_c04fb7ecf9_k.jpg'), 
+(48, 'album_48981b89be_b.jpg')
+INSERT INTO ALBUM_DETAILS VALUES (48, 'album_4b826a1d19_b.jpg')
+
+INSERT INTO ALBUMS VALUES (49, N'Sports', 'album_361580616e_k.jpg')
+INSERT INTO ALBUM_DETAILS VALUES (49, 'album_50804109577_745d147545_k.jpg'), 
+(49, 'album_3e753f6858_b.jpg'), (49, 'album_50840611392_f504faa228_b.jpg'), 
+(49, 'album_da28e79bcb_k.jpg'), (49, 'album_50868057872_245c53956e_k.jpg'), 
+(49, 'album_50832289746_8030dbc474_c.jpg')
+INSERT INTO ALBUM_DETAILS VALUES (49, 'album_361580616e_k.jpg')
+
+
+INSERT INTO ALBUMS VALUES (50, N'Street Photography', 'album_4525f25bab_b.jpg')
+INSERT INTO ALBUM_DETAILS VALUES (50, 'album_50747940021_030d3388f4_c.jpg'), 
+(50, 'album_d02d5bf4a5_b.jpg'), (50, 'album_50553974526_f90ff1ff81_k.jpg'), 
+(50, 'album_2bda543d53_b.jpg'), (50, 'album_73601e37e2_b.jpg')
+INSERT INTO ALBUM_DETAILS VALUES (50, 'album_4525f25bab_b.jpg')
+
+INSERT INTO ALBUMS VALUES (51, N'Girls', 'album_4ce37f19e23ee5b7e1555f3cd1c0cac0_9a13a622_1280.jpg')
+INSERT INTO ALBUM_DETAILS VALUES (51, 'album_5f797735ddf5a548ffd9eb34582a646f_fa843b9b_1280.jpg'), 
+(51, 'album_3cf4d8b35cb768e752be461de39a6a63_0863e971_1280.jpg'), (51, 'album_c04b49a192ee0c4f405c307f136b43df_7611641d_1280.jpg'), 
+(51, 'album_ee4b87f321586d31ce7a47f569a8e843_f44dba1b_1280.jpg'), (51, 'album_d22a40d8fc9fee0d2c2034aea969db65_52141edf_1280.jpg'), 
+(51, 'album_d2a70dcaa1727b2f1ba4ffecc2299f60_0fe9a8b1_1280.jpg'),(51, 'album_3e50fcc3e1d7389aaf9ac4c3ff23fe35_391bf108_1280.jpg')
+INSERT INTO ALBUM_DETAILS VALUES (51, 'album_4ce37f19e23ee5b7e1555f3cd1c0cac0_9a13a622_1280.jpg')

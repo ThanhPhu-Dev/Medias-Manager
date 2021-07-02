@@ -310,7 +310,11 @@ insert into profiles(Email,Name,Status) values ('nghiadx22222@gmail.com', 'Thêm
 INSERT INTO Media_Categories (Name) VALUES (N'Hinh Ảnh'), (N'Phim'), (N'Âm Nhạc')
 
 --MEDIA
-INSERT INTO Medias (IdCategory) values (1), (1), (1), (1), (1), (1), (1), (1), (1), (1)
+INSERT INTO Medias (IdCategory) values (2),(2),(2),(2),(2),(2),(2),(2),(2),(2),
+(2),(2),(2),(2),(2),(2),(2),(2),(2),(2),(2),(2),(2),(2),(2)
+update Medias set Lvl = 1 where Id between 52 and 70
+update Medias set Lvl = 2 where Id between 71 and 76
+INSERT INTO Medias (IdCategory, Lvl) values (2, 3),(2, 3),(2, 3)
 update Medias set IdCategory = 2 where Id between 28 and 37 
 
 --INSERT AUDIO_Cat

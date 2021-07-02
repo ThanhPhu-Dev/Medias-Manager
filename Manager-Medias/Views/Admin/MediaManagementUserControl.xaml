@@ -74,17 +74,19 @@
             </Style.Triggers>
         </Style>
         <Style TargetType="Button" x:Key="buttonValidationFailStyle"
-               BasedOn="{StaticResource MaterialDesignFlatAccentBgButton}">
+                BasedOn="{StaticResource MaterialDesignFlatAccentBgButton}">
             <Setter Property="IsEnabled" Value="False"/>
             <Style.Triggers>
                 <MultiDataTrigger>
-                    <MultiDataTrigger.Conditions> 
+                    <MultiDataTrigger.Conditions>
                         <Condition Binding="{Binding Path=(Validation.HasError), ElementName=txtbNameAdd}" Value="False"/>
                         <Condition Binding="{Binding Path=(Validation.HasError), ElementName=txtbNationAdd}" Value="False"/>
                         <Condition Binding="{Binding Path=(Validation.HasError), ElementName=txtbAgeAdd}" Value="False"/>
                         <Condition Binding="{Binding Path=(Validation.HasError), ElementName=txtbSeasonAdd}" Value="False"/>
                         <Condition Binding="{Binding Path=(Validation.HasError), ElementName=txtbDirectorsAdd}" Value="False"/>
                         <Condition Binding="{Binding Path=(Validation.HasError), ElementName=txtbDesAdd}" Value="False"/>
+                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=txtbVideoAdd}" Value="False"/>
+                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=txtbPosterAdd}" Value="False"/>
                     </MultiDataTrigger.Conditions>
                     <Setter Property="IsEnabled" Value="True"/>
                 </MultiDataTrigger>
@@ -943,13 +945,15 @@
                                                     <StackPanel Orientation="Horizontal"
                                                             Margin="0 20 0 10">
                                                         <Button Content="Thêm phim" Margin="0 0 10 0" Background="CadetBlue"
-                                                            Command="{Binding CmdAddMovie}"/>
+                                                                Style="{DynamicResource buttonValidationFailStyle}"
+                                                                Command="{Binding CmdAddMovie}"/>
                                                         <Button Command="{Binding CmdDeleteMovie}" 
-                                                                Background="OrangeRed"
+                                                                Background="OrangeRed" Name="btDeleteMovie"
                                                                 Content="Xóa phim"/>
                                                     </StackPanel>
                                                     <Button Command="{Binding CmdUpdateMovie}" 
-                                                            Background="#35b593"
+                                                            Background="#35b593" 
+                                                            Style="{DynamicResource buttonValidationFailStyle}"
                                                             Content="Cập nhật thông tin"/>
                                                 </StackPanel>
 

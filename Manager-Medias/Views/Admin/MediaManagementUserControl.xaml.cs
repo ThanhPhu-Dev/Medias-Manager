@@ -241,6 +241,10 @@ namespace Manager_Medias.Views.Admin
             mainScrollViewer.ScrollToVerticalOffset(mainScrollViewer.MaxHeight);
             detailPanel.Focus();
             PCheckBox.IsEnabled = true;
+
+            btAddMovie.IsEnabled = false;
+
+            btDeleteMovie.IsEnabled = true;
         }
         
 
@@ -328,6 +332,9 @@ namespace Manager_Medias.Views.Admin
             txtbPosterAdd.Text = ".jpg";
             PCheckBox.IsEnabled = false;
 
+            btDeleteMovie.IsEnabled = false;
+
+
         }
 
         private void btAdvancedSearch_Click(object sender, RoutedEventArgs e)
@@ -340,6 +347,7 @@ namespace Manager_Medias.Views.Admin
             {
                 filterPanel.Collapse();
             }
+            btAddMovie.IsEnabled = false;
         }
 
         private void btInfoMedia_Click(object sender, RoutedEventArgs e)

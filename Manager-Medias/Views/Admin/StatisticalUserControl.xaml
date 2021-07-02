@@ -52,19 +52,50 @@
                     </Setter>
                 </Style>
             </TabControl.Resources>
-            <TabItem Header="Top 10 phim được xem nhiều nhất">
-                <lvc:PieChart Series="{Binding chartData}"
-                              Height="360"
-                              Foreground="Black"
-                              Panel.ZIndex="0"
-                              FontSize="20"
-                              LegendLocation="Right"
-                              DataClick="PieChart_DataClick"
-                              Width="580">
-                </lvc:PieChart>
+            <TabItem Header="Danh sách phim được xem nhiều nhất">
+                <StackPanel Background="#e5c5fc">
+                    <TextBlock 
+                        Margin="10 25 10 10" FontSize="30" FontWeight="Bold"
+                        HorizontalAlignment="Center">Top 10 phim có lượt xem cao nhất</TextBlock>
+                    <lvc:PieChart Series="{Binding chartData}"
+                                  Height="360" HorizontalAlignment="Center"
+                                  Foreground="Black"
+                                  Panel.ZIndex="0"
+                                  VerticalAlignment="Bottom"
+                                  FontSize="20"
+                                  LegendLocation="Right"
+                                  DataClick="PieChart_DataClick"
+                                  Width="580">
+                    </lvc:PieChart>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock 
+                        Margin="10 20 10 10" FontSize="23" FontWeight="Bold"
+                        HorizontalAlignment="Center">Phim được xem nhiêu nhất: </TextBlock>
+                        <TextBlock 
+                            Margin="10 20 10 10" FontSize="23"
+                            FontWeight="Bold" Foreground="#ab7415"
+                            HorizontalAlignment="Center" Text="{Binding MostView}"></TextBlock>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock 
+                        Margin="10 20 10 10" FontSize="23" FontWeight="Bold"
+                        HorizontalAlignment="Center">Phim được xem ít nhất:</TextBlock>
+                        <TextBlock 
+                            Margin="10 20 10 10" FontSize="23"
+                            FontWeight="Bold" Foreground="#ba530f"
+                            HorizontalAlignment="Center" Text="{Binding LeaseView}"></TextBlock>
+                    </StackPanel>
+                </StackPanel>
+                
             </TabItem>
             <TabItem Header="Thống kê theo doanh thu">
-                <StackPanel Name="DoanhthuChartPanel">
+                <StackPanel Name="DoanhthuChartPanel" Background="#c9c9c9">
+
+                    <TextBlock 
+                        Margin="10 25 10 10" FontSize="28" FontWeight="Bold"
+                        HorizontalAlignment="Center">Thống kê doanh thu theo thời gian</TextBlock>
                     <!--<TextBlock HorizontalAlignment="Center"
                                FontSize="25">Danh thu theo tháng</TextBlock>-->
                     <StackPanel Margin="12,10,12,0">
@@ -154,7 +185,7 @@
 
                         <Grid Margin="0 40 0 0">
                             <lvc:CartesianChart Series="{Binding RevenueData}"
-                                                Height="500"
+                                                Height="480"
                                                 Foreground="Black"
                                                 Panel.ZIndex="0"
                                                 FontSize="14"
@@ -172,8 +203,8 @@
                     </StackPanel>
                 </StackPanel>
             </TabItem>
-            <TabItem Header="Details" >
-                <Grid Margin="0 20 0 0">
+            <TabItem Header="Thống kê phim" >
+                <Grid Margin="0 0 0 0" Background="#c9c9c9">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition Width="2*"/>
@@ -184,7 +215,7 @@
                     <StackPanel Grid.Column="1" >
                         <TextBlock 
                             TextAlignment="Center"
-                            FontSize="35"
+                            FontSize="35" Margin="0 50 0 0"
                             FontWeight="DemiBold"
                             Text="Thể loại"
                             TextDecorations="Underline"/>
@@ -220,7 +251,7 @@
                     <StackPanel Grid.Column="3">
                         <TextBlock 
                             TextAlignment="Center"
-                            FontSize="35"
+                            FontSize="35" Margin="0 50 0 0"
                             FontWeight="DemiBold"
                             Text="Phân loại"
                             TextDecorations="Underline"/>

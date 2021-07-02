@@ -12,6 +12,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.IO;
 using Manager_Medias.CustomModels;
+using System.ComponentModel;
 
 namespace Manager_Medias.ViewModels.Admin
 {
@@ -134,16 +135,111 @@ namespace Manager_Medias.ViewModels.Admin
             
             using (var db = new MediasManangementEntities())
             {
-                MovieList = new ListCollectionView(db.Movies.ToList());
-                
+                var getMovie = new ListCollectionView(db.Movies.ToList());
+                BindingList<MovieCustomModel> MovieCustomList = new BindingList<MovieCustomModel>();
+                foreach (Movie m in getMovie)
+                {
+                    var movie = new MovieCustomModel
+                    {
+                        Id = m.Id,
+                        Name = m.Name,
+                        Poster = m.Poster,
+                        IdCategory = (int)m.IdCategory,
+                        Nation = m.Nation,
+                        Age = (int)m.Age,
+                        Season = m.Season,
+                        Directors = m.Directors,
+                        Description = m.Description,
+                        Video = m.Video,
+                        Likes = (int)m.Likes,
+                        IMDB = (double)m.IMDB,
+                        NumberOfViews = (int)m.NumberOfViews,
+                        Time = m.Time,
+                    };
+                    MovieCustomList.Add(movie);
+                }
+                MovieList = new ListCollectionView(MovieCustomList);
 
                 CategoryList = new ListCollectionView(db.Movie_Categories.ToList());
 
                 UserLevelList = new ListCollectionView(db.Levels.ToList());
 
-                NewMovieList = new ListCollectionView(db.Movies.OrderByDescending(x => x.CreateAt).Take(10).ToList());
-                MostLikeMovieList = new ListCollectionView(db.Movies.OrderByDescending(x => x.Likes).Take(10).ToList());
-                MostViewMovieList = new ListCollectionView(db.Movies.OrderByDescending(x => x.NumberOfViews).Take(10).ToList());
+                var getMovieNew = new ListCollectionView(db.Movies.OrderByDescending(x => x.CreateAt).Take(10).ToList());
+                BindingList<MovieCustomModel> MovieCustomListNew = new BindingList<MovieCustomModel>();
+                foreach (Movie m in getMovieNew)
+                {
+                    var movie = new MovieCustomModel
+                    {
+                        Id = m.Id,
+                        Name = m.Name,
+                        Poster = m.Poster,
+                        IdCategory = (int)m.IdCategory,
+                        Nation = m.Nation,
+                        Age = (int)m.Age,
+                        Season = m.Season,
+                        Directors = m.Directors,
+                        Description = m.Description,
+                        Video = m.Video,
+                        Likes = (int)m.Likes,
+                        IMDB = (double)m.IMDB,
+                        NumberOfViews = (int)m.NumberOfViews,
+                        Time = m.Time,
+                    };
+                    MovieCustomListNew.Add(movie);
+                }
+                NewMovieList = new ListCollectionView(MovieCustomListNew);
+
+
+                var getMovieLikes = new ListCollectionView(db.Movies.OrderByDescending(x => x.Likes).Take(10).ToList());
+                BindingList<MovieCustomModel> MovieCustomListLike = new BindingList<MovieCustomModel>();
+                foreach (Movie m in getMovieLikes)
+                {
+                    var movie = new MovieCustomModel
+                    {
+                        Id = m.Id,
+                        Name = m.Name,
+                        Poster = m.Poster,
+                        IdCategory = (int)m.IdCategory,
+                        Nation = m.Nation,
+                        Age = (int)m.Age,
+                        Season = m.Season,
+                        Directors = m.Directors,
+                        Description = m.Description,
+                        Video = m.Video,
+                        Likes = (int)m.Likes,
+                        IMDB = (double)m.IMDB,
+                        NumberOfViews = (int)m.NumberOfViews,
+                        Time = m.Time,
+                    };
+                    MovieCustomListLike.Add(movie);
+                }
+                MostLikeMovieList = new ListCollectionView(MovieCustomListLike);
+
+
+                var getMovieView = new ListCollectionView(db.Movies.OrderByDescending(x => x.NumberOfViews).Take(10).ToList());
+                BindingList<MovieCustomModel> MovieCustomListView = new BindingList<MovieCustomModel>();
+                foreach (Movie m in getMovieView)
+                {
+                    var movie = new MovieCustomModel
+                    {
+                        Id = m.Id,
+                        Name = m.Name,
+                        Poster = m.Poster,
+                        IdCategory = (int)m.IdCategory,
+                        Nation = m.Nation,
+                        Age = (int)m.Age,
+                        Season = m.Season,
+                        Directors = m.Directors,
+                        Description = m.Description,
+                        Video = m.Video,
+                        Likes = (int)m.Likes,
+                        IMDB = (double)m.IMDB,
+                        NumberOfViews = (int)m.NumberOfViews,
+                        Time = m.Time,
+                    };
+                    MovieCustomListView.Add(movie);
+                }
+                MostViewMovieList = new ListCollectionView(MovieCustomListView);
 
                 MovieCount = db.Movies.Count();
                 CategoryCount = db.Movie_Categories.Count();
@@ -154,7 +250,7 @@ namespace Manager_Medias.ViewModels.Admin
 
             MovieList.CurrentChanged += (_, e) =>
             {
-                var MovieCurrent = MovieList.CurrentItem as Movie;
+                var MovieCurrent = MovieList.CurrentItem as MovieCustomModel;
                 if (MovieCurrent == null)
                     return;
 
@@ -189,7 +285,7 @@ namespace Manager_Medias.ViewModels.Admin
 
             NewMovieList.CurrentChanged += (_, e) =>
             {
-                var MovieCurrent = NewMovieList.CurrentItem as Movie;
+                var MovieCurrent = NewMovieList.CurrentItem as MovieCustomModel;
                 if (MovieCurrent == null)
                     return;
 
@@ -223,7 +319,7 @@ namespace Manager_Medias.ViewModels.Admin
 
             MostLikeMovieList.CurrentChanged += (_, e) =>
             {
-                var MovieCurrent = MostLikeMovieList.CurrentItem as Movie;
+                var MovieCurrent = MostLikeMovieList.CurrentItem as MovieCustomModel;
                 if (MovieCurrent == null)
                     return;
 
@@ -257,7 +353,7 @@ namespace Manager_Medias.ViewModels.Admin
 
             MostViewMovieList.CurrentChanged += (_, e) =>
             {
-                var MovieCurrent = MostViewMovieList.CurrentItem as Movie;
+                var MovieCurrent = MostViewMovieList.CurrentItem as MovieCustomModel;
                 if (MovieCurrent == null)
                     return;
 
@@ -329,18 +425,18 @@ namespace Manager_Medias.ViewModels.Admin
                         MovieList.CancelNew();
                         NewMovieList.CancelNew();
                     }
-                    var del = MovieList.CurrentItem as Movie;
+                    var del = MovieList.CurrentItem as MovieCustomModel;
                     if(del.Id != Movie.Id)
                     {
-                        del = NewMovieList.CurrentItem as Movie;
+                        del = NewMovieList.CurrentItem as MovieCustomModel;
                     }
                     if (del.Id != Movie.Id)
                     {
-                        del = MostViewMovieList.CurrentItem as Movie;
+                        del = MostViewMovieList.CurrentItem as MovieCustomModel;
                     }
                     if (del.Id != Movie.Id)
                     {
-                        del = MostLikeMovieList.CurrentItem as Movie;
+                        del = MostLikeMovieList.CurrentItem as MovieCustomModel;
                     }
 
                     MovieList.Remove(del);
@@ -501,20 +597,20 @@ namespace Manager_Medias.ViewModels.Admin
                 {
                     MessageBox.Show("Cập nhật thành công");
 
-                    var MovieCur = MovieList.CurrentItem as Movie;
+                    var MovieCur = MovieList.CurrentItem as MovieCustomModel;
                     if(MovieCur.Name != name)
                     {
-                        MovieCur = NewMovieList.CurrentItem as Movie;
+                        MovieCur = NewMovieList.CurrentItem as MovieCustomModel;
                     }
 
                     if (MovieCur.Name != name)
                     {
-                        MovieCur = MostLikeMovieList.CurrentItem as Movie;
+                        MovieCur = MostLikeMovieList.CurrentItem as MovieCustomModel;
                     }
 
                     if (MovieCur.Name != name)
                     {
-                        MovieCur = MostViewMovieList.CurrentItem as Movie;
+                        MovieCur = MostViewMovieList.CurrentItem as MovieCustomModel;
                     }
 
                     MovieCur.Name = Movie.Name;

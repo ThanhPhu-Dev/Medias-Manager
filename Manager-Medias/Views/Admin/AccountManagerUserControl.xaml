@@ -127,13 +127,15 @@
 
         <Style TargetType="Button" x:Key="buttonValidationFailStyle4"
                BasedOn="{StaticResource MaterialDesignFlatAccentBgButton}">
-            <Setter Property="IsEnabled" Value="True"/>
+            <Setter Property="IsEnabled" Value="False"/>
             <Style.Triggers>
                 <MultiDataTrigger>
                     <MultiDataTrigger.Conditions>
-                        <Condition Binding="{Binding ElementName=cbProfile, Path=SelectedIndex}" Value="-1"/>
+                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=txtbStatus}" Value="False"/>
+                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=txtbName}" Value="False"/>
+                       
                     </MultiDataTrigger.Conditions>
-                    <Setter Property="IsEnabled" Value="False"/>
+                    <Setter Property="IsEnabled" Value="True"/>
                 </MultiDataTrigger>
             </Style.Triggers>
         </Style>
@@ -584,7 +586,7 @@
                             <materialDesign:DataGridTextColumn Header="Số thẻ" Binding="{Binding NumberCard}" 
                                                                x:Name="txtbNumCardSearch"
                                                                Width="150"  IsReadOnly="True" />
-                            <materialDesign:DataGridTextColumn Header="Tích lũy" Binding="{Binding Exp}"
+                            <materialDesign:DataGridTextColumn Header="Hạn thẻ" Binding="{Binding Exp}"
                                                                Width="120"/>
     
                         </DataGrid.Columns>
@@ -774,6 +776,7 @@
                             <StackPanel Orientation="Horizontal" Margin="0 30 10 10" HorizontalAlignment="Right">
                                 <Button Content="Thêm" Background="CadetBlue"
                                         Command="{Binding CmdAddProfile}"
+                                        Style="{DynamicResource buttonValidationFailStyle4}"
                                         Name="addProfileBt"/>
                                 <Button Content="Xóa" Background="OrangeRed"
                                         Style="{DynamicResource buttonValidationFailStyle4}"
@@ -832,7 +835,7 @@
                                     </TextBox.Text>
                                 </TextBox>
                                 <TextBlock Height="5"></TextBlock>
-                                <TextBox Tag="Tích lũy: "
+                                <TextBox Tag="Hạn thẻ: "
                                          Name="txtbExpUpdate" Style="{DynamicResource TxtStyleValidation}" >
                                     <TextBox.Text>
                                         <Binding Path="User.Exp"

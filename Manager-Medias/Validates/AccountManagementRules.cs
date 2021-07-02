@@ -105,7 +105,7 @@ namespace Manager_Medias.Validates
             {
                 if (((string)value).Length == 0)
                 {
-                    return new ValidationResult(false, "Hãy nhập tích lũy!");
+                    return new ValidationResult(false, "Hãy nhập ngày hết hạn của thẻ!");
                 }
             }
             return new ValidationResult(true, null);

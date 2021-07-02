@@ -115,6 +115,9 @@ namespace Manager_Medias.ViewModels.Admin
             get => Data3;
         }
 
+        public string MostView { get; set; }
+        public string LeaseView { get; set; }
+        
         public AdminViewStatisticsVM()
         {
             FromDate = DateTime.Now;
@@ -127,11 +130,19 @@ namespace Manager_Medias.ViewModels.Admin
                 //ds danh mục - phân loại phim
                 catMovies = new ObservableCollection<Movie_Category>(db.Movie_Categories.Include("Movies").ToList());
                 classifyMovies = new ObservableCollection<Movie_classify>(db.Movie_classify.Include("Movies").ToList());
+
+                var mostv = db.Movies.OrderByDescending(x => x.NumberOfViews).Take(1).FirstOrDefault();
+                MostView = mostv.Name;
+
+                var leaseV = db.Movies.OrderBy(x => x.NumberOfViews).Take(1).FirstOrDefault();
+                LeaseView = leaseV.Name;
             }
 
             // Command selection changed
             cbDoanhThuCmd = new RelayCommand<object>(cbDoanhThuChanged);
             SelectedDateChangedCmd = new RelayCommand<object>(SelectedDateChanged);
+
+            
         }
 
         public SeriesCollection Data => new SeriesCollection()

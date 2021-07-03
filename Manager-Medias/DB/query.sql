@@ -222,7 +222,9 @@ select * from Albums
 select * from Payment_History
 Select * from Profiles
 select * from View_History
+select * from Movies
 select * from Users where Email = 'nghiadx2001@gmail.c'
+delete Movies where id between 32 and 37
 update Albums set Id = 2 where Name=N'Thiên nhiên'
 update Album_Details set IdAlbum = 2
 update Users set Password = 'G9BBbVflIID4fJFh4ljRqrOgtzA33ztt4q474rYmz8IhcOqD' where Email = 'vovanminh@gmail.com'

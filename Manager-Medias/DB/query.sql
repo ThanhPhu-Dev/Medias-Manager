@@ -209,7 +209,7 @@ Select * from Roles
 select * from Media_categories
 select * from Audios
 select * from Audio_Categories
-
+select * from Movie_classifies
 select * from Likes 
 select * from My_Lists
 select * from levels
@@ -575,7 +575,7 @@ INSERT INTO ALBUM_DETAILS VALUES (51, 'album_5f797735ddf5a548ffd9eb34582a646f_fa
 INSERT INTO ALBUM_DETAILS VALUES (51, 'album_4ce37f19e23ee5b7e1555f3cd1c0cac0_9a13a622_1280.jpg')
 
 --INSERT PHIM TỪ 52 - 56 
-SELECT * FROM Movies
+SELECT * FROM Medias 
 INSERT INTO Movies VALUES 
 (52, 5, N'Cửa Hàng Tiện Lợi Saetbyul', 
 		N'Cửa Hàng Tiện Lợi Saetbyul (Cửa Hàng Tiện Lợi Saet Byul) kể câu chuyện về Choi Dae Hyun (Ji Chang Wook), một anh chàng có ngoại hình xuất chúng và làm việc tại một tập đoàn lớn. Một lần, Choi Dae Hyun tình cờ gặp phải một nhóm nữ sinh quậy phá và bị cô nàng Jung Saet Byul (Kim Yoo Jung) nhờ mua giúp một bao thuốc lá trong cửa hàng tiện lợi. ',
@@ -631,3 +631,65 @@ INSERT INTO Movies VALUES
 		9000, 16, 9999, '
 		movievideo_startup.mp4', 1, '00:00:29', 
 		N'Oh Choong-Hwan', N'Hàn Quốc', '2021-07-03', 2)
+--update create cho cái movie cũ.
+update Movies set CreateAt ='2019-06-08', IdClassifiles=2 Where Id = 7
+update Movies set CreateAt ='2019-06-08' Where Id BETWEEN 18 and 31
+
+--insert movie từ 59 đến 65
+SELECT * FROM Movies 
+update Movie_Categories set Name ='Drama' where id =4
+INSERT INTO Movies VALUES 
+(59, 4, N'Thưa Mẹ Con Đi', 
+		N'Thưa mẹ con đi  là câu chuyện xoay quanh Văn và Ian. Văn là Việt kiều Mỹ, từng theo học và đang làm việc tại xứ sở cờ hoa. Ian là người Việt quốc tịch Mỹ, theo gia đình sang đó định cư từ khi con nhỏ. Số phận rui rủi cả hai gặp gỡ và nảy sinh tình cảm với nhau, họ đã có với nhau những kỉ niệm thật đẹp cho đến khi Ian quyết định theo Văn về quê nhân dịp bốc mộ cha và ông nội.',
+ 		7.5, 
+		'movieposter_thuamediacon.jpg', 
+		853, 14, 1201, 
+		'movievideo_thuamediacon.mp4', 
+		1, 
+		'00:02:09', 
+		N'Trịnh Đình Lê Minh', 
+		N'Việt Nam', 
+		'2019-06-08', 2),
+(60, 4, N'Bố Già 2', 
+		N'Phim sẽ xoay quanh lối sống thường nhật của một xóm lao động nghèo, ở đó có bộ tứ anh em Giàu – Sang – Phú – Quý với Ba Sang sẽ là nhân vật chính, hay lo chuyện bao đồng nhưng vô cùng thương con cái. Câu chuyện phim tập trung về hai cha con Ba Sang (Trấn Thành) và Quắn (Tuấn Trần)', 
+		6.8, 
+		'movieposter_bogia2.jpg', 
+		1200, 13, 3100, 
+		'movievideo_BoGia2.mp4', 1, 
+		'00:02:52', N'Trấn Thành', 
+		N'Việt Nam', '2018-06-01', 2),
+(61, 4, N'Mùi Đu Đủ Xanh', 
+		N'Mùi, một cô bé đến giúp việc cho một gia đình ở Sài Gòn . Bối cảnh trở về những năm 1950 với một gia đình thương gia khá giả và không gian đậm nét cổ xưa...Mùi hàng ngày phụ giúp việc gia đình, công việc cứ thế trôi qua với những buồn vui và đối mặt với sự láu cá của đứa con trai út của bà chủ.', 
+		7.4, 
+		'movieposter_muaduduxanh.jpg',
+		800, 14, 901, 'movievideo_muiduduxanh.mp4', 1, 
+		'00:01:35', N'Trần Anh Hùng', 
+		N'Việt Nam', '2010-03-04', 2),
+(62, 4, N'HAI PHƯỢNG', 
+		N'Hai Phượng là phim kể về hành trình nghẹt thở và căng thẳng của bà mẹ đơn thân Hai Phượng (Ngô Thanh Vân) khi phải đối đầu với cả 1 đường dây tội phạm bắt cóc và buôn bán nội tạng xuyên quốc gia để cứu đứa con gái bé bỏng Mai (Mai Cát Vi). Để cứu được con, Hai Phượng chỉ có 14 tiếng đồng hồ rượt đuổi từ Cần Thơ, Sài Gòn cho đến Phan Thiết, và phải đối đầu với rất nhiều giang hồ cộm cán, sẵn sàng tiêu diệt ai dám cản đường chúng. Hành trình cứu con của Hai Phượng càng trở nên gian nan và khó khăn hơn khi bất kỳ một sơ xuất nhỏ nào cũng sẽ phải trả giá bằng chính mạng sống của chính cô và bé Mai.', 
+		6.3, 
+		'movieposter_haiphuong.jpg', 
+		520, 14, 800, 
+		'movievideo_haiphuong.mp4', 1, '00:01:48', 
+		N'Lê Văn Kiệt', N'Việt Nam', '2013-06-01', 2),
+(63, 4, N'Vợ ba', 
+		N'Người Vợ Ba là phim lấy bối cảnh vùng thôn quê Việt Nam cuối thế kỷ 19. Phim xoay quanh câu chuyện về cô gái tên Mây được gả làm vợ ba cho một gia đình giàu có. Tưởng như bắt đầu một cuộc sống sung túc, đầy đủ, cô gái trẻ không ngờ mình bị lôi vào một cuộc tranh đấu ngầm trong gia đình mới với vợ cả và vợ hai để có được vị trí quan trọng ở nhà chồng. Dựa trên những câu chuyện có thật về thân phận người phụ nữ Việt Nam trong xã hội xưa, phim cũng đề cập đến các vấn đề của xã hội lúc đó như hôn nhân sắp đặt, tục đa thê, trọng nam khinh nữ.', 
+		6.7, 
+		'movieposter_voba.jpg', 
+		153, 14, 2001, 
+		'movievideo_voba.mp4', 1, '00:02:13', 
+		N'Nguyễn Phương Anh', N'Việt Nam', '2019-06-08', 2),
+(64, 4, N'TIỆC TRĂNG MÁU', 
+		N'Nội dung chính của “Tiệc Trăng Máu” phiên bản Việt Nam không có gì thay đổi nhiều nhưng những tình tiết ẩn dụ, mang đậm góc nhìn cá nhân được đạo diễn Nguyễn Quang Dũng khéo lèo lồng ghép vào. Bộ phim xoay quanh câu chuyện về một bữa tiệc “đẫm máu” của một nhóm bạn thân đã chơi với nhau hơn 40 năm cuộc đời. Bữa tiệc diễn ra rất vui vẻ cho đến khi cô gái có tên Nguyệt Ánh (do Hồng Ánh thủ vai) đề nghị các bạn mình chơi một trò chơi. Họ quyết định công khai tất cả những tin nhắn và điện thoại gọi tới trong bữa tiệc. Nhưng khi các bí mật cá nhân dần được khui ra thì họ còn có cảm thông và tình cảm vợ chồng, bạn bè có được vẹn nguyên.', 
+		7.6, 
+		'movieposter_tiettrangmau.jpg', 
+		4003, 14, 6591, 
+		'movievideo_tiettrangmau.mp4', 1, 
+		'00:01:32', N'Nguyễn Quang Dũng', 
+		N'Việt Nam', '2021-02-01', 2),
+(65, 4, N'Song lang', 
+		N'Song Lang 2018 là phim điện ảnh chính kịch đầu tay tại Việt Nam của đạo diễn Leon Quang Lê chính thức công chiếu vào ngày 17 tháng 8 năm 2018. Tên phim được đặt theo một loại nhạc cụ cùng tên có vai trò giữ nhịp trong dàn nhạc tài tử và cải lương và cũng mang thêm nghĩa kép là hai chàng trai.', 
+		7.8, 'movieposter_songlang.jpg', 
+		5000, 14, 8099, '
+		movievideo_songlang.mp4', 1, '00:02:30', 
+		N'Leon Quang Lê', N'Việt Nam', '2021-07-03', 2)

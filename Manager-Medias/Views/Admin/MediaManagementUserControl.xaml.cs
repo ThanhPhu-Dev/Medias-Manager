@@ -95,6 +95,7 @@ namespace Manager_Medias.Views.Admin
 
         private void btPlayMovie_Click(object sender, RoutedEventArgs e)
         {
+            var a = mePlayer.Source.AbsolutePath;
             mePlayer.Play();
 
         }
@@ -242,7 +243,7 @@ namespace Manager_Medias.Views.Admin
             detailPanel.Focus();
             PCheckBox.IsEnabled = true;
 
-            btAddMovie.IsEnabled = false;
+            //btAddMovie.IsEnabled = false;
 
             btDeleteMovie.IsEnabled = true;
         }
@@ -347,7 +348,7 @@ namespace Manager_Medias.Views.Admin
             {
                 filterPanel.Collapse();
             }
-            btAddMovie.IsEnabled = false;
+            //btAddMovie.IsEnabled = false;
         }
 
         private void btInfoMedia_Click(object sender, RoutedEventArgs e)

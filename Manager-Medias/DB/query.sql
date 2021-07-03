@@ -696,3 +696,6 @@ INSERT INTO Movies VALUES
 		5000, 14, 8099, '
 		movievideo_songlang.mp4', 1, '00:02:30', 
 		N'Leon Quang Lê', N'Việt Nam', '2021-07-03', 2)
+
+
+		update Movies set Video = 'movievideo_songlang.mp4' where id = 65

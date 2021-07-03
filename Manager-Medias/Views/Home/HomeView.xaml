@@ -288,6 +288,7 @@
                                              Height="26"
                                              Foreground="#ffbb00" />
                     <TextBlock Text="{Binding Name}"
+                               TextWrapping="WrapWithOverflow"
                                Name="tb_namemovie"
                                Foreground="#fff"
                                FontSize="16"
@@ -298,7 +299,7 @@
                         <Border BorderBrush="#bdbdbd"
                                 BorderThickness="0.5"
                                 CornerRadius="2">
-                            <TextBlock Text="{Binding Age, StringFormat={}{0}+}"
+                            <TextBlock Text="{Binding Movie_classifies.Name, StringFormat={}{0}}"
                                        Foreground="#fff"
                                        Padding="7 1" />
                         </Border>
@@ -900,7 +901,7 @@
                                                 CornerRadius="3"
                                                 Margin="5 0">
                                             <TextBlock Text="{Binding ElementName=lb_carousel,
-                                                                Path=SelectedItem.Age, StringFormat={}{0}+}"
+                                                                Path=SelectedItem.Movie_classifies.Name, StringFormat={}{0}}"
                                                        Margin="0"
                                                        Padding="0"
                                                        Foreground="White" />
@@ -1154,7 +1155,7 @@
                                                                         CornerRadius="3"
                                                                         Margin="5 0">
                                                                     <TextBlock Text="{Binding ElementName=lb_carousel,
-                                                                Path=SelectedItem.Age, StringFormat={}{0}+}"
+                                                                Path=SelectedItem.Movie_classifies.Name, StringFormat={}{0}}"
                                                                                Margin="0"
                                                                                Padding="0"
                                                                                Foreground="White" />

@@ -208,7 +208,7 @@
                   Height="117">
                 <Image Width="230"
                        Source="{Binding Poster, Converter={StaticResource imageCvt}}"
-                       Stretch="UniformToFill" />
+                       Stretch="Uniform" />
             </Grid>
         </DataTemplate>
 

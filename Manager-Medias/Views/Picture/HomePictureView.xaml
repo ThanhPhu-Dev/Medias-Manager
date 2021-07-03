@@ -161,7 +161,7 @@
             <Grid Margin="3 1">
                 <Image Height="117" Width="230"
                                    Panel.ZIndex="1"
-                                   Source="{Binding Image, Converter={StaticResource imageCvt}}" Stretch="UniformToFill" />
+                                   Source="{Binding Image, Converter={StaticResource imageCvt}}" Stretch="Uniform" />
             </Grid>
         </DataTemplate>
 

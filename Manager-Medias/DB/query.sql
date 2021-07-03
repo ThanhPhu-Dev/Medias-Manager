@@ -226,7 +226,7 @@ select * from Users where Email = 'nghiadx2001@gmail.c'
 update Albums set Id = 2 where Name=N'Thiên nhiên'
 update Album_Details set IdAlbum = 2
 update Users set Password = 'G9BBbVflIID4fJFh4ljRqrOgtzA33ztt4q474rYmz8IhcOqD' where Email = 'vovanminh@gmail.com'
-
+update Movie_Categories set Name=N'Tình cảm, lãng mạn' where Id=5
 
 update users set CreateAt = '2021-06-29'
 update users set CreateAt = '2021-05-29' where Email = 'vovanminh@gmail.com'

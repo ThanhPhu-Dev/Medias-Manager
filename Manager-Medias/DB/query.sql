@@ -600,7 +600,8 @@ INSERT INTO Movies VALUES
 		N'Đứa con của thời tiết - Weathering with You là bộ phim mới nhất của đạo diễn lừng danh Makoto Shinkai, người đã từng khuấy động thế giới anime với bộ phim Your Name ăn khách.', 
 		7.2, 
 		'movieposter_thoitiet.jpg',
-		700, 14, 901, 'thoitiet.mp4', 1, 
+		700, 14, 901, 
+		'movievideo_thoitiet.mp4', 1, 
 		'00:01:02', N'Makoto Shinkai', 
 		N'Nhật Bản', '2010-03-04', 2),
 (55, 5, N'Thiên Thần Áo Trắng', 
@@ -628,9 +629,11 @@ INSERT INTO Movies VALUES
 (58, 5, N'Khởi Nghiệp', 
 		N'Phim Khởi Nghiệp (Start Up) là bộ phim tình cảm Hàn Quốc, nội dung xoay quanh câu chuyện lập nghiệp của Seo Dal Mi (Suzy thủ vai) với tham vọng trở thành Steve Job tương lai tại Sandbox - nơi được mệnh danh là “thung lũng Silicon của Hàn Quốc”. Bên cạnh đó cô còn muốn vực dậy công ty công nghệ của anh giám đốc trẻ Nam Do San (Nam Joo Hyuk thủ vai).', 
 		9.9, 'movieposter_startup.jpg', 
-		9000, 16, 9999, '
-		movievideo_startup.mp4', 1, '00:00:29', 
+		9000, 16, 9999, 
+		'movievideo_startup.mp4', 1, '00:00:29', 
 		N'Oh Choong-Hwan', N'Hàn Quốc', '2021-07-03', 2)
+update Movies set Video = 'movievideo_thoitiet.mp4' where id=54
+update Movies set Video = 'movievideo_startup.mp4' where id=58
 --update create cho cái movie cũ.
 update Movies set CreateAt ='2019-06-08', IdClassifiles=2 Where Id = 7
 update Movies set CreateAt ='2019-06-08' Where Id BETWEEN 18 and 31

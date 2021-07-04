@@ -199,7 +199,7 @@
                         Điều khoản sử dụng, Tuyên bố về quyền riêng tư 
                 </Span>
                     của chúng tôi, đồng thời xác nhận rằng bạn trên 18 tuổi. 
-                    Netflix sẽ tự động tiếp tục duy trì tư cách thành viên của bạn và tính phí thành viên (hiện tại là 180.000 ₫) theo tháng vào phương thức thanh toán của bạn cho đến khi bạn hủy. Bạn có thể hủy bất kỳ lúc nào để tránh bị tính phí về sau."
+                    Netflix sẽ tự động tiếp tục duy trì tư cách thành viên của bạn và tính phí thành viên theo tháng vào phương thức thanh toán của bạn cho đến khi bạn hủy. Bạn có thể hủy bất kỳ lúc nào để tránh bị tính phí về sau."
                 </TextBlock>
                 <StackPanel Margin="0 13">
                     <CheckBox

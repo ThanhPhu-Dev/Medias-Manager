@@ -388,7 +388,7 @@
                 <Image Width="230"
                        Panel.ZIndex="1"
                        Source="{Binding Poster, Converter={StaticResource imageCvt}}"
-                       Stretch="UniformToFill" />
+                       Stretch="Uniform" />
 
                 <Border Background="Black"
                         Opacity=".6"

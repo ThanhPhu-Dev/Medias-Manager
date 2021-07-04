@@ -222,7 +222,7 @@
                   MouseLeave="gDatatemplate_MouseLeave">
                 <Image Width="230"
                        Source="{Binding Poster, Converter={StaticResource imageCvt}}"
-                       Stretch="UniformToFill"
+                       Stretch="Uniform"
                        Opacity="1"
                        Name="VideoPoster" />
                 <MediaElement Name="VideoPreview"
@@ -362,7 +362,7 @@
                 <Image Width="230"
                        Panel.ZIndex="1"
                        Source="{Binding Poster, Converter={StaticResource imageCvt}}"
-                       Stretch="UniformToFill" />
+                       Stretch="Uniform" />
 
                 <Border Background="Black"
                         Opacity=".6"

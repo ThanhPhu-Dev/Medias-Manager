@@ -55,7 +55,7 @@ namespace Manager_Medias.ViewModels.Admin
                             typeof(UserCustomModel), typeof(AdminViewVM));
 
             ProfileProperty = DependencyProperty.Register("Profile",
-                            typeof(Profile), typeof(AdminViewVM));
+                            typeof(ProfileCustomModel), typeof(AdminViewVM));
 
             RolesProperty = DependencyProperty.Register("Role",
                             typeof(Role), typeof(AdminViewVM));
@@ -96,9 +96,9 @@ namespace Manager_Medias.ViewModels.Admin
             set => SetValue(UserProperty, value);
         }
 
-        public Profile Profile
+        public ProfileCustomModel Profile
         {
-            get => (Profile)GetValue(ProfileProperty);
+            get => (ProfileCustomModel)GetValue(ProfileProperty);
             set => SetValue(ProfileProperty, value);
         }
 
@@ -178,20 +178,34 @@ namespace Manager_Medias.ViewModels.Admin
 
                 using (var db = new MediasManangementEntities())
                 {
-                    ProfileList = new ListCollectionView(db.Profiles.Where(p => p.Email == UserCurrent.Email).ToList());
+                    var getProfile = new ListCollectionView(db.Profiles.Where(p => p.Email == UserCurrent.Email).ToList());
+                    var listPro = new BindingList<ProfileCustomModel>();
+                    foreach(Profile p in getProfile)
+                    {
+                        var get = new ProfileCustomModel
+                        {
+                            Id = p.Id,
+                            Name = p.Name,
+                            Status = (int)p.Status,
+                            Avatar = p.Avatar
+                        };
+
+                        listPro.Add(get);
+                    }
+                    ProfileList = new ListCollectionView(listPro);
                 }
 
                 ProfileList.CurrentChanged += (obj, e2) =>
                 {
-                    var currentProfile = ProfileList.CurrentItem as Profile;
+                    var currentProfile = ProfileList.CurrentItem as ProfileCustomModel;
                     if (currentProfile == null)
                         return;
 
-                    Profile = new Profile
+                    Profile = new ProfileCustomModel
                     {
                         Id = currentProfile.Id,
                         Name = currentProfile.Name,
-                        Status = currentProfile.Status,
+                        Status = (int)currentProfile.Status,
                         Avatar = currentProfile.Avatar
                     };
 
@@ -280,6 +294,11 @@ namespace Manager_Medias.ViewModels.Admin
 
         private void UpdateProfile(object obj)
         {
+            if(ProfileList.Count == 0)
+            {
+                MessageBox.Show("Không có hồ sơ để cập nhật");
+                return;
+            }
             using (var db = new MediasManangementEntities())
             {
                 var ProfileUpdate = db.Profiles.FirstOrDefault(p => p.Id == Profile.Id);
@@ -311,7 +330,7 @@ namespace Manager_Medias.ViewModels.Admin
                     MessageBox.Show("Không có thay đổi hoặc cập nhật thất bại");
                 }
 
-                var proCur = ProfileList.CurrentItem as Profile;
+                var proCur = ProfileList.CurrentItem as ProfileCustomModel;
                 proCur.Name = Profile.Name;
                 proCur.Status = Profile.Status;
                 proCur.Avatar = Profile.Avatar;
@@ -349,14 +368,14 @@ namespace Manager_Medias.ViewModels.Admin
 
         private void AddProfile(object obj)
         {
+
+
             using (var db = new MediasManangementEntities())
             {
                 var rd = new Random();
-                int newID;
-                do
-                {
-                    newID = rd.Next(1, 1000);
-                } while (db.Profiles.SingleOrDefault(p => p.Id == newID) != null);
+                
+                int maxId = db.Profiles.Max(p => p.Id);
+                int newID = maxId + 1;
 
                 string newFileNameAvt = Profile.Avatar;
                 if (File.Exists(Profile.Avatar))
@@ -384,8 +403,15 @@ namespace Manager_Medias.ViewModels.Admin
                 if (db.SaveChanges() > 0)
                 {
                     MessageBox.Show("Thêm hồ sơ thành công!");
-
-                    ProfileList.AddNewItem(NewProfile);
+                    var NewProfileItem = new ProfileCustomModel
+                    {
+                        Name = Profile.Name,
+                        Email = User.Email,
+                        Id = newID,
+                        Avatar = newFileNameAvt,
+                        Status = Profile.Status,
+                    };
+                    ProfileList.AddNewItem(NewProfileItem);
                 }
                 else
                 {
@@ -437,11 +463,8 @@ namespace Manager_Medias.ViewModels.Admin
                 UserList.AddNewItem(newU);
 
                 var rd = new Random();
-                int newID;
-                do
-                {
-                    newID = rd.Next(1, 1000);
-                } while (db.Profiles.SingleOrDefault(p => p.Id == newID) != null);
+                int maxId = db.Profiles.Max(p => p.Id);
+                int newID = maxId + 1;
 
                 string newFileNameAvt = Profile.Avatar;
                 if (File.Exists(Profile.Avatar))
@@ -473,7 +496,16 @@ namespace Manager_Medias.ViewModels.Admin
                 {
                     MessageBox.Show("Thêm người dùng thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                    ProfileList.AddNewItem(NewProfile);
+                    var NewProfiletem = new ProfileCustomModel
+                    {
+                        Name = Profile.Name,
+                        Email = User.Email,
+                        Id = newID,
+                        Avatar = newFileNameAvt,
+                        Status = 1,
+                    };
+
+                    ProfileList.AddNewItem(NewProfiletem);
 
                     ProfileList.CommitNew();
                     ProfileList.CancelNew();

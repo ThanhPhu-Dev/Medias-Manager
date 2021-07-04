@@ -120,6 +120,7 @@ namespace Manager_Medias.ViewModels.Guest
                 
                 //update cart cho user
                 user.NumberCard = obj[1].ToString();
+                user.Exp = obj[2].ToString();
                 //db.SaveChanges();
 
                 //tạo user
@@ -129,7 +130,7 @@ namespace Manager_Medias.ViewModels.Guest
                 //chuyển trang dên trang chủ
                 _userStore = new UserStore(user);
                 _navigationStore.CurrentViewModel = new MainLayoutViewModel();
-                _navigationStore.ContentViewModel = new DetailPictureViewModel(8);
+                _navigationStore.ContentViewModel = new HomeViewModel();
             }
         }
     }

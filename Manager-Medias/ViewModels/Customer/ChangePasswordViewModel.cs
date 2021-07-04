@@ -105,6 +105,8 @@ namespace Manager_Medias.ViewModels.Customer
                     var account = db.Users.Single(u => u.Email == _userStore.Email);
                     account.Password = pwHash;
                     db.SaveChanges();
+
+                    MessageBox.Show("Đổi mật khẩu thành công!");
                 }
             }
         }

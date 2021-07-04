@@ -93,6 +93,7 @@ namespace Manager_Medias.ViewModels.Guest
                     {
                         Email = Email,
                         Password = pwHash,
+                        roleId = 1,
                     };
 
                     db.Users.Add(user);

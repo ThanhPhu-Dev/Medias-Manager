@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.Entity.Validation;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -127,7 +128,8 @@ namespace Manager_Medias.ViewModels.Admin
                         Level = u.Level,
                         NumberCard = u.NumberCard,
                         Password = u.Password,
-                        roleId = u.roleId
+                        roleId = u.roleId,
+                        CreateAt = u.CreateAt
                     };
 
                     userCustomList.Add(user);
@@ -171,6 +173,7 @@ namespace Manager_Medias.ViewModels.Admin
                     Code = UserCurrent.Code,
                     NumberCard = UserCurrent.NumberCard,
                     roleId = UserCurrent.roleId,
+                    CreateAt = UserCurrent.CreateAt
                 };
 
                 using (var db = new MediasManangementEntities())
@@ -308,6 +311,7 @@ namespace Manager_Medias.ViewModels.Admin
                 UserUpdate.NumberCard = User.NumberCard;
                 UserUpdate.Exp = User.Exp;
                 UserUpdate.roleId = Role.Id;
+                
 
                 if (db.SaveChanges() > 0)
                 {
@@ -318,6 +322,7 @@ namespace Manager_Medias.ViewModels.Admin
                     userCur.NumberCard = User.NumberCard;
                     userCur.Exp = User.Exp;
                     userCur.roleId = Role.Id;
+                    userCur.CreateAt = User.CreateAt;
                 }
                 else
                 {
@@ -338,12 +343,21 @@ namespace Manager_Medias.ViewModels.Admin
                     newID = rd.Next(1, 1000);
                 } while (db.Profiles.SingleOrDefault(p => p.Id == newID) != null);
 
+
+                var currentfolder = AppDomain.CurrentDomain.BaseDirectory;
+                string url = currentfolder + "Images\\Profile\\";
+
+                var tailFile = Profile.Avatar.Substring(Profile.Avatar.LastIndexOf("."));
+                var newFileNameAvt = string.Format(@"{0}{1}", Guid.NewGuid(), tailFile);
+                var newPathAvt = url + newFileNameAvt;
+                File.Copy(Profile.Avatar, newPathAvt);
+
                 var NewProfile = new Profile
                 {
                     Name = Profile.Name,
                     Email = User.Email,
                     Id = newID,
-                    Avatar = Profile.Avatar,
+                    Avatar = newFileNameAvt,
                     Status = Profile.Status,
                 };
 
@@ -381,7 +395,7 @@ namespace Manager_Medias.ViewModels.Admin
                     Email = User.Email,
                     NumberCard = User.NumberCard,
                     Level = User.Level,
-                    Exp = "0/20",
+                    Exp = "",
                     Password = passWord,
                     roleId = Role.Id,
                     CreateAt = DateTime.Now
@@ -390,7 +404,18 @@ namespace Manager_Medias.ViewModels.Admin
                 db.Users.Add(NewUser);
                 int count = db.SaveChanges();
 
-                UserList.AddNewItem(NewUser);
+                UserCustomModel newU = new UserCustomModel
+                {
+                    Email = User.Email,
+                    NumberCard = User.NumberCard,
+                    Level = User.Level,
+                    Exp = "",
+                    Password = passWord,
+                    roleId = Role.Id,
+                    CreateAt = DateTime.Now
+                };
+
+                UserList.AddNewItem(newU);
 
                 var rd = new Random();
                 int newID;
@@ -399,12 +424,20 @@ namespace Manager_Medias.ViewModels.Admin
                     newID = rd.Next(1, 1000);
                 } while (db.Profiles.SingleOrDefault(p => p.Id == newID) != null);
 
+                var currentfolder = AppDomain.CurrentDomain.BaseDirectory;
+                string url = currentfolder + "Images\\Profile\\";
+
+                var tailFile = Profile.Avatar.Substring(Profile.Avatar.LastIndexOf("."));
+                var newFileNameAvt = string.Format(@"{0}{1}", Guid.NewGuid(), tailFile);
+                var newPathAvt = url + newFileNameAvt;
+                File.Copy(Profile.Avatar, newPathAvt);
+
                 var NewProfile = new Profile
                 {
                     Name = Profile.Name,
                     Email = User.Email,
                     Id = newID,
-                    Avatar = Profile.Avatar,
+                    Avatar = newFileNameAvt,
                     Status = 1,
                 };
 

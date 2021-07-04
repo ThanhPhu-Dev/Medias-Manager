@@ -107,7 +107,21 @@ namespace Manager_Medias.CustomModels
                 onPropertyChanged();
             }
         }
-        //private Nullable<System.DateTime> CreateAt;
+
+
+        private Nullable<System.DateTime> _CreateAt;
+        public Nullable<System.DateTime> CreateAt
+        {
+            get => _CreateAt;
+            set
+            {
+                if (_CreateAt != value)
+                {
+                    _CreateAt = value;
+                }
+                onPropertyChanged();
+            }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
         void onPropertyChanged([CallerMemberName] string propertyName = "")

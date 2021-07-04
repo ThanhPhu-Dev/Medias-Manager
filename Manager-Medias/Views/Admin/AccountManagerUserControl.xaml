@@ -648,14 +648,14 @@
                                                 </Binding>
                                             </TextBox.Text>
                                         </TextBox>
-                                        <TextBox Tag="Exp: "
+                                        <TextBox Tag="Ngày tạo: "
                                                  Style="{DynamicResource TxtStyleValidation}" 
                                                  Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="4">
                                             <TextBox.Text>
-                                                <Binding Path="Exp"
+                                                <Binding Path="CreateAt"
                                                          UpdateSourceTrigger="PropertyChanged" >
                                                     <Binding.ValidationRules>
-                                                        <rules:AccountManagementRules property="Code"/>
+                                                      
                                                     </Binding.ValidationRules>
                                                 </Binding>
                                             </TextBox.Text>

@@ -118,6 +118,8 @@ namespace Manager_Medias.Views.Admin
             {
                 addUserPanel.Collapse();
             }
+
+            cbProfile.SelectedIndex = -1;
         }
 
         private void OpenDialogChooseImg(int where)
@@ -133,13 +135,13 @@ namespace Manager_Medias.Views.Admin
                 if (where == 1)
                 {
                     imgAvatarAdd.Source = Image;
-                    txtavatar.Text = filename.Substring(filename.LastIndexOf("\\") + 1);
+                    txtavatar.Text = filename;
                 }    
                     
                 else
                 {
                     imgAvatar.Visibility = Visibility.Visible;
-                    txtavatar2.Text = filename.Substring(filename.LastIndexOf("\\") + 1);
+                    txtavatar2.Text = filename;
                 }    
             }
         }

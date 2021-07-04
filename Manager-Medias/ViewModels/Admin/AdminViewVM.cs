@@ -284,9 +284,24 @@ namespace Manager_Medias.ViewModels.Admin
             {
                 var ProfileUpdate = db.Profiles.FirstOrDefault(p => p.Id == Profile.Id);
                 ProfileUpdate.Name = Profile.Name;
-                ProfileUpdate.Avatar = Profile.Avatar;
                 ProfileUpdate.Status = Profile.Status;
+                if (File.Exists(Profile.Avatar))
+                {
+                    var currentfolder = AppDomain.CurrentDomain.BaseDirectory;
+                    string url = currentfolder + "Images\\Profile\\";
 
+                    var tailFile = Profile.Avatar.Substring(Profile.Avatar.LastIndexOf("."));
+                    var newFileNameAvt = string.Format(@"{0}{1}", Guid.NewGuid(), tailFile);
+                    var newPathAvt = url + newFileNameAvt;
+                    File.Copy(Profile.Avatar, newPathAvt);
+
+                    ProfileUpdate.Avatar = newFileNameAvt;
+                }
+                else
+                {
+                    ProfileUpdate.Avatar = Profile.Avatar;
+                }
+               
                 if (db.SaveChanges() > 0)
                 {
                     MessageBox.Show("Cập nhật hồ sơ thành công");
@@ -343,14 +358,18 @@ namespace Manager_Medias.ViewModels.Admin
                     newID = rd.Next(1, 1000);
                 } while (db.Profiles.SingleOrDefault(p => p.Id == newID) != null);
 
+                string newFileNameAvt = Profile.Avatar;
+                if (File.Exists(Profile.Avatar))
+                {
+                    var currentfolder = AppDomain.CurrentDomain.BaseDirectory;
+                    string url = currentfolder + "Images\\Profile\\";
 
-                var currentfolder = AppDomain.CurrentDomain.BaseDirectory;
-                string url = currentfolder + "Images\\Profile\\";
-
-                var tailFile = Profile.Avatar.Substring(Profile.Avatar.LastIndexOf("."));
-                var newFileNameAvt = string.Format(@"{0}{1}", Guid.NewGuid(), tailFile);
-                var newPathAvt = url + newFileNameAvt;
-                File.Copy(Profile.Avatar, newPathAvt);
+                    var tailFile = Profile.Avatar.Substring(Profile.Avatar.LastIndexOf("."));
+                    newFileNameAvt = string.Format(@"{0}{1}", Guid.NewGuid(), tailFile);
+                    var newPathAvt = url + newFileNameAvt;
+                    File.Copy(Profile.Avatar, newPathAvt);
+                }
+                
 
                 var NewProfile = new Profile
                 {
@@ -424,13 +443,17 @@ namespace Manager_Medias.ViewModels.Admin
                     newID = rd.Next(1, 1000);
                 } while (db.Profiles.SingleOrDefault(p => p.Id == newID) != null);
 
-                var currentfolder = AppDomain.CurrentDomain.BaseDirectory;
-                string url = currentfolder + "Images\\Profile\\";
+                string newFileNameAvt = Profile.Avatar;
+                if (File.Exists(Profile.Avatar))
+                {
+                    var currentfolder = AppDomain.CurrentDomain.BaseDirectory;
+                    string url = currentfolder + "Images\\Profile\\";
 
-                var tailFile = Profile.Avatar.Substring(Profile.Avatar.LastIndexOf("."));
-                var newFileNameAvt = string.Format(@"{0}{1}", Guid.NewGuid(), tailFile);
-                var newPathAvt = url + newFileNameAvt;
-                File.Copy(Profile.Avatar, newPathAvt);
+                    var tailFile = Profile.Avatar.Substring(Profile.Avatar.LastIndexOf("."));
+                    newFileNameAvt = string.Format(@"{0}{1}", Guid.NewGuid(), tailFile);
+                    var newPathAvt = url + newFileNameAvt;
+                    File.Copy(Profile.Avatar, newPathAvt);
+                }
 
                 var NewProfile = new Profile
                 {

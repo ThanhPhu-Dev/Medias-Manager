@@ -241,6 +241,7 @@ update Movies set CreateAt = '2021-08-05' where Id % 3 = 2
 
 insert into View_History  values (1, 20, '2021-05-03', 21)
 
+update Movies set Season = 1 
 --insert roles
 insert into Roles(Name) values ('User'),('Admin')
 --insert cấp độ

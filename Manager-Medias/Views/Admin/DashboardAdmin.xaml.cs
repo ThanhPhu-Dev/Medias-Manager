@@ -19,6 +19,7 @@ using System.Windows.Controls.Primitives;
 using Microsoft.Win32;
 using Manager_Medias.Models;
 using System.Threading;
+using Manager_Medias.Views.Home;
 
 namespace Manager_Medias.Views.Admin
 {
@@ -38,9 +39,10 @@ namespace Manager_Medias.Views.Admin
 
         private void ButtonCloseApp_Click(object sender, RoutedEventArgs e)
         {
-            Application.Current.Shutdown();
+            this.Close();
+            var mainw = new MainWindow();
+            mainw.Show();
         }
-
         private void GridTop_MouseDown(object sender, MouseButtonEventArgs e)
         {
             try

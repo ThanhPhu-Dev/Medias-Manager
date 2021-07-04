@@ -691,8 +691,9 @@ namespace Manager_Medias.ViewModels.Admin
             nodes = document.DocumentNode.SelectNodes("//li[contains(@class, 'ipc-inline-list__item')]").ToArray();
             string duration = nodes[2].InnerText.ToString();
 
-            nodes = document.DocumentNode.SelectNodes("//a[contains(@class, 'ipc-metadata-list-item__list-content-item ipc-metadata-list-item__list-content-item--link')]").ToArray();
-            string quocgia = nodes[18].InnerText.ToString();
+            nodes = document.DocumentNode.SelectNodes("//li[contains(@data-testid, 'title-details-origin')]").ToArray();
+            var len = nodes.Length;
+            string quocgia = nodes[0].InnerText.ToString().Replace("Countries of origin", "");
 
             int age = 0;
             if (nhan == "R")
@@ -709,6 +710,11 @@ namespace Manager_Medias.ViewModels.Admin
             {
                 nhan += " (trên 9 tuổi)";
                 age = 10;
+            }
+            if (nhan == "C13")
+            {
+                nhan += " (trên 18 tuổi)";
+                age = 14;
             }
             if (nhan == "C18")
             {

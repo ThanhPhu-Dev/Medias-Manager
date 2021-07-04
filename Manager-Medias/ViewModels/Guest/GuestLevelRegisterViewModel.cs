@@ -59,7 +59,17 @@ namespace Manager_Medias.ViewModels.Guest
             using (var db = new MediasManangementEntities())
             {
                 var user = db.Users.Where(u => u.Email == _userCurrent.Email).Single() as User;
+                var level = db.Levels.Where(h => h.Id == LevelCurrent).Single() as Level;
+                Payment_History history = new Payment_History()
+                {
+                    DateOfPayment = DateTime.Now,
+                    Email = _userCurrent.Email,
+                    Note = "Đăng kí dịch vụ gói " + level.Name,
+                    Price = decimal.Parse(level.Price.ToString()),
+                };
+
                 user.Level = LevelCurrent;
+                db.Payment_History.Add(history);
 
                 if (db.SaveChanges() > 0)
                 {

@@ -84,6 +84,7 @@ namespace Manager_Medias.ViewModels.Customer
                         //cập nhật danh sách bài hát liên quan (chung danh mục) cho UI
                         CatMovieList = new ObservableCollection<Movie_Category>(
                            db.Movie_Categories.Include("Movies")
+                                               .Include("Movies.Movie_classifies")
                                                .Include("Movies.Media")
                                                .Include("Movies.Media.Level")
                                                .ToList());

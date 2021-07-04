@@ -647,7 +647,7 @@ namespace Manager_Medias.ViewModels.Admin
         {
             string movies = Movie.Name;
             double imdbRating = 0.0;
-            int imdbRatingCount = 0;
+            string imdbRatingCount = "";
             string query = String.Format("https://www.googleapis.com/customsearch/v1?key={0}&cx={1}&q={2}", GOOGLE_CUSTOM_SEARCH_KEY, GOOGLE_CUSTOM_CX_IMDB, movies);
             JObject response = JObject.Parse(new System.Net.WebClient().DownloadString(query));
 
@@ -666,32 +666,33 @@ namespace Manager_Medias.ViewModels.Admin
                 imdbLink = imdbLink.Substring(0, imdbLink.LastIndexOf("/"));
                 HtmlWeb web = new HtmlWeb();
                 document = web.Load(imdbLink);
-                node = document.DocumentNode.SelectNodes("//span[contains(@itemprop, 'ratingValue')]");
+                node = document.DocumentNode.SelectNodes("//span[contains(@class, 'AggregateRatingButton__RatingScore-sc-1ll29m0-1 iTLWoV')]");
             } while (node == null);
 
 
             HtmlNode[] nodes = node.ToArray();
             imdbRating = double.Parse(nodes[0].InnerHtml.ToString());
-            nodes = document.DocumentNode.SelectNodes("//span[contains(@itemprop, 'ratingCount')]").ToArray();
-            imdbRatingCount = int.Parse(nodes[0].InnerHtml.ToString().Replace(",", string.Empty));
-            nodes = document.DocumentNode.SelectNodes("//h1[@class]").ToArray();
-            string nameMovie = nodes[0].InnerText.ToString().Replace("&nbsp;", "\nNăm phát hành: ");
-            nodes = document.DocumentNode.SelectNodes("//div[contains(@class, 'credit_summary_item')]").ToArray();
+            nodes = document.DocumentNode.SelectNodes("//div[contains(@class, 'AggregateRatingButton__TotalRatingAmount-sc-1ll29m0-3 jkCVKJ')]").ToArray();
+            imdbRatingCount = nodes[0].InnerHtml.ToString();
+
+            nodes = document.DocumentNode.SelectNodes("//h1[contains(@data-testid, 'hero-title-block__title')]").ToArray();
+            string nameMovie = nodes[0].InnerText.ToString();
+
+            nodes = document.DocumentNode.SelectNodes("//span[contains(@class, 'TitleBlockMetaData__ListItemText-sc-12ein40-2 jedhex')]").ToArray();
+            string namPhatHanh = nodes[0].InnerText.ToString();
+
+            nodes = document.DocumentNode.SelectNodes("//a[contains(@class, 'ipc-metadata-list-item__list-content-item ipc-metadata-list-item__list-content-item--link')]").ToArray();
             string directorName = nodes[0].InnerText.ToString();
-            directorName = directorName.Substring(directorName.LastIndexOf("\n") + 1).Replace("    ", "");
-            nodes = document.DocumentNode.SelectNodes("//div[contains(@class, 'subtext')]").ToArray();
-            string info = nodes[0].InnerText.ToString().Replace(" ", "").Replace("\n", "");
-            string nhan = info.Substring(0, info.IndexOf("|"));
-            string duration = "";
-            if (info.Split('|').Length - 1 == 3)
-            {
-                duration = info.Substring(info.IndexOf("|") + 1, 7);
-            }
-            else
-            {
-                duration = nhan;
-                nhan = "Không có";
-            }
+
+
+            nodes = document.DocumentNode.SelectNodes("//a[contains(@class, 'ipc-link ipc-link--baseAlt ipc-link--inherit-color TitleBlockMetaData__StyledTextLink-sc-12ein40-1 rgaOW')]").ToArray();
+            string nhan = nodes[1].InnerText.ToString();
+
+            nodes = document.DocumentNode.SelectNodes("//li[contains(@class, 'ipc-inline-list__item')]").ToArray();
+            string duration = nodes[2].InnerText.ToString();
+
+            nodes = document.DocumentNode.SelectNodes("//a[contains(@class, 'ipc-metadata-list-item__list-content-item ipc-metadata-list-item__list-content-item--link')]").ToArray();
+            string quocgia = nodes[18].InnerText.ToString();
 
             int age = 0;
             if (nhan == "R")
@@ -715,7 +716,7 @@ namespace Manager_Medias.ViewModels.Admin
                 age = 19;
             }
             //Placing the result in the rating text box
-            var result = MessageBox.Show("Phim: " + nameMovie + "\nĐạo diễn: "+ directorName + "\nĐiểm IMDB: " + imdbRating + "\nTổng số đánh giá: " + imdbRatingCount + "\nNhãn: " + nhan + "\nThời lượng: "+ duration + "\nXác nhận cập nhật các thông tin trên ?", "Xác nhận phim", 
+            var result = MessageBox.Show("Phim: " + nameMovie + "\nNăm phát hành: " + namPhatHanh + "\nĐạo diễn: "+ directorName + "\nQuốc gia: " + quocgia + "\nĐiểm IMDB: " + imdbRating + "\nTổng số đánh giá: " + imdbRatingCount + "\nNhãn: " + nhan + "\nThời lượng: "+ duration + "\nXác nhận cập nhật các thông tin trên ?", "Xác nhận phim", 
                                         MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             if (result == MessageBoxResult.Yes)
@@ -725,7 +726,7 @@ namespace Manager_Medias.ViewModels.Admin
                 Movie.Directors = directorName;
                 Movie.IMDB = imdbRating;
                 Movie.Time = duration;
-
+                Movie.Nation = quocgia;
             }
         }
 

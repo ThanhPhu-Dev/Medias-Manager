@@ -43,7 +43,15 @@ namespace Manager_Medias.Views.Admin
 
         private void GridTop_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            DragMove();
+            try
+            {
+                DragMove();
+            }
+            catch
+            {
+
+            }
+           
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

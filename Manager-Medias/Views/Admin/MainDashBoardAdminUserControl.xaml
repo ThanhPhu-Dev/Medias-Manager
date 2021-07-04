@@ -116,7 +116,7 @@
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Margin="20">
                             <materialDesign:PackIcon Kind="Account" Foreground="Gray" Width="18" Height="18" VerticalAlignment="Center" Margin="5 0"/>
-                            <TextBlock Text="Số hồ sơ đăng hoạt động: " FontSize="10" Padding="0 2 0 0"
+                            <TextBlock Text="Số hồ sơ đang hoạt động: " FontSize="10" Padding="0 2 0 0"
                                            Foreground="Gray"/>
                             <TextBlock Text="{ Binding profileCount}" FontSize="10" Padding="0 2 0 0"
                                        Foreground="OrangeRed"/>

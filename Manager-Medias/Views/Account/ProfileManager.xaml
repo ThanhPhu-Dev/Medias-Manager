@@ -7,18 +7,27 @@
              xmlns:local="clr-namespace:Manager_Medias.Views.Account"
              xmlns:cv="clr-namespace:Manager_Medias.Converters"
              mc:Ignorable="d"
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450"
+             d:DesignWidth="800">
     <UserControl.Resources>
         <!--STYLE-->
-        <Style x:Key="ButtonProfileItem" TargetType="{x:Type Button}"
+        <Style x:Key="ButtonProfileItem"
+               TargetType="{x:Type Button}"
                BasedOn="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
-            <Setter Property="Background" Value="Transparent" />
-            <Setter Property="Height" Value="120" />
-            <Setter Property="Width" Value="120" />
-            <Setter Property="BorderBrush" Value="#FFCDCDCD" />
-            <Setter Property="BorderThickness" Value="0.2" />
-            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Background"
+                    Value="Transparent" />
+            <Setter Property="Height"
+                    Value="120" />
+            <Setter Property="Width"
+                    Value="120" />
+            <Setter Property="BorderBrush"
+                    Value="#FFCDCDCD" />
+            <Setter Property="BorderThickness"
+                    Value="0.2" />
+            <Setter Property="HorizontalContentAlignment"
+                    Value="Stretch" />
+            <Setter Property="Cursor"
+                    Value="Hand" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -28,13 +37,18 @@
             </Setter>
         </Style>
 
-        <Style x:Key="ButtonLogin" TargetType="{x:Type Button}"
+        <Style x:Key="ButtonLogin"
+               TargetType="{x:Type Button}"
                BasedOn="{StaticResource MaterialDesignRaisedLightButton}">
-            <Setter Property="Background" Value="{DynamicResource SecondaryAccentBrush}" />
-            <Setter Property="Foreground" Value="#000" />
+            <Setter Property="Background"
+                    Value="{DynamicResource SecondaryAccentBrush}" />
+            <Setter Property="Foreground"
+                    Value="#000" />
             <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#D4FEBB00" />
+                <Trigger Property="IsMouseOver"
+                         Value="True">
+                    <Setter Property="Background"
+                            Value="#D4FEBB00" />
                 </Trigger>
             </Style.Triggers>
         </Style>
@@ -60,10 +74,15 @@
         <cv:ProfileLoginEnableConverter x:Key="PrStatusCvt" />
     </UserControl.Resources>
 
-    <Border Background="#000" Margin="20 30" CornerRadius="3">
+    <Border Background="#000"
+            Margin="20 30"
+            CornerRadius="3">
         <StackPanel Margin="60 30">
             <DockPanel>
-                <Label DockPanel.Dock="Left" Content="Quản lý các hồ sơ của bạn" Foreground="#fff" FontSize="22" />
+                <Label DockPanel.Dock="Left"
+                       Content="Quản lý các hồ sơ của bạn"
+                       Foreground="#fff"
+                       FontSize="22" />
                 <Button x:Name="btnOpenModal"
                         DockPanel.Dock="Right"
                         Background="#febb00"
@@ -75,30 +94,48 @@
                         Height="40"
                         Command="{Binding OpenNewModal}">
                     <DockPanel LastChildFill="True"
-                                HorizontalAlignment="Stretch">
-                        <materialDesign:PackIcon DockPanel.Dock="Left" Kind="Plus" VerticalAlignment="Center" VerticalContentAlignment="Center" Foreground="#000" />
-                        <Label DockPanel.Dock="Right" Content="Tạo mới" VerticalAlignment="Center" VerticalContentAlignment="Center"
+                               HorizontalAlignment="Stretch">
+                        <materialDesign:PackIcon DockPanel.Dock="Left"
+                                                 Kind="Plus"
+                                                 VerticalAlignment="Center"
+                                                 VerticalContentAlignment="Center"
+                                                 Foreground="#000" />
+                        <Label DockPanel.Dock="Right"
+                               Content="Tạo mới"
+                               VerticalAlignment="Center"
+                               VerticalContentAlignment="Center"
                                Margin="0 0 0 2"
                                Foreground="#000" />
                     </DockPanel>
                 </Button>
             </DockPanel>
             <Canvas Panel.ZIndex="100">
-                <Border x:Name="ModalNewProfile" Width="550" Height="340"
-                        CornerRadius="3" ClipToBounds="True"
+                <Border x:Name="ModalNewProfile"
+                        Width="550"
+                        Height="340"
+                        CornerRadius="3"
+                        ClipToBounds="True"
                         Background="#FF303030"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         Canvas.Left="114"
                         Canvas.Top="4">
-                    <Grid Width="{Binding ActualWidth, ElementName=ModalNewProfile}" Height="{Binding ActualHeight, ElementName=ModalNewProfile}">
-                        <StackPanel HorizontalAlignment="Center" Margin="0 20 0 0">
-                            <Label Content="TẠO HỒ SƠ MỚI" Foreground="White" FontSize="32"
-                                       FontWeight="DemiBold" HorizontalContentAlignment="Center"
-                                       Margin="0 12 0 0" />
-                            <Label Content="Tạo hồ sơ cho người dùng mới cùng xem phim" Foreground="#FFCFCFCF"
-                                       FontWeight="ExtraLight" HorizontalContentAlignment="Center" />
-                            <DockPanel LastChildFill="True" Margin="0 16 0 0">
+                    <Grid Width="{Binding ActualWidth, ElementName=ModalNewProfile}"
+                          Height="{Binding ActualHeight, ElementName=ModalNewProfile}">
+                        <StackPanel HorizontalAlignment="Center"
+                                    Margin="0 20 0 0">
+                            <Label Content="TẠO HỒ SƠ MỚI"
+                                   Foreground="White"
+                                   FontSize="32"
+                                   FontWeight="DemiBold"
+                                   HorizontalContentAlignment="Center"
+                                   Margin="0 12 0 0" />
+                            <Label Content="Tạo hồ sơ cho người dùng mới cùng xem phim"
+                                   Foreground="#FFCFCFCF"
+                                   FontWeight="ExtraLight"
+                                   HorizontalContentAlignment="Center" />
+                            <DockPanel LastChildFill="True"
+                                       Margin="0 16 0 0">
                                 <Button  DockPanel.Dock="Left"
                                          Margin="0 0 16 0"
                                          BorderBrush="#FFCDCDCD"
@@ -109,9 +146,10 @@
                                          Background="#FFD4D4D4"
                                          Command="{Binding OpenNewFileDialogCmd}">
                                     <Image Source="{Binding PathAvatarFile, Converter={StaticResource pathAbsolute}}"
-                                            Width="74" Height="74"
-                                            Stretch="UniformToFill"
-                                            Cursor="Hand" />
+                                           Width="74"
+                                           Height="74"
+                                           Stretch="UniformToFill"
+                                           Cursor="Hand" />
                                 </Button>
                                 <TextBox materialDesign:HintAssist.Foreground="#fff"
                                          materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
@@ -163,32 +201,45 @@
                     </Grid>
                     <Border.Style>
                         <Style TargetType="{x:Type Border}">
-                            <Setter Property="Visibility" Value="Collapsed" />
+                            <Setter Property="Visibility"
+                                    Value="Collapsed" />
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding IsNewModalOpen}" Value="false">
-                                    <Setter Property="Visibility" Value="Collapsed" />
+                                <DataTrigger Binding="{Binding IsNewModalOpen}"
+                                             Value="false">
+                                    <Setter Property="Visibility"
+                                            Value="Collapsed" />
                                 </DataTrigger>
-                                <DataTrigger Binding="{Binding IsNewModalOpen}" Value="true">
-                                    <Setter Property="Visibility" Value="Visible" />
+                                <DataTrigger Binding="{Binding IsNewModalOpen}"
+                                             Value="true">
+                                    <Setter Property="Visibility"
+                                            Value="Visible" />
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
                     </Border.Style>
                 </Border>
                 <Border x:Name="ModalEditProfile"
-                        Width="550" Height="340"
-                        CornerRadius="3" ClipToBounds="True"
+                        Width="550"
+                        Height="340"
+                        CornerRadius="3"
+                        ClipToBounds="True"
                         Background="#FF303030"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         Canvas.Left="114"
                         Canvas.Bottom="-320">
-                    <Grid Width="{Binding ActualWidth, ElementName=ModalEditProfile}" Height="{Binding ActualHeight, ElementName=ModalEditProfile}">
-                        <StackPanel HorizontalAlignment="Center" Margin="0 20 0 0">
-                            <Label Content="CHỈNH SỬA HỒ SƠ" Foreground="White" FontSize="32"
-                                       FontWeight="DemiBold" HorizontalContentAlignment="Center"
-                                       Margin="0 12 0 0" />
-                            <DockPanel LastChildFill="True" Margin="0 16 0 0">
+                    <Grid Width="{Binding ActualWidth, ElementName=ModalEditProfile}"
+                          Height="{Binding ActualHeight, ElementName=ModalEditProfile}">
+                        <StackPanel HorizontalAlignment="Center"
+                                    Margin="0 20 0 0">
+                            <Label Content="CHỈNH SỬA HỒ SƠ"
+                                   Foreground="White"
+                                   FontSize="32"
+                                   FontWeight="DemiBold"
+                                   HorizontalContentAlignment="Center"
+                                   Margin="0 12 0 0" />
+                            <DockPanel LastChildFill="True"
+                                       Margin="0 16 0 0">
                                 <Button  DockPanel.Dock="Left"
                                          Margin="0 0 16 0"
                                          BorderBrush="#FFCDCDCD"
@@ -200,9 +251,10 @@
                                          Command="{Binding OpenEditFileDialogCmd}">
                                     <Image Source="{Binding PathAvatarFile, Converter={StaticResource pathAbsolute},
                                         UpdateSourceTrigger=PropertyChanged}"
-                                            Width="74" Height="74"
-                                            Stretch="UniformToFill"
-                                            Cursor="Hand" />
+                                           Width="74"
+                                           Height="74"
+                                           Stretch="UniformToFill"
+                                           Cursor="Hand" />
                                 </Button>
                                 <TextBox materialDesign:HintAssist.Foreground="#fff"
                                          materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
@@ -254,20 +306,27 @@
                     </Grid>
                     <Border.Style>
                         <Style TargetType="{x:Type Border}">
-                            <Setter Property="Visibility" Value="Collapsed" />
+                            <Setter Property="Visibility"
+                                    Value="Collapsed" />
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding IsEditModalOpen}" Value="false">
-                                    <Setter Property="Visibility" Value="Collapsed" />
+                                <DataTrigger Binding="{Binding IsEditModalOpen}"
+                                             Value="false">
+                                    <Setter Property="Visibility"
+                                            Value="Collapsed" />
                                 </DataTrigger>
-                                <DataTrigger Binding="{Binding IsEditModalOpen}" Value="true">
-                                    <Setter Property="Visibility" Value="Visible" />
+                                <DataTrigger Binding="{Binding IsEditModalOpen}"
+                                             Value="true">
+                                    <Setter Property="Visibility"
+                                            Value="Visible" />
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
                     </Border.Style>
                 </Border>
             </Canvas>
-            <ListView Margin="0 20 0 0" Panel.ZIndex="1" ItemsSource="{Binding Profiles}">
+            <ListView Margin="0 20 0 0"
+                      Panel.ZIndex="1"
+                      ItemsSource="{Binding Profiles}">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <UniformGrid Columns="4">
@@ -276,55 +335,66 @@
                 </ListView.ItemsPanel>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Margin="16" HorizontalAlignment="Center">
+                        <StackPanel Margin="16"
+                                    HorizontalAlignment="Center">
                             <Button Style="{StaticResource ButtonProfileItem}"
-                                    Name="btnOpenEditModal" ToolTip="Chỉnh sửa"
+                                    Name="btnOpenEditModal"
+                                    ToolTip="Chỉnh sửa"
                                     Tag="{Binding Id}"
-                                     Command="{Binding DataContext.SelectedProfileCmd,
+                                    Command="{Binding DataContext.SelectedProfileCmd,
                                     RelativeSource={RelativeSource Mode=FindAncestor,
                                                                AncestorType={x:Type ItemsControl}}}"
                                     CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}">
                                 <Grid HorizontalAlignment="Stretch">
                                     <Image Source="{Binding Avatar, Converter={StaticResource pathAbsolute}}"
-                                        Stretch="UniformToFill"
-                                        VerticalAlignment="Stretch"
-                                        HorizontalAlignment="Stretch"
-                                        Cursor="Hand">
+                                           Stretch="UniformToFill"
+                                           VerticalAlignment="Stretch"
+                                           HorizontalAlignment="Stretch"
+                                           Cursor="Hand">
                                     </Image>
-                                    <Grid Background="#E1000000" x:Name="EditGrid" Opacity="0">
-                                        <materialDesign:PackIcon
-                                    Kind="Pencil" Foreground="{DynamicResource SecondaryAccentBrush}"
-                                    HorizontalAlignment="Center" VerticalAlignment="Center"
-                                    HorizontalContentAlignment="Center"
-                                    VerticalContentAlignment="Center"
-                                    Width="24"
-                                    Height="24" />
+                                    <Grid Background="#E1000000"
+                                          x:Name="EditGrid"
+                                          Opacity="0">
+                                        <materialDesign:PackIcon Kind="Pencil"
+                                                                 Foreground="{DynamicResource SecondaryAccentBrush}"
+                                                                 HorizontalAlignment="Center"
+                                                                 VerticalAlignment="Center"
+                                                                 HorizontalContentAlignment="Center"
+                                                                 VerticalContentAlignment="Center"
+                                                                 Width="24"
+                                                                 Height="24" />
                                     </Grid>
                                 </Grid>
                                 <Button.Triggers>
-                                    <EventTrigger RoutedEvent="MouseEnter" SourceName="btnOpenEditModal">
+                                    <EventTrigger RoutedEvent="MouseEnter"
+                                                  SourceName="btnOpenEditModal">
                                         <BeginStoryboard>
                                             <Storyboard>
                                                 <DoubleAnimation Storyboard.TargetName="EditGrid"
-                                                                     Storyboard.TargetProperty="Opacity"
-                                                                     From="0" To="1"
-                                                                     Duration="0:0:0.15" />
+                                                                 Storyboard.TargetProperty="Opacity"
+                                                                 From="0"
+                                                                 To="1"
+                                                                 Duration="0:0:0.15" />
                                             </Storyboard>
                                         </BeginStoryboard>
                                     </EventTrigger>
-                                    <EventTrigger RoutedEvent="MouseLeave" SourceName="btnOpenEditModal">
+                                    <EventTrigger RoutedEvent="MouseLeave"
+                                                  SourceName="btnOpenEditModal">
                                         <BeginStoryboard>
                                             <Storyboard>
                                                 <DoubleAnimation Storyboard.TargetName="EditGrid"
-                                                                     Storyboard.TargetProperty="Opacity"
-                                                                     From="1" To="0"
-                                                                     Duration="0:0:0.15" />
+                                                                 Storyboard.TargetProperty="Opacity"
+                                                                 From="1"
+                                                                 To="0"
+                                                                 Duration="0:0:0.15" />
                                             </Storyboard>
                                         </BeginStoryboard>
                                     </EventTrigger>
                                 </Button.Triggers>
                             </Button>
-                            <Label Content="{Binding Name}" Foreground="#fff" Margin="0 12 0 0" />
+                            <Label Content="{Binding Name}"
+                                   Foreground="#fff"
+                                   Margin="0 12 0 0" />
                             <Button Margin="0 8 0 0"
                                     Height="32"
                                     Content="Đăng nhập"

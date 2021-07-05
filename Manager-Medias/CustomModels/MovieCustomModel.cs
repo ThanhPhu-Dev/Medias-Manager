@@ -65,7 +65,20 @@ namespace Manager_Medias.CustomModels
                 }
             }
         }
+        private Nullable<int> _IdClassifiles;
+        public Nullable<int> IdClassifiles
+        {
+            get => (int)_IdClassifiles;
+            set
+            {
+                if (_IdClassifiles != value)
+                {
+                    _IdClassifiles = value;
 
+                }
+                onPropertyChanged();
+            }
+        }
         private Nullable<double> _IMDB;
         public double IMDB
         {

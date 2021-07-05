@@ -230,6 +230,10 @@ namespace Manager_Medias.Views.Admin
                     cv.Filter = o =>
                     {
                         UserCustomModel p = o as UserCustomModel;
+                        if(filterRole == 3 && filterLevel == 0)
+                        {
+                            return (p.Email.ToUpper().Contains(filter.ToUpper()));
+                        }
                         if (filterLevel == 0)
                         {
                             return (p.roleId == filterRole) && (p.Email.ToUpper().Contains(filter.ToUpper()));
@@ -246,6 +250,10 @@ namespace Manager_Medias.Views.Admin
                     cv.Filter = o =>
                     {
                         UserCustomModel p = o as UserCustomModel;
+                        if (filterRole == 3 && filterLevel == 0)
+                        {
+                            return (p.NumberCard.ToUpper().Contains(filter.ToUpper()));
+                        }
                         if (filterLevel == 0)
                         {
                             return (p.roleId == filterRole) && (p.NumberCard.ToUpper().Contains(filter.ToUpper()));

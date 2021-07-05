@@ -530,7 +530,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Grid Grid.Column="0"  Name="filterPanel">
-                            <Border BorderThickness="1" Height="400"
+                            <Border BorderThickness="1" Height="450"
                                     VerticalAlignment="Top"
                                     BorderBrush="Wheat" Margin="10 43 10 0"
                                     CornerRadius="2">
@@ -547,7 +547,7 @@
 
                                     <StackPanel Orientation="Horizontal">
                                         <ComboBox Margin="10,10,10,0" DisplayMemberPath="Name"
-                                              Name="cbCat" ItemsSource="{Binding CategoryList, Mode=OneWay}"
+                                              Name="cbCat" ItemsSource="{Binding ListCatFilter, Mode=OneWay}"
                                               SelectedIndex="0" VerticalAlignment="Center" SelectedValuePath="Id" Width="145"/>
                                         <materialDesign:PackIcon Kind="Clear" HorizontalAlignment="Center"
                                                                  Foreground="OrangeRed"
@@ -556,7 +556,23 @@
                                                                  VerticalAlignment="Center"/>
 
                                     </StackPanel>
-                                    
+
+                                    <TextBlock FontSize="16" 
+                                               Margin="10 20 10 0"
+                                               FontWeight="Bold" Text="Phân loại:"/>
+
+                                    <StackPanel Orientation="Horizontal">
+                                        <ComboBox Margin="10,10,10,0" DisplayMemberPath="Name"
+                                              Name="cbclassi" ItemsSource="{Binding ListClassFilter, Mode=OneWay}"
+                                              SelectedIndex="0" VerticalAlignment="Center" SelectedValuePath="Id" Width="145"/>
+                                        <materialDesign:PackIcon Kind="Clear" HorizontalAlignment="Center"
+                                                                 Foreground="OrangeRed"
+                                                                 Margin="0 15 0 0" Name="clearClassi"
+                                                                 Cursor="Hand" MouseLeftButtonDown="clearClassi_MouseLeftButtonDown"
+                                                                 VerticalAlignment="Center"/>
+
+                                    </StackPanel>
+
 
                                     <StackPanel Margin="10 20 10 10" Name="imdbPanel">
                                         <Label FontWeight="Bold"
@@ -643,6 +659,8 @@
                                                            Text="{Binding Name}" Width="180" TextWrapping="Wrap"/>
                                                 <TextBlock Visibility="Collapsed" x:Name="txtbCatMovie"
                                                            Text="{Binding IdCategory}"/>
+                                                <TextBlock Visibility="Collapsed" x:Name="txtbclassMovie"
+                                                           Text="{Binding IdClassifiles}"/>
                                             </StackPanel>
                                         </StackPanel>
                                         
@@ -776,7 +794,7 @@
                                                 <RowDefinition Height="Auto" />
                                                 <RowDefinition Height="Auto" />
                                                 <RowDefinition Height="Auto" />
-
+                                                <RowDefinition Height="Auto" />
                                                 <RowDefinition Height="Auto" />
                                             </Grid.RowDefinitions>
 
@@ -939,8 +957,25 @@
                                                     </Binding>
                                                 </TextBox.Text>
                                             </TextBox>
+                                            <Border BorderBrush="Gray"
+                                                CornerRadius="2"
+                                                BorderThickness="1" Margin="0 8 0 0"
+                                                Grid.Row="9"
+                                                Background="White">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Border BorderBrush="Gray" BorderThickness="1" Width="75">
+                                                        <TextBlock Text="Phân loại:"
+                                                               Padding="5 3 0 0" FontWeight="Bold"/>
+                                                    </Border>
 
-                                            <Grid Grid.Row="9">
+                                                    <ComboBox Name="cbClass" ItemsSource="{Binding ClassList}" 
+                                                              DisplayMemberPath="Name" Padding="28 0 0 0"
+                                                              SelectedValuePath="Id"
+                                                              SelectedValue="{Binding Movie.IdClassifiles}"
+                                                              Margin="5 2 0 2" Width="190"/>
+                                                </StackPanel>
+                                            </Border>
+                                            <Grid Grid.Row="10">
                                                 <StackPanel HorizontalAlignment="Right">
                                                     <StackPanel Orientation="Horizontal"
                                                             Margin="0 20 0 10">

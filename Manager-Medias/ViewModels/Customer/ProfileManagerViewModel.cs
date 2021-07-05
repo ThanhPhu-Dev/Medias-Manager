@@ -253,11 +253,23 @@ namespace Manager_Medias.ViewModels.Customer
                 File.Copy(PathAvatarFile, imagePath);
                 PathAvatarFile = $"{uniqueFileName}{fileExtension}";
             }
+            using (var db = new MediasManangementEntities())
+            {
+                var profile = db.Profiles.Single(p => p.Id == SelectedProfileId);
+                profile.Name = InputProfileName;
+                profile.Avatar = PathAvatarFile;
 
-            _userStore.ProfileName = InputProfileName;
-            _userStore.PathAvatar = PathAvatarFile;
+                db.SaveChanges();
+            }
+
+            if (_userStore.CurrentProfile.Id == SelectedProfileId)
+            {
+                _userStore.ProfileName = InputProfileName;
+                _userStore.PathAvatar = PathAvatarFile;
+            }
 
             ResetBinding();
+            //LoadProfile();
         }
     }
 }

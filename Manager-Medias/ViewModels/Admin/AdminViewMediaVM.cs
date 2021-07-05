@@ -26,6 +26,7 @@ namespace Manager_Medias.ViewModels.Admin
         public static readonly DependencyProperty MovieProperty;
 
         public static readonly DependencyProperty CategoryListProperty;
+        public static readonly DependencyProperty ClassListProperty;
 
         public static readonly DependencyProperty UserLevelListProperty;
         public static readonly DependencyProperty UserLevelProperty;
@@ -55,6 +56,9 @@ namespace Manager_Medias.ViewModels.Admin
 
 
             CategoryListProperty = DependencyProperty.Register("CategoryList",
+                               typeof(ListCollectionView), typeof(AdminViewMediaVM));
+
+            ClassListProperty = DependencyProperty.Register("ClassList",
                                typeof(ListCollectionView), typeof(AdminViewMediaVM));
 
             UserLevelListProperty = DependencyProperty.Register("UserLevelList",
@@ -110,6 +114,11 @@ namespace Manager_Medias.ViewModels.Admin
             get => (ListCollectionView)GetValue(CategoryListProperty);
             set => SetValue(CategoryListProperty, value);
         }
+        public ListCollectionView ClassList
+        {
+            get => (ListCollectionView)GetValue(ClassListProperty);
+            set => SetValue(ClassListProperty, value);
+        }
 
         public ListCollectionView UserLevelList
         {
@@ -122,6 +131,10 @@ namespace Manager_Medias.ViewModels.Admin
             get => (Media)GetValue(UserLevelProperty);
             set => SetValue(UserLevelProperty, value);
         }
+
+        public ListCollectionView ListCatFilter { get; set; }
+        public ListCollectionView ListClassFilter { get; set; }
+
 
         int check = 0;
         public AdminViewMediaVM()
@@ -155,14 +168,19 @@ namespace Manager_Medias.ViewModels.Admin
                         IMDB = (double)m.IMDB,
                         NumberOfViews = (int)m.NumberOfViews,
                         Time = m.Time,
+                        IdClassifiles = m.IdClassifiles,
                     };
                     MovieCustomList.Add(movie);
                 }
                 MovieList = new ListCollectionView(MovieCustomList);
 
                 CategoryList = new ListCollectionView(db.Movie_Categories.ToList());
+                ClassList = new ListCollectionView(db.Movie_classify.ToList());
 
                 UserLevelList = new ListCollectionView(db.Levels.ToList());
+
+                ListCatFilter = new ListCollectionView(db.Movie_Categories.ToList());
+                ListClassFilter = new ListCollectionView(db.Movie_classify.ToList());
 
                 var getMovieNew = new ListCollectionView(db.Movies.OrderByDescending(x => x.CreateAt).Take(10).ToList());
                 BindingList<MovieCustomModel> MovieCustomListNew = new BindingList<MovieCustomModel>();
@@ -184,6 +202,7 @@ namespace Manager_Medias.ViewModels.Admin
                         IMDB = (double)m.IMDB,
                         NumberOfViews = (int)m.NumberOfViews,
                         Time = m.Time,
+                        IdClassifiles = m.IdClassifiles,
                     };
                     MovieCustomListNew.Add(movie);
                 }
@@ -210,6 +229,7 @@ namespace Manager_Medias.ViewModels.Admin
                         IMDB = (double)m.IMDB,
                         NumberOfViews = (int)m.NumberOfViews,
                         Time = m.Time,
+                        IdClassifiles = m.IdClassifiles,
                     };
                     MovieCustomListLike.Add(movie);
                 }
@@ -236,6 +256,7 @@ namespace Manager_Medias.ViewModels.Admin
                         IMDB = (double)m.IMDB,
                         NumberOfViews = (int)m.NumberOfViews,
                         Time = m.Time,
+                        IdClassifiles = m.IdClassifiles,
                     };
                     MovieCustomListView.Add(movie);
                 }
@@ -270,6 +291,7 @@ namespace Manager_Medias.ViewModels.Admin
                     IMDB = (double)MovieCurrent.IMDB,
                     NumberOfViews = (int)MovieCurrent.NumberOfViews,
                     Time = MovieCurrent.Time,
+                    IdClassifiles = MovieCurrent.IdClassifiles,
                 };
                
 
@@ -305,6 +327,7 @@ namespace Manager_Medias.ViewModels.Admin
                     IMDB = (double)MovieCurrent.IMDB,
                     NumberOfViews = (int)MovieCurrent.NumberOfViews,
                     Time = MovieCurrent.Time,
+                    IdClassifiles = MovieCurrent.IdClassifiles,
                 };
 
 
@@ -314,7 +337,7 @@ namespace Manager_Medias.ViewModels.Admin
                     Level = level;
                 }
 
-                check = 1;
+                check = 2;
             };
 
             MostLikeMovieList.CurrentChanged += (_, e) =>
@@ -339,6 +362,7 @@ namespace Manager_Medias.ViewModels.Admin
                     IMDB = (double)MovieCurrent.IMDB,
                     NumberOfViews = (int)MovieCurrent.NumberOfViews,
                     Time = MovieCurrent.Time,
+                    IdClassifiles = MovieCurrent.IdClassifiles,
                 };
 
 
@@ -348,7 +372,7 @@ namespace Manager_Medias.ViewModels.Admin
                     Level = level;
                 }
 
-                check = 1;
+                check = 3;
             };
 
             MostViewMovieList.CurrentChanged += (_, e) =>
@@ -373,6 +397,7 @@ namespace Manager_Medias.ViewModels.Admin
                     IMDB = (double)MovieCurrent.IMDB,
                     NumberOfViews = (int)MovieCurrent.NumberOfViews,
                     Time = MovieCurrent.Time,
+                    IdClassifiles = MovieCurrent.IdClassifiles,
                 };
 
 
@@ -382,7 +407,7 @@ namespace Manager_Medias.ViewModels.Admin
                     Level = level;
                 }
 
-                check = 1;
+                check = 4;
             };
 
 
@@ -425,30 +450,49 @@ namespace Manager_Medias.ViewModels.Admin
                         MovieList.CancelNew();
                         NewMovieList.CancelNew();
                     }
-                    var del = MovieList.CurrentItem as MovieCustomModel;
-                    if(del.Id != Movie.Id)
+
+                    MovieCustomModel del = MovieList.CurrentItem as MovieCustomModel;
+                    if (check == 2)
                     {
                         del = NewMovieList.CurrentItem as MovieCustomModel;
                     }
-                    if (del.Id != Movie.Id)
-                    {
-                        del = MostViewMovieList.CurrentItem as MovieCustomModel;
-                    }
-                    if (del.Id != Movie.Id)
+                    else if (check == 3)
                     {
                         del = MostLikeMovieList.CurrentItem as MovieCustomModel;
                     }
-
-                    MovieList.Remove(del);
-                    NewMovieList.Remove(del);
-                    MostViewMovieList.Remove(del);
-                    MostLikeMovieList.Remove(del);
-
+                    else if (check == 4)
+                    {
+                        del = MostViewMovieList.CurrentItem as MovieCustomModel;
+                    }
+                    deteleALL(del.Id);
                 }
                 else
                 {
                     MessageBox.Show("Xóa phim không thành công!");
                 }
+            }
+        }
+        private void deteleALL(int delId)
+        {
+            int index = IndexOfItem(MovieList, delId);
+            if (index > -1)
+            {
+                MovieList.RemoveAt(index);
+            }
+            index = IndexOfItem(NewMovieList, delId);
+            if (index > -1)
+            {
+                NewMovieList.RemoveAt(index);
+            }
+            index = IndexOfItem(MostLikeMovieList, delId);
+            if (index > -1)
+            {
+                MostLikeMovieList.RemoveAt(index);
+            }
+            index = IndexOfItem(MostViewMovieList, delId);
+            if (index > -1)
+            {
+                MostViewMovieList.RemoveAt(index);
             }
         }
         private void AddMovie(object obj)
@@ -499,12 +543,14 @@ namespace Manager_Medias.ViewModels.Admin
                 db.Medias.Add(newMedia);
 
                 var Cat = CategoryList.CurrentItem as Movie_Category;
+                var classi = ClassList.CurrentItem as Movie_classify;
                 var NewMovie = new Movie
                 {
                     Id = newID,
                     Name = Movie.Name,
                     Poster = newFileNamePoster,
                     IdCategory = Cat.Id,
+                    IdClassifiles = classi.Id,
                     Nation = Movie.Nation,
                     Age = Movie.Age,
                     Season = Movie.Season,
@@ -533,11 +579,25 @@ namespace Manager_Medias.ViewModels.Admin
             }
         }
 
+        public int IndexOfItem( ListCollectionView collectionView, int Id)
+        {
+            int result = 0;
 
+            foreach (MovieCustomModel i in collectionView)
+            {
+                if (i.Id == Id)
+                    return result;
+                result++;
+            }
+
+            return -1;
+        }
         private void UpdateMovie(object obj)
         {
             var cat = CategoryList.CurrentItem as Movie_Category;
+            var classi = ClassList.CurrentItem as Movie_classify;
             string name;
+            int Idphim = Movie.Id;
             using (var db = new MediasManangementEntities())
             {
 
@@ -549,6 +609,7 @@ namespace Manager_Medias.ViewModels.Admin
                 movieUpdate.Age = Movie.Age;
                 movieUpdate.Season = Movie.Season;
                 movieUpdate.IdCategory = cat.Id;
+                movieUpdate.IdClassifiles = classi.Id;
                 movieUpdate.IMDB = Movie.IMDB;
                 movieUpdate.Directors = Movie.Directors;
                 movieUpdate.Description = Movie.Description;
@@ -597,33 +658,7 @@ namespace Manager_Medias.ViewModels.Admin
                 {
                     MessageBox.Show("Cập nhật thành công");
 
-                    var MovieCur = MovieList.CurrentItem as MovieCustomModel;
-                    if(MovieCur.Name != name)
-                    {
-                        MovieCur = NewMovieList.CurrentItem as MovieCustomModel;
-                    }
-
-                    if (MovieCur.Name != name)
-                    {
-                        MovieCur = MostLikeMovieList.CurrentItem as MovieCustomModel;
-                    }
-
-                    if (MovieCur.Name != name)
-                    {
-                        MovieCur = MostViewMovieList.CurrentItem as MovieCustomModel;
-                    }
-
-                    MovieCur.Name = Movie.Name;
-                    MovieCur.Nation = Movie.Nation;
-                    MovieCur.Age = Movie.Age;
-                    MovieCur.Season = Movie.Season;
-                    MovieCur.IdCategory = cat.Id;
-                    MovieCur.IMDB = Movie.IMDB;
-                    MovieCur.Directors = Movie.Directors;
-                    MovieCur.Description = Movie.Description;
-                    MovieCur.Video = Movie.Video;
-                    MovieCur.Poster = Movie.Poster;
-
+                    UpdateALL(Movie, cat.Id, classi.Id);
 
 
                     var LevelCur = UserLevelList.CurrentItem as Level;
@@ -641,6 +676,76 @@ namespace Manager_Medias.ViewModels.Admin
         }
 
 
+        private void UpdateALL(MovieCustomModel Movie, int catid, int classi)
+        {
+            int index = IndexOfItem(MovieList, Movie.Id);
+            if (index > -1)
+            {
+                var updateItem = MovieList.GetItemAt(index) as MovieCustomModel;
+                updateItem.Name = Movie.Name;
+                updateItem.Nation = Movie.Nation;
+                updateItem.Age = Movie.Age;
+                updateItem.Season = Movie.Season;
+                updateItem.IdCategory = catid;
+                updateItem.IdClassifiles = classi;
+                updateItem.IMDB = Movie.IMDB;
+                updateItem.Directors = Movie.Directors;
+                updateItem.Description = Movie.Description;
+                updateItem.Video = Movie.Video;
+                updateItem.Poster = Movie.Poster;
+            }
+            index = IndexOfItem(NewMovieList, Movie.Id);
+            if (index > -1)
+            {
+                var updateItem = NewMovieList.GetItemAt(index) as MovieCustomModel;
+                updateItem.Name = Movie.Name;
+                updateItem.Nation = Movie.Nation;
+                updateItem.Age = Movie.Age;
+                updateItem.Season = Movie.Season;
+                updateItem.IdCategory = catid;
+                updateItem.IdClassifiles = classi;
+                updateItem.IMDB = Movie.IMDB;
+                updateItem.Directors = Movie.Directors;
+                updateItem.Description = Movie.Description;
+                updateItem.Video = Movie.Video;
+                updateItem.Poster = Movie.Poster;
+            }
+            index = IndexOfItem(MostLikeMovieList, Movie.Id);
+            if (index > -1)
+            {
+                var updateItem = MostLikeMovieList.GetItemAt(index) as MovieCustomModel;
+                updateItem.Name = Movie.Name;
+                updateItem.Nation = Movie.Nation;
+                updateItem.Age = Movie.Age;
+                updateItem.Season = Movie.Season;
+                updateItem.IdCategory = catid;
+                updateItem.IdClassifiles = classi;
+                updateItem.IMDB = Movie.IMDB;
+                updateItem.Directors = Movie.Directors;
+                updateItem.Description = Movie.Description;
+                updateItem.Video = Movie.Video;
+                updateItem.Poster = Movie.Poster;
+            }
+            index = IndexOfItem(MostViewMovieList, Movie.Id);
+            if (index > -1)
+            {
+                var updateItem = MostViewMovieList.GetItemAt(index) as MovieCustomModel;
+                updateItem.Name = Movie.Name;
+                updateItem.Nation = Movie.Nation;
+                updateItem.Age = Movie.Age;
+                updateItem.Season = Movie.Season;
+                updateItem.IdCategory = catid;
+                updateItem.IdClassifiles = classi;
+                updateItem.IMDB = Movie.IMDB;
+                updateItem.Directors = Movie.Directors;
+                updateItem.Description = Movie.Description;
+                updateItem.Video = Movie.Video;
+                updateItem.Poster = Movie.Poster;
+            }
+        }
+
+
+
         const string GOOGLE_CUSTOM_SEARCH_KEY = "AIzaSyB5GeTPTkFtCgNGX7EXY1CnQc6R9D7yjYU";
         const string GOOGLE_CUSTOM_CX_IMDB = "b1968641cfadcf950";
         private void UpdateIMDBrating(object obj)
@@ -653,6 +758,7 @@ namespace Manager_Medias.ViewModels.Admin
 
             HtmlNodeCollection node = null;
             HtmlDocument document = null;
+            int dem = 0;
             do
             {
                 var link = response.SelectToken("items[0].link");
@@ -667,8 +773,14 @@ namespace Manager_Medias.ViewModels.Admin
                 HtmlWeb web = new HtmlWeb();
                 document = web.Load(imdbLink);
                 node = document.DocumentNode.SelectNodes("//span[contains(@class, 'AggregateRatingButton__RatingScore-sc-1ll29m0-1 iTLWoV')]");
-            } while (node == null);
+                dem++;
 
+                if(dem == 5)
+                {
+                    MessageBox.Show("Hãy thử đổi tên phim (tên tiếng anh) và thử lại!");
+                    return;
+                }
+            } while (node == null);
 
             HtmlNode[] nodes = node.ToArray();
             imdbRating = double.Parse(nodes[0].InnerHtml.ToString());
@@ -694,6 +806,7 @@ namespace Manager_Medias.ViewModels.Admin
             nodes = document.DocumentNode.SelectNodes("//li[contains(@data-testid, 'title-details-origin')]").ToArray();
             var len = nodes.Length;
             string quocgia = nodes[0].InnerText.ToString().Replace("Countries of origin", "");
+            quocgia = nodes[0].InnerText.ToString().Replace("Country of origin", "");
 
             int age = 0;
             if (nhan == "R")

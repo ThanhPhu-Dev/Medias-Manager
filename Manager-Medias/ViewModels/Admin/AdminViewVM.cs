@@ -25,6 +25,7 @@ namespace Manager_Medias.ViewModels.Admin
 
         public static readonly DependencyProperty ProfileListProperty;
         public static readonly DependencyProperty ProfileProperty;
+        public static readonly DependencyProperty PayHistoryProperty;
 
         public static readonly DependencyProperty RolesListProperty;
         public static readonly DependencyProperty RolesProperty;
@@ -51,11 +52,15 @@ namespace Manager_Medias.ViewModels.Admin
             RolesListProperty = DependencyProperty.Register("RolesList",
                                typeof(ListCollectionView), typeof(AdminViewVM));
 
+            PayHistoryProperty = DependencyProperty.Register("PayHistoryList",
+                            typeof(ListCollectionView), typeof(AdminViewVM));
+
             UserProperty = DependencyProperty.Register("User",
                             typeof(UserCustomModel), typeof(AdminViewVM));
 
             ProfileProperty = DependencyProperty.Register("Profile",
                             typeof(ProfileCustomModel), typeof(AdminViewVM));
+
 
             RolesProperty = DependencyProperty.Register("Role",
                             typeof(Role), typeof(AdminViewVM));
@@ -67,7 +72,11 @@ namespace Manager_Medias.ViewModels.Admin
             get => (ListCollectionView)GetValue(UserListProperty);
             set => SetValue(UserListProperty, value);
         }
-
+        public ListCollectionView PayHistoryList
+        {
+            get => (ListCollectionView)GetValue(PayHistoryProperty);
+            set => SetValue(PayHistoryProperty, value);
+        }
 
         public string VirtualPassword { get; set; }
 
@@ -101,7 +110,7 @@ namespace Manager_Medias.ViewModels.Admin
             get => (ProfileCustomModel)GetValue(ProfileProperty);
             set => SetValue(ProfileProperty, value);
         }
-
+        
         public AdminViewVM()
         {
             VirtualPassword = "";
@@ -136,7 +145,7 @@ namespace Manager_Medias.ViewModels.Admin
                 }
 
                 UserList = new ListCollectionView(userCustomList);
-                
+
                 RolesList = new ListCollectionView(db.Roles.ToList());
 
                 UserCount = db.Users.Count();
@@ -193,6 +202,8 @@ namespace Manager_Medias.ViewModels.Admin
                         listPro.Add(get);
                     }
                     ProfileList = new ListCollectionView(listPro);
+
+                    PayHistoryList = new ListCollectionView(db.Payment_History.Where(p => p.Email == User.Email).ToList());
                 }
 
                 ProfileList.CurrentChanged += (obj, e2) =>
@@ -407,7 +418,7 @@ namespace Manager_Medias.ViewModels.Admin
                     {
                         Name = Profile.Name,
                         Email = User.Email,
-                        Id = newID,
+                        Id = NewProfile.Id,
                         Avatar = newFileNameAvt,
                         Status = Profile.Status,
                     };
@@ -500,7 +511,7 @@ namespace Manager_Medias.ViewModels.Admin
                     {
                         Name = Profile.Name,
                         Email = User.Email,
-                        Id = newID,
+                        Id = NewProfile.Id,
                         Avatar = newFileNameAvt,
                         Status = 1,
                     };

@@ -224,7 +224,7 @@ Select * from Profiles
 select * from View_History
 select * from Movies
 select * from Users where Email = 'nghiadx2001@gmail.c'
-
+select * from Payment_History
 
 update Profiles set Name = N'Nguyễn Văn A'
 insert into Users values ('user2019@gmail.com','G9BBbVflIID4fJFh4ljRqrOgtzA33ztt4q474rYmz8IhcOqD', 2, null, '6911057352415364', '01/22', 1, '2021-07-05')

@@ -525,14 +525,11 @@ namespace Manager_Medias.ViewModels.Admin
             var newPathVideo = url.Append(newFileNameVideo);
             File.Copy(Movie.Video, newPathVideo.ToString());
 
-            Random rd = new Random();
+            
             using (var db = new MediasManangementEntities())
             {
-                int newID;
-                do
-                {
-                    newID = rd.Next(1, 1000);
-                } while (db.Movies.SingleOrDefault(p => p.Id == newID) != null);
+                int maxId = db.Movies.Max(p => p.Id);
+                int newID = maxId + 1;
 
                 var newMedia = new Media
                 {
@@ -567,10 +564,27 @@ namespace Manager_Medias.ViewModels.Admin
                 if (db.SaveChanges() > 1)
                 {
                     MessageBox.Show("Thêm phim thành công!");
+                    var NewMovieitem = new MovieCustomModel
+                    {
+                        Id = NewMovie.Id,
+                        Name = Movie.Name,
+                        Poster = newFileNamePoster,
+                        IdCategory = Cat.Id,
+                        IdClassifiles = classi.Id,
+                        Nation = Movie.Nation,
+                        Age = Movie.Age,
+                        Season = Movie.Season,
+                        Directors = Movie.Directors,
+                        Description = Movie.Description,
+                        Video = newFileNameVideo,
+                        Likes = 0,
+                        IMDB = Movie.IMDB,
+                        NumberOfViews = 0,
+                        Time = Movie.Time,
+                    };
+                    MovieList.AddNewItem(NewMovieitem);
 
-                    MovieList.AddNewItem(NewMovie);
-
-                    NewMovieList.AddNewItem(NewMovie);
+                    NewMovieList.AddNewItem(NewMovieitem);
                 }
                 else
                 {
@@ -602,8 +616,8 @@ namespace Manager_Medias.ViewModels.Admin
             {
 
                 var movieUpdate = db.Movies.FirstOrDefault(u => u.Id == Movie.Id);
+                
                 name = movieUpdate.Name;
-
                 movieUpdate.Name = Movie.Name;
                 movieUpdate.Nation = Movie.Nation;
                 movieUpdate.Age = Movie.Age;

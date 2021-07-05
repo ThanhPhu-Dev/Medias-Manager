@@ -701,116 +701,151 @@
                     </DataGrid>
                 </StackPanel>
                 <Grid Name="profilePanel">
-                    <Border BorderBrush="Beige"
+                    <ScrollViewer>
+                        <Border BorderBrush="Beige"
                             Margin="0 50 0 10"  BorderThickness="2"
-                        CornerRadius="4">
-                        <StackPanel Width="290"                         
-                            Background="#cbbbf2">
-                            <StackPanel.Resources>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="Margin" Value="5 3 5 0"/>
-                                    <Setter Property="FontSize" Value="14"/>
-                                    <Setter Property="FontWeight" Value="Bold"/>
-                                </Style>
+                            CornerRadius="4">
+                            <StackPanel Width="290"                         
+                                    Background="#cbbbf2">
+                                <StackPanel.Resources>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Margin" Value="5 3 5 0"/>
+                                        <Setter Property="FontSize" Value="14"/>
+                                        <Setter Property="FontWeight" Value="Bold"/>
+                                    </Style>
 
-                            </StackPanel.Resources>
+                                </StackPanel.Resources>
 
 
 
-                            <TextBlock Margin="0 10 0 0" Text="Danh sách profile: " />
-                            <ComboBox ItemsSource="{Binding ProfileList}"
+                                <TextBlock Margin="5 10 0 0" Text="Danh sách profile: " />
+                                <ComboBox ItemsSource="{Binding ProfileList}"
                                       SelectionChanged="cbProfile_SelectionChanged"
                                       Name="cbProfile"
                                       Padding="20 5 0 5" Margin="15 5 40 0">
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="{Binding Id}"/>
-                                            <TextBlock Text=" - "/>
-                                            <TextBlock Text="{Binding Name}"/>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                            </ComboBox>
-                            <Border BorderBrush="Gray"
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{Binding Id}"/>
+                                                <TextBlock Text=" - "/>
+                                                <TextBlock Text="{Binding Name}"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                                <Border BorderBrush="Gray"
                                 Padding="5"
                                 Height="140" Width="150"  BorderThickness="2"
                                 Margin="0 20 0 0">
-                                <Image Name="imgAvatar" 
+                                    <Image Name="imgAvatar" 
                                        Source="{Binding ElementName=txtavatar2, Path=Text, Converter={StaticResource ProfileImageConverter}}" />
-                            </Border>
-                            <TextBox Tag="Họ tên: " Name="txtavatar2" Visibility="Collapsed"
+                                </Border>
+                                <TextBox Tag="Họ tên: " Name="txtavatar2" Visibility="Collapsed"
                                          Style="{DynamicResource TxtStyleValidation}" 
                                          Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1">
-                                <TextBox.Text>
-                                    <Binding Path="Profile.Avatar" UpdateSourceTrigger="PropertyChanged" >
-                                        <Binding.ValidationRules>
+                                    <TextBox.Text>
+                                        <Binding Path="Profile.Avatar" UpdateSourceTrigger="PropertyChanged" >
+                                            <Binding.ValidationRules>
 
-                                        </Binding.ValidationRules>
-                                    </Binding>
-                                </TextBox.Text>
-                            </TextBox>
-                            <Button HorizontalAlignment="Center" Margin="0 5 0 10"
+                                            </Binding.ValidationRules>
+                                        </Binding>
+                                    </TextBox.Text>
+                                </TextBox>
+                                <Button HorizontalAlignment="Center" Margin="0 5 0 10"
                                     FontSize="10" Background="Gray"
                                     Click="btChooseAvatar_Click" Name="btChooseAvatar"
                                     Height="25">Chọn ảnh</Button>
 
-                            <StackPanel Margin="10">
-                                <TextBox Tag="Email: " Name="txtbEmailSearch" IsReadOnly="True"
+                                <StackPanel Margin="10">
+                                    <TextBox Tag="Email: " Name="txtbEmailSearch" IsReadOnly="True"
                                  Style="{DynamicResource TxtStyleValidation}" >
-                                    <TextBox.Text>
-                                        <Binding ElementName="UsersDg" Path="SelectedValue.Email" UpdateSourceTrigger="PropertyChanged" >
-                                            <Binding.ValidationRules>
-                                                <rules:AccountManagementRules property="Level"/>
-                                            </Binding.ValidationRules>
-                                        </Binding>
-                                    </TextBox.Text>
-                                </TextBox>
+                                        <TextBox.Text>
+                                            <Binding ElementName="UsersDg" Path="SelectedValue.Email" UpdateSourceTrigger="PropertyChanged" >
+                                                <Binding.ValidationRules>
+                                                    <rules:AccountManagementRules property="Level"/>
+                                                </Binding.ValidationRules>
+                                            </Binding>
+                                        </TextBox.Text>
+                                    </TextBox>
 
-                                <TextBox Tag="Họ tên: " Name="txtbName"
+                                    <TextBox Tag="Họ tên: " Name="txtbName"
                                  Style="{DynamicResource TxtStyleValidation}" >
-                                    <TextBox.Text>
-                                        <Binding Path="Profile.Name" UpdateSourceTrigger="PropertyChanged" >
-                                            <Binding.ValidationRules>
-                                                <rules:AccountManagementRules property="FullName"/>
-                                            </Binding.ValidationRules>
-                                        </Binding>
-                                    </TextBox.Text>
-                                </TextBox>
+                                        <TextBox.Text>
+                                            <Binding Path="Profile.Name" UpdateSourceTrigger="PropertyChanged" >
+                                                <Binding.ValidationRules>
+                                                    <rules:AccountManagementRules property="FullName"/>
+                                                </Binding.ValidationRules>
+                                            </Binding>
+                                        </TextBox.Text>
+                                    </TextBox>
 
 
 
-                                <TextBox Tag="Trạng thái: " Name="txtbStatus"
+                                    <TextBox Tag="Trạng thái: " Name="txtbStatus"
                                  Style="{DynamicResource TxtStyleValidation}" >
-                                    <TextBox.Text>
-                                        <Binding Path="Profile.Status" UpdateSourceTrigger="PropertyChanged" >
-                                            <Binding.ValidationRules>
-                                                <rules:AccountManagementRules property="Status"/>
-                                            </Binding.ValidationRules>
-                                        </Binding>
-                                    </TextBox.Text>
-                                </TextBox>
-                            </StackPanel>
+                                        <TextBox.Text>
+                                            <Binding Path="Profile.Status" UpdateSourceTrigger="PropertyChanged" >
+                                                <Binding.ValidationRules>
+                                                    <rules:AccountManagementRules property="Status"/>
+                                                </Binding.ValidationRules>
+                                            </Binding>
+                                        </TextBox.Text>
+                                    </TextBox>
+                                </StackPanel>
 
 
-                            <StackPanel Orientation="Horizontal" Margin="0 30 10 10" HorizontalAlignment="Right">
-                                <Button Content="Thêm" Background="CadetBlue"
+                                <StackPanel Orientation="Horizontal" Margin="0 30 10 10" HorizontalAlignment="Right">
+                                    <Button Content="Thêm" Background="CadetBlue"
                                         Command="{Binding CmdAddProfile}"
                                         Style="{DynamicResource buttonValidationFailStyle4}"
                                         Name="addProfileBt"/>
-                                <Button Content="Xóa" Background="OrangeRed"
+                                    <Button Content="Xóa" Background="OrangeRed"
                                         Style="{DynamicResource buttonValidationFailStyle5}"
                                         Margin="15 0 0 0" Command="{Binding CmdDeleteProfile}"
                                         Name="deleteProfileBt"/>
-                            </StackPanel>
+                                </StackPanel>
 
-                            <Button Content="Cập nhật" Margin="0,10,10,0"
+                                <Button Content="Cập nhật" Margin="0,10,10,0"
                                     HorizontalAlignment="Right"
                                     Command="{Binding CmdUpdateProfile}"
                                     Style="{DynamicResource buttonValidationFailStyle5}"
                                     Name="updateProfileBt" Background="#35b593" Width="140"/>
-                        </StackPanel>
-                    </Border>
+
+                                <TextBlock Margin="5 15 0 0" Text="Lịch sử thanh toán: " />
+                                <ListView Name="lvPayHis" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                          ItemsSource="{Binding PayHistoryList}" SelectionMode="Single"
+                                          IsSynchronizedWithCurrentItem="True">
+                                    <ListView.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel/>
+                                        </ItemsPanelTemplate>
+                                    </ListView.ItemsPanel>
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Width="290">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock FontWeight="Bold" Text="Ngày: "/>
+                                                    <TextBlock FontWeight="Bold" Text="{Binding DateOfPayment, StringFormat=d}"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal" Margin="20 5 0 0" >
+                                                    <TextBlock Text="Ghi chú: "/>
+                                                    <TextBlock TextDecorations="Underline" Text="{Binding Note}"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal" Margin="20 5 0 0" >
+                                                    <TextBlock  Text="Số tiền: "/>
+                                                    <TextBlock  Text="{Binding Price}"/>
+                                                    <TextBlock  Text=" VNĐ"/>
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </StackPanel>
+                        </Border>
+
+                       
+                    </ScrollViewer>
+                    
                 </Grid>
 
                 <Grid x:Name="updateUserPanel">

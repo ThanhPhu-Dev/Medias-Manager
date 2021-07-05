@@ -26,6 +26,7 @@ namespace Manager_Medias.ViewModels.Admin
         public static readonly DependencyProperty MovieProperty;
 
         public static readonly DependencyProperty CategoryListProperty;
+        public static readonly DependencyProperty ClassListProperty;
 
         public static readonly DependencyProperty UserLevelListProperty;
         public static readonly DependencyProperty UserLevelProperty;
@@ -55,6 +56,9 @@ namespace Manager_Medias.ViewModels.Admin
 
 
             CategoryListProperty = DependencyProperty.Register("CategoryList",
+                               typeof(ListCollectionView), typeof(AdminViewMediaVM));
+
+            ClassListProperty = DependencyProperty.Register("ClassList",
                                typeof(ListCollectionView), typeof(AdminViewMediaVM));
 
             UserLevelListProperty = DependencyProperty.Register("UserLevelList",
@@ -110,6 +114,11 @@ namespace Manager_Medias.ViewModels.Admin
             get => (ListCollectionView)GetValue(CategoryListProperty);
             set => SetValue(CategoryListProperty, value);
         }
+        public ListCollectionView ClassList
+        {
+            get => (ListCollectionView)GetValue(ClassListProperty);
+            set => SetValue(ClassListProperty, value);
+        }
 
         public ListCollectionView UserLevelList
         {
@@ -122,6 +131,10 @@ namespace Manager_Medias.ViewModels.Admin
             get => (Media)GetValue(UserLevelProperty);
             set => SetValue(UserLevelProperty, value);
         }
+
+        public ListCollectionView ListCatFilter { get; set; }
+        public ListCollectionView ListClassFilter { get; set; }
+
 
         int check = 0;
         public AdminViewMediaVM()
@@ -155,14 +168,19 @@ namespace Manager_Medias.ViewModels.Admin
                         IMDB = (double)m.IMDB,
                         NumberOfViews = (int)m.NumberOfViews,
                         Time = m.Time,
+                        IdClassifiles = m.IdClassifiles,
                     };
                     MovieCustomList.Add(movie);
                 }
                 MovieList = new ListCollectionView(MovieCustomList);
 
                 CategoryList = new ListCollectionView(db.Movie_Categories.ToList());
+                ClassList = new ListCollectionView(db.Movie_classify.ToList());
 
                 UserLevelList = new ListCollectionView(db.Levels.ToList());
+
+                ListCatFilter = new ListCollectionView(db.Movie_Categories.ToList());
+                ListClassFilter = new ListCollectionView(db.Movie_classify.ToList());
 
                 var getMovieNew = new ListCollectionView(db.Movies.OrderByDescending(x => x.CreateAt).Take(10).ToList());
                 BindingList<MovieCustomModel> MovieCustomListNew = new BindingList<MovieCustomModel>();
@@ -184,6 +202,7 @@ namespace Manager_Medias.ViewModels.Admin
                         IMDB = (double)m.IMDB,
                         NumberOfViews = (int)m.NumberOfViews,
                         Time = m.Time,
+                        IdClassifiles = m.IdClassifiles,
                     };
                     MovieCustomListNew.Add(movie);
                 }
@@ -210,6 +229,7 @@ namespace Manager_Medias.ViewModels.Admin
                         IMDB = (double)m.IMDB,
                         NumberOfViews = (int)m.NumberOfViews,
                         Time = m.Time,
+                        IdClassifiles = m.IdClassifiles,
                     };
                     MovieCustomListLike.Add(movie);
                 }
@@ -236,6 +256,7 @@ namespace Manager_Medias.ViewModels.Admin
                         IMDB = (double)m.IMDB,
                         NumberOfViews = (int)m.NumberOfViews,
                         Time = m.Time,
+                        IdClassifiles = m.IdClassifiles,
                     };
                     MovieCustomListView.Add(movie);
                 }
@@ -270,6 +291,7 @@ namespace Manager_Medias.ViewModels.Admin
                     IMDB = (double)MovieCurrent.IMDB,
                     NumberOfViews = (int)MovieCurrent.NumberOfViews,
                     Time = MovieCurrent.Time,
+                    IdClassifiles = MovieCurrent.IdClassifiles,
                 };
                
 
@@ -305,6 +327,7 @@ namespace Manager_Medias.ViewModels.Admin
                     IMDB = (double)MovieCurrent.IMDB,
                     NumberOfViews = (int)MovieCurrent.NumberOfViews,
                     Time = MovieCurrent.Time,
+                    IdClassifiles = MovieCurrent.IdClassifiles,
                 };
 
 
@@ -339,6 +362,7 @@ namespace Manager_Medias.ViewModels.Admin
                     IMDB = (double)MovieCurrent.IMDB,
                     NumberOfViews = (int)MovieCurrent.NumberOfViews,
                     Time = MovieCurrent.Time,
+                    IdClassifiles = MovieCurrent.IdClassifiles,
                 };
 
 
@@ -373,6 +397,7 @@ namespace Manager_Medias.ViewModels.Admin
                     IMDB = (double)MovieCurrent.IMDB,
                     NumberOfViews = (int)MovieCurrent.NumberOfViews,
                     Time = MovieCurrent.Time,
+                    IdClassifiles = MovieCurrent.IdClassifiles,
                 };
 
 
@@ -518,12 +543,14 @@ namespace Manager_Medias.ViewModels.Admin
                 db.Medias.Add(newMedia);
 
                 var Cat = CategoryList.CurrentItem as Movie_Category;
+                var classi = ClassList.CurrentItem as Movie_classify;
                 var NewMovie = new Movie
                 {
                     Id = newID,
                     Name = Movie.Name,
                     Poster = newFileNamePoster,
                     IdCategory = Cat.Id,
+                    IdClassifiles = classi.Id,
                     Nation = Movie.Nation,
                     Age = Movie.Age,
                     Season = Movie.Season,
@@ -568,6 +595,7 @@ namespace Manager_Medias.ViewModels.Admin
         private void UpdateMovie(object obj)
         {
             var cat = CategoryList.CurrentItem as Movie_Category;
+            var classi = ClassList.CurrentItem as Movie_classify;
             string name;
             int Idphim = Movie.Id;
             using (var db = new MediasManangementEntities())
@@ -581,6 +609,7 @@ namespace Manager_Medias.ViewModels.Admin
                 movieUpdate.Age = Movie.Age;
                 movieUpdate.Season = Movie.Season;
                 movieUpdate.IdCategory = cat.Id;
+                movieUpdate.IdClassifiles = classi.Id;
                 movieUpdate.IMDB = Movie.IMDB;
                 movieUpdate.Directors = Movie.Directors;
                 movieUpdate.Description = Movie.Description;
@@ -629,34 +658,7 @@ namespace Manager_Medias.ViewModels.Admin
                 {
                     MessageBox.Show("Cập nhật thành công");
 
-                    var MovieCur = MovieList.CurrentItem as MovieCustomModel;
-                    if(MovieCur.Name != name)
-                    {
-                        MovieCur = NewMovieList.CurrentItem as MovieCustomModel;
-                    }
-
-                    if (MovieCur.Name != name)
-                    {
-                        MovieCur = MostLikeMovieList.CurrentItem as MovieCustomModel;
-                    }
-
-                    if (MovieCur.Name != name)
-                    {
-                        MovieCur = MostViewMovieList.CurrentItem as MovieCustomModel;
-                    }
-
-                    MovieCur.Name = Movie.Name;
-                    MovieCur.Nation = Movie.Nation;
-                    MovieCur.Age = Movie.Age;
-                    MovieCur.Season = Movie.Season;
-                    MovieCur.IdCategory = cat.Id;
-                    MovieCur.IMDB = Movie.IMDB;
-                    MovieCur.Directors = Movie.Directors;
-                    MovieCur.Description = Movie.Description;
-                    MovieCur.Video = Movie.Video;
-                    MovieCur.Poster = Movie.Poster;
-
-                    UpdateALL(Movie, cat.Id);
+                    UpdateALL(Movie, cat.Id, classi.Id);
 
 
                     var LevelCur = UserLevelList.CurrentItem as Level;
@@ -674,7 +676,7 @@ namespace Manager_Medias.ViewModels.Admin
         }
 
 
-        private void UpdateALL(MovieCustomModel Movie, int catid)
+        private void UpdateALL(MovieCustomModel Movie, int catid, int classi)
         {
             int index = IndexOfItem(MovieList, Movie.Id);
             if (index > -1)
@@ -685,6 +687,7 @@ namespace Manager_Medias.ViewModels.Admin
                 updateItem.Age = Movie.Age;
                 updateItem.Season = Movie.Season;
                 updateItem.IdCategory = catid;
+                updateItem.IdClassifiles = classi;
                 updateItem.IMDB = Movie.IMDB;
                 updateItem.Directors = Movie.Directors;
                 updateItem.Description = Movie.Description;
@@ -700,6 +703,7 @@ namespace Manager_Medias.ViewModels.Admin
                 updateItem.Age = Movie.Age;
                 updateItem.Season = Movie.Season;
                 updateItem.IdCategory = catid;
+                updateItem.IdClassifiles = classi;
                 updateItem.IMDB = Movie.IMDB;
                 updateItem.Directors = Movie.Directors;
                 updateItem.Description = Movie.Description;
@@ -715,6 +719,7 @@ namespace Manager_Medias.ViewModels.Admin
                 updateItem.Age = Movie.Age;
                 updateItem.Season = Movie.Season;
                 updateItem.IdCategory = catid;
+                updateItem.IdClassifiles = classi;
                 updateItem.IMDB = Movie.IMDB;
                 updateItem.Directors = Movie.Directors;
                 updateItem.Description = Movie.Description;
@@ -730,6 +735,7 @@ namespace Manager_Medias.ViewModels.Admin
                 updateItem.Age = Movie.Age;
                 updateItem.Season = Movie.Season;
                 updateItem.IdCategory = catid;
+                updateItem.IdClassifiles = classi;
                 updateItem.IMDB = Movie.IMDB;
                 updateItem.Directors = Movie.Directors;
                 updateItem.Description = Movie.Description;

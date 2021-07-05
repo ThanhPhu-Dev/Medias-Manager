@@ -401,10 +401,16 @@ namespace Manager_Medias.Views.Admin
             }
 
             dynamic cat = cbCat.SelectedItem;
+            dynamic classi = cbclassi.SelectedItem;
             var catId = -1;
+            var classid = -1;
             if(cat != null)
             {
                 catId = cat.Id;
+            }
+            if (classi != null)
+            {
+                classid = classi.Id;
             }
 
             ICollectionView cv = CollectionViewSource.GetDefaultView(lvMoviesAll.ItemsSource);
@@ -414,9 +420,9 @@ namespace Manager_Medias.Views.Admin
                 
                 using (var db = new MediasManangementEntities())
                 {
-                    Manager_Medias.Models.Movie p = o as Manager_Medias.Models.Movie;
+                    MovieCustomModel p = o as MovieCustomModel;
 
-                    if (catId == -1 && filterIMDB == 0)
+                    if (catId == -1 && filterIMDB == 0 && classid == -1)
                     {
                         return p.Name != null;
                     }
@@ -424,40 +430,64 @@ namespace Manager_Medias.Views.Admin
                     {
                         if (filterIMDB == 1)
                         {
-                            return (p.IMDB < 5);
+                            return (p.IMDB < 5) && (p.IdClassifiles == classid);
                         }
                         if (filterIMDB == 2)
                         {
-                            return  (p.IMDB >= 5) && (p.IMDB <= 8);
+                            return  (p.IMDB >= 5) && (p.IMDB <= 8) && (p.IdClassifiles == classid);
                         }
                         if (filterIMDB == 3)
                         {
-                            return  (p.IMDB > 8);
+                            return  (p.IMDB > 8) && (p.IdClassifiles == classid);
                         }
                         if (filterIMDB == -1)
                         {
-                            return (p.IMDB == null);
+                            return (p.IMDB == null) && (p.IdClassifiles == classid);
                         }
+
+                        return (p.IdClassifiles == classid);
                     }
 
-                    if(filterIMDB == 0)
+                    if (classid == -1)
                     {
+                        if (filterIMDB == 1)
+                        {
+                            return (p.IMDB < 5) && (p.IdCategory == catId);
+                        }
+                        if (filterIMDB == 2)
+                        {
+                            return (p.IMDB >= 5) && (p.IMDB <= 8) && (p.IdCategory == catId);
+                        }
+                        if (filterIMDB == 3)
+                        {
+                            return (p.IMDB > 8) && (p.IdCategory == catId);
+                        }
+                        if (filterIMDB == -1)
+                        {
+                            return (p.IMDB == null) && (p.IdCategory == catId);
+                        }
                         return (p.IdCategory == catId);
+                    }
+
+                    if (filterIMDB == 0)
+                    {
+                        return (p.IdCategory == catId) && (p.IdClassifiles == classid);
                     }
 
                     if (filterIMDB == 1)
                     {
-                        return (p.IdCategory == catId) && (p.IMDB < 5);
+                        return (p.IdCategory == catId) && (p.IMDB < 5) && (p.IdClassifiles == classid);
                     }
                     if (filterIMDB == 2)
                     {
-                        return (p.IdCategory == catId) && (p.IMDB >= 5) && (p.IMDB <= 8);
+                        return (p.IdCategory == catId) && (p.IMDB >= 5) && (p.IMDB <= 8) && (p.IdClassifiles == classid);
                     }
                     if (filterIMDB == 3)
                     {
-                        return (p.IdCategory == catId) && (p.IMDB > 8);
-                    }                
-                    return (p.IdCategory == catId) && (p.IMDB == null);
+                        return (p.IdCategory == catId) && (p.IMDB > 8) && (p.IdClassifiles == classid);
+                    }
+
+                    return (p.IdCategory == catId) && (p.IdClassifiles == classid);
 
                 }
                    
@@ -469,6 +499,9 @@ namespace Manager_Medias.Views.Admin
             cbCat.SelectedIndex = -1;
         }
 
-
+        private void clearClassi_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            cbclassi.SelectedIndex = -1;
+        }
     }
 }

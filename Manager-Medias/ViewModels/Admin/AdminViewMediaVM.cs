@@ -768,7 +768,16 @@ namespace Manager_Medias.ViewModels.Admin
             double imdbRating = 0.0;
             string imdbRatingCount = "";
             string query = String.Format("https://www.googleapis.com/customsearch/v1?key={0}&cx={1}&q={2}", GOOGLE_CUSTOM_SEARCH_KEY, GOOGLE_CUSTOM_CX_IMDB, movies);
-            JObject response = JObject.Parse(new System.Net.WebClient().DownloadString(query));
+            JObject response = null;
+            try
+            {
+                response = JObject.Parse(new System.Net.WebClient().DownloadString(query));
+            }
+            catch
+            {
+                MessageBox.Show("Cần kết nối Internet");
+                return;
+            }
 
             HtmlNodeCollection node = null;
             HtmlDocument document = null;
@@ -820,7 +829,7 @@ namespace Manager_Medias.ViewModels.Admin
             nodes = document.DocumentNode.SelectNodes("//li[contains(@data-testid, 'title-details-origin')]").ToArray();
             var len = nodes.Length;
             string quocgia = nodes[0].InnerText.ToString().Replace("Countries of origin", "");
-            quocgia = nodes[0].InnerText.ToString().Replace("Country of origin", "");
+            quocgia = quocgia.Replace("Country of origin", "");
 
             int age = 0;
             if (nhan == "R")

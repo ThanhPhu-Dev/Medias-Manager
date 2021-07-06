@@ -599,7 +599,7 @@
                             </Style>
                         </DataGrid.Resources>
                         <DataGrid.Columns>
-                            <materialDesign:DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="180" 
+                            <materialDesign:DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="200" 
                                                                x:Name="txtbEmail"
                                                                IsReadOnly="True" />
                             <materialDesign:DataGridTextColumn Header="Cấp độ" Binding="{Binding Level}" Width="110" IsReadOnly="True"/>
@@ -607,7 +607,7 @@
                                                                x:Name="txtbNumCardSearch"
                                                                Width="150"  IsReadOnly="True" />
                             <materialDesign:DataGridTextColumn Header="Hạn thẻ" Binding="{Binding Exp}"
-                                                               Width="120"/>
+                                                               Width="100"/>
     
                         </DataGrid.Columns>
                         <DataGrid.RowDetailsTemplate>

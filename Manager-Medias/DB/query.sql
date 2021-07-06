@@ -223,8 +223,13 @@ select * from Albums
 Select * from Profiles
 select * from View_History
 select * from Movies
-select * from Users where Email = 'nghiadx2001@gmail.c'
+select * from Users 
+select * from Profiles
+
+update Profiles set Email = 'user@gmail.com' where id = 17
 select * from Payment_History
+delete from Payment_History where Id =9
+update Payment_History set DateOfPayment ='2020-12-05' where Id = 4
 
 update Profiles set Name = N'Nguyễn Văn A'
 insert into Users values ('user2019@gmail.com','G9BBbVflIID4fJFh4ljRqrOgtzA33ztt4q474rYmz8IhcOqD', 2, null, '6911057352415364', '01/22', 1, '2021-07-05')
@@ -263,6 +268,8 @@ update Movies set CreateAt = '2021-06-05' where Id % 3 = 1
 update Movies set CreateAt = '2021-08-05' where Id % 3 = 2
 
 insert into View_History  values (1, 20, '2021-05-03', 21)
+
+
 
 update Movies set Season = 1 
 --insert roles
